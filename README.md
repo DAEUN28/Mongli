@@ -23,7 +23,7 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 
 - [ ] Clean architecture ([RxSwift](https://github.com/ReactiveX/RxSwift) and [ReactorKit](https://github.com/ReactorKit/ReactorKit))
 - [ ] dependency injection ([Pure](https://github.com/devxoul/Pure))
-- [ ] REST API v3 (for unauthenticated or basic authentication ([Moya](https://github.com/Moya/Moya), [ObjectMapper](https://github.com/tristanhimmelman/ObjectMapper))
+- [ ] REST API v3 (for unauthenticated or basic authentication ([Moya](https://github.com/Moya/Moya) and [ObjectMapper](https://github.com/tristanhimmelman/ObjectMapper))
 - [ ] Programmatically UI ([SnapKit](https://github.com/SnapKit/SnapKit))
 - [ ] Custom transition animations ([Hero](https://github.com/HeroTransitions/Hero))
 
