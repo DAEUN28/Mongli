@@ -1,4 +1,7 @@
-# Mongli: while dreaming
+
+#Mongli: while dreaming
+
+![](https://user-images.githubusercontent.com/45457678/70604407-04a8ac80-1c3c-11ea-966d-c43faa9a8df6.png)
 
 Dream diary iOS Application using Reactorkit inspired of [ForDream](https://github.com/DAEUN28/ForDream).
 
