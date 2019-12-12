@@ -3,9 +3,9 @@
 
 ![](https://user-images.githubusercontent.com/45457678/70604680-66691680-1c3c-11ea-9956-d5d4afc98d18.png)
 
-Dream diary iOS Application using Reactorkit inspired of [ForDream](https://github.com/DAEUN28/ForDream).
+Dream diary iOS Application using Reactorkit inspired of [ForDream](https://github.com/DAEUN28/ForDream)
 
-`Mong(夢)` is a Chinese character meaning dream.
+`Mong(夢)` is a Chinese character meaning dream
 
 
 
@@ -13,8 +13,7 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 
 - [ ] Writing the Mong ([Realm](https://realm.io))
 - [ ] View the Mong ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
-- [ ] Select Color theme
-- [ ] Search the Mong using the Mong's content.
+- [ ] Search the Mong
 - [ ] Save, update and Loading the Mong using AppleID
 
 
@@ -45,4 +44,4 @@ I'm always waiting for your contribution❣️
 
 ## License
 
-MIT License. See [LICENSE](https://github.com/DAEUN28/Mongli/blob/master/LICENSE).
+See [LICENSE](https://github.com/DAEUN28/Mongli/blob/master/LICENSE)
