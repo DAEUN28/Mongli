@@ -11,20 +11,23 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 
 ## App Features
 
-- [ ] Writing the Mong ([Firebase](http://firebase.google.com))
-- [ ] View the Mong ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
+- [ ] Writing the Mong
+- [ ] View the Mongs ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
 - [ ] Search the Mong
 - [ ] Save, update and Loading the Mong using AppleID
+- [ ] View the data that analysis the Mong using Horizontal-BarChart ([Charts](https://github.com/danielgindi/Charts))
 
 
 
 ## Technologies
 
-- [ ] Clean architecture ([RxSwift](https://github.com/ReactiveX/RxSwift) and [ReactorKit](https://github.com/ReactorKit/ReactorKit))
-- [ ] dependency injection ([Pure](https://github.com/devxoul/Pure))
-- [ ] REST API v3 (for unauthenticated or basic authentication ([Moya](https://github.com/Moya/Moya) and [ObjectMapper](https://github.com/tristanhimmelman/ObjectMapper))
+- [ ] [RxSwift](https://github.com/ReactiveX/RxSwift) with [ReactorKit](https://github.com/ReactorKit/ReactorKit)
+- [ ] Dependency injection ([Pure](https://github.com/devxoul/Pure))
+- [ ] REST API v3 (for unauthenticated or basic authentication ([Moya](https://github.com/Moya/Moya) and Codable)
 - [ ] Programmatically UI ([SnapKit](https://github.com/SnapKit/SnapKit))
 - [ ] Custom transition animations ([Hero](https://github.com/HeroTransitions/Hero))
+- [ ] Analytics, Crashlytics ([Firebase](http://firebase.google.com))
+- [ ] Swift style and conventions ([SwiftLint](https://github.com/realm/SwiftLint))
 
 
 
