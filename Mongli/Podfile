@@ -1,0 +1,43 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Mongli' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Architecture
+  pod 'ReactorKit'
+
+  # Networking
+  pod 'Alamofire'
+  pod 'Moya'
+  pod 'Moya/RxSwift'
+
+  # Rx
+  pod 'RxSwift'
+  pod 'RxCocoa'
+
+  # UI
+  pod 'SnapKit'
+
+  # Logging
+  pod 'CocoaLumberjack/Swift'
+
+  # Misc.
+  pod 'Then'
+
+  # SDK
+  pod 'Crashlytics'
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+
+  target 'MongliTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MongliUITests' do
+    # Pods for testing
+  end
+
+end

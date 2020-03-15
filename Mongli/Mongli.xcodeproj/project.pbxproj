@@ -1,0 +1,750 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		695678E1C65FA38334B5A0F8 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E020895CC6A06D91CFF24FC /* Pods_MongliTests.framework */; };
+		BA9C06DE9F4D51EC6437ECB8 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 890EE85042C025A51936D233 /* Pods_Mongli.framework */; };
+		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
+		BF445475241E3FF800632E38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445474241E3FF800632E38 /* SceneDelegate.swift */; };
+		BF445477241E3FF800632E38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* ViewController.swift */; };
+		BF44547A241E3FF800632E38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF445478241E3FF800632E38 /* Main.storyboard */; };
+		BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF44547B241E3FFA00632E38 /* Assets.xcassets */; };
+		BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */; };
+		BF44548A241E3FFA00632E38 /* MongliTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445489241E3FFA00632E38 /* MongliTests.swift */; };
+		BF445495241E3FFA00632E38 /* MongliUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445494241E3FFA00632E38 /* MongliUITests.swift */; };
+		DFF43164695D111D0E3A17BC /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6225176CF0199180A377C623 /* Pods_Mongli_MongliUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BF445486241E3FFA00632E38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF445467241E3FF800632E38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF44546E241E3FF800632E38;
+			remoteInfo = Mongli;
+		};
+		BF445491241E3FFA00632E38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF445467241E3FF800632E38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF44546E241E3FF800632E38;
+			remoteInfo = Mongli;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3E020895CC6A06D91CFF24FC /* Pods_MongliTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MongliTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6225176CF0199180A377C623 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87C1451BFDC2591A98DC4F95 /* Pods-Mongli.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli.release.xcconfig"; path = "Target Support Files/Pods-Mongli/Pods-Mongli.release.xcconfig"; sourceTree = "<group>"; };
+		890EE85042C025A51936D233 /* Pods_Mongli.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D81D238378720DC5DC8F9B6 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A60488E3C4D6FAE46EA56B31 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BF44546F241E3FF800632E38 /* Mongli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongli.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BF445474241E3FF800632E38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		BF445476241E3FF800632E38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF445479241E3FF800632E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BF44547B241E3FFA00632E38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BF44547E241E3FFA00632E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BF445480241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF445485241E3FFA00632E38 /* MongliTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MongliTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF445489241E3FFA00632E38 /* MongliTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliTests.swift; sourceTree = "<group>"; };
+		BF44548B241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF445490241E3FFA00632E38 /* MongliUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MongliUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF445494241E3FFA00632E38 /* MongliUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliUITests.swift; sourceTree = "<group>"; };
+		BF445496241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1127FEAA2BF0048C258EC6B /* Pods-Mongli.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli.debug.xcconfig"; path = "Target Support Files/Pods-Mongli/Pods-Mongli.debug.xcconfig"; sourceTree = "<group>"; };
+		D3916BD9D40A6D848C0811C5 /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
+		EE2896FEB6154F04378CB203 /* Pods-Mongli-MongliUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BF44546C241E3FF800632E38 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA9C06DE9F4D51EC6437ECB8 /* Pods_Mongli.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF445482241E3FFA00632E38 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				695678E1C65FA38334B5A0F8 /* Pods_MongliTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF44548D241E3FFA00632E38 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFF43164695D111D0E3A17BC /* Pods_Mongli_MongliUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		93387901D7F563F840B2682D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				890EE85042C025A51936D233 /* Pods_Mongli.framework */,
+				6225176CF0199180A377C623 /* Pods_Mongli_MongliUITests.framework */,
+				3E020895CC6A06D91CFF24FC /* Pods_MongliTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF445466241E3FF800632E38 = {
+			isa = PBXGroup;
+			children = (
+				BF445471241E3FF800632E38 /* Mongli */,
+				BF445488241E3FFA00632E38 /* MongliTests */,
+				BF445493241E3FFA00632E38 /* MongliUITests */,
+				BF445470241E3FF800632E38 /* Products */,
+				E0775431A7061DB59336AF34 /* Pods */,
+				93387901D7F563F840B2682D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BF445470241E3FF800632E38 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF44546F241E3FF800632E38 /* Mongli.app */,
+				BF445485241E3FFA00632E38 /* MongliTests.xctest */,
+				BF445490241E3FFA00632E38 /* MongliUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF445471241E3FF800632E38 /* Mongli */ = {
+			isa = PBXGroup;
+			children = (
+				BF445472241E3FF800632E38 /* AppDelegate.swift */,
+				BF445474241E3FF800632E38 /* SceneDelegate.swift */,
+				BF445476241E3FF800632E38 /* ViewController.swift */,
+				BF445478241E3FF800632E38 /* Main.storyboard */,
+				BF44547B241E3FFA00632E38 /* Assets.xcassets */,
+				BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */,
+				BF445480241E3FFA00632E38 /* Info.plist */,
+			);
+			path = Mongli;
+			sourceTree = "<group>";
+		};
+		BF445488241E3FFA00632E38 /* MongliTests */ = {
+			isa = PBXGroup;
+			children = (
+				BF445489241E3FFA00632E38 /* MongliTests.swift */,
+				BF44548B241E3FFA00632E38 /* Info.plist */,
+			);
+			path = MongliTests;
+			sourceTree = "<group>";
+		};
+		BF445493241E3FFA00632E38 /* MongliUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BF445494241E3FFA00632E38 /* MongliUITests.swift */,
+				BF445496241E3FFA00632E38 /* Info.plist */,
+			);
+			path = MongliUITests;
+			sourceTree = "<group>";
+		};
+		E0775431A7061DB59336AF34 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C1127FEAA2BF0048C258EC6B /* Pods-Mongli.debug.xcconfig */,
+				87C1451BFDC2591A98DC4F95 /* Pods-Mongli.release.xcconfig */,
+				EE2896FEB6154F04378CB203 /* Pods-Mongli-MongliUITests.debug.xcconfig */,
+				A60488E3C4D6FAE46EA56B31 /* Pods-Mongli-MongliUITests.release.xcconfig */,
+				9D81D238378720DC5DC8F9B6 /* Pods-MongliTests.debug.xcconfig */,
+				D3916BD9D40A6D848C0811C5 /* Pods-MongliTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BF44546E241E3FF800632E38 /* Mongli */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF445499241E3FFA00632E38 /* Build configuration list for PBXNativeTarget "Mongli" */;
+			buildPhases = (
+				A7B85BDECEFF44307F5509C1 /* [CP] Check Pods Manifest.lock */,
+				BF44546B241E3FF800632E38 /* Sources */,
+				BF44546C241E3FF800632E38 /* Frameworks */,
+				BF44546D241E3FF800632E38 /* Resources */,
+				5BB279E8E84A3B8B10D32BE5 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mongli;
+			productName = Mongli;
+			productReference = BF44546F241E3FF800632E38 /* Mongli.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BF445484241E3FFA00632E38 /* MongliTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF44549C241E3FFA00632E38 /* Build configuration list for PBXNativeTarget "MongliTests" */;
+			buildPhases = (
+				CDBE8A2A10FD063488E6E1BE /* [CP] Check Pods Manifest.lock */,
+				BF445481241E3FFA00632E38 /* Sources */,
+				BF445482241E3FFA00632E38 /* Frameworks */,
+				BF445483241E3FFA00632E38 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF445487241E3FFA00632E38 /* PBXTargetDependency */,
+			);
+			name = MongliTests;
+			productName = MongliTests;
+			productReference = BF445485241E3FFA00632E38 /* MongliTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BF44548F241E3FFA00632E38 /* MongliUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF44549F241E3FFA00632E38 /* Build configuration list for PBXNativeTarget "MongliUITests" */;
+			buildPhases = (
+				5AD101980E46A9AE59C443F9 /* [CP] Check Pods Manifest.lock */,
+				BF44548C241E3FFA00632E38 /* Sources */,
+				BF44548D241E3FFA00632E38 /* Frameworks */,
+				BF44548E241E3FFA00632E38 /* Resources */,
+				9EBE71F2C6971B686DD23565 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF445492241E3FFA00632E38 /* PBXTargetDependency */,
+			);
+			name = MongliUITests;
+			productName = MongliUITests;
+			productReference = BF445490241E3FFA00632E38 /* MongliUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BF445467241E3FF800632E38 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "DaEun Kim";
+				TargetAttributes = {
+					BF44546E241E3FF800632E38 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					BF445484241E3FFA00632E38 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = BF44546E241E3FF800632E38;
+					};
+					BF44548F241E3FFA00632E38 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = BF44546E241E3FF800632E38;
+					};
+				};
+			};
+			buildConfigurationList = BF44546A241E3FF800632E38 /* Build configuration list for PBXProject "Mongli" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BF445466241E3FF800632E38;
+			productRefGroup = BF445470241E3FF800632E38 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BF44546E241E3FF800632E38 /* Mongli */,
+				BF445484241E3FFA00632E38 /* MongliTests */,
+				BF44548F241E3FFA00632E38 /* MongliUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BF44546D241E3FF800632E38 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */,
+				BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */,
+				BF44547A241E3FF800632E38 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF445483241E3FFA00632E38 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF44548E241E3FFA00632E38 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5AD101980E46A9AE59C443F9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mongli-MongliUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5BB279E8E84A3B8B10D32BE5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mongli/Pods-Mongli-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mongli/Pods-Mongli-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mongli/Pods-Mongli-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EBE71F2C6971B686DD23565 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7B85BDECEFF44307F5509C1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mongli-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDBE8A2A10FD063488E6E1BE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MongliTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BF44546B241E3FF800632E38 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF445477241E3FF800632E38 /* ViewController.swift in Sources */,
+				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,
+				BF445475241E3FF800632E38 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF445481241E3FFA00632E38 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44548A241E3FFA00632E38 /* MongliTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF44548C241E3FFA00632E38 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF445495241E3FFA00632E38 /* MongliUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BF445487241E3FFA00632E38 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF44546E241E3FF800632E38 /* Mongli */;
+			targetProxy = BF445486241E3FFA00632E38 /* PBXContainerItemProxy */;
+		};
+		BF445492241E3FFA00632E38 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF44546E241E3FF800632E38 /* Mongli */;
+			targetProxy = BF445491241E3FFA00632E38 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BF445478241E3FF800632E38 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF445479241E3FF800632E38 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF44547E241E3FFA00632E38 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BF445497241E3FFA00632E38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BF445498241E3FFA00632E38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BF44549A241E3FFA00632E38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1127FEAA2BF0048C258EC6B /* Pods-Mongli.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VY4FNTH9C6;
+				INFOPLIST_FILE = Mongli/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.Mongli;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BF44549B241E3FFA00632E38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87C1451BFDC2591A98DC4F95 /* Pods-Mongli.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VY4FNTH9C6;
+				INFOPLIST_FILE = Mongli/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.Mongli;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BF44549D241E3FFA00632E38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D81D238378720DC5DC8F9B6 /* Pods-MongliTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VY4FNTH9C6;
+				INFOPLIST_FILE = MongliTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.MongliTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mongli.app/Mongli";
+			};
+			name = Debug;
+		};
+		BF44549E241E3FFA00632E38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3916BD9D40A6D848C0811C5 /* Pods-MongliTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VY4FNTH9C6;
+				INFOPLIST_FILE = MongliTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.MongliTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mongli.app/Mongli";
+			};
+			name = Release;
+		};
+		BF4454A0241E3FFA00632E38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE2896FEB6154F04378CB203 /* Pods-Mongli-MongliUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VY4FNTH9C6;
+				INFOPLIST_FILE = MongliUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.MongliUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mongli;
+			};
+			name = Debug;
+		};
+		BF4454A1241E3FFA00632E38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A60488E3C4D6FAE46EA56B31 /* Pods-Mongli-MongliUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VY4FNTH9C6;
+				INFOPLIST_FILE = MongliUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.MongliUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mongli;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BF44546A241E3FF800632E38 /* Build configuration list for PBXProject "Mongli" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF445497241E3FFA00632E38 /* Debug */,
+				BF445498241E3FFA00632E38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF445499241E3FFA00632E38 /* Build configuration list for PBXNativeTarget "Mongli" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF44549A241E3FFA00632E38 /* Debug */,
+				BF44549B241E3FFA00632E38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF44549C241E3FFA00632E38 /* Build configuration list for PBXNativeTarget "MongliTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF44549D241E3FFA00632E38 /* Debug */,
+				BF44549E241E3FFA00632E38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF44549F241E3FFA00632E38 /* Build configuration list for PBXNativeTarget "MongliUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF4454A0241E3FFA00632E38 /* Debug */,
+				BF4454A1241E3FFA00632E38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BF445467241E3FF800632E38 /* Project object */;
+}
