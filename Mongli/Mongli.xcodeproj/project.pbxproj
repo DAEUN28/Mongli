@@ -10,12 +10,14 @@
 		695678E1C65FA38334B5A0F8 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E020895CC6A06D91CFF24FC /* Pods_MongliTests.framework */; };
 		BA9C06DE9F4D51EC6437ECB8 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 890EE85042C025A51936D233 /* Pods_Mongli.framework */; };
 		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
-		BF445475241E3FF800632E38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445474241E3FF800632E38 /* SceneDelegate.swift */; };
 		BF445477241E3FF800632E38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* ViewController.swift */; };
 		BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF44547B241E3FFA00632E38 /* Assets.xcassets */; };
 		BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */; };
 		BF44548A241E3FFA00632E38 /* MongliTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445489241E3FFA00632E38 /* MongliTests.swift */; };
 		BF445495241E3FFA00632E38 /* MongliUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445494241E3FFA00632E38 /* MongliUITests.swift */; };
+		BF4454A6241F919500632E38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF4454A5241F919500632E38 /* GoogleService-Info.plist */; };
+		BF4454A8241F930B00632E38 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BF4454A7241F930B00632E38 /* .swiftlint.yml */; };
+		BF4454AD241F95D300632E38 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454AC241F95D300632E38 /* LogManager.swift */; };
 		DFF43164695D111D0E3A17BC /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6225176CF0199180A377C623 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +47,6 @@
 		A60488E3C4D6FAE46EA56B31 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF44546F241E3FF800632E38 /* Mongli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF445474241E3FF800632E38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BF445476241E3FF800632E38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BF44547B241E3FFA00632E38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF44547E241E3FFA00632E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,6 +57,9 @@
 		BF445490241E3FFA00632E38 /* MongliUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MongliUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445494241E3FFA00632E38 /* MongliUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliUITests.swift; sourceTree = "<group>"; };
 		BF445496241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF4454A5241F919500632E38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BF4454A7241F930B00632E38 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		BF4454AC241F95D300632E38 /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		C1127FEAA2BF0048C258EC6B /* Pods-Mongli.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli.debug.xcconfig"; path = "Target Support Files/Pods-Mongli/Pods-Mongli.debug.xcconfig"; sourceTree = "<group>"; };
 		D3916BD9D40A6D848C0811C5 /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE2896FEB6154F04378CB203 /* Pods-Mongli-MongliUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -152,9 +156,9 @@
 		BF4454A2241F4F7600632E38 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BF445476241E3FF800632E38 /* ViewController.swift */,
-				BF445472241E3FF800632E38 /* AppDelegate.swift */,
-				BF445474241E3FF800632E38 /* SceneDelegate.swift */,
+				BF4454A9241F942600632E38 /* Application */,
+				BF4454AB241F959600632E38 /* Managers */,
+				BF4454AA241F957600632E38 /* Modules */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -162,6 +166,7 @@
 		BF4454A3241F4F7C00632E38 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				BF4454A7241F930B00632E38 /* .swiftlint.yml */,
 				BF44547B241E3FFA00632E38 /* Assets.xcassets */,
 				BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */,
 			);
@@ -172,8 +177,33 @@
 			isa = PBXGroup;
 			children = (
 				BF445480241E3FFA00632E38 /* Info.plist */,
+				BF4454A5241F919500632E38 /* GoogleService-Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF4454A9241F942600632E38 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				BF445472241E3FF800632E38 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		BF4454AA241F957600632E38 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				BF445476241E3FF800632E38 /* ViewController.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		BF4454AB241F959600632E38 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454AC241F95D300632E38 /* LogManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
@@ -298,8 +328,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF4454A8241F930B00632E38 /* .swiftlint.yml in Resources */,
 				BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */,
 				BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */,
+				BF4454A6241F919500632E38 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,9 +459,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
 				BF445477241E3FF800632E38 /* ViewController.swift in Sources */,
 				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,
-				BF445475241E3FF800632E38 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
