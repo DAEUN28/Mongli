@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,6 @@
 		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
 		BF445475241E3FF800632E38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445474241E3FF800632E38 /* SceneDelegate.swift */; };
 		BF445477241E3FF800632E38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* ViewController.swift */; };
-		BF44547A241E3FF800632E38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF445478241E3FF800632E38 /* Main.storyboard */; };
 		BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF44547B241E3FFA00632E38 /* Assets.xcassets */; };
 		BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */; };
 		BF44548A241E3FFA00632E38 /* MongliTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445489241E3FFA00632E38 /* MongliTests.swift */; };
@@ -48,7 +47,6 @@
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF445474241E3FF800632E38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BF445476241E3FF800632E38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BF445479241E3FF800632E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF44547B241E3FFA00632E38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF44547E241E3FFA00632E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF445480241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,12 +102,12 @@
 		BF445466241E3FF800632E38 = {
 			isa = PBXGroup;
 			children = (
+				93387901D7F563F840B2682D /* Frameworks */,
 				BF445471241E3FF800632E38 /* Mongli */,
 				BF445488241E3FFA00632E38 /* MongliTests */,
 				BF445493241E3FFA00632E38 /* MongliUITests */,
-				BF445470241E3FF800632E38 /* Products */,
 				E0775431A7061DB59336AF34 /* Pods */,
-				93387901D7F563F840B2682D /* Frameworks */,
+				BF445470241E3FF800632E38 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,13 +124,9 @@
 		BF445471241E3FF800632E38 /* Mongli */ = {
 			isa = PBXGroup;
 			children = (
-				BF445472241E3FF800632E38 /* AppDelegate.swift */,
-				BF445474241E3FF800632E38 /* SceneDelegate.swift */,
-				BF445476241E3FF800632E38 /* ViewController.swift */,
-				BF445478241E3FF800632E38 /* Main.storyboard */,
-				BF44547B241E3FFA00632E38 /* Assets.xcassets */,
-				BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */,
-				BF445480241E3FFA00632E38 /* Info.plist */,
+				BF4454A3241F4F7C00632E38 /* Resource */,
+				BF4454A2241F4F7600632E38 /* Source */,
+				BF4454A4241F4FFE00632E38 /* Supporting Files */,
 			);
 			path = Mongli;
 			sourceTree = "<group>";
@@ -155,6 +149,33 @@
 			path = MongliUITests;
 			sourceTree = "<group>";
 		};
+		BF4454A2241F4F7600632E38 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				BF445476241E3FF800632E38 /* ViewController.swift */,
+				BF445472241E3FF800632E38 /* AppDelegate.swift */,
+				BF445474241E3FF800632E38 /* SceneDelegate.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		BF4454A3241F4F7C00632E38 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				BF44547B241E3FFA00632E38 /* Assets.xcassets */,
+				BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		BF4454A4241F4FFE00632E38 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BF445480241E3FFA00632E38 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,7 +186,6 @@
 				9D81D238378720DC5DC8F9B6 /* Pods-MongliTests.debug.xcconfig */,
 				D3916BD9D40A6D848C0811C5 /* Pods-MongliTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -280,7 +300,6 @@
 			files = (
 				BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */,
 				BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */,
-				BF44547A241E3FF800632E38 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,14 +465,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BF445478241E3FF800632E38 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BF445479241E3FF800632E38 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -586,15 +597,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VY4FNTH9C6;
-				INFOPLIST_FILE = Mongli/Info.plist;
+				INFOPLIST_FILE = "Mongli/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = daeun28.Mongli;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.mongli.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -605,15 +617,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VY4FNTH9C6;
-				INFOPLIST_FILE = Mongli/Info.plist;
+				INFOPLIST_FILE = "Mongli/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = daeun28.Mongli;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = daeun28.mongli.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

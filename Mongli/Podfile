@@ -16,6 +16,9 @@ target 'Mongli' do
   # Rx
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'RxTheme'
+  pod 'RxFlow'
+  pod 'RxLocalizer'
 
   # UI
   pod 'SnapKit'
@@ -25,6 +28,7 @@ target 'Mongli' do
 
   # Misc.
   pod 'Then'
+  pod 'SwiftLint'
 
   # SDK
   pod 'Crashlytics'
