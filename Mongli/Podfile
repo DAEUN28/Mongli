@@ -26,6 +26,10 @@ target 'Mongli' do
   # Logging
   pod 'CocoaLumberjack/Swift'
 
+  # Database
+  pod 'Realm'
+  pod 'RealmSwift'
+
   # Misc.
   pod 'Then'
   pod 'SwiftLint'
@@ -34,6 +38,7 @@ target 'Mongli' do
   pod 'Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
+  pod 'SwiftJWT'
 
   target 'MongliTests' do
     inherit! :search_paths
