@@ -1,0 +1,16 @@
+included:
+- Mongli/Source
+
+excluded:
+- Pods
+
+force_try:
+  severity: warning
+
+identifier_name:
+  min_length:
+    error: 3
+  excluded:
+    - vc
+    - id
+    - in

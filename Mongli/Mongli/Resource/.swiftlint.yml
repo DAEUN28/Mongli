@@ -1,7 +1,0 @@
-disabled_rules: 
-
-included:
-  - WooryBaby/Source
-
-excluded:
-  - Pods
