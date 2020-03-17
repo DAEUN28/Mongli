@@ -21,4 +21,3 @@ class UserAnalysis: Object, Codable {
   @objc dynamic var indigo: Int = 0
   @objc dynamic var purple: Int = 0
 }
-

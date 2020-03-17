@@ -10,7 +10,7 @@ import Foundation
 
 import RealmSwift
 
-class UserInfo: Object, Codable {
+class UserInfo: Object {
   @objc dynamic var uid: String?
   @objc dynamic var name: String?
   @objc dynamic var token: Token?

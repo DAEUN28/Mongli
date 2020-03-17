@@ -11,7 +11,6 @@ import Foundation
 import SwiftJWT
 
 struct TokenManager {
-
   struct TokenClaims: Claims {
     var exp: Date?
     var sub: Int
@@ -38,7 +37,8 @@ struct TokenManager {
   func isVaildate(_ token: String) -> Bool {
     if !JWT<TokenClaims>.verify(token, using: jwtVerifier) { return false }
 
-    let result = try? JWT<TokenClaims>(jwtString: token, verifier: jwtVerifier).validateClaims() == .success
+    let result
+      = try? JWT<TokenClaims>(jwtString: token, verifier: jwtVerifier).validateClaims() == .success
     return result ?? false
   }
 }

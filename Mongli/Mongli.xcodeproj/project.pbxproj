@@ -16,7 +16,6 @@
 		BF44548A241E3FFA00632E38 /* MongliTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445489241E3FFA00632E38 /* MongliTests.swift */; };
 		BF445495241E3FFA00632E38 /* MongliUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445494241E3FFA00632E38 /* MongliUITests.swift */; };
 		BF4454A6241F919500632E38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF4454A5241F919500632E38 /* GoogleService-Info.plist */; };
-		BF4454A8241F930B00632E38 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BF4454A7241F930B00632E38 /* .swiftlint.yml */; };
 		BF4454AD241F95D300632E38 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454AC241F95D300632E38 /* LogManager.swift */; };
 		BF4454B0241FA63000632E38 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454AF241FA63000632E38 /* UserInfo.swift */; };
 		BF4454B2241FA63600632E38 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454B1241FA63600632E38 /* Token.swift */; };
@@ -25,6 +24,10 @@
 		BF4454BA2420A69200632E38 /* privateKey in Resources */ = {isa = PBXBuildFile; fileRef = BF4454B82420A69200632E38 /* privateKey */; };
 		BF4454BC2420A93500632E38 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454BB2420A93500632E38 /* TokenManager.swift */; };
 		BF4454BE2420ACB400632E38 /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454BD2420ACB400632E38 /* Dream.swift */; };
+		BF4454C12420F59400632E38 /* MongliAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C02420F59400632E38 /* MongliAPI.swift */; };
+		BF4454C4242108F100632E38 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BF4454C3242108F100632E38 /* .swiftlint.yml */; };
+		BF4454C624210AC800632E38 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C524210AC800632E38 /* DatabaseManager.swift */; };
+		BF4454C92421130400632E38 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C82421130400632E38 /* Realm.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +66,6 @@
 		BF445494241E3FFA00632E38 /* MongliUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliUITests.swift; sourceTree = "<group>"; };
 		BF445496241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF4454A5241F919500632E38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BF4454A7241F930B00632E38 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		BF4454AC241F95D300632E38 /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		BF4454AF241FA63000632E38 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		BF4454B1241FA63600632E38 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -72,6 +74,10 @@
 		BF4454B82420A69200632E38 /* privateKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey; sourceTree = "<group>"; };
 		BF4454BB2420A93500632E38 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		BF4454BD2420ACB400632E38 /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
+		BF4454C02420F59400632E38 /* MongliAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliAPI.swift; sourceTree = "<group>"; };
+		BF4454C3242108F100632E38 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		BF4454C524210AC800632E38 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		BF4454C82421130400632E38 /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +126,7 @@
 		BF445466241E3FF800632E38 = {
 			isa = PBXGroup;
 			children = (
+				BF4454C3242108F100632E38 /* .swiftlint.yml */,
 				BF445471241E3FF800632E38 /* Mongli */,
 				BF445488241E3FFA00632E38 /* MongliTests */,
 				BF445493241E3FFA00632E38 /* MongliUITests */,
@@ -171,9 +178,11 @@
 			isa = PBXGroup;
 			children = (
 				BF4454A9241F942600632E38 /* Application */,
+				BF4454C7242112F900632E38 /* Extensions */,
 				BF4454AB241F959600632E38 /* Managers */,
 				BF4454AE241F983F00632E38 /* Models */,
 				BF4454AA241F957600632E38 /* Modules */,
+				BF4454BF2420F54600632E38 /* Networking */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -183,7 +192,6 @@
 			children = (
 				BF4454B82420A69200632E38 /* privateKey */,
 				BF4454B72420A69100632E38 /* privateKey.pub */,
-				BF4454A7241F930B00632E38 /* .swiftlint.yml */,
 				BF44547B241E3FFA00632E38 /* Assets.xcassets */,
 				BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */,
 			);
@@ -220,6 +228,7 @@
 			children = (
 				BF4454AC241F95D300632E38 /* LogManager.swift */,
 				BF4454BB2420A93500632E38 /* TokenManager.swift */,
+				BF4454C524210AC800632E38 /* DatabaseManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -233,6 +242,22 @@
 				BF4454BD2420ACB400632E38 /* Dream.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BF4454BF2420F54600632E38 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454C02420F59400632E38 /* MongliAPI.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		BF4454C7242112F900632E38 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454C82421130400632E38 /* Realm.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
@@ -260,6 +285,7 @@
 				BF44546C241E3FF800632E38 /* Frameworks */,
 				BF44546D241E3FF800632E38 /* Resources */,
 				A1D834FBD26CD28FEC880F3D /* [CP] Embed Pods Frameworks */,
+				BF4454C22420FA1800632E38 /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -357,7 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF4454A8241F930B00632E38 /* .swiftlint.yml in Resources */,
+				BF4454C4242108F100632E38 /* .swiftlint.yml in Resources */,
 				BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */,
 				BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */,
 				BF4454B92420A69200632E38 /* privateKey.pub in Resources */,
@@ -461,6 +487,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mongli/Pods-Mongli-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BF4454C22420FA1800632E38 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
 		DBB8729BE36E25342B23DC65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -492,11 +536,14 @@
 			files = (
 				BF4454B4241FA63D00632E38 /* UserAnalysis.swift in Sources */,
 				BF4454B0241FA63000632E38 /* UserInfo.swift in Sources */,
+				BF4454C624210AC800632E38 /* DatabaseManager.swift in Sources */,
+				BF4454C92421130400632E38 /* Realm.swift in Sources */,
 				BF4454B2241FA63600632E38 /* Token.swift in Sources */,
 				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
 				BF445477241E3FF800632E38 /* ViewController.swift in Sources */,
 				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,
 				BF4454BC2420A93500632E38 /* TokenManager.swift in Sources */,
+				BF4454C12420F59400632E38 /* MongliAPI.swift in Sources */,
 				BF4454BE2420ACB400632E38 /* Dream.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
