@@ -77,10 +77,9 @@ class Service: ServiceType {
     return provider.rx.request(.renewalToken)
       .asObservable()
       .filterSuccessfulStatusCodes()
-      .mapJSON()
+      .map(StringJSON.self)
       .map { [weak self] json -> LocalizedString? in
-        guard let json = json as? [String: String],
-          let token = json["accessToken"],
+        guard let token = json["accessToken"],
           let self = self else { return .unknownErrorMsg }
 
         if let object = self.currentUserInfo {
@@ -90,8 +89,8 @@ class Service: ServiceType {
         }
         return .notFoundUserForcedLogoutMsg
       }
-      .catchError { error -> Observable<LocalizedString?> in
-        guard let statusCode = StatusCode(error) else { return .just(.unknownErrorMsg) }
+      .catchError { [weak self] error -> Observable<LocalizedString?> in
+        guard let statusCode = StatusCode(error), let self = self else { return .just(.unknownErrorMsg) }
 
         switch statusCode {
         case .unauthorized:

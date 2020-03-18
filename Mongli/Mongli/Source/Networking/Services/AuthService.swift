@@ -26,8 +26,8 @@ final class AuthService: Service, AuthServiceType {
       .map { _ -> LocalizedString? in
         if DatabaseManager.deleteAll() { return nil }
         return .unknownErrorMsg
-    }
-    .catchErrorJustReturn(.retryMsg)
+      }
+      .catchErrorJustReturn(.retryMsg)
   }
 
   func rename(_ name: String) -> BasicResult {
@@ -41,8 +41,8 @@ final class AuthService: Service, AuthServiceType {
           return .unknownErrorMsg
         }
         return .notFoundUserForcedLogoutMsg
-    }
-    .catchError { self.catchMongliError($0) }
+      }
+      .catchError { [unowned self] in self.catchMongliError($0) }
   }
 
   func readAnalysis() -> AnalysisResult {
@@ -54,6 +54,6 @@ final class AuthService: Service, AuthServiceType {
         if DatabaseManager.update(.analysis, object: userAnalysis) { return (userAnalysis, nil) }
         return (nil, .unknownErrorMsg)
       }
-      .catchError { self.catchMongliError($0).map { (nil, $0) } }
+      .catchError { [unowned self] in self.catchMongliError($0).map { (nil, $0) } }
   }
 }

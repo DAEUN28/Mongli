@@ -22,6 +22,9 @@ enum LocalizedString: String {
   case userConflictErrorMsg
   case notFoundUserForcedLogoutMsg
   case userConflictForcedLogoutMsg
+
+  // MARK: Not Localized
+  case noContent
 }
 
 extension LocalizedString {

@@ -30,7 +30,8 @@ enum StatusCode: Int {
 
   var message: LocalizedString? {
     switch self {
-    case .ok, .created, .noContent: return nil
+    case .ok, .created: return nil
+    case .noContent: return .noContent
     case .badRequest: return .badRequestErrorMsg
     case .unauthorized: return .unauthorizedErrorMsg
     case .notFound: return .notFoundErrorMsg
