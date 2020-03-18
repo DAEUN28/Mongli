@@ -8,7 +8,6 @@
 
 import Foundation
 
-import Moya
 import RxSwift
 
 protocol ServiceType {

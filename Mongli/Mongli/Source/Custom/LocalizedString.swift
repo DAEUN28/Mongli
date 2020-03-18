@@ -15,6 +15,7 @@ enum LocalizedString: String {
   case unauthorizedErrorMsg
   case notFoundErrorMsg
   case serverErrorMsg
+  case retryMsg
 
   // MARK: Custom Error
   case notFoundUserErrorMsg

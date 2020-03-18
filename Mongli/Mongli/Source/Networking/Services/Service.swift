@@ -59,7 +59,7 @@ class Service: ServiceType {
         if DatabaseManager.deleteAll() { return nil }
         return .unknownErrorMsg
       }
-      .catchError { self.catchMongliError($0) }
+      .catchErrorJustReturn(.retryMsg)
   }
 
   func catchMongliError(_ error: Error) -> BasicResult {
@@ -80,14 +80,14 @@ class Service: ServiceType {
       .mapJSON()
       .map { [weak self] json -> LocalizedString? in
         guard let json = json as? [String: String],
-          let token = json["accessToken"] else { return .unknownErrorMsg }
+          let token = json["accessToken"],
+          let self = self else { return .unknownErrorMsg }
 
-        if let object = self?.currentUserInfo {
+        if let object = self.currentUserInfo {
           object.token?.accessToken = token
           if DatabaseManager.update(.info, object: object) { return nil }
           return .unknownErrorMsg
         }
-        /// route to SignInViewController
         return .notFoundUserForcedLogoutMsg
       }
       .catchError { error -> Observable<LocalizedString?> in
@@ -98,13 +98,11 @@ class Service: ServiceType {
           if let info = DatabaseManager.read(.info) as? UserInfo, let uid = info.uid {
             return self.signIn(uid, name: nil)
           } else {
-            /// route to SignInViewController
+            return self.revokeToken()
           }
         case .notFound:
-          /// route to SignInViewController
           return .just(.notFoundUserForcedLogoutMsg)
         case .conflict:
-          /// route to SignInViewController
           return .just(.userConflictForcedLogoutMsg)
         default:
           return .just(statusCode.message)
