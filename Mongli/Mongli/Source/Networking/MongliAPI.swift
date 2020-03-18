@@ -105,18 +105,12 @@ extension MongliAPI: TargetType {
       return nil
 
     case .renewalToken:
-      if let info = DatabaseManager.read(.info) as? UserInfo,
-        let token = info.token?.refreshToken {
-        return ["Authorization": "Bearer" + token]
-      }
-      return nil
+      guard let token = TokenManager.currentToken?.refreshToken else { return nil }
+      return ["Authorization": "Bearer" + token]
 
     default:
-      if let info = DatabaseManager.read(.info) as? UserInfo,
-        let token = info.token?.accessToken {
-        return ["Authorization": "Bearer" + token]
-      }
-      return nil
+      guard let token = TokenManager.currentToken?.accessToken else { return nil }
+     return ["Authorization": "Bearer" + token]
     }
   }
 
@@ -136,12 +130,12 @@ extension MongliAPI: TargetType {
       return .requestJSONEncodable(dream)
 
     case .searchDream(let query):
-      if let data = try? JSONEncoder().encode(query),
-        let parameters = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-        return .requestParameters(parameters: parameters,
-                                  encoding: URLEncoding.queryString)
+      guard let data = try? JSONEncoder().encode(query),
+        let parameters = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+          return .requestPlain
       }
-      return .requestPlain
+      return .requestParameters(parameters: parameters,
+                                encoding: URLEncoding.queryString)
 
     default:
       return .requestPlain

@@ -17,10 +17,8 @@ struct DatabaseManager {
 
   static var realm = try! Realm()
 
-  static func create(_ object: Object) throws {
-    try realm.safeWrite {
-      realm.add(object)
-    }
+  static func create(_ object: Object) -> Bool {
+    return (try? realm.safeWrite { realm.add(object) }) != nil
   }
 
   static func read(_ type: DataType) -> Object? {
@@ -30,22 +28,16 @@ struct DatabaseManager {
     }
   }
 
-  static func update(_ type: DataType, object: Object) throws {
+  static func update(_ type: DataType, object: Object) -> Bool {
     var data = self.read(type)
-    try realm.safeWrite {
-      data = object
-    }
+    return (try? realm.safeWrite { data = object }) != nil
   }
 
-  static func delete(_ object: Object) throws {
-    try realm.safeWrite {
-      realm.delete(object)
-    }
+  static func delete(_ object: Object) -> Bool {
+    return (try? realm.safeWrite { realm.delete(object) }) != nil
   }
 
-  static func deleteAll() throws {
-    try realm.safeWrite {
-      realm.deleteAll()
-    }
+  static func deleteAll() -> Bool {
+    return (try? realm.safeWrite { realm.deleteAll() }) != nil
   }
 }

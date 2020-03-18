@@ -28,6 +28,9 @@
 		BF4454C4242108F100632E38 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BF4454C3242108F100632E38 /* .swiftlint.yml */; };
 		BF4454C624210AC800632E38 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C524210AC800632E38 /* DatabaseManager.swift */; };
 		BF4454C92421130400632E38 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C82421130400632E38 /* Realm.swift */; };
+		BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454CD24211F1D00632E38 /* ServiceType.swift */; };
+		BF4454D024211FCD00632E38 /* StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454CF24211FCD00632E38 /* StatusCode.swift */; };
+		BF4454D22421ED7B00632E38 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454D12421ED7B00632E38 /* Service.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +81,9 @@
 		BF4454C3242108F100632E38 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		BF4454C524210AC800632E38 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		BF4454C82421130400632E38 /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
+		BF4454CD24211F1D00632E38 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
+		BF4454CF24211FCD00632E38 /* StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCode.swift; sourceTree = "<group>"; };
+		BF4454D12421ED7B00632E38 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -247,6 +253,7 @@
 		BF4454BF2420F54600632E38 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				BF4454CA24211BCD00632E38 /* Services */,
 				BF4454C02420F59400632E38 /* MongliAPI.swift */,
 			);
 			path = Networking;
@@ -258,6 +265,16 @@
 				BF4454C82421130400632E38 /* Realm.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BF4454CA24211BCD00632E38 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454CD24211F1D00632E38 /* ServiceType.swift */,
+				BF4454CF24211FCD00632E38 /* StatusCode.swift */,
+				BF4454D12421ED7B00632E38 /* Service.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
@@ -536,11 +553,14 @@
 			files = (
 				BF4454B4241FA63D00632E38 /* UserAnalysis.swift in Sources */,
 				BF4454B0241FA63000632E38 /* UserInfo.swift in Sources */,
+				BF4454D22421ED7B00632E38 /* Service.swift in Sources */,
 				BF4454C624210AC800632E38 /* DatabaseManager.swift in Sources */,
 				BF4454C92421130400632E38 /* Realm.swift in Sources */,
+				BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */,
 				BF4454B2241FA63600632E38 /* Token.swift in Sources */,
 				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
 				BF445477241E3FF800632E38 /* ViewController.swift in Sources */,
+				BF4454D024211FCD00632E38 /* StatusCode.swift in Sources */,
 				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,
 				BF4454BC2420A93500632E38 /* TokenManager.swift in Sources */,
 				BF4454C12420F59400632E38 /* MongliAPI.swift in Sources */,

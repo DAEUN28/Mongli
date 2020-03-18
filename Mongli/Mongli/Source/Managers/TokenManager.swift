@@ -13,28 +13,48 @@ import SwiftJWT
 struct TokenManager {
   struct TokenClaims: Claims {
     var exp: Date?
-    var sub: Int
+    var id: Int
+    var name: String
   }
 
-  private let jwtSigner: JWTSigner
-  private let jwtVerifier: JWTVerifier
-  private let jwtEncoder: JWTEncoder
-  private let jwtDecoder: JWTDecoder
-
-  init() {
-    let privateKey = try! Data(contentsOf: URL(fileURLWithPath: #file + "/privateKey"),
-                               options: .alwaysMapped)
-    jwtSigner = JWTSigner.hs256(key: privateKey)
-    jwtVerifier = JWTVerifier.hs256(key: privateKey)
-    jwtEncoder = JWTEncoder(jwtSigner: jwtSigner)
-    jwtDecoder = JWTDecoder(jwtVerifier: jwtVerifier)
+  enum TokenType {
+    case access, refresh
   }
 
-  func toUserID(_ token: String) -> Int? {
-    return try? JWT<TokenClaims>(jwtString: token).claims.sub
+  private static let privateKey = try! Data(contentsOf: URL(fileURLWithPath: #file + "/privateKey"),
+                                            options: .alwaysMapped)
+  private static let jwtSigner = JWTSigner.hs256(key: privateKey)
+  private static let jwtVerifier = JWTVerifier.hs256(key: privateKey)
+  private static let jwtEncoder = JWTEncoder(jwtSigner: jwtSigner)
+  private static let jwtDecoder = JWTDecoder(jwtVerifier: jwtVerifier)
+
+  static var currentToken: Token? {
+    let info = DatabaseManager.read(.info) as? UserInfo
+    return info?.token
   }
 
-  func isVaildate(_ token: String) -> Bool {
+  static func userID() -> Int? {
+    guard let token = currentToken?.accessToken else { return nil }
+    return try? JWT<TokenClaims>(jwtString: token).claims.id
+  }
+
+  static func userName(_ token: String?) -> String? {
+    guard let token = token else { return nil }
+    return try? JWT<TokenClaims>(jwtString: token).claims.name
+  }
+
+  static func accessTokenIsVaildate() -> Bool {
+    guard let token = currentToken?.accessToken else { return false }
+    return isVaildate(token)
+  }
+
+  static func refreshTokenIsVaildate() -> Bool {
+    guard let token = currentToken?.refreshToken else { return false }
+    return isVaildate(token)
+
+  }
+
+  static private func isVaildate(_ token: String) -> Bool {
     if !JWT<TokenClaims>.verify(token, using: jwtVerifier) { return false }
 
     let result
