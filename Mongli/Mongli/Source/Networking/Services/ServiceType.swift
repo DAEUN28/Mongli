@@ -12,11 +12,11 @@ import Moya
 import RxSwift
 
 protocol ServiceType {
-  typealias BasicResult = Observable<String?>
-  typealias AnalysisResult = Observable<(UserAnalysis?, String?)>
-  typealias DreamResult = Observable<(Dream?, String?)>
-  typealias MonthlyDreamResult = Observable<([String: [Int]]?, String?)>
-  typealias DreamSummaryResult = Observable<([DreamSummary]?, String?)>
+  typealias BasicResult = Observable<LocalizedString?>
+  typealias AnalysisResult = Observable<(UserAnalysis?, LocalizedString?)>
+  typealias DreamResult = Observable<(Dream?, LocalizedString?)>
+  typealias MonthlyDreamResult = Observable<([String: [Int]]?, LocalizedString?)>
+  typealias DreamSummaryResult = Observable<([DreamSummary]?, LocalizedString?)>
 
   var currentUserInfo: UserInfo? { get }
 }

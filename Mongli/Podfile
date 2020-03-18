@@ -18,7 +18,6 @@ target 'Mongli' do
   pod 'RxCocoa'
   pod 'RxTheme'
   pod 'RxFlow'
-  pod 'RxLocalizer'
 
   # UI
   pod 'SnapKit'

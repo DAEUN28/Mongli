@@ -18,12 +18,12 @@ class Service: ServiceType {
     return DatabaseManager.read(.info) as? UserInfo
   }
 
-  func signIn(_ uid: String, name: String?) -> Observable<String?> {
+  func signIn(_ uid: String, name: String?) -> BasicResult {
     return provider.rx.request(.signIn(uid, name: name))
       .asObservable()
       .filterSuccessfulStatusCodes()
       .map(Token.self)
-      .map { token -> String? in
+      .map { token -> LocalizedString? in
         let userInfo = UserInfo()
         userInfo.uid = uid
         userInfo.token = token
@@ -35,62 +35,63 @@ class Service: ServiceType {
         }
 
         if DatabaseManager.create(userInfo) { return nil }
-        return "알 수 없는 오류가 발생했습니다"
+        return .unknownErrorMsg
       }
-      .catchError { error -> Observable<String?> in
-        guard let statusCode = StatusCode(error) else { return .just("알 수 없는 오류가 발생했습니다") }
+      .catchError { error -> Observable<LocalizedString?> in
+        guard let statusCode = StatusCode(error) else { return .just(.unknownErrorMsg) }
 
         switch statusCode {
         case .notFound:
-          return .just("존재하지 않는 사용자입니다.\n설정에서 애플로그인 사용중지를 활성화고 앱을 다시 시작해주세요")
+          return .just(.notFoundUserErrorMsg)
         case .conflict:
-          return .just("이미 로그인된 사용자가 존재합니다")
+          return .just(.userConflictErrorMsg)
         default:
-          return .just(statusCode.toString())
+          return .just(statusCode.message)
         }
       }
   }
 
-  func revokeToken() -> Observable<String?> {
+  func revokeToken() -> BasicResult {
     return provider.rx.request(.revokeToken)
       .asObservable()
       .filterSuccessfulStatusCodes()
-      .map { _ -> String? in
+      .map { _ -> LocalizedString? in
         if DatabaseManager.deleteAll() { return nil }
-        return "알 수 없는 오류가 발생했습니다"
+        return .unknownErrorMsg
       }
       .catchError { self.catchMongliError($0) }
   }
 
-  func catchMongliError(_ error: Error) -> Observable<String?> {
-    guard let statusCode = StatusCode(error) else { return .just("알 수 없는 오류가 발생했습니다") }
+  func catchMongliError(_ error: Error) -> BasicResult {
+    guard let statusCode = StatusCode(error) else { return .just(.unknownErrorMsg) }
 
     switch statusCode {
     case .unauthorized:
       return renewalToken()
     default:
-      return .just(statusCode.toString())
+      return .just(statusCode.message)
     }
   }
 
-  private func renewalToken() -> Observable<String?> {
+  private func renewalToken() -> BasicResult {
     return provider.rx.request(.renewalToken)
       .asObservable()
       .filterSuccessfulStatusCodes()
       .mapJSON()
-      .map { [weak self] json -> String? in
+      .map { [weak self] json -> LocalizedString? in
         guard let json = json as? [String: String],
-          let token = json["accessToken"] else { return "알 수 없는 오류가 발생했습니다" }
+          let token = json["accessToken"] else { return .unknownErrorMsg }
 
         if let object = self?.currentUserInfo {
           object.token?.accessToken = token
           if DatabaseManager.update(.info, object: object) { return nil }
-          return "알 수 없는 오류가 발생했습니다"
+          return .unknownErrorMsg
         }
-        return "현재 사용자 정보가 존재하지 않습니다."
+        /// route to SignInViewController
+        return .notFoundUserForcedLogoutMsg
       }
-      .catchError { error -> Observable<String?> in
-        guard let statusCode = StatusCode(error) else { return .just("알 수 없는 오류가 발생했습니다") }
+      .catchError { error -> Observable<LocalizedString?> in
+        guard let statusCode = StatusCode(error) else { return .just(.unknownErrorMsg) }
 
         switch statusCode {
         case .unauthorized:
@@ -101,14 +102,13 @@ class Service: ServiceType {
           }
         case .notFound:
           /// route to SignInViewController
-          return .just("사용자정보를 찾을 수 없어 강제 로그아웃됩니다.")
+          return .just(.notFoundUserForcedLogoutMsg)
         case .conflict:
           /// route to SignInViewController
-          return .just("다른 사용자가 로그인되어있어 강제 로그아웃됩니다.")
-        default: break
+          return .just(.userConflictForcedLogoutMsg)
+        default:
+          return .just(statusCode.message)
         }
-
-        return .just(statusCode.toString())
       }
   }
 }

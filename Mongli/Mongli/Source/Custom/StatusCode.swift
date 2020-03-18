@@ -28,14 +28,14 @@ enum StatusCode: Int {
     self = statusCode
   }
 
-  func toString() -> String? {
+  var message: LocalizedString? {
     switch self {
     case .ok, .created, .noContent: return nil
-    case .badRequest: return "잘못된 요청입니다"
-    case .unauthorized: return "인증되지 않은 토큰 또는 만료된 토큰입니다"
-    case .notFound: return "찾을 수 없는 사용자 또는 정보입니다"
-    case .serverError: return "서버오류입니다"
-    default: return "알 수 없는 오류입니다"
+    case .badRequest: return .badRequestErrorMsg
+    case .unauthorized: return .unauthorizedErrorMsg
+    case .notFound: return .notFoundErrorMsg
+    case .serverError: return .serverErrorMsg
+    default: return .unknownErrorMsg
     }
   }
 }

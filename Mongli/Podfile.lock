@@ -100,9 +100,6 @@ PODS:
   - RxFlow (2.7.0):
     - RxCocoa (>= 5.0.0)
     - RxSwift (>= 5.0.0)
-  - RxLocalizer (1.4.0):
-    - RxCocoa (~> 5.0)
-    - RxSwift (~> 5.0)
   - RxRelay (5.1.0):
     - RxSwift (~> 5)
   - RxSwift (5.1.0)
@@ -132,7 +129,6 @@ DEPENDENCIES:
   - RealmSwift
   - RxCocoa
   - RxFlow
-  - RxLocalizer
   - RxSwift
   - RxTheme
   - SnapKit
@@ -170,7 +166,6 @@ SPEC REPOS:
     - RealmSwift
     - RxCocoa
     - RxFlow
-    - RxLocalizer
     - RxRelay
     - RxSwift
     - RxTheme
@@ -208,7 +203,6 @@ SPEC CHECKSUMS:
   RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
   RxCocoa: 13d2a4d7546a34b8ececae8c281e4ea1dbb94f2b
   RxFlow: 605ef6364d7e937bea8f9507a1e99a431cdc2493
-  RxLocalizer: 70947e0c6e6135ba9e75bf4f5385aa37c7ce7e22
   RxRelay: a168bd6caf712d00c676ac344e9295afc93b418e
   RxSwift: ad5874f24bb0dbffd1e9bb8443604e3578796c7a
   RxTheme: 0b642f47c7d197a803c6b9c083964188c34f7ddb
@@ -217,6 +211,6 @@ SPEC CHECKSUMS:
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
 
-PODFILE CHECKSUM: 438917949a3cb22a62dc7775165935ab898dde80
+PODFILE CHECKSUM: a2b5db680974e4a63bb96e88040c7784c49f2c3a
 
 COCOAPODS: 1.9.1
