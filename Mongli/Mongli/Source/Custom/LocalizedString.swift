@@ -9,7 +9,7 @@
 import Foundation
 
 enum LocalizedString: String {
-  // MARK: Basic Error
+  // Basic Error
   case unknownErrorMsg
   case badRequestErrorMsg
   case unauthorizedErrorMsg
@@ -17,13 +17,13 @@ enum LocalizedString: String {
   case serverErrorMsg
   case retryMsg
 
-  // MARK: Custom Error
+  // Custom Error
   case notFoundUserErrorMsg
   case userConflictErrorMsg
   case notFoundUserForcedLogoutMsg
   case userConflictForcedLogoutMsg
 
-  // MARK: Not Localized
+  // Not Localized
   case noContent
 }
 

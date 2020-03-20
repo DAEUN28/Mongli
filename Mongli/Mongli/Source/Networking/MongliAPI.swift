@@ -11,7 +11,7 @@ import Foundation
 import Moya
 
 enum MongliAPI {
-  // MARK: Auth API
+  // Auth API
   case signIn(_ uid: String, name: String?)
   case renewalToken
   case revokeToken
@@ -19,7 +19,7 @@ enum MongliAPI {
   case deleteUser
   case readAnalysis
 
-  // MARK: Dream API
+  // Dream API
   case createDream(_ dream: Dream)
   case readDream(_ id: Int)
   case updateDream(_ dream: Dream)

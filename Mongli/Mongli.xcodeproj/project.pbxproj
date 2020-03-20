@@ -10,7 +10,7 @@
 		3DCE17D7778FA759B09C2E49 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D91CE847018A2125172549A /* Pods_Mongli.framework */; };
 		74492B166BA435CC3A967352 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */; };
 		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
-		BF445477241E3FF800632E38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* ViewController.swift */; };
+		BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* SignInViewController.swift */; };
 		BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF44547B241E3FFA00632E38 /* Assets.xcassets */; };
 		BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */; };
 		BF44548A241E3FFA00632E38 /* MongliTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445489241E3FFA00632E38 /* MongliTests.swift */; };
@@ -35,6 +35,21 @@
 		BF4454DE24225EF600632E38 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454DD24225EF600632E38 /* LocalizedString.swift */; };
 		BF4454E02422683700632E38 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454DF2422683700632E38 /* AuthService.swift */; };
 		BF4454E22422701000632E38 /* DreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454E12422701000632E38 /* DreamService.swift */; };
+		BF4454E52423703000632E38 /* MongliStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454E42423703000632E38 /* MongliStep.swift */; };
+		BF4454E724238DB800632E38 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454E624238DB800632E38 /* AppFlow.swift */; };
+		BF4454EB24239CFB00632E38 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454EA24239CFB00632E38 /* BaseViewController.swift */; };
+		BF4454F7242444BF00632E38 /* SignInViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454F6242444BF00632E38 /* SignInViewReactor.swift */; };
+		BF4454FB24244A7500632E38 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454FA24244A7500632E38 /* HomeViewController.swift */; };
+		BF4454FD24244E7000632E38 /* HomeViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454FC24244E7000632E38 /* HomeViewReactor.swift */; };
+		BF4454FF24244E9600632E38 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454FE24244E9600632E38 /* MoreViewController.swift */; };
+		BF44550124244EA000632E38 /* MoreViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44550024244EA000632E38 /* MoreViewReactor.swift */; };
+		BF44550324244ECF00632E38 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44550224244ECF00632E38 /* SearchViewController.swift */; };
+		BF44550524244ED800632E38 /* SearchViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44550424244ED800632E38 /* SearchViewReactor.swift */; };
+		BF44550724244F7700632E38 /* TabBarFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44550624244F7700632E38 /* TabBarFlow.swift */; };
+		BF4455092424507100632E38 /* HomeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4455082424507100632E38 /* HomeFlow.swift */; };
+		BF44550B2424507B00632E38 /* SearchFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44550A2424507B00632E38 /* SearchFlow.swift */; };
+		BF44550D242450A400632E38 /* MoreFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44550C242450A400632E38 /* MoreFlow.swift */; };
+		BF44550F242453CB00632E38 /* RxFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44550E242453CB00632E38 /* RxFlow.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +77,7 @@
 		BCBCB1D1B35A99011F0A4783 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF44546F241E3FF800632E38 /* Mongli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF445476241E3FF800632E38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF445476241E3FF800632E38 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		BF44547B241E3FFA00632E38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF44547E241E3FFA00632E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF445480241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,6 +109,21 @@
 		BF4454DD24225EF600632E38 /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		BF4454DF2422683700632E38 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		BF4454E12422701000632E38 /* DreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamService.swift; sourceTree = "<group>"; };
+		BF4454E42423703000632E38 /* MongliStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliStep.swift; sourceTree = "<group>"; };
+		BF4454E624238DB800632E38 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
+		BF4454EA24239CFB00632E38 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		BF4454F6242444BF00632E38 /* SignInViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewReactor.swift; sourceTree = "<group>"; };
+		BF4454FA24244A7500632E38 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BF4454FC24244E7000632E38 /* HomeViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewReactor.swift; sourceTree = "<group>"; };
+		BF4454FE24244E9600632E38 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		BF44550024244EA000632E38 /* MoreViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewReactor.swift; sourceTree = "<group>"; };
+		BF44550224244ECF00632E38 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		BF44550424244ED800632E38 /* SearchViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewReactor.swift; sourceTree = "<group>"; };
+		BF44550624244F7700632E38 /* TabBarFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarFlow.swift; sourceTree = "<group>"; };
+		BF4455082424507100632E38 /* HomeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlow.swift; sourceTree = "<group>"; };
+		BF44550A2424507B00632E38 /* SearchFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlow.swift; sourceTree = "<group>"; };
+		BF44550C242450A400632E38 /* MoreFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreFlow.swift; sourceTree = "<group>"; };
+		BF44550E242453CB00632E38 /* RxFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxFlow.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +223,7 @@
 		BF4454A2241F4F7600632E38 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BF4454E324236E5500632E38 /* Flows */,
 				BF4454A9241F942600632E38 /* Application */,
 				BF4454D524225B2300632E38 /* Custom */,
 				BF4454C7242112F900632E38 /* Extensions */,
@@ -236,7 +267,14 @@
 		BF4454AA241F957600632E38 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				BF445476241E3FF800632E38 /* ViewController.swift */,
+				BF4454E924239CEC00632E38 /* Base */,
+				BF4454F32424429F00632E38 /* CreateDream */,
+				BF4454F0242441AA00632E38 /* Home */,
+				BF4454F22424429600632E38 /* More */,
+				BF4454F4242442D400632E38 /* ReadDream */,
+				BF4454F12424429100632E38 /* Search */,
+				BF4454E824239CBB00632E38 /* SignIn */,
+				BF4454F5242442DA00632E38 /* UpdateDream */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -275,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				BF4454C82421130400632E38 /* Realm.swift */,
+				BF44550E242453CB00632E38 /* RxFlow.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -297,6 +336,84 @@
 				BF4454DD24225EF600632E38 /* LocalizedString.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		BF4454E324236E5500632E38 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454E42423703000632E38 /* MongliStep.swift */,
+				BF4454E624238DB800632E38 /* AppFlow.swift */,
+				BF44550624244F7700632E38 /* TabBarFlow.swift */,
+				BF4455082424507100632E38 /* HomeFlow.swift */,
+				BF44550A2424507B00632E38 /* SearchFlow.swift */,
+				BF44550C242450A400632E38 /* MoreFlow.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		BF4454E824239CBB00632E38 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				BF445476241E3FF800632E38 /* SignInViewController.swift */,
+				BF4454F6242444BF00632E38 /* SignInViewReactor.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		BF4454E924239CEC00632E38 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454EA24239CFB00632E38 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		BF4454F0242441AA00632E38 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454FA24244A7500632E38 /* HomeViewController.swift */,
+				BF4454FC24244E7000632E38 /* HomeViewReactor.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BF4454F12424429100632E38 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BF44550224244ECF00632E38 /* SearchViewController.swift */,
+				BF44550424244ED800632E38 /* SearchViewReactor.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		BF4454F22424429600632E38 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				BF4454FE24244E9600632E38 /* MoreViewController.swift */,
+				BF44550024244EA000632E38 /* MoreViewReactor.swift */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		BF4454F32424429F00632E38 /* CreateDream */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CreateDream;
+			sourceTree = "<group>";
+		};
+		BF4454F4242442D400632E38 /* ReadDream */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ReadDream;
+			sourceTree = "<group>";
+		};
+		BF4454F5242442DA00632E38 /* UpdateDream */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UpdateDream;
 			sourceTree = "<group>";
 		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
@@ -576,22 +693,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF4454E22422701000632E38 /* DreamService.swift in Sources */,
+				BF4454E52423703000632E38 /* MongliStep.swift in Sources */,
 				BF4454B4241FA63D00632E38 /* UserAnalysis.swift in Sources */,
 				BF4454B0241FA63000632E38 /* UserInfo.swift in Sources */,
 				BF4454D22421ED7B00632E38 /* Service.swift in Sources */,
+				BF4454EB24239CFB00632E38 /* BaseViewController.swift in Sources */,
 				BF4454C624210AC800632E38 /* DatabaseManager.swift in Sources */,
+				BF4454FB24244A7500632E38 /* HomeViewController.swift in Sources */,
+				BF44550324244ECF00632E38 /* SearchViewController.swift in Sources */,
+				BF44550F242453CB00632E38 /* RxFlow.swift in Sources */,
+				BF44550B2424507B00632E38 /* SearchFlow.swift in Sources */,
 				BF4454C92421130400632E38 /* Realm.swift in Sources */,
+				BF4454FD24244E7000632E38 /* HomeViewReactor.swift in Sources */,
 				BF4454DE24225EF600632E38 /* LocalizedString.swift in Sources */,
+				BF4455092424507100632E38 /* HomeFlow.swift in Sources */,
 				BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */,
 				BF4454B2241FA63600632E38 /* Token.swift in Sources */,
 				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
-				BF445477241E3FF800632E38 /* ViewController.swift in Sources */,
+				BF44550124244EA000632E38 /* MoreViewReactor.swift in Sources */,
+				BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */,
+				BF44550524244ED800632E38 /* SearchViewReactor.swift in Sources */,
 				BF4454D024211FCD00632E38 /* StatusCode.swift in Sources */,
+				BF4454F7242444BF00632E38 /* SignInViewReactor.swift in Sources */,
 				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,
 				BF4454BC2420A93500632E38 /* TokenManager.swift in Sources */,
 				BF4454C12420F59400632E38 /* MongliAPI.swift in Sources */,
+				BF44550D242450A400632E38 /* MoreFlow.swift in Sources */,
 				BF4454BE2420ACB400632E38 /* Dream.swift in Sources */,
+				BF4454FF24244E9600632E38 /* MoreViewController.swift in Sources */,
+				BF4454E724238DB800632E38 /* AppFlow.swift in Sources */,
 				BF4454E02422683700632E38 /* AuthService.swift in Sources */,
+				BF44550724244F7700632E38 /* TabBarFlow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,10 @@ final class AuthService: Service, AuthServiceType {
     return DatabaseManager.read(.analysis) as? UserAnalysis
   }
 
+  var userIsSignedIn: Observable<Bool> {
+    return .just(currentUserInfo == nil)
+  }
+
   func logout() -> BasicResult {
     return revokeToken()
   }
