@@ -32,6 +32,7 @@ protocol Theme {
   var buttonEnable: UIColor { get }
   var buttonDisable: UIColor { get }
   var placeholder: UIColor { get }
+  var logoText: UIColor { get }
   var gradient: CAGradientLayer { get }
 }
 
@@ -47,10 +48,12 @@ extension Theme {
 
   var buttonEnable: UIColor { self.primary }
   var buttonDisable: UIColor { .clear }
+  var logoText: UIColor { .init(hex: 0x404040) }
 
   var gradient: CAGradientLayer {
     let gradient = CAGradientLayer()
     gradient.colors = [ self.assistant.cgColor, self.primary.cgColor ]
+    gradient.locations = [0.0, 1.0]
     return gradient
   }
 }

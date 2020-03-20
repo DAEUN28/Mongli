@@ -20,3 +20,6 @@
 "notFoundUserForcedLogoutMsg" = "사용자정보를 찾을 수 없어 강제 로그아웃됩니다";
 "userConflictForcedLogoutMsg" = "다른 사용자가 로그인되어있어 강제 로그아웃됩니다";
 
+// Common
+"mongli" = "Mongli";
+"mongliSubtitle" = ":while dreaming";

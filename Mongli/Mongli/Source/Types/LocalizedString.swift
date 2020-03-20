@@ -23,6 +23,10 @@ enum LocalizedString: String {
   case notFoundUserForcedLogoutMsg
   case userConflictForcedLogoutMsg
 
+  // Common
+  case mongli
+  case mongliSubtitle
+
   // Not Localized
   case noContent
 }

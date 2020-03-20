@@ -11,6 +11,7 @@ import Foundation
 import Moya
 
 enum MongliAPI {
+
   // Auth API
   case signIn(_ uid: String, name: String?)
   case renewalToken
@@ -31,12 +32,15 @@ enum MongliAPI {
 }
 
 extension MongliAPI: TargetType {
+
   // MARK: baseURL
+
   var baseURL: URL {
     return URL(string: "http://127.0.0.1:2525/api")!
   }
 
   // MARK: path
+
   var path: String {
     switch self {
     case .signIn,
@@ -70,6 +74,7 @@ extension MongliAPI: TargetType {
   }
 
   // MARK: method
+
   var method: Moya.Method {
     switch self {
     case .signIn,
@@ -99,6 +104,7 @@ extension MongliAPI: TargetType {
   }
 
   // MARK: headers
+
   var headers: [String: String]? {
     switch self {
     case .signIn:
@@ -115,6 +121,7 @@ extension MongliAPI: TargetType {
   }
 
   // MARK: task
+
   var task: Task {
     switch self {
     case .signIn(let uid, let name):
@@ -143,6 +150,7 @@ extension MongliAPI: TargetType {
   }
 
   // MARK: sampleData
+
   var sampleData: Data {
     return Data()
   }

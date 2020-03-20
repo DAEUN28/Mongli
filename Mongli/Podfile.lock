@@ -69,6 +69,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.1):
     - GoogleUtilities/Logger
+  - Hero (1.5.0)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
   - LoggerAPI (1.9.0):
@@ -122,6 +123,7 @@ DEPENDENCIES:
   - Crashlytics
   - Firebase/Analytics
   - Firebase/Core
+  - Hero
   - Moya
   - Moya/RxSwift
   - ReactorKit
@@ -155,6 +157,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - Hero
     - KituraContracts
     - LoggerAPI
     - Logging
@@ -192,6 +195,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: a857c6a002d201b524dd4bc2ed7e7355ed07e785
   GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
   GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
+  Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   LoggerAPI: fb78461eedac5316b290f2404d88b9d614d96c57
   Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
@@ -211,6 +215,6 @@ SPEC CHECKSUMS:
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
 
-PODFILE CHECKSUM: a2b5db680974e4a63bb96e88040c7784c49f2c3a
+PODFILE CHECKSUM: 12263f24ad11788292bdde25b812857b2424abc8
 
 COCOAPODS: 1.9.1

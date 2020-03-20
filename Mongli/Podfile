@@ -32,12 +32,13 @@ target 'Mongli' do
   # Misc.
   pod 'Then'
   pod 'SwiftLint'
+  pod 'SwiftJWT'
+  pod 'Hero'
 
   # SDK
   pod 'Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
-  pod 'SwiftJWT'
 
   target 'MongliTests' do
     inherit! :search_paths

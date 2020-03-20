@@ -16,14 +16,12 @@ class HomeViewController: BaseViewController, View {
   typealias Reactor = HomeViewReactor
 
   var reactor: Reactor?
-  var disposeBag = DisposeBag()
 
   init(_ reactor: Reactor) {
     self.reactor = reactor
-    super.init(nibName: nil, bundle: nil)
   }
 
-  required init?(coder: NSCoder) {
+  required convenience init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 

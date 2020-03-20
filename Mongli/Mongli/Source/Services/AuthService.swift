@@ -16,7 +16,7 @@ final class AuthService: Service, AuthServiceType {
   }
 
   var userIsSignedIn: Observable<Bool> {
-    return .just(currentUserInfo == nil)
+    return .just(currentUserInfo != nil)
   }
 
   func logout() -> BasicResult {
