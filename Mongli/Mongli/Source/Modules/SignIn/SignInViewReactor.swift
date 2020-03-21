@@ -6,25 +6,64 @@
 //  Copyright © 2020 DaEun Kim. All rights reserved.
 //
 
+import AuthenticationServices
 import Foundation
 
 import ReactorKit
 import RxCocoa
-import RxFlow
 import RxSwift
 
-final class SignInViewReactor: Reactor, Stepper {
-  var initialState: String = ""
+final class SignInViewReactor: Reactor {
+  enum Action {
+    case signIn(ASAuthorization?)
+  }
 
-  typealias Action = NoAction
+  enum Mutation {
+    case setSignedIn(Bool)
+    case setError(LocalizedString?)
+  }
 
-  typealias State = String
+  struct State {
+    var isSignedIn: Bool = false
+    var error: LocalizedString?
+  }
 
-  var steps = PublishRelay<Step>()
+  let initialState: State = State()
 
-  let service: AuthService
+  private let service: AuthService
 
   init(_ service: AuthService) {
     self.service = service
+  }
+
+  func mutate(action: Action) -> Observable<Mutation> {
+    switch action {
+    case .signIn(let authorization):
+      guard let credential = authorization?.credential as? ASAuthorizationAppleIDCredential else {
+        return .just(Mutation.setError(.notFoundUserErrorMsg))
+      }
+
+
+      return self.service.signIn(credential.user, name: credential.fullName?.givenName)
+        .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
+        .catchErrorJustReturn(.timeoutErrorMsg)
+        .map { result -> Mutation in
+          guard let result = result else { return .setSignedIn(true) }
+          return .setError(result)
+        }
+    }
+  }
+
+  func reduce(state: State, mutation: Mutation) -> State {
+    var state = state
+    switch mutation {
+    case .setSignedIn(let isSignedIn):
+      state.isSignedIn = isSignedIn
+      return state
+
+    case .setError(let error):
+      state.error = error
+      return state
+    }
   }
 }

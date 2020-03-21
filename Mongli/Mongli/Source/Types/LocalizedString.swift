@@ -15,7 +15,7 @@ enum LocalizedString: String {
   case unauthorizedErrorMsg
   case notFoundErrorMsg
   case serverErrorMsg
-  case retryMsg
+  case timeoutErrorMsg
 
   // Custom Error
   case notFoundUserErrorMsg
@@ -26,6 +26,7 @@ enum LocalizedString: String {
   // Common
   case mongli
   case mongliSubtitle
+  case retryMsg
 
   // Not Localized
   case noContent

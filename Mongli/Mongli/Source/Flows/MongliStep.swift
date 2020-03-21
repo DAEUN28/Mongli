@@ -12,12 +12,12 @@ import RxFlow
 
 enum MongliStep: Step {
   // Global
-  case toast(_ message: LocalizedString)
+  case toast(LocalizedString)
   case unauthorized
   case dismiss
   case categoryInfoIsRequired
   case popoverDatePickerIsRequired
-  case popoverDatePickerIsComplete(_ date: Date)
+  case popoverDatePickerIsComplete(Date)
 
   // SignIn
   case signInIsRequired
@@ -25,12 +25,12 @@ enum MongliStep: Step {
 
   // Home
   case homeIsRequired
-  case dreamIsPicked(_ id: Int)
+  case dreamIsPicked(Int)
 
   // Search
   case searchIsRequired
-  case filterIsRequired(_ existingFilter: DreamQuery?)
-  case filterIsComplete(_ filter: DreamQuery)
+  case filterIsRequired(DreamQuery?)
+  case filterIsComplete(DreamQuery)
 
   // More
   case moreIsRequired
@@ -42,7 +42,7 @@ enum MongliStep: Step {
   case createDreamIsComplete
 
   // ReadDream
-  case readDreamIsRequired(_ id: Int)
+  case readDreamIsRequired(Int)
   case deleteDreamIsComplete
 
   // UpdateDream

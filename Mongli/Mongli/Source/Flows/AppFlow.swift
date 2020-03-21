@@ -37,6 +37,8 @@ final class AppFlow: Flow {
     guard let step = step as? MongliStep else { return .none }
 
     switch step {
+    case .toast(let message):
+      return self.showToast(message: message)
     case .signInIsRequired:
       return self.navigateToSignIn()
     case .userIsSignedIn:
@@ -49,13 +51,19 @@ final class AppFlow: Flow {
 
 // MARK: navigate functions
 extension AppFlow {
+  private func showToast(message: LocalizedString) -> FlowContributors {
+    let alert = UIAlertController(title: "Warning", message: message.localized, preferredStyle: .alert)
+    alert.addAction(.init(title: "Cancel", style: .cancel))
+    self.rootWindow.rootViewController?.present(alert, animated: true)
+    return .none
+  }
+
   private func navigateToSignIn() -> FlowContributors {
     let reactor = SignInViewReactor(self.authService)
     let vc = SignInViewController(reactor)
     self.rootWindow.rootViewController = vc
 
-    return .one(flowContributor: .contribute(withNextPresentable: vc,
-                                             withNextStepper: reactor))
+    return .one(flowContributor: .contribute(withNext: vc))
   }
 
   private func navigateToTabBar() -> FlowContributors {

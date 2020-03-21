@@ -12,7 +12,7 @@
 "unauthorizedErrorMsg" = "잘못된 토큰입니다";
 "notFoundErrorMsg" = "찾을 수 없는 사용자 또는 정보입니다";
 "serverErrorMsg" = "서버오류입니다";
-"retryMsg" = "다시 한번 시도해주세요";
+"timeoutErrorMsg" = "요청시간이 초과되었습니다ㅠㅠ";
 
 // Custom Error
 "notFoundUserErrorMsg" = "알 수 없는 사용자입니다";
@@ -23,3 +23,4 @@
 // Common
 "mongli" = "Mongli";
 "mongliSubtitle" = ":while dreaming";
+"retryMsg" = "다시 한번 시도해주세요";

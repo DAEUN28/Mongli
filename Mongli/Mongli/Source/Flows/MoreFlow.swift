@@ -21,13 +21,13 @@ final class MoreFlow: Flow {
   lazy private var rootViewController = {
     return MoreViewController(self.reactor)
   }()
+  
   private let reactor: MoreViewReactor
-
   private let service: AuthService
 
-  init(_ service: AuthService, reactor: MoreViewReactor) {
+  init(_ service: AuthService) {
     self.service = service
-    self.reactor = reactor
+    self.reactor = MoreViewReactor(service)
   }
 
   deinit {

@@ -50,6 +50,7 @@ class BaseViewController: UIViewController {
   override func viewDidLoad() {
     self.view.setNeedsUpdateConstraints()
     self.setupViews()
+    self.setupAction()
     self.setupBackground()
   }
 
@@ -63,9 +64,10 @@ class BaseViewController: UIViewController {
 
   func setupConstraints() { }
 
-  // MARK: UI
+  // MARK: Setup
 
   func setupViews() { }
+  func setupAction() { }
 
   private func setupBackground() {
     let gradient = themeService.attrs.gradient

@@ -48,7 +48,7 @@ extension TabBarFlow {
 
     let homeFlow = HomeFlow(self.dreamService)
     let searchFlow = SearchFlow(self.dreamService)
-    let moreFlow = MoreFlow(self.authService, reactor: moreReactor)
+    let moreFlow = MoreFlow(self.authService)
 
     Flows.whenReady(flow1: homeFlow, flow2: searchFlow, flow3: moreFlow) { [unowned self] home, search, more in
 

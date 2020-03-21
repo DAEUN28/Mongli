@@ -11,24 +11,32 @@ import UIKit
 
 import Hero
 import ReactorKit
-import RxSwift
 import RxCocoa
+import RxFlow
+import RxSwift
 
-final class SignInViewController: BaseViewController, View {
+final class SignInViewController: BaseViewController, View, Stepper {
 
   typealias Reactor = SignInViewReactor
 
   // MARK: Properties
 
-  var reactor: Reactor?
+  var steps = PublishRelay<Step>()
 
   private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
   private let logoView = LogoView()
 
+  private let controller: ASAuthorizationController = {
+    let request = ASAuthorizationAppleIDProvider().createRequest()
+    request.requestedScopes = [.fullName]
+    return ASAuthorizationController(authorizationRequests: [request])
+  }()
+
   // MARK: initializing
 
   init(_ reactor: Reactor) {
-    self.reactor = reactor
+    defer { self.reactor = reactor }
+    super.init()
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -41,7 +49,7 @@ final class SignInViewController: BaseViewController, View {
     super.viewDidLoad()
     self.subViews = [self.logoView, self.signInButton]
 
-    UIView.animate(withDuration: 3) {
+    UIView.animate(withDuration: 2) {
       self.logoView.backgroundColor = .white
       self.signInButton.transform = CGAffineTransform(translationX: 0, y: -60)
     }
@@ -59,7 +67,47 @@ final class SignInViewController: BaseViewController, View {
     }
   }
 
-  func bind(reactor: Reactor) {
+  override func setupAction() {
+    self.signInButton.rx.controlEvent(.touchUpInside)
+      .subscribe(onNext: { [weak self] _ in
+        self?.controller.performRequests()
+      })
+      .disposed(by: self.disposeBag)
+  }
 
+  // MARK: Binding
+
+  func bind(reactor: Reactor) {
+    self.bindAction(reactor)
+    self.bindState(reactor)
+  }
+}
+
+extension SignInViewController {
+  private func bindAction(_ reactor: Reactor) {
+    self.controller.rx.didCompleteWithAuthorization
+      .map { Reactor.Action.signIn($0) }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
+  }
+
+  private func bindState(_ reactor: Reactor) {
+    reactor.state.map { $0.isSignedIn }
+      .filter { $0 }
+      .map { _ in MongliStep.userIsSignedIn }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
+
+    reactor.state.map { $0.error }
+      .filter { $0 != nil }
+      .map { MongliStep.toast($0!) }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
+  }
+}
+
+extension SignInViewController: ASAuthorizationControllerPresentationContextProviding {
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    self.view.window!
   }
 }
