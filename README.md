@@ -35,7 +35,6 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 
 - [SwiftHub](https://github.com/khoren93/SwiftHub=)
 - [Drrible](https://github.com/devxoul/Drrrible)
-- [CleanArchitectureRxSwift](https://github.com/sergdort/CleanArchitectureRxSwift)
 - [sample-rxswift-reactorkit-app](https://github.com/ClintJang/sample-rxswift-reactorkit-app)
 
 
