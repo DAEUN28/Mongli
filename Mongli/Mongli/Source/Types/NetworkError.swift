@@ -8,12 +8,19 @@
 
 import Foundation
 
-import Moya
+enum NetworkResult {
+  case success
+  case error(NetworkError)
+}
 
-enum StatusCode: Int {
-  case failure = 0
+enum NetworkResultWithValue<T: Codable> {
+  case success(T)
+  case error(NetworkError)
+}
+
+enum NetworkError: Int, Error {
+  case unknown = 0
   case ok = 200
-  case created = 201
   case noContent = 204
   case badRequest = 400
   case unauthorized = 401
@@ -22,15 +29,14 @@ enum StatusCode: Int {
   case serverError = 500
 
   init?(_ error: Error) {
-    guard let error = error as? MoyaError,
-      let response = error.response?.statusCode,
-      let statusCode = StatusCode(rawValue: response) else { return nil }
-    self = statusCode
+    guard let error = error.asAFError,
+      let code = error.responseCode,
+      let networkError = NetworkError(rawValue: code) else { return nil }
+    self = networkError
   }
 
   var message: LocalizedString? {
     switch self {
-    case .ok, .created: return nil
     case .noContent: return .noContent
     case .badRequest: return .badRequestErrorMsg
     case .unauthorized: return .unauthorizedErrorMsg

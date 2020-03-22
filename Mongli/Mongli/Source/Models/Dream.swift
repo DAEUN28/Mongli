@@ -16,19 +16,10 @@ struct Dream: Codable {
   let content: String
 }
 
-struct DreamSummary: Codable {
+struct SummaryDream: Codable {
   let id: Int
   let date: String?
   let category: Int
   let title: String
   let summary: String
-}
-
-struct DreamQuery: Codable {
-  let page: Int
-  let criteria: Int
-  let alignment: Int
-  let category: Int?
-  let period: String?
-  let keyword: String?
 }

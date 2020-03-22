@@ -28,7 +28,7 @@ enum MongliAPI {
   case readMonthlyDreams(_ month: String)
   case readDailyDreams(_ date: String)
   case deleteDailyDreams(_ date: String)
-  case searchDream(_ query: DreamQuery)
+  case searchDream(_ query: SearchQuery)
 }
 
 extension MongliAPI: TargetType {

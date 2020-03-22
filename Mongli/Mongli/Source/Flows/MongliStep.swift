@@ -29,8 +29,8 @@ enum MongliStep: Step {
 
   // Search
   case searchIsRequired
-  case filterIsRequired(DreamQuery?)
-  case filterIsComplete(DreamQuery)
+  case filterIsRequired(SearchQuery?)
+  case filterIsComplete(SearchQuery)
 
   // More
   case moreIsRequired

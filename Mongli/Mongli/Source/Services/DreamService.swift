@@ -13,75 +13,99 @@ import RxSwift
 final class DreamService: Service, DreamServiceType {
   func createDream(_ dream: Dream) -> BasicResult {
     return provider.rx.request(.createDream(dream))
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map { _ in nil }
+      .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
   }
 
   func readDream(_ id: Int) -> DreamResult {
     return provider.rx.request(.readDream(id))
-      .asObservable()
       .filterSuccessfulStatusCodes()
       .map(Dream.self)
-      .map { ($0, nil) }
-      .catchError { [unowned self] in self.catchMongliError($0).map { (nil, $0) } }
+      .map { .success($0) }
+      .catchError { [unowned self] in
+        self.catchMongliError($0)
+          .map { result -> NetworkResultWithValue<Dream> in
+            switch result {
+            case .success: return .error(.unknown)
+            case .error(let err): return .error(err)
+            }
+        }
+      }
   }
 
   func updateDream(_ dream: Dream) -> BasicResult {
     return provider.rx.request(.updateDream(dream))
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map { _ in nil }
+      .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
   }
 
   func deleteDream(_ id: Int) -> BasicResult {
     return provider.rx.request(.deleteDream(id))
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map { _ in nil }
+      .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
   }
 
   func readMonthlyDreams(_ month: String) -> MonthlyDreamsResult {
     return provider.rx.request(.readMonthlyDreams(month))
-      .asObservable()
       .filterSuccessfulStatusCodes()
       .map(MonthlyDreams.self)
-      .map { ($0, nil) }
-      .catchError { [unowned self] in self.catchMongliError($0).map { (nil, $0) } }
+      .map { .success($0) }
+      .catchError { [unowned self] in
+        self.catchMongliError($0)
+          .map { result -> NetworkResultWithValue<MonthlyDreams> in
+            switch result {
+            case .success: return .error(.unknown)
+            case .error(let err): return .error(err)
+            }
+        }
+      }
   }
 
-  func readDailyDreams(_ date: String) -> DreamSummaryResult {
+  func readDailyDreams(_ date: String) -> SummaryDreamsResult {
     return provider.rx.request(.readDailyDreams(date))
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map(DreamSummaryJSON.self)
-      .map { json -> ([DreamSummary]?, LocalizedString?) in
-        guard let dreams = json["dreams"] else { return (nil, .unknownErrorMsg) }
-        return (dreams, nil)
+      .map(SummaryDreamsJSON.self)
+      .map { json -> NetworkResultWithValue<[SummaryDream]> in
+        guard let dreams = json["dreams"] else { return .error(.unknown) }
+        return .success(dreams)
       }
-      .catchError { [unowned self] in self.catchMongliError($0).map { (nil, $0) } }
+      .catchError { [unowned self] in
+        self.catchMongliError($0)
+          .map { result -> NetworkResultWithValue<[SummaryDream]> in
+            switch result {
+            case .success: return .error(.unknown)
+            case .error(let err): return .error(err)
+            }
+        }
+      }
   }
 
   func deleteDailyDreams(_ date: String) -> BasicResult {
     return provider.rx.request(.deleteDailyDreams(date))
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map { _ in nil }
+      .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
   }
 
-  func searchDream(_ query: DreamQuery) -> DreamSummaryResult {
+  func searchDream(_ query: SearchQuery) -> SummaryDreamsResult {
     return provider.rx.request(.searchDream(query))
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map(DreamSummaryJSON.self)
-      .map { json -> ([DreamSummary]?, LocalizedString?) in
-        guard let dreams = json["dreams"] else { return (nil, .unknownErrorMsg) }
-        return (dreams, nil)
+      .map(SummaryDreamsJSON.self)
+      .map { json -> NetworkResultWithValue<[SummaryDream]> in
+        guard let dreams = json["dreams"] else { return .error(.unknown) }
+        return .success(dreams)
       }
-      .catchError { [unowned self] in self.catchMongliError($0).map { (nil, $0) } }
+      .catchError { [unowned self] in
+        self.catchMongliError($0)
+          .map { result -> NetworkResultWithValue<[SummaryDream]> in
+            switch result {
+            case .success: return .error(.unknown)
+            case .error(let err): return .error(err)
+            }
+        }
+      }
   }
 }

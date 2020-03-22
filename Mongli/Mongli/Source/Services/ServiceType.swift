@@ -11,15 +11,15 @@ import Foundation
 import RxSwift
 
 typealias StringJSON = [String: String]
-typealias DreamSummaryJSON = [String: [DreamSummary]]
+typealias SummaryDreamsJSON = [String: [SummaryDream]]
 typealias MonthlyDreams = [String: [Int]]
 
 protocol ServiceType {
-  typealias BasicResult = Observable<LocalizedString?>
-  typealias AnalysisResult = Observable<(UserAnalysis?, LocalizedString?)>
-  typealias DreamResult = Observable<(Dream?, LocalizedString?)>
-  typealias MonthlyDreamsResult = Observable<(MonthlyDreams?, LocalizedString?)>
-  typealias DreamSummaryResult = Observable<([DreamSummary]?, LocalizedString?)>
+  typealias BasicResult = Single<NetworkResult>
+  typealias AnalysisResult = Single<NetworkResultWithValue<UserAnalysis>>
+  typealias DreamResult = Single<NetworkResultWithValue<Dream>>
+  typealias MonthlyDreamsResult = Single<NetworkResultWithValue<MonthlyDreams>>
+  typealias SummaryDreamsResult = Single<NetworkResultWithValue<[SummaryDream]>>
 
   var currentUserInfo: UserInfo? { get }
 }
@@ -39,7 +39,7 @@ protocol DreamServiceType: ServiceType {
   func updateDream(_ dream: Dream) -> BasicResult
   func deleteDream(_ id: Int) -> BasicResult
   func readMonthlyDreams(_ month: String) -> MonthlyDreamsResult
-  func readDailyDreams(_ date: String) -> DreamSummaryResult
+  func readDailyDreams(_ date: String) -> SummaryDreamsResult
   func deleteDailyDreams(_ date: String) -> BasicResult
-  func searchDream(_ query: DreamQuery) -> DreamSummaryResult
+  func searchDream(_ query: SearchQuery) -> SummaryDreamsResult
 }

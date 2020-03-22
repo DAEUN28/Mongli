@@ -25,39 +25,44 @@ final class AuthService: Service, AuthServiceType {
 
   func deleteUser() -> BasicResult {
     return provider.rx.request(.deleteUser)
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map { _ -> LocalizedString? in
-        if DatabaseManager.deleteAll() { return nil }
-        return .unknownErrorMsg
+      .map { _ -> NetworkResult in
+        if DatabaseManager.deleteAll() { return .success }
+        return .error(.unknown)
       }
-      .catchErrorJustReturn(.retryMsg)
+      .catchErrorJustReturn(.error(.unknown))
   }
 
   func rename(_ name: String) -> BasicResult {
     return provider.rx.request(.rename(name))
-      .asObservable()
       .filterSuccessfulStatusCodes()
-      .map { [weak self] _ -> LocalizedString? in
-        if let object = self?.currentUserInfo {
+      .map { [unowned self] _ -> NetworkResult in
+        if let object = self.currentUserInfo {
           object.name = name
-          if DatabaseManager.update(.info, object: object) { return nil }
-          return .unknownErrorMsg
+          if DatabaseManager.update(.info, object: object) { return .success }
+          return .error(.unknown)
         }
-        return .notFoundUserForcedLogoutMsg
+        return .error(.notFound)
       }
       .catchError { [unowned self] in self.catchMongliError($0) }
   }
 
   func readAnalysis() -> AnalysisResult {
     return provider.rx.request(.readAnalysis)
-      .asObservable()
       .filterSuccessfulStatusCodes()
       .map(UserAnalysis.self)
-      .map { userAnalysis -> (UserAnalysis?, LocalizedString?) in
-        if DatabaseManager.update(.analysis, object: userAnalysis) { return (userAnalysis, nil) }
-        return (nil, .unknownErrorMsg)
+      .map {
+        if DatabaseManager.update(.analysis, object: $0) { return .success($0) }
+        return .error(.unknown)
       }
-      .catchError { [unowned self] in self.catchMongliError($0).map { (nil, $0) } }
+      .catchError { [unowned self] in
+        self.catchMongliError($0)
+          .map { result -> NetworkResultWithValue<UserAnalysis> in
+            switch result {
+            case .success: return .error(.unknown)
+            case .error(let err): return .error(err)
+            }
+        }
+      }
   }
 }

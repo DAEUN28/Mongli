@@ -43,14 +43,14 @@ final class SignInViewReactor: Reactor {
         return .just(Mutation.setError(.notFoundUserErrorMsg))
       }
 
-
-      return self.service.signIn(credential.user, name: credential.fullName?.givenName)
-        .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
-        .catchErrorJustReturn(.timeoutErrorMsg)
-        .map { result -> Mutation in
-          guard let result = result else { return .setSignedIn(true) }
-          return .setError(result)
+      return self.service.signIn(credential.user, name: credential.fullName?.givenName).debug()
+        .map {
+          switch $0 {
+          case .success: return .setSignedIn(true)
+          case .error(let err): return .setError(err.message)
+          }
         }
+        .asObservable()
     }
   }
 

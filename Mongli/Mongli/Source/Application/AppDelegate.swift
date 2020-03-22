@@ -21,12 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   private let authService = AuthService()
   private let dreamService = DreamService()
+  lazy var appFlow: AppFlow? = {
+    guard let window = self.window else { return nil }
+    return AppFlow(window: window, authService: self.authService, dreamService: self.dreamService)
+  }()
 
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    if let flow = self.appFlow { self.setupFlow(flow) }
+    return true
+  }
+}
 
-    guard let window = self.window else { return false }
-
+extension AppDelegate {
+  func setupFlow(_ flow: AppFlow) {
     self.coordinator.rx.willNavigate.subscribe(onNext: { flow, step in
       log.info("will navigate to flow=\(flow) and step=\(step)")
     })
@@ -37,10 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     })
     .disposed(by: self.disposeBag)
 
-    let appFlow = AppFlow(window: window, authService: self.authService, dreamService: self.dreamService)
-
-    self.coordinator.coordinate(flow: appFlow, with: AppStepper(self.authService))
-
-    return true
+    self.coordinator.coordinate(flow: flow, with: AppStepper(self.authService))
   }
 }
