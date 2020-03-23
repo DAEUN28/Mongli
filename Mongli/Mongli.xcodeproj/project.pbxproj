@@ -10,7 +10,7 @@
 		3DCE17D7778FA759B09C2E49 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D91CE847018A2125172549A /* Pods_Mongli.framework */; };
 		74492B166BA435CC3A967352 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */; };
 		BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43271124273F2A00B1A9DE /* SearchQuery.swift */; };
-		BF4327142428800B00B1A9DE /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327132428800B00B1A9DE /* UserInfo.swift */; };
+		BF4327142428800B00B1A9DE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327132428800B00B1A9DE /* User.swift */; };
 		BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327152428C94100B1A9DE /* ReachabilityManager.swift */; };
 		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
 		BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* SignInViewController.swift */; };
@@ -31,7 +31,7 @@
 		BF4454C624210AC800632E38 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C524210AC800632E38 /* StorageManager.swift */; };
 		BF4454C92421130400632E38 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C82421130400632E38 /* Realm.swift */; };
 		BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454CD24211F1D00632E38 /* ServiceType.swift */; };
-		BF4454D024211FCD00632E38 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454CF24211FCD00632E38 /* NetworkError.swift */; };
+		BF4454D024211FCD00632E38 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454CF24211FCD00632E38 /* NetworkResult.swift */; };
 		BF4454D22421ED7B00632E38 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454D12421ED7B00632E38 /* Service.swift */; };
 		BF4454D824225C3000632E38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF4454DA24225C3000632E38 /* Localizable.strings */; };
 		BF4454DE24225EF600632E38 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454DD24225EF600632E38 /* LocalizedString.swift */; };
@@ -89,7 +89,7 @@
 		B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MongliTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBCB1D1B35A99011F0A4783 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF43271124273F2A00B1A9DE /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
-		BF4327132428800B00B1A9DE /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		BF4327132428800B00B1A9DE /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF4327152428C94100B1A9DE /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		BF44546F241E3FF800632E38 /* Mongli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 		BF4454C524210AC800632E38 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		BF4454C82421130400632E38 /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		BF4454CD24211F1D00632E38 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
-		BF4454CF24211FCD00632E38 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		BF4454CF24211FCD00632E38 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		BF4454D12421ED7B00632E38 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		BF4454D924225C3000632E38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BF4454DB24225CBC00632E38 /* ko */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ko; path = ko.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 		BF4454AE241F983F00632E38 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BF4327132428800B00B1A9DE /* UserInfo.swift */,
+				BF4327132428800B00B1A9DE /* User.swift */,
 				BF4454B1241FA63600632E38 /* Token.swift */,
 				BF4454B3241FA63D00632E38 /* Analysis.swift */,
 				BF4454BD2420ACB400632E38 /* Dream.swift */,
@@ -371,7 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				BF4454DD24225EF600632E38 /* LocalizedString.swift */,
-				BF4454CF24211FCD00632E38 /* NetworkError.swift */,
+				BF4454CF24211FCD00632E38 /* NetworkResult.swift */,
 				BF4455112424D16100632E38 /* Theme.swift */,
 				BF4455222424FD7300632E38 /* HeroID.swift */,
 			);
@@ -777,7 +777,7 @@
 				BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */,
 				BF4455232424FD7300632E38 /* HeroID.swift in Sources */,
 				BF44550524244ED800632E38 /* SearchViewReactor.swift in Sources */,
-				BF4454D024211FCD00632E38 /* NetworkError.swift in Sources */,
+				BF4454D024211FCD00632E38 /* NetworkResult.swift in Sources */,
 				BF4455252424FDAB00632E38 /* Hero.swift in Sources */,
 				BF4455142424DC0300632E38 /* UIColor.swift in Sources */,
 				BF4454F7242444BF00632E38 /* SignInViewReactor.swift in Sources */,
@@ -788,7 +788,7 @@
 				BF4454BE2420ACB400632E38 /* Dream.swift in Sources */,
 				BF44551C2424E93900632E38 /* FontManager.swift in Sources */,
 				BF4454FF24244E9600632E38 /* MoreViewController.swift in Sources */,
-				BF4327142428800B00B1A9DE /* UserInfo.swift in Sources */,
+				BF4327142428800B00B1A9DE /* User.swift in Sources */,
 				BF4454E724238DB800632E38 /* AppFlow.swift in Sources */,
 				BF44552E2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift in Sources */,
 				BF4454E02422683700632E38 /* AuthService.swift in Sources */,
