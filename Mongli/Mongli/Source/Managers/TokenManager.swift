@@ -29,8 +29,7 @@ struct TokenManager {
   private static let jwtDecoder = JWTDecoder(jwtVerifier: jwtVerifier)
 
   static var currentToken: Token? {
-    let info = StorageManager.shared.readUser()
-    return info?.token
+    return StorageManager.shared.readUser()?.token
   }
 
   static func userID() -> Int? {
@@ -51,7 +50,6 @@ struct TokenManager {
   static func refreshTokenIsVaildate() -> Bool {
     guard let token = currentToken?.refreshToken else { return false }
     return isVaildate(token)
-
   }
 
   static private func isVaildate(_ token: String) -> Bool {

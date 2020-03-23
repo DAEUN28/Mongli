@@ -11,6 +11,7 @@
 		74492B166BA435CC3A967352 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */; };
 		BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43271124273F2A00B1A9DE /* SearchQuery.swift */; };
 		BF4327142428800B00B1A9DE /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327132428800B00B1A9DE /* UserInfo.swift */; };
+		BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327152428C94100B1A9DE /* ReachabilityManager.swift */; };
 		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
 		BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* SignInViewController.swift */; };
 		BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF44547B241E3FFA00632E38 /* Assets.xcassets */; };
@@ -89,6 +90,7 @@
 		BCBCB1D1B35A99011F0A4783 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF43271124273F2A00B1A9DE /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
 		BF4327132428800B00B1A9DE /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		BF4327152428C94100B1A9DE /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		BF44546F241E3FF800632E38 /* Mongli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF445476241E3FF800632E38 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				BF4454BB2420A93500632E38 /* TokenManager.swift */,
 				BF4454C524210AC800632E38 /* StorageManager.swift */,
 				BF44551B2424E93900632E38 /* FontManager.swift */,
+				BF4327152428C94100B1A9DE /* ReachabilityManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -765,6 +768,7 @@
 				BF44552C2425019200632E38 /* UILabel.swift in Sources */,
 				BF4454DE24225EF600632E38 /* LocalizedString.swift in Sources */,
 				BF4455092424507100632E38 /* HomeFlow.swift in Sources */,
+				BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */,
 				BF4455122424D16100632E38 /* Theme.swift in Sources */,
 				BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */,
 				BF4454B2241FA63600632E38 /* Token.swift in Sources */,
