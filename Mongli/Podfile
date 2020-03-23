@@ -26,7 +26,6 @@ target 'Mongli' do
   pod 'CocoaLumberjack/Swift'
 
   # Database
-  pod 'Realm'
   pod 'RealmSwift'
 
   # Misc.

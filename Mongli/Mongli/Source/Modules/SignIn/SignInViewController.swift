@@ -56,9 +56,6 @@ final class SignInViewController: BaseViewController, View, Stepper {
   }
 
   override func setupConstraints() {
-    self.logoView.snp.makeConstraints {
-      $0.center.equalToSuperview()
-    }
     self.signInButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).inset(40)

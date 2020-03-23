@@ -52,9 +52,7 @@ final class AppFlow: Flow {
 // MARK: navigate functions
 extension AppFlow {
   private func showToast(message: LocalizedString) -> FlowContributors {
-    let alert = UIAlertController(title: "Warning", message: message.localized, preferredStyle: .alert)
-    alert.addAction(.init(title: "Cancel", style: .cancel))
-    self.rootWindow.rootViewController?.present(alert, animated: true)
+    self.rootWindow.rootViewController?.showToast(message)
     return .none
   }
 

@@ -19,12 +19,12 @@ final class LogoView: UIView {
   private let titleLabel = UILabel().then {
     $0.set(text: .mongli)
     $0.font = FontManager.hpi40B
-    $0.textColor = themeService.attrs.logoText
+    $0.theme.textColor = themed { $0.logoText }
   }
   private let subtitleLabel = UILabel().then {
     $0.set(text: .mongliSubtitle)
     $0.font = FontManager.hpi12M
-    $0.textColor = themeService.attrs.logoText
+    $0.theme.textColor = themed { $0.logoText }
   }
 
   // MARK: Initializing
@@ -49,6 +49,7 @@ final class LogoView: UIView {
     self.subtitleLabel.sizeToFit()
 
     self.snp.makeConstraints {
+      $0.center.equalToSuperview()
       $0.height.equalTo(200)
       $0.width.equalTo(200)
     }

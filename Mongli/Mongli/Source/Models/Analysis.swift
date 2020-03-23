@@ -10,7 +10,7 @@ import Foundation
 
 import RealmSwift
 
-class Analysis: Object, Codable {
+final class Analysis: Object, Codable {
   @objc dynamic var total: Int = 0
   @objc dynamic var red: Int = 0
   @objc dynamic var orange: Int = 0

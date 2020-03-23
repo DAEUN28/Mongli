@@ -12,6 +12,8 @@
 		BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43271124273F2A00B1A9DE /* SearchQuery.swift */; };
 		BF4327142428800B00B1A9DE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327132428800B00B1A9DE /* User.swift */; };
 		BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327152428C94100B1A9DE /* ReachabilityManager.swift */; };
+		BF43271A2428DE4E00B1A9DE /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327192428DE4E00B1A9DE /* ToastView.swift */; };
+		BF43271E2428DEEC00B1A9DE /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43271D2428DEEC00B1A9DE /* UIViewController.swift */; };
 		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
 		BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* SignInViewController.swift */; };
 		BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF44547B241E3FFA00632E38 /* Assets.xcassets */; };
@@ -91,6 +93,8 @@
 		BF43271124273F2A00B1A9DE /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
 		BF4327132428800B00B1A9DE /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF4327152428C94100B1A9DE /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
+		BF4327192428DE4E00B1A9DE /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		BF43271D2428DEEC00B1A9DE /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		BF44546F241E3FF800632E38 /* Mongli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF445476241E3FF800632E38 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +198,25 @@
 				B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF43271B2428DEC900B1A9DE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				BF4455132424DC0300632E38 /* UIColor.swift */,
+				BF44552B2425019200632E38 /* UILabel.swift */,
+				BF43271D2428DEEC00B1A9DE /* UIViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		BF43271C2428DED100B1A9DE /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				BF44550E242453CB00632E38 /* RxFlow.swift */,
+				BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */,
+			);
+			path = Rx;
 			sourceTree = "<group>";
 		};
 		BF445466241E3FF800632E38 = {
@@ -346,12 +369,10 @@
 		BF4454C7242112F900632E38 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BF43271C2428DED100B1A9DE /* Rx */,
+				BF43271B2428DEC900B1A9DE /* UI */,
 				BF4455242424FDAB00632E38 /* Hero.swift */,
 				BF4454C82421130400632E38 /* Realm.swift */,
-				BF44550E242453CB00632E38 /* RxFlow.swift */,
-				BF4455132424DC0300632E38 /* UIColor.swift */,
-				BF44552B2425019200632E38 /* UILabel.swift */,
-				BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -458,6 +479,7 @@
 		BF44551D2424F3CC00632E38 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BF4327192428DE4E00B1A9DE /* ToastView.swift */,
 				BF4455202424F89B00632E38 /* LogoView.swift */,
 			);
 			path = Components;
@@ -766,11 +788,13 @@
 				BF4454C92421130400632E38 /* Realm.swift in Sources */,
 				BF4454FD24244E7000632E38 /* HomeViewReactor.swift in Sources */,
 				BF44552C2425019200632E38 /* UILabel.swift in Sources */,
+				BF43271E2428DEEC00B1A9DE /* UIViewController.swift in Sources */,
 				BF4454DE24225EF600632E38 /* LocalizedString.swift in Sources */,
 				BF4455092424507100632E38 /* HomeFlow.swift in Sources */,
 				BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */,
 				BF4455122424D16100632E38 /* Theme.swift in Sources */,
 				BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */,
+				BF43271A2428DE4E00B1A9DE /* ToastView.swift in Sources */,
 				BF4454B2241FA63600632E38 /* Token.swift in Sources */,
 				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
 				BF44550124244EA000632E38 /* MoreViewReactor.swift in Sources */,

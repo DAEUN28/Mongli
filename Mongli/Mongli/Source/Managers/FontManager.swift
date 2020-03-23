@@ -25,6 +25,7 @@ struct FontManager {
   static let sys17SB = UIFont.systemFont(ofSize: 17, weight: .semibold)
 
   // 12롯데마트행복
+  static let hpi12L = UIFont(name: "12LotteMartHappyMedium", size: 12)!
   static let hpi12M = UIFont(name: "12LotteMartHappyMedium", size: 12)!
   static let hpi17L = UIFont(name: "12LotteMartHLight", size: 17)!
   static let hpi20L = UIFont(name: "12LotteMartHLight", size: 20)!

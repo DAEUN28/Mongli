@@ -3,6 +3,7 @@ included:
 
 excluded:
 - Pods
+- FontManager
 
 force_try:
   severity: warning
