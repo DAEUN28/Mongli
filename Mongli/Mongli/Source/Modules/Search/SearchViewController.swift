@@ -20,11 +20,11 @@ class SearchViewController: BaseViewController, View {
   init(_ reactor: Reactor) {
     self.reactor = reactor
   }
-  
+
   required convenience init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   func bind(reactor: Reactor) {
 
   }

@@ -16,16 +16,16 @@ typealias MonthlyDreams = [String: [Int]]
 
 protocol ServiceType {
   typealias BasicResult = Single<NetworkResult>
-  typealias AnalysisResult = Single<NetworkResultWithValue<UserAnalysis>>
+  typealias AnalysisResult = Single<NetworkResultWithValue<Analysis>>
   typealias DreamResult = Single<NetworkResultWithValue<Dream>>
   typealias MonthlyDreamsResult = Single<NetworkResultWithValue<MonthlyDreams>>
   typealias SummaryDreamsResult = Single<NetworkResultWithValue<[SummaryDream]>>
 
-  var currentUserInfo: UserInfo? { get }
+  var currentUser: User? { get }
 }
 
 protocol AuthServiceType: ServiceType {
-  var currentUserAnalysis: UserAnalysis? { get }
+  var currentUserAnalysis: Analysis? { get }
 
   func logout() -> BasicResult
   func deleteUser() -> BasicResult

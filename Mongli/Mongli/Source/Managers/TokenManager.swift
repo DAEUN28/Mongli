@@ -29,7 +29,7 @@ struct TokenManager {
   private static let jwtDecoder = JWTDecoder(jwtVerifier: jwtVerifier)
 
   static var currentToken: Token? {
-    let info = DatabaseManager.read(.info) as? UserInfo
+    let info = StorageManager.shared.readUser()
     return info?.token
   }
 

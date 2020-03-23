@@ -8,9 +8,7 @@
 
 import Foundation
 
-import RealmSwift
-
-class Token: Object, Codable {
-  @objc dynamic var accessToken: String?
-  @objc dynamic var refreshToken: String?
+struct Token: Codable {
+  var accessToken: String
+  var refreshToken: String
 }

@@ -15,8 +15,8 @@ import RxSwift
 class Service: ServiceType {
   let provider = MoyaProvider<MongliAPI>()
 
-  var currentUserInfo: UserInfo? {
-    return DatabaseManager.read(.info) as? UserInfo
+  var currentUser: User? {
+    return StorageManager.shared.readUser()
   }
 
   func signIn(_ uid: String, name: String?) -> BasicResult {
@@ -24,42 +24,41 @@ class Service: ServiceType {
       .filterSuccessfulStatusCodes()
       .map(Token.self)
       .map { [weak self] token -> NetworkResult in
-        let userInfo = UserInfo()
-        userInfo.uid = uid
-        userInfo.token = token
+        var user = User(uid: uid, name: "", token: token)
 
         if let name = name {
-          userInfo.name = name
+          user.name = name
         } else {
-          userInfo.name = TokenManager.userName(token.accessToken)
+          guard let name = TokenManager.userName(token.accessToken) else { return .error(.unknown) }
+          user.name = name
         }
 
-        if self?.currentUserInfo != nil {
-          if DatabaseManager.update(.info, object: userInfo) { return .success }
+        if self?.currentUser != nil {
+          if StorageManager.shared.updateUser(user) { return .success }
         }
 
-        if DatabaseManager.create(userInfo) { return .success }
+        if StorageManager.shared.createUser(user) { return .success }
         return .error(.unknown)
+    }
+    .retryWhen {
+      $0.flatMap { error -> Observable<Int> in
+        return NetworkError(error) == .conflict
+          ? Observable.error(error)
+          : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
       }
-      .retryWhen {
-        $0.flatMap { error -> Observable<Int> in
-          return NetworkError(error) == .conflict
-            ? Observable.error(error)
-            : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
-        }
-      }
-      .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
+    }
+    .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
   }
 
   func revokeToken() -> BasicResult {
     return provider.rx.request(.revokeToken)
       .filterSuccessfulStatusCodes()
       .map { _ -> NetworkResult in
-        if DatabaseManager.deleteAll() { return .success }
+        if StorageManager.shared.deleteAll() { return .success }
         return .error(.unknown)
-      }
-      .retry(1)
-      .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
+    }
+    .retry(1)
+    .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
   }
 
   func catchMongliError(_ error: Error) -> BasicResult {
@@ -80,40 +79,39 @@ class Service: ServiceType {
       .map(StringJSON.self)
       .map { [weak self] json -> NetworkResult in
         guard let token = json["accessToken"],
-          let self = self else { return .error(.unknown) }
+          let self = self,
+          var user = self.currentUser else { return .error(.unknown) }
 
-        if let object = self.currentUserInfo {
-          object.token?.accessToken = token
-          if DatabaseManager.update(.info, object: object) { throw NetworkError.ok }
-          return .error(.unknown)
-        }
-        return .error(.notFound)
+        user.token.accessToken = token
+        if StorageManager.shared.updateUser(user) { throw NetworkError.ok }
+        return .error(.unknown)
+
+    }
+    .retryWhen {
+      $0.flatMap { error -> Observable<Int> in
+        return NetworkError(error) != .ok
+          ? Observable.error(error)
+          : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
       }
-      .retryWhen {
-        $0.flatMap { error -> Observable<Int> in
-          return NetworkError(error) != .ok
-            ? Observable.error(error)
-            : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
+    }
+    .catchError { [weak self] error -> BasicResult in
+      guard let error = NetworkError(error),
+        let self = self else { return .just(.error(.unknown)) }
+
+      switch error {
+      case .unauthorized:
+        if let user = self.currentUser {
+          return self.signIn(user.uid, name: nil)
         }
+        return self.forceLogout()
+
+      case .notFound, .conflict:
+        return self.forceLogout()
+
+      default:
+        return .just(.error(error))
       }
-      .catchError { [weak self] error -> BasicResult in
-        guard let error = NetworkError(error),
-          let self = self else { return .just(.error(.unknown)) }
-
-        switch error {
-        case .unauthorized:
-          if let info = self.currentUserInfo, let uid = info.uid {
-            return self.signIn(uid, name: nil)
-          }
-          return self.forceLogout()
-
-        case .notFound, .conflict:
-          return self.forceLogout()
-
-        default:
-          return .just(.error(error))
-        }
-      }
+    }
   }
 
   private func forceLogout() -> BasicResult {
@@ -130,6 +128,6 @@ class Service: ServiceType {
         throw err
       }
     })
-    .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
+      .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
   }
 }
