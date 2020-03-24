@@ -9,7 +9,7 @@
 import UIKit
 
 extension UILabel {
-  func set(text: LocalizedString) {
+  func setText(_ text: LocalizedString) {
     self.text = text.localized
   }
 }

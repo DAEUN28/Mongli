@@ -16,7 +16,10 @@ class TabBarFlow: Flow {
     return self.rootViewController
   }
 
-  private let rootViewController = UITabBarController()
+  private let rootViewController = UITabBarController().then {
+    $0.tabBar.theme.tintColor = themed { $0.primary }
+    $0.tabBar.isTranslucent = false
+  }
   private let authService: AuthService
   private let dreamService: DreamService
 
@@ -44,33 +47,32 @@ class TabBarFlow: Flow {
 // MARK: navigate functions
 extension TabBarFlow {
   private func navigateToHome() -> FlowContributors {
-    let moreReactor = MoreViewReactor(self.authService)
-
     let homeFlow = HomeFlow(self.dreamService)
     let searchFlow = SearchFlow(self.dreamService)
+//    let moreVC = MoreViewController(moreReactor)
     let moreFlow = MoreFlow(self.authService)
 
     Flows.whenReady(flow1: homeFlow, flow2: searchFlow, flow3: moreFlow) { [unowned self] home, search, more in
 
-      let images = [("house", "house.fill"),
-                    ("magnifyingglass", "magnifyingglass"),
-                    ("ellipsis", "ellipsis")]
+      let keys: [SFSymbolKey] = [.house, .magnifyingglass, .ellipsis]
 
-      for i in 0..<images.count {
-        let image = UIImage(systemName: images[i].0)?.then {
-          $0.applyingSymbolConfiguration(.init(weight: .medium))
-          $0.withTintColor(.gray)
-        }
-        let selectedImage = UIImage(systemName: images[i].1)?.then {
-          $0.applyingSymbolConfiguration(.init(weight: .medium))
-          $0.withTintColor(.purple)
-        }
-        let item = UITabBarItem(title: nil, image: image, selectedImage: selectedImage)
+      for i in 0..<keys.count {
+        let image = UIImage(keys[i])
+        let item = UITabBarItem(title: nil, image: image, selectedImage: nil)
 
         switch i {
-        case 0: home.tabBarItem = item
-        case 1: search.tabBarItem = item
-        case 2: more.tabBarItem = item
+        case 0:
+          home.tabBarItem = item
+          home.title = LocalizedString.home.localized
+
+        case 1:
+          search.tabBarItem = item
+          search.title = LocalizedString.search.localized
+
+        case 2:
+          more.tabBarItem = item
+          more.title = LocalizedString.more.localized
+
         default: break
         }
       }
@@ -83,6 +85,6 @@ extension TabBarFlow {
                                         .contribute(withNextPresentable: searchFlow,
                                                     withNextStepper: OneStepper(.searchIsRequired)),
                                         .contribute(withNextPresentable: moreFlow,
-                                                    withNextStepper: moreReactor)])
+                                                    withNextStepper: OneStepper(.moreIsRequired))])
   }
 }

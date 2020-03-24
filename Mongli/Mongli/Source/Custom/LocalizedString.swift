@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum LocalizedString: String {
+enum LocalizedString: String, Equatable {
+
   // Basic Error
   case unknownErrorMsg
   case badRequestErrorMsg
@@ -27,6 +28,25 @@ enum LocalizedString: String {
   case mongli
   case mongliSubtitle
   case retryMsg
+  case aDreamOfDateFormat
+  case allTheDreamsOfDateFormat
+  case home
+  case search
+  case more
+
+  // Category
+  case red
+  case orange
+  case yellow
+  case green
+  case teal
+  case blue
+  case indigo
+  case purple
+
+  // Home
+  case deleteAllDream
+  case calendarHeaderDateFormat
 
   // Not Localized
   case noContent
@@ -35,5 +55,12 @@ enum LocalizedString: String {
 extension LocalizedString {
   var localized: String {
     return NSLocalizedString(self.rawValue, comment: "")
+  }
+
+  func localizedDateString(_ string: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = self.localized
+    guard let date = dateFormatter.date(from: string) else { return "It's not Date" }
+    return dateFormatter.string(from: date)
   }
 }

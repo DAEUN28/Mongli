@@ -9,7 +9,6 @@
 import AuthenticationServices
 import UIKit
 
-import Hero
 import ReactorKit
 import RxCocoa
 import RxFlow
@@ -23,14 +22,15 @@ final class SignInViewController: BaseViewController, View, Stepper {
 
   var steps = PublishRelay<Step>()
 
-  private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
-  private let logoView = LogoView()
-
   private let controller: ASAuthorizationController = {
     let request = ASAuthorizationAppleIDProvider().createRequest()
     request.requestedScopes = [.fullName]
     return ASAuthorizationController(authorizationRequests: [request])
   }()
+
+  // UI
+  private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
+  private let logoView = LogoView()
 
   // MARK: initializing
 
@@ -58,13 +58,13 @@ final class SignInViewController: BaseViewController, View, Stepper {
   override func setupConstraints() {
     self.signInButton.snp.makeConstraints {
       $0.height.equalTo(44)
-      $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).inset(40)
-      $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(40)
-      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+      $0.leading.equalTo(self.view.snp.leading).inset(40)
+      $0.trailing.equalTo(self.view.snp.trailing).inset(40)
+      $0.bottom.equalTo(self.view.snp.bottom)
     }
   }
 
-  override func setupAction() {
+  override func setupUserInteraction() {
     self.signInButton.rx.controlEvent(.touchUpInside)
       .subscribe(onNext: { [weak self] _ in
         self?.controller.performRequests()

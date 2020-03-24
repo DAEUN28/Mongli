@@ -9,15 +9,19 @@
 import UIKit
 
 import ReactorKit
-import RxSwift
 import RxCocoa
+import RxFlow
+import RxSwift
 
-class MoreViewController: BaseViewController, View {
+class MoreViewController: BaseViewController, View, Stepper {
+  var steps = PublishRelay<Step>()
+
   typealias Reactor = MoreViewReactor
 
   var reactor: Reactor?
 
   init(_ reactor: Reactor) {
+    super.init()
     self.reactor = reactor
   }
 

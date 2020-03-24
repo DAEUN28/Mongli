@@ -48,7 +48,7 @@ extension HomeFlow {
     let reactor = HomeViewReactor(self.service)
     let vc = HomeViewController(reactor)
 
-    return .one(flowContributor: .contribute(withNextPresentable: vc,
-                                             withNextStepper: reactor))
+    self.rootViewController.setViewControllers([vc], animated: false)
+    return .one(flowContributor: .contribute(withNext: vc))
   }
 }

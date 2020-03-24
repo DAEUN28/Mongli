@@ -17,12 +17,12 @@ final class LogoView: UIView {
   // MARK: UI
 
   private let titleLabel = UILabel().then {
-    $0.set(text: .mongli)
+    $0.setText(.mongli)
     $0.font = FontManager.hpi40B
     $0.theme.textColor = themed { $0.logoText }
   }
   private let subtitleLabel = UILabel().then {
-    $0.set(text: .mongliSubtitle)
+    $0.setText(.mongliSubtitle)
     $0.font = FontManager.hpi12M
     $0.theme.textColor = themed { $0.logoText }
   }

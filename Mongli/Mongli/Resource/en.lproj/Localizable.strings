@@ -24,3 +24,22 @@
 "mongli" = "Mongli";
 "mongliSubtitle" = ":while dreaming";
 "retryMsg" = "다시 한번 시도해주세요";
+"aDreamOfDateFormat" = "Dream of MMMM d, yyyy";
+"allTheDreamsOfDateFormat" = "All the dreams of MMMM d, yyyy";
+"home" = "Home";
+"search" = "Search";
+"more" = "More";
+
+// Category
+"red" = "흉몽";
+"orange" = "길몽";
+"yellow" = "예지몽";
+"green" = "역몽";
+"blue" = "태몽";
+"teal" = "자각몽";
+"indigo" = "잡몽";
+"purple" = "기타";
+
+// Home
+"deleteAllDream" = "모든 꿈 삭제";
+"calendarHeaderDateFormat" = "MMMM yyyy";

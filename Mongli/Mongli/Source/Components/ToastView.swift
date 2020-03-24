@@ -21,9 +21,9 @@ final class ToastView: UIView {
 
   init(_ message: LocalizedString) {
     super.init(frame: .zero)
+    self.label.setText(message)
     self.theme.backgroundColor = themed { $0.primary }
     self.alpha = 1
-    self.label.set(text: message)
 
     let layer = CAShapeLayer()
 

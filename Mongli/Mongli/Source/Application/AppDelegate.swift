@@ -26,10 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return AppFlow(window: window, authService: self.authService, dreamService: self.dreamService)
   }()
 
+  // MARK: App Life Cycle
+
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     if let flow = self.appFlow { self.setupFlow(flow) }
     return true
+  }
+
+  func applicationDidBecomeActive(_ application: UIApplication) {
+    if UITraitCollection.current.userInterfaceStyle == .dark {
+      themeService.switch(.dark)
+    } else {
+      themeService.switch(.light)
+    }
   }
 }
 

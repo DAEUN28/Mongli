@@ -13,14 +13,12 @@ import RxCocoa
 import RxFlow
 import RxSwift
 
-final class MoreViewReactor: Reactor, Stepper {
+final class MoreViewReactor: Reactor {
   var initialState: String = ""
 
   typealias Action = NoAction
 
   typealias State = String
-
-  var steps = PublishRelay<Step>()
 
   let service: AuthService
 

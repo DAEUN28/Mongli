@@ -21,6 +21,8 @@ target 'Mongli' do
 
   # UI
   pod 'SnapKit'
+  pod 'Hero'
+  pod 'FSCalendar'
 
   # Logging
   pod 'CocoaLumberjack/Swift'
@@ -32,7 +34,6 @@ target 'Mongli' do
   pod 'Then'
   pod 'SwiftLint'
   pod 'SwiftJWT'
-  pod 'Hero'
 
   # SDK
   pod 'Crashlytics'

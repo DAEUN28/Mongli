@@ -16,16 +16,6 @@ protocol Theme {
   var primary: UIColor { get }
   var assistant: UIColor { get }
 
-  // Category Palette
-  var red: UIColor { get }
-  var orange: UIColor { get }
-  var yellow: UIColor { get }
-  var green: UIColor { get }
-  var teal: UIColor { get }
-  var blue: UIColor { get }
-  var indigo: UIColor { get }
-  var purple: UIColor { get }
-
   // Util Palette
   var background: UIColor { get }
   var text: UIColor { get }
@@ -37,15 +27,6 @@ protocol Theme {
 }
 
 extension Theme {
-  var red: UIColor { .init(hex: 0xFF6C64) }
-  var orange: UIColor { .init(hex: 0xFF9F0A) }
-  var yellow: UIColor { .init(hex: 0xFFD60A) }
-  var green: UIColor { .init(hex: 0x32D74B) }
-  var teal: UIColor { .init(hex: 0x64D2FF) }
-  var blue: UIColor { .init(hex: 0x2491FF) }
-  var indigo: UIColor { .init(hex: 0x5E5CE6) }
-  var purple: UIColor { .init(hex: 0xBF5AF2) }
-
   var buttonEnable: UIColor { self.primary }
   var buttonDisable: UIColor { .clear }
   var logoText: UIColor { .init(hex: 0x404040) }
@@ -69,7 +50,7 @@ struct LightTheme: Theme {
 struct DarkTheme: Theme {
   var primary: UIColor { .init(hex: 0xA8C0FF) }
   var assistant: UIColor { .init(hex: 0x3F2B96) }
-  var background: UIColor { .init(hex: 0x1C1C1D, alpha: 0.94) }
+  var background: UIColor { .init(hex: 0x1C1C1D) }
   var text: UIColor { .white }
   var placeholder: UIColor { .init(hex: 0x959595) }
 }

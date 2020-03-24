@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+import RxTheme
+import RxCocoa
 import RxSwift
 
 class BaseViewController: UIViewController {
@@ -50,7 +52,7 @@ class BaseViewController: UIViewController {
   override func viewDidLoad() {
     self.view.setNeedsUpdateConstraints()
     self.setupViews()
-    self.setupAction()
+    self.setupUserInteraction()
     self.setupBackground()
   }
 
@@ -67,11 +69,9 @@ class BaseViewController: UIViewController {
   // MARK: Setup
 
   func setupViews() { }
-  func setupAction() { }
+  func setupUserInteraction() { }
 
   private func setupBackground() {
-    let gradient = themeService.attrs.gradient
-    gradient.frame = self.view.bounds
-    self.view.layer.addSublayer(gradient)
+    self.view.layer.theme.backgroundGradient = themed { $0.gradient }
   }
 }
