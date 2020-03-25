@@ -13,6 +13,7 @@ import RxSwift
 final class DreamService: Service, DreamServiceType {
   func createDream(_ dream: Dream) -> BasicResult {
     return provider.rx.request(.createDream(dream))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
@@ -20,6 +21,7 @@ final class DreamService: Service, DreamServiceType {
 
   func readDream(_ id: Int) -> DreamResult {
     return provider.rx.request(.readDream(id))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(Dream.self)
       .map { .success($0) }
@@ -36,6 +38,7 @@ final class DreamService: Service, DreamServiceType {
 
   func updateDream(_ dream: Dream) -> BasicResult {
     return provider.rx.request(.updateDream(dream))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
@@ -43,6 +46,7 @@ final class DreamService: Service, DreamServiceType {
 
   func deleteDream(_ id: Int) -> BasicResult {
     return provider.rx.request(.deleteDream(id))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
@@ -50,6 +54,7 @@ final class DreamService: Service, DreamServiceType {
 
   func readMonthlyDreams(_ month: String) -> MonthlyDreamsResult {
     return provider.rx.request(.readMonthlyDreams(month))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(MonthlyDreams.self)
       .map { .success($0) }
@@ -66,6 +71,7 @@ final class DreamService: Service, DreamServiceType {
 
   func readDailyDreams(_ date: String) -> SummaryDreamsResult {
     return provider.rx.request(.readDailyDreams(date))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(SummaryDreamsJSON.self)
       .map { json -> NetworkResultWithValue<[SummaryDream]> in
@@ -85,6 +91,7 @@ final class DreamService: Service, DreamServiceType {
 
   func deleteDailyDreams(_ date: String) -> BasicResult {
     return provider.rx.request(.deleteDailyDreams(date))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
@@ -92,6 +99,7 @@ final class DreamService: Service, DreamServiceType {
 
   func searchDream(_ query: SearchQuery) -> SummaryDreamsResult {
     return provider.rx.request(.searchDream(query))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(SummaryDreamsJSON.self)
       .map { json -> NetworkResultWithValue<[SummaryDream]> in

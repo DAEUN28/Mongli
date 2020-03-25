@@ -21,6 +21,7 @@ class Service: ServiceType {
 
   func signIn(_ uid: String, name: String?) -> BasicResult {
     return provider.rx.request(.signIn(uid, name: name))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(Token.self)
       .map { [weak self] token -> NetworkResult in
@@ -52,6 +53,7 @@ class Service: ServiceType {
 
   func revokeToken() -> BasicResult {
     return provider.rx.request(.revokeToken)
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ -> NetworkResult in
         if StorageManager.shared.deleteAll() { return .success }
@@ -75,6 +77,7 @@ class Service: ServiceType {
 
   private func renewalToken() -> BasicResult {
     return provider.rx.request(.renewalToken)
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(StringJSON.self)
       .map { [weak self] json -> NetworkResult in

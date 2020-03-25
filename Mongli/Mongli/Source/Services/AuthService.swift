@@ -25,6 +25,7 @@ final class AuthService: Service, AuthServiceType {
 
   func deleteUser() -> BasicResult {
     return provider.rx.request(.deleteUser)
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ -> NetworkResult in
         if StorageManager.shared.deleteAll() { return .success }
@@ -35,6 +36,7 @@ final class AuthService: Service, AuthServiceType {
 
   func rename(_ name: String) -> BasicResult {
     return provider.rx.request(.rename(name))
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { [unowned self] _ -> NetworkResult in
         if var user = self.currentUser {
@@ -49,6 +51,7 @@ final class AuthService: Service, AuthServiceType {
 
   func readAnalysis() -> AnalysisResult {
     return provider.rx.request(.readAnalysis)
+      .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(Analysis.self)
       .map {
