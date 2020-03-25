@@ -10,7 +10,6 @@ import UIKit
 
 import RxSwift
 import SnapKit
-import Then
 
 final class LogoView: UIView {
 

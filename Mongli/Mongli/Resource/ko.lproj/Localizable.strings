@@ -24,11 +24,16 @@
 "mongli" = "몽리";
 "mongliSubtitle" = ":꿈을 꾸는 동안";
 "retryMsg" = "다시 한번 시도해주세요";
+"deletedMsg" = "삭제되었습니다";
 "aDreamOfDateFormat" = "yyyy년 M월 d일의 꿈";
 "allTheDreamsOfDateFormat" = "yyyy년 M월 d일의 모든 꿈";
 "home" = "홈";
 "search" = "검색";
 "more" = "더보기";
+
+// Placeholder
+"noContentText" = "꿈이 없어요ㅠㅠ";
+"noSearchedContentText" = "검색결과가 없어요ㅠㅠ";
 
 // Category
 "red" = "흉몽";

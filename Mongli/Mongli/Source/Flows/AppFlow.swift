@@ -11,7 +11,6 @@ import UIKit
 import RxCocoa
 import RxFlow
 import RxSwift
-import Then
 
 // MARK: Flow
 final class AppFlow: Flow {

@@ -9,7 +9,6 @@
 import UIKit
 
 import SnapKit
-import Then
 
 final class SummaryDreamTableViewCell: UITableViewCell {
 
@@ -65,8 +64,8 @@ final class SummaryDreamTableViewCell: UITableViewCell {
       self.backgroundColor = backgroundColor
     }
     if let dateString = dream.date,
-      let date = dateFormatter.date(from: dateString) {
-      self.dateLabel.text = dateFormatter.string(from: date)
+      let date = self.dateFormatter.date(from: dateString) {
+      self.dateLabel.text = self.dateFormatter.string(from: date)
       self.dateLabel.isHidden = false
     }
     self.titleLabel.text = dream.title
@@ -81,10 +80,10 @@ final class SummaryDreamTableViewCell: UITableViewCell {
     self.dateLabel.sizeToFit()
 
     self.cloudImageView.snp.makeConstraints {
-      $0.width.equalTo(20)
-      $0.height.equalTo(20)
       $0.centerY.equalToSuperview()
       $0.trailing.equalToSuperview().inset(12)
+      $0.width.equalTo(20)
+      $0.height.equalTo(20)
     }
     self.titleLabel.snp.makeConstraints {
       $0.top.equalToSuperview().inset(12)

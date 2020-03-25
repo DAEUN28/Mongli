@@ -28,7 +28,7 @@ final class SignInViewController: BaseViewController, View, Stepper {
     return ASAuthorizationController(authorizationRequests: [request])
   }()
 
-  // UI
+  // MARK: UI
   private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
   private let logoView = LogoView()
 
@@ -102,6 +102,8 @@ extension SignInViewController {
       .disposed(by: self.disposeBag)
   }
 }
+
+// MARK: ASAuthorizationControllerPresentationContextProviding
 
 extension SignInViewController: ASAuthorizationControllerPresentationContextProviding {
   func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {

@@ -25,7 +25,6 @@ enum MongliStep: Step {
 
   // Home
   case homeIsRequired
-  case dreamIsPicked(Int)
 
   // Search
   case searchIsRequired

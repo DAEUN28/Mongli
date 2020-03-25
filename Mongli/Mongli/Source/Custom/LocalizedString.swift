@@ -28,11 +28,16 @@ enum LocalizedString: String, Equatable {
   case mongli
   case mongliSubtitle
   case retryMsg
+  case deletedMsg
   case aDreamOfDateFormat
   case allTheDreamsOfDateFormat
   case home
   case search
   case more
+
+  // Placeholder
+  case noContentText
+  case noSearchedContentText
 
   // Category
   case red
@@ -48,8 +53,6 @@ enum LocalizedString: String, Equatable {
   case deleteAllDream
   case calendarHeaderDateFormat
 
-  // Not Localized
-  case noContent
 }
 
 extension LocalizedString {

@@ -59,7 +59,6 @@ final class ToastView: UIView {
       $0.trailing.equalToSuperview().inset(8)
       $0.bottom.equalToSuperview()
     }
-
     self.label.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.leading.equalToSuperview().inset(12)

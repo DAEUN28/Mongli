@@ -7,7 +7,6 @@
 //
 
 import CocoaLumberjack
-import Then
 
 extension DDLogFlag {
   public var level: String {
@@ -43,9 +42,6 @@ private class LogFormatter: NSObject, DDLogFormatter {
   }
 
 }
-
-/// A shared instance of `Logger`.
-let log = Logger()
 
 final class Logger {
 

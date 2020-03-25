@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		3DCE17D7778FA759B09C2E49 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D91CE847018A2125172549A /* Pods_Mongli.framework */; };
 		74492B166BA435CC3A967352 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */; };
+		BF330A07242B462600271BFC /* RxTheme+FSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */; };
+		BF330A09242B4DFB00271BFC /* FSCalendar+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A08242B4DFB00271BFC /* FSCalendar+Rx.swift */; };
+		BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */; };
+		BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0C242B5F8400271BFC /* PlaceholderView.swift */; };
+		BF330A12242B724B00271BFC /* CreateDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A10242B6F0700271BFC /* CreateDreamViewController.swift */; };
+		BF330A13242B724D00271BFC /* CreateDreamViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A11242B6F0700271BFC /* CreateDreamViewReactor.swift */; };
+		BF330A14242B725200271BFC /* ReadDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0F242B6F0200271BFC /* ReadDreamViewController.swift */; };
+		BF330A15242B725500271BFC /* ReadDreamViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */; };
 		BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43271124273F2A00B1A9DE /* SearchQuery.swift */; };
 		BF4327142428800B00B1A9DE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327132428800B00B1A9DE /* User.swift */; };
 		BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327152428C94100B1A9DE /* ReachabilityManager.swift */; };
@@ -23,6 +31,7 @@
 		BF43272F242A352600B1A9DE /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43272E242A352600B1A9DE /* Keys.swift */; };
 		BF432731242A366700B1A9DE /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF432730242A366700B1A9DE /* UIImage.swift */; };
 		BF432733242A38FA00B1A9DE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF432732242A38FA00B1A9DE /* Category.swift */; };
+		BF432735242B2DC900B1A9DE /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF432734242B2DC900B1A9DE /* Spinner.swift */; };
 		BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445472241E3FF800632E38 /* AppDelegate.swift */; };
 		BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF445476241E3FF800632E38 /* SignInViewController.swift */; };
 		BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF44547B241E3FFA00632E38 /* Assets.xcassets */; };
@@ -96,6 +105,14 @@
 		5FC16AFACA234A05573030B5 /* Pods-Mongli.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli.release.xcconfig"; path = "Target Support Files/Pods-Mongli/Pods-Mongli.release.xcconfig"; sourceTree = "<group>"; };
 		B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MongliTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBCB1D1B35A99011F0A4783 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxTheme+FSCalendar.swift"; sourceTree = "<group>"; };
+		BF330A08242B4DFB00271BFC /* FSCalendar+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSCalendar+Rx.swift"; sourceTree = "<group>"; };
+		BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
+		BF330A0C242B5F8400271BFC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
+		BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDreamViewReactor.swift; sourceTree = "<group>"; };
+		BF330A0F242B6F0200271BFC /* ReadDreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDreamViewController.swift; sourceTree = "<group>"; };
+		BF330A10242B6F0700271BFC /* CreateDreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDreamViewController.swift; sourceTree = "<group>"; };
+		BF330A11242B6F0700271BFC /* CreateDreamViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDreamViewReactor.swift; sourceTree = "<group>"; };
 		BF43271124273F2A00B1A9DE /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
 		BF4327132428800B00B1A9DE /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF4327152428C94100B1A9DE /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
@@ -110,6 +127,7 @@
 		BF43272E242A352600B1A9DE /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		BF432730242A366700B1A9DE /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		BF432732242A38FA00B1A9DE /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		BF432734242B2DC900B1A9DE /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		BF44546F241E3FF800632E38 /* Mongli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF445476241E3FF800632E38 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -227,9 +245,11 @@
 		BF43271C2428DED100B1A9DE /* Rx */ = {
 			isa = PBXGroup;
 			children = (
-				BF44550E242453CB00632E38 /* RxFlow.swift */,
 				BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */,
+				BF330A08242B4DFB00271BFC /* FSCalendar+Rx.swift */,
+				BF44550E242453CB00632E38 /* RxFlow.swift */,
 				BF4327242429DF1500B1A9DE /* RxTheme+CALayer.swift */,
+				BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -406,11 +426,12 @@
 		BF4454D524225B2300632E38 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				BF432732242A38FA00B1A9DE /* Category.swift */,
+				BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */,
+				BF43272E242A352600B1A9DE /* Keys.swift */,
 				BF4454DD24225EF600632E38 /* LocalizedString.swift */,
 				BF4454CF24211FCD00632E38 /* NetworkResult.swift */,
 				BF4455112424D16100632E38 /* Theme.swift */,
-				BF43272E242A352600B1A9DE /* Keys.swift */,
-				BF432732242A38FA00B1A9DE /* Category.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -474,6 +495,8 @@
 		BF4454F32424429F00632E38 /* CreateDream */ = {
 			isa = PBXGroup;
 			children = (
+				BF330A10242B6F0700271BFC /* CreateDreamViewController.swift */,
+				BF330A11242B6F0700271BFC /* CreateDreamViewReactor.swift */,
 			);
 			path = CreateDream;
 			sourceTree = "<group>";
@@ -481,6 +504,8 @@
 		BF4454F4242442D400632E38 /* ReadDream */ = {
 			isa = PBXGroup;
 			children = (
+				BF330A0F242B6F0200271BFC /* ReadDreamViewController.swift */,
+				BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */,
 			);
 			path = ReadDream;
 			sourceTree = "<group>";
@@ -495,10 +520,12 @@
 		BF44551D2424F3CC00632E38 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BF4327192428DE4E00B1A9DE /* ToastView.swift */,
-				BF4455202424F89B00632E38 /* LogoView.swift */,
 				BF43271F2428F80D00B1A9DE /* CoverView.swift */,
+				BF4455202424F89B00632E38 /* LogoView.swift */,
+				BF330A0C242B5F8400271BFC /* PlaceholderView.swift */,
+				BF432734242B2DC900B1A9DE /* Spinner.swift */,
 				BF43272C242A345800B1A9DE /* SummaryDreamTableViewCell.swift */,
+				BF4327192428DE4E00B1A9DE /* ToastView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -795,8 +822,10 @@
 				BF4454E22422701000632E38 /* DreamService.swift in Sources */,
 				BF432731242A366700B1A9DE /* UIImage.swift in Sources */,
 				BF4455212424F89B00632E38 /* LogoView.swift in Sources */,
+				BF330A15242B725500271BFC /* ReadDreamViewReactor.swift in Sources */,
 				BF4454E52423703000632E38 /* MongliStep.swift in Sources */,
 				BF4454B4241FA63D00632E38 /* Analysis.swift in Sources */,
+				BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */,
 				BF4454D22421ED7B00632E38 /* Service.swift in Sources */,
 				BF4454EB24239CFB00632E38 /* BaseViewController.swift in Sources */,
 				BF4454C624210AC800632E38 /* StorageManager.swift in Sources */,
@@ -808,10 +837,12 @@
 				BF44550B2424507B00632E38 /* SearchFlow.swift in Sources */,
 				BF4327202428F80D00B1A9DE /* CoverView.swift in Sources */,
 				BF4454C92421130400632E38 /* Realm.swift in Sources */,
+				BF432735242B2DC900B1A9DE /* Spinner.swift in Sources */,
 				BF4454FD24244E7000632E38 /* HomeViewReactor.swift in Sources */,
 				BF44552C2425019200632E38 /* UILabel.swift in Sources */,
 				BF43271E2428DEEC00B1A9DE /* UIViewController.swift in Sources */,
 				BF4454DE24225EF600632E38 /* LocalizedString.swift in Sources */,
+				BF330A12242B724B00271BFC /* CreateDreamViewController.swift in Sources */,
 				BF4455092424507100632E38 /* HomeFlow.swift in Sources */,
 				BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */,
 				BF4455122424D16100632E38 /* Theme.swift in Sources */,
@@ -821,9 +852,12 @@
 				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
 				BF44550124244EA000632E38 /* MoreViewReactor.swift in Sources */,
 				BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */,
+				BF330A14242B725200271BFC /* ReadDreamViewController.swift in Sources */,
 				BF44550524244ED800632E38 /* SearchViewReactor.swift in Sources */,
 				BF4454D024211FCD00632E38 /* NetworkResult.swift in Sources */,
 				BF4327292429F11900B1A9DE /* SnapKit.swift in Sources */,
+				BF330A13242B724D00271BFC /* CreateDreamViewReactor.swift in Sources */,
+				BF330A09242B4DFB00271BFC /* FSCalendar+Rx.swift in Sources */,
 				BF4455142424DC0300632E38 /* UIColor.swift in Sources */,
 				BF4454F7242444BF00632E38 /* SignInViewReactor.swift in Sources */,
 				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,
@@ -841,6 +875,8 @@
 				BF4454E02422683700632E38 /* AuthService.swift in Sources */,
 				BF44550724244F7700632E38 /* TabBarFlow.swift in Sources */,
 				BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */,
+				BF330A07242B462600271BFC /* RxTheme+FSCalendar.swift in Sources */,
+				BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */,
 				BF43272F242A352600B1A9DE /* Keys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

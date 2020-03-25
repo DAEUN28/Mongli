@@ -7,13 +7,13 @@
 //
 
 import AuthenticationServices
-import Foundation
 
 import ReactorKit
 import RxCocoa
 import RxSwift
 
 final class SignInViewReactor: Reactor {
+
   enum Action {
     case signIn(ASAuthorization?)
   }
@@ -29,7 +29,6 @@ final class SignInViewReactor: Reactor {
   }
 
   let initialState: State = State()
-
   private let service: AuthService
 
   init(_ service: AuthService) {
@@ -40,19 +39,20 @@ final class SignInViewReactor: Reactor {
     switch action {
     case .signIn(let authorization):
       guard let credential = authorization?.credential as? ASAuthorizationAppleIDCredential else {
-        return .just(Mutation.setError(.notFoundUserErrorMsg))
+        return .just(.setError(.notFoundUserErrorMsg))
       }
 
-      return self.service.signIn(credential.user, name: credential.fullName?.givenName)
-        .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
-        .debug()
-        .map {
-          switch $0 {
-          case .success: return .setSignedIn(true)
-          case .error(let err): return .setError(err.message)
+      let result: Observable<Mutation>
+        = self.service.signIn(credential.user, name: credential.fullName?.givenName)
+          .asObservable()
+          .map {
+            switch $0 {
+            case .success: return .setSignedIn(true)
+            case .error(let error): return .setError(error.message)
+            }
           }
-        }
-        .asObservable()
+
+      return result
     }
   }
 
