@@ -8,10 +8,19 @@
 
 import UIKit
 
+import RxCocoa
 import RxSwift
 import SnapKit
 
 final class DreamView: UIView {
+
+  // MARK: Properties
+
+  let category = BehaviorRelay<Category>(value: .red)
+  let title: Observable<String?>
+  let content: Observable<String?>
+
+  private let disposeBag = DisposeBag()
 
   // MARK: UI
 
@@ -77,6 +86,9 @@ final class DreamView: UIView {
   // MARK: Initializing
 
   override init(frame: CGRect) {
+    self.title = self.titleTextField.rx.text.distinctUntilChanged()
+    self.content = self.contentTextView.rx.text.distinctUntilChanged()
+
     super.init(frame: frame)
 
     self.subStackView1.addArrangedSubview(self.redButton)
@@ -96,6 +108,12 @@ final class DreamView: UIView {
     self.addSubview(self.titleTextField)
     self.addSubview(self.contentTextView)
     self.addSubview(self.contentTextViewPlaceholder)
+
+    self.setupCategoryButton()
+
+    self.content.map { $0 != nil }
+      .bind(to: self.contentTextViewPlaceholder.rx.isHidden)
+      .disposed(by: self.disposeBag)
   }
 
   required init(coder: NSCoder) {
@@ -145,5 +163,35 @@ final class DreamView: UIView {
       $0.leading.equalTo(self.contentTextView.snp.leading).inset(12)
       $0.trailing.equalTo(self.contentTextView.snp.trailing).inset(12)
     }
+  }
+}
+
+extension DreamView {
+  private func setupCategoryButton() {
+    let buttons = [self.redButton,
+                   self.orangeButton,
+                   self.yellowButton,
+                   self.greenButton,
+                   self.tealButton,
+                   self.blueButton,
+                   self.indigoButton,
+                   self.purpleButton]
+
+    for button in buttons {
+      button.rx.tap.map { _ in button.category }
+        .bind(to: self.category)
+        .disposed(by: self.disposeBag)
+    }
+
+    self.category.distinctUntilChanged()
+      .withPrevious()
+      .subscribe(onNext: { old, new in
+        guard let old = old else { return }
+        buttons[old.rawValue].theme.backgroundColor = themed { $0.background }
+        buttons[old.rawValue].tintColor = old.toColor()
+        buttons[new.rawValue].backgroundColor = new.toColor()
+        buttons[new.rawValue].theme.tintColor = themed { $0.background }
+      })
+      .disposed(by: self.disposeBag)
   }
 }

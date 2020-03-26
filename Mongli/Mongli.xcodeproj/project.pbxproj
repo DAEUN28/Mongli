@@ -83,6 +83,7 @@
 		BFB0A90F242CDD0600BCBFD4 /* DreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */; };
 		BFB0A911242CDEBD00BCBFD4 /* Spinner+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */; };
 		BFB0A913242CE31B00BCBFD4 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */; };
+		BFB0A915242CFDEE00BCBFD4 /* ObservableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -191,6 +192,7 @@
 		BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamView.swift; sourceTree = "<group>"; };
 		BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spinner+Rx.swift"; sourceTree = "<group>"; };
 		BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableType.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				BF4327242429DF1500B1A9DE /* RxTheme+CALayer.swift */,
 				BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */,
 				BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */,
+				BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				BF4454E724238DB800632E38 /* AppFlow.swift in Sources */,
 				BF44552E2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift in Sources */,
 				BF4454E02422683700632E38 /* AuthService.swift in Sources */,
+				BFB0A915242CFDEE00BCBFD4 /* ObservableType.swift in Sources */,
 				BF44550724244F7700632E38 /* TabBarFlow.swift in Sources */,
 				BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */,
 				BF330A07242B462600271BFC /* RxTheme+FSCalendar.swift in Sources */,
