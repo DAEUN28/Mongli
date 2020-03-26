@@ -36,11 +36,23 @@ final class HomeFlow: Flow {
     guard let step = step as? MongliStep else { return .none }
 
     switch step {
-    case .toast(let message): return self.showToast(message: message)
-    case .homeIsRequired: return self.navigateToHome()
-    case .createDreamIsRequired: return self.navigateToCreateDream()
-    case .readDreamIsRequired(let id): return self.navigateToReadDream(id)
-    default: return .none
+    case .toast(let message):
+      return self.showToast(message: message)
+
+    case let .alert(type, title, message, handler):
+      return presentAlert(type, title: title, message: message, handler: handler)
+
+    case .homeIsRequired:
+      return self.navigateToHome()
+
+    case .createDreamIsRequired:
+      return self.navigateToCreateDream()
+
+    case .readDreamIsRequired(let id):
+      return self.navigateToReadDream(id)
+
+    default:
+      return .none
     }
   }
 }
@@ -49,6 +61,17 @@ final class HomeFlow: Flow {
 extension HomeFlow {
   private func showToast(message: LocalizedString) -> FlowContributors {
     self.rootViewController.showToast(message)
+    return .none
+  }
+
+  private func presentAlert(_ type: UIViewController.AlertType,
+                            title: LocalizedString?,
+                            message: LocalizedString?,
+                            handler: ((UIAlertAction) -> Void)?) -> FlowContributors {
+    self.rootViewController.topViewController?.presentAlert(type,
+                                                            title: title,
+                                                            message: message,
+                                                            handler: handler)
     return .none
   }
 

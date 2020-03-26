@@ -6,13 +6,17 @@
 //  Copyright © 2020 DaEun Kim. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 import RxFlow
 
 enum MongliStep: Step {
   // Global
   case toast(LocalizedString)
+  case alert(_ type: UIViewController.AlertType,
+    title: LocalizedString?,
+    message: LocalizedString?,
+    handler: ((UIAlertAction) -> Void)?)
   case unauthorized
   case dismiss
   case categoryInfoIsRequired

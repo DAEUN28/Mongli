@@ -25,8 +25,10 @@
 "mongliSubtitle" = ":while dreaming";
 "retryMsg" = "다시 한번 시도해주세요";
 "deletedMsg" = "삭제되었습니다";
-"aDreamOfDateFormat" = "Dream of MMMM d, yyyy";
-"allTheDreamsOfDateFormat" = "All the dreams of MMMM d, yyyy";
+"cancel" = "취소";
+"delete" = "삭제";
+
+// Tab bar
 "home" = "Home";
 "search" = "Search";
 "more" = "More";
@@ -45,6 +47,10 @@
 "indigo" = "잡몽";
 "purple" = "기타";
 
+// DateFormat
+"aDreamOfDateFormat" = "Dream of MMMM d, yyyy";
+"allTheDreamsOfDateFormat" = "All the dreams of MMMM d, yyyy";
+"calendarHeaderDateFormat" = "MMMM yyyy";
+
 // Home
 "deleteAllDream" = "모든 꿈 삭제";
-"calendarHeaderDateFormat" = "MMMM yyyy";

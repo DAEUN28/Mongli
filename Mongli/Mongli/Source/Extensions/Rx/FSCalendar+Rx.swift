@@ -28,6 +28,10 @@ extension Reactive where Base: FSCalendar {
       .map { $0[1] as? Date }
     return ControlEvent(events: events)
   }
+
+  var currentDate: Observable<Date?> {
+    return .just(base.selectedDate)
+  }
 }
 
 final class RxFsCalendarDelegate: DelegateProxy<FSCalendar, FSCalendarDelegate>,

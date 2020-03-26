@@ -29,8 +29,11 @@ enum LocalizedString: String, Equatable {
   case mongliSubtitle
   case retryMsg
   case deletedMsg
-  case aDreamOfDateFormat
-  case allTheDreamsOfDateFormat
+  case cancel
+  case delete
+  case deleteDreamMsg
+
+  // Tab bar
   case home
   case search
   case more
@@ -49,10 +52,13 @@ enum LocalizedString: String, Equatable {
   case indigo
   case purple
 
+  // DateFormat
+  case calendarHeaderDateFormat
+  case aDreamOfDateFormat
+  case allTheDreamsOfDateFormat
+
   // Home
   case deleteAllDream
-  case calendarHeaderDateFormat
-
 }
 
 extension LocalizedString {
@@ -63,7 +69,7 @@ extension LocalizedString {
   func localizedDateString(_ string: String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = self.localized
-    guard let date = dateFormatter.date(from: string) else { return "It's not Date" }
+    guard let date = dateFormatter.date(from: string) else { return string }
     return dateFormatter.string(from: date)
   }
 }

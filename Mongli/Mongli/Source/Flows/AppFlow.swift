@@ -38,10 +38,13 @@ final class AppFlow: Flow {
     switch step {
     case .toast(let message):
       return self.showToast(message: message)
+
     case .signInIsRequired:
       return self.navigateToSignIn()
+
     case .userIsSignedIn:
       return self.navigateToTabBar()
+      
     default:
       return .none
     }

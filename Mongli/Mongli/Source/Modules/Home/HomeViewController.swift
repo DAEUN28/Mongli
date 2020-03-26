@@ -139,13 +139,22 @@ extension HomeViewController {
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)
     self.coverView.button.rx.tap
-      .map { _ in Reactor.Action.deleteAllDreams }
-      .bind(to: reactor.action)
+      .withLatestFrom(self.calendar.rx.currentDate)
+      .compactMap { $0 }
+      .map { dateFormatter.string(from: $0) }
+      .map { MongliStep.alert(.delete($0),
+                              title: .allTheDreamsOfDateFormat,
+                              message: .deleteDreamMsg) { [weak self] _ in
+                                guard let self = self else { return }
+                                Observable.just(Reactor.Action.deleteAllDreams)
+                                  .bind(to: reactor.action)
+                                  .disposed(by: self.disposeBag) }}
+      .bind(to: self.steps)
       .disposed(by: self.disposeBag)
-    self.tableView.rx.itemSelected
-      .map { Reactor.Action.selectDream($0) }
-      .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      self.tableView.rx.itemSelected
+        .map { Reactor.Action.selectDream($0) }
+        .bind(to: reactor.action)
+        .disposed(by: self.disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
@@ -159,10 +168,13 @@ extension HomeViewController {
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dailyDreamsIsEmpty }
       .map { !$0 }
-      .bind(to: self.coverView.rx.isHidden)
+      .bind(to: self.placeholderView.rx.isHidden)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dailyDreamsIsEmpty }
       .bind(to: self.tableView.rx.isHidden)
+      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.dailyDreamsIsEmpty }
+      .bind(to: self.coverView.button.rx.isHidden)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.monthlyDreams }
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })

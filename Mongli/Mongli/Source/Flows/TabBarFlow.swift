@@ -38,6 +38,7 @@ class TabBarFlow: Flow {
     switch step {
     case .userIsSignedIn:
       return self.navigateToHome()
+      
     default:
       return .none
     }
