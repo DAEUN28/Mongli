@@ -8,7 +8,6 @@
 
 import UIKit
 
-import RxCocoa
 import RxSwift
 import SnapKit
 
@@ -16,7 +15,7 @@ final class Spinner: UIView {
 
   // MARK: UI
 
-  fileprivate let indicator = UIActivityIndicatorView()
+  let indicator = UIActivityIndicatorView()
 
   // MARK: Initializing
 
@@ -42,18 +41,6 @@ final class Spinner: UIView {
       $0.center.equalToSuperview()
       $0.width.equalTo(40)
       $0.height.equalTo(40)
-    }
-  }
-}
-
-extension Reactive where Base: Spinner {
-  var isAnimating: Binder<Bool> {
-    return Binder(self.base) { view, active in
-      if active {
-        view.indicator.startAnimating()
-      } else {
-        view.indicator.stopAnimating()
-      }
     }
   }
 }

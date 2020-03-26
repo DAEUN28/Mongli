@@ -27,7 +27,9 @@
 "deletedMsg" = "삭제되었습니다";
 "cancel" = "취소";
 "delete" = "삭제";
-"deleteDreamMsg" = "삭제된 꿈은 복구할 수 없습니다.\n정말 삭제하시겠습니까?";
+"deleteDreamDesc" = "삭제된 꿈은 복구할 수 없습니다.\n정말 삭제하시겠습니까?";
+"category" = "카테고리";
+"categoryInfoText" = "꿈의 종류란?";
 
 // Tab bar
 "home" = "홈";
@@ -35,8 +37,10 @@
 "more" = "더보기";
 
 // Placeholder
-"noContentText" = "꿈이 없어요ㅠㅠ";
-"noSearchedContentText" = "검색결과가 없어요ㅠㅠ";
+"noContentPlaceholder" = "꿈이 없어요ㅠㅠ";
+"noSearchedContentPlaceholder" = "검색결과가 없어요ㅠㅠ";
+"dreamTitlePlaceholder" = "소중한 꿈의 제목을 입력해주세요";
+"dreamContentPlaceholder" = "소중한 꿈의 내용을 입력해주세요";
 
 // Category
 "red" = "흉몽";

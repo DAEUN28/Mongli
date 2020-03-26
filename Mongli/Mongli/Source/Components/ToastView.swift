@@ -14,7 +14,7 @@ final class ToastView: UIView {
 
   private let label = UILabel().then {
     $0.font = FontManager.hpi12L
-    $0.textColor = themeService.attrs.logoText
+    $0.theme.textColor = themed { $0.background }
   }
 
   // MARK: Initializing
@@ -43,7 +43,10 @@ final class ToastView: UIView {
   }
 
   override func didAddSubview(_ subview: UIView) {
-    UIView.animate(withDuration: 4, delay: 1, options: .curveEaseOut, animations: { self.alpha = 0 }) { _ in
+    UIView.animate(withDuration: 4,
+                   delay: 1,
+                   options: .curveEaseOut,
+                   animations: { self.alpha = 0 }) { _ in
       self.removeFromSuperview()
     }
   }

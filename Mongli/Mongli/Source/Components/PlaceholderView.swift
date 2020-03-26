@@ -25,7 +25,7 @@ final class PlaceholderView: UIView {
     $0.theme.tintColor = themed { $0.primary }
   }
   private let label = UILabel().then {
-    $0.setText(.noContentText)
+    $0.setText(.noContentPlaceholder)
     $0.font = FontManager.hpi17L
     $0.theme.textColor = themed { $0.primary }
   }
@@ -37,8 +37,8 @@ final class PlaceholderView: UIView {
     self.backgroundColor = .clear
 
     switch type {
-    case .noContent: self.label.setText(.noContentText)
-    case .noSearchedContent: self.label.setText(.noSearchedContentText)
+    case .noContent: self.label.setText(.noContentPlaceholder)
+    case .noSearchedContent: self.label.setText(.noSearchedContentPlaceholder)
     }
 
     self.addSubview(self.imageView)

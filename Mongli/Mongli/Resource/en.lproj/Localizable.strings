@@ -25,8 +25,11 @@
 "mongliSubtitle" = ":while dreaming";
 "retryMsg" = "다시 한번 시도해주세요";
 "deletedMsg" = "삭제되었습니다";
-"cancel" = "취소";
-"delete" = "삭제";
+"cancel" = "Cancel";
+"delete" = "Delete";
+"deleteDreamDesc" = "삭제된 꿈은 복구할 수 없습니다.\n정말 삭제하시겠습니까?";
+"category" = "Category";
+"categoryInfoText" = "꿈의 종류란?";
 
 // Tab bar
 "home" = "Home";
@@ -36,6 +39,8 @@
 // Placeholder
 "noContentText" = "꿈이 없어요ㅠㅠ";
 "noSearchedContentText" = "검색결과가 없어요ㅠㅠ";
+"dreamTitleText" = "소중한 꿈의 제목을 입력해주세요";
+"dreamContentText" = "소중한 꿈의 내용을 입력해주세요";
 
 // Category
 "red" = "흉몽";

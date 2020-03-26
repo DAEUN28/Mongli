@@ -17,8 +17,10 @@ enum SFSymbolKey: String {
   // Common
   case noContentCloud = "icloud.slash.fill"
 
+  // DreamView
+  case calendar
+
   // Home
   case pencil = "pencil.and.outline"
   case cloud = "cloud.fill"
-
 }

@@ -31,7 +31,9 @@ enum LocalizedString: String, Equatable {
   case deletedMsg
   case cancel
   case delete
-  case deleteDreamMsg
+  case deleteDreamDesc
+  case category
+  case categoryInfoText
 
   // Tab bar
   case home
@@ -39,8 +41,10 @@ enum LocalizedString: String, Equatable {
   case more
 
   // Placeholder
-  case noContentText
-  case noSearchedContentText
+  case noContentPlaceholder
+  case noSearchedContentPlaceholder
+  case dreamTitlePlaceholder
+  case dreamContentPlaceholder
 
   // Category
   case red

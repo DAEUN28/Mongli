@@ -23,6 +23,7 @@ protocol Theme {
   var buttonDisable: UIColor { get }
   var placeholder: UIColor { get }
   var logoText: UIColor { get }
+  var darkWhite: UIColor { get }
   var gradient: CAGradientLayer { get }
 }
 
@@ -44,6 +45,7 @@ struct LightTheme: Theme {
   var assistant: UIColor { .init(hex: 0xA8C0FF) }
   var background: UIColor { .white }
   var text: UIColor { .init(hex: 0x404040) }
+  var darkWhite: UIColor { .white }
   var placeholder: UIColor { .init(hex: 0xD3D3D3) }
 }
 
@@ -52,6 +54,7 @@ struct DarkTheme: Theme {
   var assistant: UIColor { .init(hex: 0x3F2B96) }
   var background: UIColor { .init(hex: 0x1C1C1D) }
   var text: UIColor { .white }
+  var darkWhite: UIColor { .init(hex: 0xD3D3D3) }
   var placeholder: UIColor { .init(hex: 0x959595) }
 }
 

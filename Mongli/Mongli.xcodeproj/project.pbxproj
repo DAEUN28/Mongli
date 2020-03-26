@@ -80,6 +80,9 @@
 		BF4455212424F89B00632E38 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4455202424F89B00632E38 /* LogoView.swift */; };
 		BF44552C2425019200632E38 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44552B2425019200632E38 /* UILabel.swift */; };
 		BF44552E2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */; };
+		BFB0A90F242CDD0600BCBFD4 /* DreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */; };
+		BFB0A911242CDEBD00BCBFD4 /* Spinner+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */; };
+		BFB0A913242CE31B00BCBFD4 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -185,6 +188,9 @@
 		BF4455202424F89B00632E38 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		BF44552B2425019200632E38 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASAuthorizationAppleIDButton+Rx.swift"; sourceTree = "<group>"; };
+		BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamView.swift; sourceTree = "<group>"; };
+		BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spinner+Rx.swift"; sourceTree = "<group>"; };
+		BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -250,6 +256,7 @@
 				BF44550E242453CB00632E38 /* RxFlow.swift */,
 				BF4327242429DF1500B1A9DE /* RxTheme+CALayer.swift */,
 				BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */,
+				BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -520,7 +527,9 @@
 		BF44551D2424F3CC00632E38 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */,
 				BF43271F2428F80D00B1A9DE /* CoverView.swift */,
+				BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */,
 				BF4455202424F89B00632E38 /* LogoView.swift */,
 				BF330A0C242B5F8400271BFC /* PlaceholderView.swift */,
 				BF432734242B2DC900B1A9DE /* Spinner.swift */,
@@ -821,6 +830,7 @@
 			files = (
 				BF4454E22422701000632E38 /* DreamService.swift in Sources */,
 				BF432731242A366700B1A9DE /* UIImage.swift in Sources */,
+				BFB0A911242CDEBD00BCBFD4 /* Spinner+Rx.swift in Sources */,
 				BF4455212424F89B00632E38 /* LogoView.swift in Sources */,
 				BF330A15242B725500271BFC /* ReadDreamViewReactor.swift in Sources */,
 				BF4454E52423703000632E38 /* MongliStep.swift in Sources */,
@@ -829,6 +839,8 @@
 				BF4454D22421ED7B00632E38 /* Service.swift in Sources */,
 				BF4454EB24239CFB00632E38 /* BaseViewController.swift in Sources */,
 				BF4454C624210AC800632E38 /* StorageManager.swift in Sources */,
+				BFB0A913242CE31B00BCBFD4 /* CategoryButton.swift in Sources */,
+				BFB0A90F242CDD0600BCBFD4 /* DreamView.swift in Sources */,
 				BF4454FB24244A7500632E38 /* HomeViewController.swift in Sources */,
 				BF44550324244ECF00632E38 /* SearchViewController.swift in Sources */,
 				BF44550F242453CB00632E38 /* RxFlow.swift in Sources */,

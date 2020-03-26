@@ -144,7 +144,7 @@ extension HomeViewController {
       .map { dateFormatter.string(from: $0) }
       .map { MongliStep.alert(.delete($0),
                               title: .allTheDreamsOfDateFormat,
-                              message: .deleteDreamMsg) { [weak self] _ in
+                              message: .deleteDreamDesc) { [weak self] _ in
                                 guard let self = self else { return }
                                 Observable.just(Reactor.Action.deleteAllDreams)
                                   .bind(to: reactor.action)
