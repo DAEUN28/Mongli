@@ -23,6 +23,8 @@ final class HomeViewController: BaseViewController, View, Stepper {
   var steps = PublishRelay<Step>()
 
   private let monthlyDreams = BehaviorRelay<MonthlyDreams>(value: MonthlyDreams())
+  private let didSelectDate = PublishRelay<Date>()
+  private let currentPageDidChange = PublishRelay<Date>()
 
   // MARK: UI
 
@@ -37,7 +39,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
     $0.appearance.titleDefaultColor = .white
     $0.appearance.titlePlaceholderColor = UIColor(hex: 0xC4C4C4)
     $0.appearance.todayColor = .white
-    $0.appearance.selectionColor = .white
+    $0.appearance.theme.titleTodayColor = themed { $0.primary }
     $0.appearance.selectionColor = .white
     $0.appearance.theme.titleSelectionColor = themed { $0.primary }
     $0.allowsMultipleSelection = false
@@ -66,6 +68,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
     super.init()
 
     self.calendar.delegate = self
+    self.calendar.dataSource = self
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -76,13 +79,15 @@ final class HomeViewController: BaseViewController, View, Stepper {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.coverView.addSubview(self.placeholderView)
     self.subViews = [self.calendar,
                      self.coverView,
                      self.tableView,
-                     self.placeholderView,
                      self.createDreamButton,
                      self.spinner]
   }
+
+  // MARK: Setup
 
   override func setupConstraints() {
     self.calendar.snp.makeConstraints {
@@ -128,18 +133,16 @@ final class HomeViewController: BaseViewController, View, Stepper {
 
 extension HomeViewController {
   private func bindAction(_ reactor: Reactor) {
-    self.calendar.rx.didSelectDate
-      .compactMap { $0 }
+    self.didSelectDate
       .map { Reactor.Action.selectDate($0) }
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)
-    self.calendar.rx.calendarCurrentPageDidChange
-      .compactMap { $0 }
+    self.currentPageDidChange
       .map { Reactor.Action.selectMonth($0) }
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)
     self.coverView.button.rx.tap
-      .withLatestFrom(self.calendar.rx.currentDate)
+      .withLatestFrom(Observable.just(self.calendar.selectedDate))
       .compactMap { $0 }
       .map { dateFormatter.string(from: $0) }
       .map { MongliStep.alert(.delete($0),
@@ -203,7 +206,7 @@ extension HomeViewController {
 
 // MARK: FSCalendarDelegate
 
-extension HomeViewController: FSCalendarDelegate {
+extension HomeViewController: FSCalendarDelegateAppearance, FSCalendarDataSource {
   func calendar(_ calendar: FSCalendar,
                 appearance: FSCalendarAppearance,
                 eventDefaultColorsFor date: Date) -> [UIColor]? {
@@ -221,6 +224,14 @@ extension HomeViewController: FSCalendarDelegate {
   func calendar(_ calendar: FSCalendar,
                 shouldSelect date: Date,
                 at monthPosition: FSCalendarMonthPosition) -> Bool {
-    return date.compare(calendar.currentPage) == .orderedSame
+    return monthPosition == .current
+  }
+
+  func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+    self.didSelectDate.accept(date)
+  }
+
+  func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+    self.currentPageDidChange.accept(calendar.currentPage)
   }
 }

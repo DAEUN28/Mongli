@@ -44,7 +44,7 @@ final class AppFlow: Flow {
 
     case .userIsSignedIn:
       return self.navigateToTabBar()
-      
+
     default:
       return .none
     }

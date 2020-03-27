@@ -76,4 +76,10 @@ extension LocalizedString {
     guard let date = dateFormatter.date(from: string) else { return string }
     return dateFormatter.string(from: date)
   }
+
+  func localizedDate(_ date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = self.localized
+    return dateFormatter.string(from: date)
+  }
 }

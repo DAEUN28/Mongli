@@ -55,6 +55,8 @@ final class SignInViewController: BaseViewController, View, Stepper {
     }
   }
 
+  // MARK: Setup
+
   override func setupConstraints() {
     self.signInButton.snp.makeConstraints {
       $0.height.equalTo(44)

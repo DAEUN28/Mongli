@@ -60,7 +60,7 @@ final class HomeFlow: Flow {
 // MARK: navigate functions
 extension HomeFlow {
   private func showToast(message: LocalizedString) -> FlowContributors {
-    self.rootViewController.showToast(message)
+    self.rootViewController.topViewController?.showToast(message)
     return .none
   }
 

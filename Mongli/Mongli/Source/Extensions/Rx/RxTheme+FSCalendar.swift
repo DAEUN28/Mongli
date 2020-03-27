@@ -24,12 +24,29 @@ extension ThemeProxy where Base == FSCalendarAppearance {
       hold(disposable, for: "titleSelectionColor")
     }
   }
+
+  var titleTodayColor: Observable<UIColor?> {
+    get { return .empty() }
+    set {
+      let disposable = newValue
+        .takeUntil(base.rx.deallocating)
+        .observeOn(MainScheduler.instance)
+        .bind(to: base.rx.titleTodayColor)
+      hold(disposable, for: "titleTodayColor")
+    }
+  }
 }
 
 extension Reactive where Base == FSCalendarAppearance {
   var titleSelectionColor: Binder<UIColor?> {
     return Binder(self.base) { view, attr in
       view.titleSelectionColor = attr
+    }
+  }
+
+  var titleTodayColor: Binder<UIColor?> {
+    return Binder(self.base) { view, attr in
+      view.titleTodayColor = attr
     }
   }
 }

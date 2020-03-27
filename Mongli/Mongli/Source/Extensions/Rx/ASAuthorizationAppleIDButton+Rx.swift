@@ -19,11 +19,10 @@ extension Reactive where Base: ASController {
     return RxASControllerDelegate.proxy(for: self.base)
   }
 
-  var didCompleteWithAuthorization: ControlEvent<ASAuthorization?> {
+  var didCompleteWithAuthorization: Observable<ASAuthorization?> {
     let selector = #selector(ASControllerDelegate.authorizationController(controller:didCompleteWithAuthorization:))
-    let events = delegate.methodInvoked(selector)
+    return delegate.methodInvoked(selector)
       .map { $0[1] as? ASAuthorization }
-    return ControlEvent(events: events)
   }
 }
 

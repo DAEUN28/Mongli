@@ -10,7 +10,6 @@
 		3DCE17D7778FA759B09C2E49 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D91CE847018A2125172549A /* Pods_Mongli.framework */; };
 		74492B166BA435CC3A967352 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */; };
 		BF330A07242B462600271BFC /* RxTheme+FSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */; };
-		BF330A09242B4DFB00271BFC /* FSCalendar+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A08242B4DFB00271BFC /* FSCalendar+Rx.swift */; };
 		BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */; };
 		BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0C242B5F8400271BFC /* PlaceholderView.swift */; };
 		BF330A12242B724B00271BFC /* CreateDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A10242B6F0700271BFC /* CreateDreamViewController.swift */; };
@@ -110,7 +109,6 @@
 		B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MongliTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBCB1D1B35A99011F0A4783 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxTheme+FSCalendar.swift"; sourceTree = "<group>"; };
-		BF330A08242B4DFB00271BFC /* FSCalendar+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSCalendar+Rx.swift"; sourceTree = "<group>"; };
 		BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 		BF330A0C242B5F8400271BFC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDreamViewReactor.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */,
-				BF330A08242B4DFB00271BFC /* FSCalendar+Rx.swift */,
 				BF44550E242453CB00632E38 /* RxFlow.swift */,
 				BF4327242429DF1500B1A9DE /* RxTheme+CALayer.swift */,
 				BF330A06242B462600271BFC /* RxTheme+FSCalendar.swift */,
@@ -872,7 +869,6 @@
 				BF4454D024211FCD00632E38 /* NetworkResult.swift in Sources */,
 				BF4327292429F11900B1A9DE /* SnapKit.swift in Sources */,
 				BF330A13242B724D00271BFC /* CreateDreamViewReactor.swift in Sources */,
-				BF330A09242B4DFB00271BFC /* FSCalendar+Rx.swift in Sources */,
 				BF4455142424DC0300632E38 /* UIColor.swift in Sources */,
 				BF4454F7242444BF00632E38 /* SignInViewReactor.swift in Sources */,
 				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,

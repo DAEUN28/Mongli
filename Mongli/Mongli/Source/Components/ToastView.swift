@@ -13,7 +13,7 @@ final class ToastView: UIView {
   // MARK: UI
 
   private let label = UILabel().then {
-    $0.font = FontManager.hpi12L
+    $0.font = FontManager.sys12B
     $0.theme.textColor = themed { $0.background }
   }
 
@@ -21,21 +21,12 @@ final class ToastView: UIView {
 
   init(_ message: LocalizedString) {
     super.init(frame: .zero)
-    self.label.setText(message)
     self.theme.backgroundColor = themed { $0.primary }
     self.alpha = 1
+    self.layer.cornerRadius = 8
 
-    let layer = CAShapeLayer()
-
-    layer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 8).cgPath
-
-    layer.shadowColor = UIColor.black.cgColor
-    layer.shadowPath = layer.path
-    layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-    layer.shadowOpacity = 0.2
-    layer.shadowRadius = 3
-
-    self.layer.addSublayer(layer)
+    self.label.setText(message)
+    self.addSubview(self.label)
   }
 
   required init?(coder: NSCoder) {
@@ -43,7 +34,7 @@ final class ToastView: UIView {
   }
 
   override func didAddSubview(_ subview: UIView) {
-    UIView.animate(withDuration: 4,
+    UIView.animate(withDuration: 3,
                    delay: 1,
                    options: .curveEaseOut,
                    animations: { self.alpha = 0 }) { _ in
@@ -54,13 +45,14 @@ final class ToastView: UIView {
   // MARK: Layout
 
   override func layoutSubviews() {
+    guard let view = self.superview else { return }
     self.label.sizeToFit()
 
     self.snp.makeConstraints {
       $0.height.equalTo(34)
       $0.leading.equalToSuperview().inset(8)
       $0.trailing.equalToSuperview().inset(8)
-      $0.bottom.equalToSuperview()
+      $0.bottom.equalToSafeArea(view).inset(8)
     }
     self.label.snp.makeConstraints {
       $0.centerY.equalToSuperview()

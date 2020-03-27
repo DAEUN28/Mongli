@@ -34,7 +34,7 @@ final class HomeViewReactor: Reactor {
   }
 
   struct State {
-    var selectedDate: String = "yyyy-MM-dd"
+    var selectedDate: String = LocalizedString.aDreamOfDateFormat.localizedDate(Date())
     var dailyDreams: [SummaryDream] = [SummaryDream]()
     var dailyDreamsIsEmpty: Bool = false
     var monthlyDreams: MonthlyDreams = MonthlyDreams()
@@ -120,7 +120,7 @@ final class HomeViewReactor: Reactor {
     var state = state
     switch mutation {
     case .setSelectedDate(let date):
-      state.selectedDate = dateFormatter.string(from: date)
+      state.selectedDate = LocalizedString.aDreamOfDateFormat.localizedDate(date)
       state.isDeletedAllDreams = false
       return state
 
