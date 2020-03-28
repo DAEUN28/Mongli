@@ -27,6 +27,8 @@
 "deletedMsg" = "삭제되었습니다";
 "cancel" = "취소";
 "delete" = "삭제";
+"select" = "선택";
+"done" = "완료";
 "deleteDreamDesc" = "삭제된 꿈은 복구할 수 없습니다.\n정말 삭제하시겠습니까?";
 "category" = "카테고리";
 "categoryInfoText" = "꿈의 종류란?";
@@ -59,3 +61,7 @@
 
 // Home
 "deleteAllDream" = "모든 꿈 삭제";
+
+// CreateDream
+"createDream" = "기록하기";
+"selectDateText" = "언제 이 꿈을 꾸셨나요?";

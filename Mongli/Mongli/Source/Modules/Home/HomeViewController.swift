@@ -87,6 +87,10 @@ final class HomeViewController: BaseViewController, View, Stepper {
                      self.spinner]
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    self.navigationController?.setNavigationBarHidden(true, animated: true)
+  }
+
   // MARK: Setup
 
   override func setupConstraints() {

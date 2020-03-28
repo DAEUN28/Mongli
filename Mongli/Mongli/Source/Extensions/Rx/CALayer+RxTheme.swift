@@ -1,5 +1,5 @@
 //
-//  RxTheme+CALayer.swift
+//  CALayer+RxTheme.swift
 //  Mongli
 //
 //  Created by DaEun Kim on 2020/03/24.

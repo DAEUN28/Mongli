@@ -31,6 +31,8 @@ enum LocalizedString: String, Equatable {
   case deletedMsg
   case cancel
   case delete
+  case select
+  case done
   case deleteDreamDesc
   case category
   case categoryInfoText
@@ -63,6 +65,10 @@ enum LocalizedString: String, Equatable {
 
   // Home
   case deleteAllDream
+
+  // CreateDream
+  case createDream
+  case selectDateText
 }
 
 extension LocalizedString {

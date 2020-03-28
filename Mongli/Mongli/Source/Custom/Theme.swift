@@ -21,17 +21,26 @@ protocol Theme {
   var text: UIColor { get }
   var buttonEnable: UIColor { get }
   var buttonDisable: UIColor { get }
+  var buttonEnableTitle: UIColor { get }
+  var buttonDisableTitle: UIColor { get }
   var placeholder: UIColor { get }
   var logoText: UIColor { get }
   var darkWhite: UIColor { get }
+
+  var navigationBarTitle: [NSAttributedString.Key: Any] { get }
   var gradient: CAGradientLayer { get }
 }
 
 extension Theme {
-  var buttonEnable: UIColor { self.primary }
+  var buttonEnable: UIColor { self.background }
   var buttonDisable: UIColor { .clear }
+  var buttonEnableTitle: UIColor { self.primary }
+  var buttonDisableTitle: UIColor { self.background }
   var logoText: UIColor { .init(hex: 0x404040) }
 
+  var navigationBarTitle: [NSAttributedString.Key: Any] {
+    [.font: FontManager.hpi17L, .foregroundColor: self.darkWhite]
+  }
   var gradient: CAGradientLayer {
     let gradient = CAGradientLayer()
     gradient.colors = [ self.assistant.cgColor, self.primary.cgColor ]

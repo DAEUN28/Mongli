@@ -17,6 +17,7 @@ enum MongliStep: Step {
     title: LocalizedString?,
     message: LocalizedString?,
     handler: ((UIAlertAction) -> Void)?)
+  case datePickerActionSheet((Date) -> Void)
   case unauthorized
   case dismiss
   case categoryInfoIsRequired

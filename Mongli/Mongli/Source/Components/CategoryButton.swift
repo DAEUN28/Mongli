@@ -21,8 +21,12 @@ final class CategoryButton: UIButton {
     self.titleLabel?.font = FontManager.sys10M
     self.titleLabel?.textAlignment = .center
     self.theme.backgroundColor = themed { $0.background }
-    self.tintColor = category.toColor()
+    self.setTitleColor(category.toColor(), for: .normal)
     self.layer.cornerRadius = 3
+
+    self.snp.makeConstraints {
+      $0.height.equalTo(20)
+    }
   }
 
   required init(coder: NSCoder) {

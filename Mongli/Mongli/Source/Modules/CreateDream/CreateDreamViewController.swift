@@ -14,22 +14,98 @@ import RxFlow
 import RxSwift
 
 final class CreateDreamViewController: BaseViewController, View, Stepper {
-  var steps = PublishRelay<Step>()
 
   typealias Reactor = CreateDreamViewReactor
 
-  var reactor: Reactor?
+  // MARK: Properties
+
+  var steps = PublishRelay<Step>()
+
+  private let date = BehaviorRelay<Date>(value: Date())
+
+  // MARK: UI
+
+  private let dreamView = DreamView(.create)
+  private let doneButton = UIButton().then {
+    $0.setTitle(LocalizedString.createDream.localized, for: .normal)
+    $0.titleLabel?.font = FontManager.hpi17L
+    $0.layer.cornerRadius = 12
+  }
+  private let spinner = Spinner()
+
+  // MARK: initializing
 
   init(_ reactor: Reactor) {
+    defer { self.reactor = reactor }
     super.init()
-    self.reactor = reactor
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func bind(reactor: Reactor) {
+  // MARK: View Life Cycle
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.subViews = [self.dreamView, self.doneButton, self.spinner]
+  }
+
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
+  }
+
+  // MARK: Setup
+
+  override func setupConstraints() {
+    self.doneButton.snp.makeConstraints {
+      $0.height.equalTo(44)
+      $0.bottom.equalToSafeArea(self.view).inset(12)
+      $0.leading.equalToSuperview().inset(32)
+      $0.trailing.equalToSuperview().inset(32)
+    }
+    self.dreamView.snp.makeConstraints {
+      $0.bottom.equalTo(self.doneButton.snp.top).offset(-16)
+    }
+  }
+
+  override func setupUserInteraction() {
+    Driver.combineLatest(self.dreamView.title, self.dreamView.content) { !($0.isEmpty && $1.isEmpty) }
+      .do(onNext: { [weak self] in self?.setDoneButtonTheme($0) })
+      .drive(self.doneButton.rx.isEnabled)
+      .disposed(by: self.disposeBag)
+    self.setupDreamNavigationBar(date: date.asDriver()).rx.tap
+      .map { _ in MongliStep.datePickerActionSheet { [weak self] in self?.date.accept($0) } }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
+  }
+
+  // MARK: Binding
+
+  func bind(reactor: Reactor) {
+    self.bindAction(reactor)
+    self.bindState(reactor)
+  }
+}
+
+extension CreateDreamViewController {
+  private func bindAction(_ reactor: Reactor) {
+
+  }
+
+  private func bindState(_ reactor: Reactor) {
+
+  }
+}
+
+extension CreateDreamViewController {
+  private func setDoneButtonTheme(_ isEnabled: Bool) {
+    if isEnabled {
+      self.doneButton.theme.backgroundColor = themed { $0.buttonEnable }
+      self.doneButton.theme.titleColor(from: themed { $0.buttonEnableTitle }, for: .normal)
+    } else {
+      self.doneButton.theme.backgroundColor = themed { $0.buttonDisable }
+      self.doneButton.theme.titleColor(from: themed { $0.buttonDisableTitle }, for: .normal)
+    }
   }
 }

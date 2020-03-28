@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-import RxTheme
 import RxCocoa
 import RxSwift
+import RxTheme
 
 class BaseViewController: UIViewController {
 
@@ -70,6 +70,23 @@ class BaseViewController: UIViewController {
 
   func setupViews() { }
   func setupUserInteraction() { }
+
+  func setupDreamNavigationBar(date: Driver<Date>) -> UIBarButtonItem {
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationController?.navigationBar.theme.tintColor = themed { $0.darkWhite }
+    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    self.navigationController?.navigationBar.clipsToBounds = true
+
+    self.navigationController?.navigationBar.theme.titleTextAttributes = themed { $0.navigationBarTitle }
+    date.map { LocalizedString.aDreamOfDateFormat.localizedDate($0) }
+      .drive(self.rx.title)
+      .disposed(by: self.disposeBag)
+
+    let button = UIBarButtonItem(image: UIImage(.calendar), style: .plain, target: nil, action: nil)
+    self.navigationItem.rightBarButtonItem = button
+
+    return button
+  }
 
   private func setupBackground() {
     self.view.layer.theme.backgroundGradient = themed { $0.gradient }

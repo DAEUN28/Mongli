@@ -40,7 +40,10 @@ final class HomeFlow: Flow {
       return self.showToast(message: message)
 
     case let .alert(type, title, message, handler):
-      return presentAlert(type, title: title, message: message, handler: handler)
+      return self.presentAlert(type, title: title, message: message, handler: handler)
+
+    case .datePickerActionSheet(let handler):
+      return self.presentDatepickerActionSheet(handler)
 
     case .homeIsRequired:
       return self.navigateToHome()
@@ -72,6 +75,11 @@ extension HomeFlow {
                                                             title: title,
                                                             message: message,
                                                             handler: handler)
+    return .none
+  }
+
+  private func presentDatepickerActionSheet(_ handler: @escaping (Date) -> Void) -> FlowContributors {
+    self.rootViewController.topViewController?.presentDatepickerActionSheet(handler)
     return .none
   }
 

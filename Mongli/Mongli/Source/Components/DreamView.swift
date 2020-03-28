@@ -14,13 +14,29 @@ import SnapKit
 
 final class DreamView: UIView {
 
+  enum `Type` {
+    case create
+    case read(Dream)
+    case update(Dream)
+  }
+
   // MARK: Properties
 
   let category = BehaviorRelay<Category>(value: .red)
-  let title: Observable<String?>
-  let content: Observable<String?>
+  let title: Driver<String>
+  let content: Driver<String>
 
   private let disposeBag = DisposeBag()
+  private let keyboardSize = BehaviorRelay<CGRect>(value: .zero)
+  private var translationYMultiflier: CGFloat = 1
+  private lazy var buttons = [self.redButton,
+                              self.orangeButton,
+                              self.yellowButton,
+                              self.greenButton,
+                              self.tealButton,
+                              self.blueButton,
+                              self.indigoButton,
+                              self.purpleButton]
 
   // MARK: UI
 
@@ -32,7 +48,7 @@ final class DreamView: UIView {
   let categoryInfoButton = UIButton().then {
     $0.setUnderlineTitle(.categoryInfoText)
     $0.titleLabel?.font = FontManager.sys12L
-    $0.theme.tintColor = themed { $0.darkWhite }
+    $0.titleLabel?.theme.textColor = themed { $0.darkWhite }
   }
   private let subStackView1 = UIStackView().then {
     $0.axis = .horizontal
@@ -51,6 +67,7 @@ final class DreamView: UIView {
     $0.alignment = .fill
     $0.distribution = .fillEqually
     $0.spacing = 16
+    $0.translatesAutoresizingMaskIntoConstraints = false
   }
   private let redButton = CategoryButton(.red)
   private let orangeButton = CategoryButton(.orange)
@@ -63,6 +80,8 @@ final class DreamView: UIView {
   private let titleTextField = UITextField().then {
     $0.placeholder = LocalizedString.dreamTitlePlaceholder.localized
     $0.textAlignment = .center
+    $0.returnKeyType = .done
+    $0.enablesReturnKeyAutomatically = true
     $0.font = FontManager.sys17SB
     $0.theme.textColor = themed { $0.primary }
     $0.theme.backgroundColor = themed { $0.background }
@@ -70,6 +89,8 @@ final class DreamView: UIView {
   }
   private let contentTextView = UITextView().then {
     $0.textAlignment = .natural
+    $0.returnKeyType = .done
+    $0.enablesReturnKeyAutomatically = true
     $0.font = FontManager.sys10L
     $0.theme.textColor = themed { $0.text }
     $0.theme.backgroundColor = themed { $0.background }
@@ -85,9 +106,38 @@ final class DreamView: UIView {
 
   // MARK: Initializing
 
+  convenience init(_ type: Type) {
+    self.init(frame: .zero)
+
+    switch type {
+    case .create:
+      break
+
+    case .read(let dream):
+      self.setupDream(dream)
+
+      for button in self.buttons {
+        button.isEnabled = false
+      }
+      self.titleTextField.isEnabled = false
+      self.contentTextView.isUserInteractionEnabled = false
+      return
+
+    case .update(let dream):
+      self.setupDream(dream)
+    }
+
+    self.setupCategoryButton()
+    self.setupTextFieldAndTextView()
+
+    self.content.map { $0.isEmpty == false }
+      .drive(self.contentTextViewPlaceholder.rx.isHidden)
+      .disposed(by: self.disposeBag)
+  }
+
   override init(frame: CGRect) {
-    self.title = self.titleTextField.rx.text.distinctUntilChanged()
-    self.content = self.contentTextView.rx.text.distinctUntilChanged()
+    self.title = self.titleTextField.rx.text.orEmpty.distinctUntilChanged().asDriver(onErrorJustReturn: "")
+    self.content = self.contentTextView.rx.text.orEmpty.distinctUntilChanged().asDriver(onErrorJustReturn: "")
 
     super.init(frame: frame)
 
@@ -108,12 +158,6 @@ final class DreamView: UIView {
     self.addSubview(self.titleTextField)
     self.addSubview(self.contentTextView)
     self.addSubview(self.contentTextViewPlaceholder)
-
-    self.setupCategoryButton()
-
-    self.content.map { $0 != nil }
-      .bind(to: self.contentTextViewPlaceholder.rx.isHidden)
-      .disposed(by: self.disposeBag)
   }
 
   required init(coder: NSCoder) {
@@ -130,7 +174,7 @@ final class DreamView: UIView {
     self.contentTextViewPlaceholder.sizeToFit()
 
     self.snp.makeConstraints {
-      $0.top.equalToSafeArea(view).inset(28)
+      $0.top.equalToSafeArea(view).inset(20)
       $0.leading.equalToSuperview().inset(32)
       $0.trailing.equalToSuperview().inset(32)
     }
@@ -155,6 +199,7 @@ final class DreamView: UIView {
     }
     self.contentTextView.snp.makeConstraints {
       $0.top.equalTo(self.titleTextField.snp.bottom).offset(10)
+      $0.bottom.equalToSuperview()
       $0.leading.equalToSuperview()
       $0.trailing.equalToSuperview()
     }
@@ -166,18 +211,11 @@ final class DreamView: UIView {
   }
 }
 
+// MARK: Setup
+
 extension DreamView {
   private func setupCategoryButton() {
-    let buttons = [self.redButton,
-                   self.orangeButton,
-                   self.yellowButton,
-                   self.greenButton,
-                   self.tealButton,
-                   self.blueButton,
-                   self.indigoButton,
-                   self.purpleButton]
-
-    for button in buttons {
+    for button in self.buttons {
       button.rx.tap.map { _ in button.category }
         .bind(to: self.category)
         .disposed(by: self.disposeBag)
@@ -185,13 +223,89 @@ extension DreamView {
 
     self.category.distinctUntilChanged()
       .withPrevious()
-      .subscribe(onNext: { old, new in
-        guard let old = old else { return }
-        buttons[old.rawValue].theme.backgroundColor = themed { $0.background }
-        buttons[old.rawValue].tintColor = old.toColor()
-        buttons[new.rawValue].backgroundColor = new.toColor()
-        buttons[new.rawValue].theme.tintColor = themed { $0.background }
+      .subscribe(onNext: { [weak self] old, new in
+        guard let self = self else { return }
+        self.buttons[new.rawValue].backgroundColor = new.toColor()
+        self.buttons[new.rawValue].theme.titleColor(from: themed { $0.background }, for: .normal)
+        if let old = old {
+          self.buttons[old.rawValue].theme.backgroundColor = themed { $0.background }
+          self.buttons[old.rawValue].titleLabel?.textColor = old.toColor()
+        }
       })
       .disposed(by: self.disposeBag)
+  }
+
+  private func setupTextFieldAndTextView() {
+    self.titleTextField.rx.controlEvent(.editingDidEnd)
+      .subscribe(onNext: { [weak self] _ in
+        self?.titleTextField.resignFirstResponder()
+      })
+      .disposed(by: self.disposeBag)
+
+    self.contentTextView.rx.didEndEditing
+      .subscribe(onNext: { [weak self] _ in
+        self?.contentTextView.resignFirstResponder()
+        self?.transform = .identity
+      })
+      .disposed(by: self.disposeBag)
+    NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
+      .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue }
+      .bind(to: self.keyboardSize)
+      .disposed(by: self.disposeBag)
+    self.contentTextView.rx.text.orEmpty
+      .distinctUntilChanged()
+      .filter { $0.last == "\n" }
+      .withLatestFrom(self.keyboardSize)
+      .filter { [weak self] in
+        guard let self = self else { return false }
+        return self.frame.maxY > $0.minY
+      }
+      .subscribe(onNext: { [weak self] keyboardSize in
+        guard let self = self else { return }
+        let contentSizeMaxY
+          = self.contentTextView.frame.minY + self.contentTextView.contentSize.height + self.frame.minY
+
+        if contentSizeMaxY > keyboardSize.minY {
+          UIView.animate(withDuration: 0.3) {
+            self.transform = CGAffineTransform(translationX: 0, y: -12 * self.translationYMultiflier)
+            self.translationYMultiflier += 1
+          }
+        }
+      })
+      .disposed(by: self.disposeBag)
+    self.contentTextView.rx.didBeginEditing
+      .withLatestFrom(self.keyboardSize)
+      .subscribe(onNext: { [weak self] keyboardSize in
+        guard let self = self else { return }
+        let contentSizeMaxY
+          = self.contentTextView.frame.minY + self.contentTextView.contentSize.height + self.frame.minY
+
+        if contentSizeMaxY > keyboardSize.minY {
+          UIView.animate(withDuration: 0.3) {
+            self.transform = CGAffineTransform(translationX: 0, y: -12 * self.translationYMultiflier)
+          }
+        }
+      })
+      .disposed(by: self.disposeBag)
+
+    let toolBar = UIToolbar()
+    toolBar.sizeToFit()
+    let doneButton = UIBarButtonItem(title: LocalizedString.done.localized, style: .done, target: nil, action: nil)
+    toolBar.items = [doneButton]
+    toolBar.theme.tintColor = themed { $0.primary }
+    self.contentTextView.inputAccessoryView = toolBar
+
+    doneButton.rx.tap.subscribe(onNext: { [weak self] _ in
+      self?.contentTextView.resignFirstResponder()
+    })
+    .disposed(by: self.disposeBag)
+  }
+
+  private func setupDream(_ dream: Dream) {
+    if let category = Category(rawValue: dream.category) {
+      self.category.accept(category)
+    }
+    self.titleTextField.text = dream.title
+    self.contentTextView.text = dream.content
   }
 }
