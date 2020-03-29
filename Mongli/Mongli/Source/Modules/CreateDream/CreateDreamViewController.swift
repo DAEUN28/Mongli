@@ -90,11 +90,34 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
 
 extension CreateDreamViewController {
   private func bindAction(_ reactor: Reactor) {
-
+    let dream = Observable.combineLatest(self.date.map { dateFormatter.string(from: $0) }.asObservable(),
+                                         self.dreamView.category.asObservable(),
+                                         self.dreamView.title.asObservable(),
+                                         self.dreamView.content.asObservable()) {  Dream(id: nil,
+                                                                                         date: $0,
+                                                                                         category: $1.rawValue,
+                                                                                         title: $2,
+                                                                                         content: $3) }
+    self.doneButton.rx.tap.withLatestFrom(dream)
+      .map { Reactor.Action.createDream($0) }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
-
+    reactor.state.map { $0.error }
+      .compactMap { $0 }
+      .map { MongliStep.toast($0) }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.isLoading }.skip(1)
+      .filter { !$0 }
+      .map { _ in MongliStep.createDreamIsComplete }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.isLoading }
+      .bind(to: self.spinner.rx.isAnimating)
+      .disposed(by: self.disposeBag)
   }
 }
 

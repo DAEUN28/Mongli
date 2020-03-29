@@ -187,11 +187,6 @@ extension HomeViewController {
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
       .bind(to: self.monthlyDreams)
       .disposed(by: self.disposeBag)
-    reactor.state.map { $0.isDeletedAllDreams }
-      .filter { $0 }
-      .map { _ in MongliStep.toast(.deletedMsg) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
     reactor.state.map { $0.selectedDreamID }
       .compactMap { $0 }
       .map { MongliStep.readDreamIsRequired($0) }
@@ -200,6 +195,11 @@ extension HomeViewController {
     reactor.state.map { $0.error }
       .compactMap { $0 }
       .map { MongliStep.toast($0) }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.isLoading }.skip(1)
+      .filter { !$0 }
+      .map { _ in MongliStep.toast(.deletedMsg) }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }

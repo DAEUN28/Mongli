@@ -10,7 +10,6 @@ import Foundation
 
 import ReactorKit
 import RxCocoa
-import RxFlow
 import RxSwift
 
 final class HomeViewReactor: Reactor {
@@ -27,7 +26,6 @@ final class HomeViewReactor: Reactor {
     case setDailyDreams([SummaryDream])
     case setDailyDreamsEmpty(Bool)
     case setMonthlyDreams(MonthlyDreams)
-    case setDeletedAllDreams(Bool)
     case setSelectedDreamID(Int)
     case setError(LocalizedString?)
     case setLoading(Bool)
@@ -38,7 +36,6 @@ final class HomeViewReactor: Reactor {
     var dailyDreams: [SummaryDream] = [SummaryDream]()
     var dailyDreamsIsEmpty: Bool = false
     var monthlyDreams: MonthlyDreams = MonthlyDreams()
-    var isDeletedAllDreams: Bool = false
     var selectedDreamID: Int?
     var error: LocalizedString?
     var isLoading: Bool = false
@@ -95,18 +92,17 @@ final class HomeViewReactor: Reactor {
     case .deleteAllDreams:
       if self.currentState.isLoading { return .empty() }
 
-      let startLoading = Observable<Mutation>.just(.setLoading(true))
-      let endLoading = Observable<Mutation>.just(.setLoading(false))
+      let startLoading: Observable<Mutation> = .just(.setLoading(true))
       let result: Observable<Mutation> = self.service.deleteDailyDreams(self.currentState.selectedDate)
         .asObservable()
         .map {
           switch $0 {
-          case .success: return .setDeletedAllDreams(true)
+          case .success: return .setLoading(false)
           case .error(let error): return .setError(error.message)
           }
         }
 
-      return .concat([startLoading, result, endLoading])
+      return .concat([startLoading, result])
 
     case .selectDream(let indexPath):
       if self.currentState.isLoading { return .empty() }
@@ -121,7 +117,6 @@ final class HomeViewReactor: Reactor {
     switch mutation {
     case .setSelectedDate(let date):
       state.selectedDate = LocalizedString.aDreamOfDateFormat.localizedDate(date)
-      state.isDeletedAllDreams = false
       return state
 
     case .setDailyDreams(let dailyDreams):
@@ -134,10 +129,6 @@ final class HomeViewReactor: Reactor {
 
     case .setMonthlyDreams(let monthlyDreams):
       state.monthlyDreams = monthlyDreams
-      return state
-
-    case .setDeletedAllDreams(let isDeletedAllDreams):
-      state.isDeletedAllDreams = isDeletedAllDreams
       return state
 
     case .setSelectedDreamID(let dreamID):
