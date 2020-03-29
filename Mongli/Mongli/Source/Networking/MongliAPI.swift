@@ -36,7 +36,7 @@ extension MongliAPI: TargetType {
   // MARK: baseURL
 
   var baseURL: URL {
-    return URL(string: "http://192.168.11.4:2525/api")!
+    return URL(string: "http://172.20.10.2:2525/api")!
   }
 
   // MARK: path
@@ -112,11 +112,11 @@ extension MongliAPI: TargetType {
 
     case .renewalToken:
       guard let token = TokenManager.currentToken?.refreshToken else { return nil }
-      return ["Authorization": "Bearer" + token]
+      return ["Authorization": "Bearer " + token]
 
     default:
       guard let token = TokenManager.currentToken?.accessToken else { return nil }
-     return ["Authorization": "Bearer" + token]
+     return ["Authorization": "Bearer " + token]
     }
   }
 

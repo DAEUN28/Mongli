@@ -43,7 +43,6 @@ enum MongliStep: Step {
 
   // CreateDream
   case createDreamIsRequired
-  case createDreamIsComplete
 
   // ReadDream
   case readDreamIsRequired(Int)

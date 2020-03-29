@@ -96,7 +96,6 @@ extension SignInViewController {
       .map { _ in MongliStep.userIsSignedIn }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
-
     reactor.state.map { $0.error }
       .filter { $0 != nil }
       .map { MongliStep.toast($0!) }

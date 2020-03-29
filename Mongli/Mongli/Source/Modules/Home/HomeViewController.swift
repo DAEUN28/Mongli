@@ -158,10 +158,10 @@ extension HomeViewController {
                                   .disposed(by: self.disposeBag) }}
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
-      self.tableView.rx.itemSelected
-        .map { Reactor.Action.selectDream($0) }
-        .bind(to: reactor.action)
-        .disposed(by: self.disposeBag)
+    self.tableView.rx.itemSelected
+      .map { Reactor.Action.selectDream($0) }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
@@ -173,19 +173,26 @@ extension HomeViewController {
       .bind(to: self.tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
                                         cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
       .disposed(by: self.disposeBag)
-    reactor.state.map { $0.dailyDreamsIsEmpty }
-      .map { !$0 }
+    reactor.state.map { $0.dailyDreams }
+      .map { !$0.isEmpty }
       .bind(to: self.placeholderView.rx.isHidden)
       .disposed(by: self.disposeBag)
-    reactor.state.map { $0.dailyDreamsIsEmpty }
+    reactor.state.map { $0.dailyDreams }
+      .map { $0.isEmpty }
       .bind(to: self.tableView.rx.isHidden)
       .disposed(by: self.disposeBag)
-    reactor.state.map { $0.dailyDreamsIsEmpty }
+    reactor.state.map { $0.dailyDreams }
+      .map { $0.isEmpty }
       .bind(to: self.coverView.button.rx.isHidden)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.monthlyDreams }
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
       .bind(to: self.monthlyDreams)
+      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.deleteIsSuccess }
+      .filter { $0 }
+      .map { _ in MongliStep.toast(.deletedMsg) }
+      .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.selectedDreamID }
       .compactMap { $0 }
@@ -195,11 +202,6 @@ extension HomeViewController {
     reactor.state.map { $0.error }
       .compactMap { $0 }
       .map { MongliStep.toast($0) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
-    reactor.state.map { $0.isLoading }.skip(1)
-      .filter { !$0 }
-      .map { _ in MongliStep.toast(.deletedMsg) }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }

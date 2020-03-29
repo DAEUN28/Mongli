@@ -45,8 +45,9 @@ class Service: ServiceType {
         $0.flatMap { error -> Observable<Int> in
           return NetworkError(error) == .conflict
             ? Observable.error(error)
-            : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
+            : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
         }
+        .take(1)
       }
       .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
   }

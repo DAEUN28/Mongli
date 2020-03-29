@@ -45,6 +45,9 @@ final class HomeFlow: Flow {
     case .datePickerActionSheet(let handler):
       return self.presentDatepickerActionSheet(handler)
 
+    case .dismiss:
+      return self.dismiss()
+
     case .homeIsRequired:
       return self.navigateToHome()
 
@@ -80,6 +83,11 @@ extension HomeFlow {
 
   private func presentDatepickerActionSheet(_ handler: @escaping (Date) -> Void) -> FlowContributors {
     self.rootViewController.topViewController?.presentDatepickerActionSheet(handler)
+    return .none
+  }
+
+  private func dismiss() -> FlowContributors {
+    self.rootViewController.popViewController(animated: true)
     return .none
   }
 

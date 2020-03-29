@@ -8,6 +8,8 @@
 
 import Foundation
 
+import Moya
+
 enum NetworkResult {
   case success
   case error(NetworkError)
@@ -29,8 +31,7 @@ enum NetworkError: Int, Error {
   case serverError = 500
 
   init?(_ error: Error) {
-    guard let error = error.asAFError,
-      let code = error.responseCode,
+    guard let code = (error as? MoyaError)?.response?.statusCode,
       let networkError = NetworkError(rawValue: code) else { return nil }
     self = networkError
   }

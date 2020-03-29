@@ -24,8 +24,8 @@ final class HomeViewReactor: Reactor {
   enum Mutation {
     case setSelectedDate(Date)
     case setDailyDreams([SummaryDream])
-    case setDailyDreamsEmpty(Bool)
     case setMonthlyDreams(MonthlyDreams)
+    case setDeleteIsSuccess(Bool)
     case setSelectedDreamID(Int)
     case setError(LocalizedString?)
     case setLoading(Bool)
@@ -34,8 +34,8 @@ final class HomeViewReactor: Reactor {
   struct State {
     var selectedDate: String = LocalizedString.aDreamOfDateFormat.localizedDate(Date())
     var dailyDreams: [SummaryDream] = [SummaryDream]()
-    var dailyDreamsIsEmpty: Bool = false
     var monthlyDreams: MonthlyDreams = MonthlyDreams()
+    var deleteIsSuccess: Bool = false
     var selectedDreamID: Int?
     var error: LocalizedString?
     var isLoading: Bool = false
@@ -46,12 +46,6 @@ final class HomeViewReactor: Reactor {
 
   init(_ service: DreamService) {
     self.service = service
-  }
-
-  func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-    return self.currentState.dailyDreams.isEmpty
-      ? .merge([mutation, .just(.setDailyDreamsEmpty(true))])
-      : .merge([mutation, .just(.setDailyDreamsEmpty(false))])
   }
 
   func mutate(action: Action) -> Observable<Mutation> {
@@ -68,7 +62,7 @@ final class HomeViewReactor: Reactor {
             switch $0 {
             case .success(let summaryDreams): return .setDailyDreams(summaryDreams)
             case .error(let error):
-              return error == .noContent ? .setDailyDreamsEmpty(true) : .setError(error.message)
+              return error == .noContent ? .setDailyDreams([]) : .setError(error.message)
             }
           }
 
@@ -83,7 +77,8 @@ final class HomeViewReactor: Reactor {
           .map {
             switch $0 {
             case .success(let monthlyDreams): return .setMonthlyDreams(monthlyDreams)
-            case .error(let error): return .setError(error.message)
+            case .error(let error):
+              return error == .noContent ? .setMonthlyDreams([:]) : .setError(error.message)
             }
           }
 
@@ -93,16 +88,17 @@ final class HomeViewReactor: Reactor {
       if self.currentState.isLoading { return .empty() }
 
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
+      let endLoading: Observable<Mutation> = .just(.setLoading(false))
       let result: Observable<Mutation> = self.service.deleteDailyDreams(self.currentState.selectedDate)
         .asObservable()
         .map {
           switch $0 {
-          case .success: return .setLoading(false)
+          case .success: return .setDeleteIsSuccess(true)
           case .error(let error): return .setError(error.message)
           }
         }
 
-      return .concat([startLoading, result])
+      return .concat([startLoading, result, endLoading])
 
     case .selectDream(let indexPath):
       if self.currentState.isLoading { return .empty() }
@@ -121,14 +117,17 @@ final class HomeViewReactor: Reactor {
 
     case .setDailyDreams(let dailyDreams):
       state.dailyDreams = dailyDreams
-      return state
-
-    case .setDailyDreamsEmpty(let isEmpty):
-      state.dailyDreamsIsEmpty = isEmpty
+      state.error = nil
       return state
 
     case .setMonthlyDreams(let monthlyDreams):
       state.monthlyDreams = monthlyDreams
+      state.error = nil
+      return state
+
+    case .setDeleteIsSuccess(let isSuccess):
+      state.deleteIsSuccess = isSuccess
+      state.error = nil
       return state
 
     case .setSelectedDreamID(let dreamID):
