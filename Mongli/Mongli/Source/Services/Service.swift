@@ -40,15 +40,15 @@ class Service: ServiceType {
 
         if StorageManager.shared.createUser(user) { return .success }
         return .error(.unknown)
-    }
-    .retryWhen {
-      $0.flatMap { error -> Observable<Int> in
-        return NetworkError(error) == .conflict
-          ? Observable.error(error)
-          : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
       }
-    }
-    .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
+      .retryWhen {
+        $0.flatMap { error -> Observable<Int> in
+          return NetworkError(error) == .conflict
+            ? Observable.error(error)
+            : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
+        }
+      }
+      .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
   }
 
   func revokeToken() -> BasicResult {
@@ -58,9 +58,9 @@ class Service: ServiceType {
       .map { _ -> NetworkResult in
         if StorageManager.shared.deleteAll() { return .success }
         return .error(.unknown)
-    }
-    .retry(1)
-    .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
+      }
+      .retry(1)
+      .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
   }
 
   func catchMongliError(_ error: Error) -> BasicResult {
@@ -73,6 +73,13 @@ class Service: ServiceType {
     default:
       return .just(.error(error))
     }
+  }
+
+  func checkToken() -> BasicResult? {
+    if !TokenManager.accessTokenIsVaildate() {
+      return self.renewalToken()
+    }
+    return nil
   }
 
   private func renewalToken() -> BasicResult {
@@ -89,48 +96,48 @@ class Service: ServiceType {
         if StorageManager.shared.updateUser(user) { throw NetworkError.ok }
         return .error(.unknown)
 
-    }
-    .retryWhen {
-      $0.flatMap { error -> Observable<Int> in
-        return NetworkError(error) != .ok
-          ? Observable.error(error)
-          : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
       }
-    }
-    .catchError { [weak self] error -> BasicResult in
-      guard let error = NetworkError(error),
-        let self = self else { return .just(.error(.unknown)) }
-
-      switch error {
-      case .unauthorized:
-        if let user = self.currentUser {
-          return self.signIn(user.uid, name: nil)
+      .retryWhen {
+        $0.flatMap { error -> Observable<Int> in
+          return NetworkError(error) != .ok
+            ? Observable.error(error)
+            : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
         }
-        return self.forceLogout()
-
-      case .notFound, .conflict:
-        return self.forceLogout()
-
-      default:
-        return .just(.error(error))
       }
-    }
+      .catchError { [weak self] error -> BasicResult in
+        guard let error = NetworkError(error),
+          let self = self else { return .just(.error(.unknown)) }
+
+        switch error {
+        case .unauthorized:
+          if let user = self.currentUser {
+            return self.signIn(user.uid, name: nil)
+          }
+          return self.forceLogout()
+
+        case .notFound, .conflict:
+          return self.forceLogout()
+
+        default:
+          return .just(.error(error))
+        }
+      }
   }
 
   private func forceLogout() -> BasicResult {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return .just(.error(.unknown)) }
 
     return self.revokeToken().do(onSuccess: { result in
-      switch result {
-      case .success:
-        if let flow = appDelegate.appFlow {
-          return appDelegate.setupFlow(flow)
-        }
+        switch result {
+        case .success:
+          if let flow = appDelegate.appFlow {
+            return appDelegate.setupFlow(flow)
+          }
 
-      case .error(let err):
-        throw err
-      }
-    })
+        case .error(let err):
+          throw err
+        }
+      })
       .catchError { .just(.error(NetworkError($0) ?? .unknown)) }
   }
 }

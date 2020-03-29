@@ -12,15 +12,26 @@ import RxSwift
 
 final class DreamService: Service, DreamServiceType {
   func createDream(_ dream: Dream) -> BasicResult {
-    return provider.rx.request(.createDream(dream))
+    let request = provider.rx.request(.createDream(dream))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func readDream(_ id: Int) -> DreamResult {
-    return provider.rx.request(.readDream(id))
+    let request = provider.rx.request(.readDream(id))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(Dream.self)
@@ -34,26 +45,59 @@ final class DreamService: Service, DreamServiceType {
             }
         }
       }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func updateDream(_ dream: Dream) -> BasicResult {
-    return provider.rx.request(.updateDream(dream))
+    let request = provider.rx.request(.updateDream(dream))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func deleteDream(_ id: Int) -> BasicResult {
-    return provider.rx.request(.deleteDream(id))
+    let request = provider.rx.request(.deleteDream(id))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func readMonthlyDreams(_ month: String) -> MonthlyDreamsResult {
-    return provider.rx.request(.readMonthlyDreams(month))
+    let request = provider.rx.request(.readMonthlyDreams(month))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(MonthlyDreams.self)
@@ -67,10 +111,21 @@ final class DreamService: Service, DreamServiceType {
             }
         }
       }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func readDailyDreams(_ date: String) -> SummaryDreamsResult {
-    return provider.rx.request(.readDailyDreams(date))
+    let request = provider.rx.request(.readDailyDreams(date))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(SummaryDreamsJSON.self)
@@ -87,18 +142,40 @@ final class DreamService: Service, DreamServiceType {
             }
         }
       }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func deleteDailyDreams(_ date: String) -> BasicResult {
-    return provider.rx.request(.deleteDailyDreams(date))
+    let request = provider.rx.request(.deleteDailyDreams(date))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
       .catchError { [unowned self] in self.catchMongliError($0) }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func searchDream(_ query: SearchQuery) -> SummaryDreamsResult {
-    return provider.rx.request(.searchDream(query))
+    let request = provider.rx.request(.searchDream(query))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(SummaryDreamsJSON.self)
@@ -115,5 +192,16 @@ final class DreamService: Service, DreamServiceType {
             }
         }
       }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 }

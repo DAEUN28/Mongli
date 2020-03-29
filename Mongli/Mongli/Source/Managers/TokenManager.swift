@@ -21,7 +21,7 @@ struct TokenManager {
     case access, refresh
   }
 
-  private static let privateKey = try! Data(contentsOf: URL(fileURLWithPath: #file + "/privateKey"),
+  private static let privateKey = try! Data(contentsOf: getPath(),
                                             options: .alwaysMapped)
   private static let jwtSigner = JWTSigner.hs256(key: privateKey)
   private static let jwtVerifier = JWTVerifier.hs256(key: privateKey)
@@ -58,5 +58,9 @@ struct TokenManager {
     let result
       = try? JWT<TokenClaims>(jwtString: token, verifier: jwtVerifier).validateClaims() == .success
     return result ?? false
+  }
+
+  private static func getPath() -> URL {
+    return Bundle.main.url(forResource: "privateKey", withExtension: nil)!
   }
 }

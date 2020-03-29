@@ -41,7 +41,6 @@
 		BF4454AD241F95D300632E38 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454AC241F95D300632E38 /* LogManager.swift */; };
 		BF4454B2241FA63600632E38 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454B1241FA63600632E38 /* Token.swift */; };
 		BF4454B4241FA63D00632E38 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454B3241FA63D00632E38 /* Analysis.swift */; };
-		BF4454B92420A69200632E38 /* privateKey.pub in Resources */ = {isa = PBXBuildFile; fileRef = BF4454B72420A69100632E38 /* privateKey.pub */; };
 		BF4454BA2420A69200632E38 /* privateKey in Resources */ = {isa = PBXBuildFile; fileRef = BF4454B82420A69200632E38 /* privateKey */; };
 		BF4454BC2420A93500632E38 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454BB2420A93500632E38 /* TokenManager.swift */; };
 		BF4454BE2420ACB400632E38 /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454BD2420ACB400632E38 /* Dream.swift */; };
@@ -146,7 +145,6 @@
 		BF4454AC241F95D300632E38 /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		BF4454B1241FA63600632E38 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		BF4454B3241FA63D00632E38 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
-		BF4454B72420A69100632E38 /* privateKey.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey.pub; sourceTree = "<group>"; };
 		BF4454B82420A69200632E38 /* privateKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey; sourceTree = "<group>"; };
 		BF4454BB2420A93500632E38 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		BF4454BD2420ACB400632E38 /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
@@ -337,7 +335,6 @@
 				BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */,
 				BF4454DA24225C3000632E38 /* Localizable.strings */,
 				BF4454B82420A69200632E38 /* privateKey */,
-				BF4454B72420A69100632E38 /* privateKey.pub */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -678,7 +675,6 @@
 				BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */,
 				BF4454D824225C3000632E38 /* Localizable.strings in Resources */,
 				BF4455182424E87000632E38 /* 12롯데마트행복Bold.ttf in Resources */,
-				BF4454B92420A69200632E38 /* privateKey.pub in Resources */,
 				BF44551A2424E87500632E38 /* 12롯데마트행복Medium.ttf in Resources */,
 				BF4454BA2420A69200632E38 /* privateKey in Resources */,
 				BF4454A6241F919500632E38 /* GoogleService-Info.plist in Resources */,

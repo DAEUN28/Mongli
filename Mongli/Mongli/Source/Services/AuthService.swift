@@ -20,11 +20,22 @@ final class AuthService: Service, AuthServiceType {
   }
 
   func logout() -> BasicResult {
-    return revokeToken()
+    let request = revokeToken()
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func deleteUser() -> BasicResult {
-    return provider.rx.request(.deleteUser)
+    let request = provider.rx.request(.deleteUser)
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ -> NetworkResult in
@@ -32,10 +43,21 @@ final class AuthService: Service, AuthServiceType {
         return .error(.unknown)
       }
       .catchErrorJustReturn(.error(.unknown))
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func rename(_ name: String) -> BasicResult {
-    return provider.rx.request(.rename(name))
+    let request = provider.rx.request(.rename(name))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { [unowned self] _ -> NetworkResult in
@@ -47,10 +69,21 @@ final class AuthService: Service, AuthServiceType {
         return .error(.notFound)
       }
       .catchError { [unowned self] in self.catchMongliError($0) }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 
   func readAnalysis() -> AnalysisResult {
-    return provider.rx.request(.readAnalysis)
+    let request = provider.rx.request(.readAnalysis)
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(Analysis.self)
@@ -67,5 +100,16 @@ final class AuthService: Service, AuthServiceType {
             }
         }
       }
+
+    if let checkToken = self.checkToken() {
+      return checkToken.flatMap {
+        switch $0 {
+        case .success: return request
+        case .error(let err): return .just(.error(err))
+        }
+      }
+    }
+
+    return request
   }
 }
