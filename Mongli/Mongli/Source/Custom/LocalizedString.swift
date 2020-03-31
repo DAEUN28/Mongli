@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum LocalizedString: String, Equatable {
+enum LocalizedString: String, Equatable, Hashable {
 
   // Basic Error
   case unknownErrorMsg
@@ -66,9 +66,13 @@ enum LocalizedString: String, Equatable {
   // Home
   case deleteAllDream
 
-  // CreateDream
+  // Create Dream
   case createDream
   case selectDateText
+
+  // Read Dream
+  case deleteDreamText
+  case updateDreamText
 }
 
 extension LocalizedString {

@@ -27,7 +27,7 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
 
   private let dreamView = DreamView(.create)
   private let doneButton = UIButton().then {
-    $0.setTitle(LocalizedString.createDream.localized, for: .normal)
+    $0.setTitle(.createDream)
     $0.titleLabel?.font = FontManager.hpi17L
     $0.layer.cornerRadius = 12
   }
@@ -70,9 +70,9 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
   }
 
   override func setupUserInteraction() {
-    Driver.combineLatest(self.dreamView.title, self.dreamView.content) { !($0.isEmpty && $1.isEmpty) }
+    BehaviorRelay.combineLatest(self.dreamView.title, self.dreamView.content) { !($0.isEmpty && $1.isEmpty) }
       .do(onNext: { [weak self] in self?.setDoneButtonTheme($0) })
-      .drive(self.doneButton.rx.isEnabled)
+      .bind(to: self.doneButton.rx.isEnabled)
       .disposed(by: self.disposeBag)
     self.setupDreamNavigationBar(date: date.asDriver()).rx.tap
       .map { _ in MongliStep.datePickerActionSheet { [weak self] in self?.date.accept($0) } }
@@ -120,6 +120,8 @@ extension CreateDreamViewController {
       .disposed(by: self.disposeBag)
   }
 }
+
+// MARK: Util
 
 extension CreateDreamViewController {
   private func setDoneButtonTheme(_ isEnabled: Bool) {

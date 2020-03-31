@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Dream: Codable {
+struct Dream: Codable, Equatable {
   let id: Int?
   let date: String
   let category: Int
@@ -16,7 +16,7 @@ struct Dream: Codable {
   let content: String
 }
 
-struct SummaryDream: Codable {
+struct SummaryDream: Codable, Equatable {
   let id: Int
   let date: String?
   let category: Int

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>600332591577-bn4cjq1d9rk69varrv3ggcsvk8t9hbfo.apps.googleusercontent.com</string>
+	<string>600332591577-kbe086ohjkbdklin90g67gecpp29cq4n.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.600332591577-bn4cjq1d9rk69varrv3ggcsvk8t9hbfo</string>
+	<string>com.googleusercontent.apps.600332591577-kbe086ohjkbdklin90g67gecpp29cq4n</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB6LYLYng9CO56ELTkTBEBOu-H9fI_n-KU</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>daeun28.mongli.com</string>
+	<string>com.mongli.daeun28</string>
 	<key>PROJECT_ID</key>
 	<string>mongli-whiledreaming</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:600332591577:ios:54166bf9b85602147239c8</string>
+	<string>1:600332591577:ios:4ff38e02186603287239c8</string>
 	<key>DATABASE_URL</key>
 	<string>https://mongli-whiledreaming.firebaseio.com</string>
 </dict>

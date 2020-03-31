@@ -71,6 +71,12 @@ class BaseViewController: UIViewController {
   func setupViews() { }
   func setupUserInteraction() { }
 
+  func setupDreamNavigationBar(dateString: String) {
+    let date = Observable.just(dateFormatter.date(from: dateString)).compactMap { $0 }
+      .asDriver(onErrorJustReturn: Date())
+    self.setupDreamNavigationBar(date: date).isEnabled = false
+  }
+
   func setupDreamNavigationBar(date: Driver<Date>) -> UIBarButtonItem {
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     self.navigationController?.navigationBar.theme.tintColor = themed { $0.darkWhite }

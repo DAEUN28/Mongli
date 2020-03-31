@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SFSymbolKey: String {
+enum SFSymbolKey: String, Hashable {
   // Tab bar
   case house
   case magnifyingglass

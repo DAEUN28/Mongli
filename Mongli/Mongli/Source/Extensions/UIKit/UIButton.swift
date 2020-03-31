@@ -16,4 +16,8 @@ extension UIButton {
                                   range: NSRange.init(location: 0, length: attributedString.length))
     self.setAttributedTitle(attributedString, for: .normal)
   }
+
+  func setTitle(_ title: LocalizedString) {
+    self.setTitle(title.localized, for: .normal)
+  }
 }

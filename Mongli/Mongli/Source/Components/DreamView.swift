@@ -16,27 +16,21 @@ final class DreamView: UIView {
 
   enum `Type` {
     case create
-    case read(Dream)
-    case update(Dream)
+    case read
+    case update
   }
 
   // MARK: Properties
 
+  let dream = BehaviorRelay<Dream?>(value: nil)
   let category = BehaviorRelay<Category>(value: .red)
-  let title: Driver<String>
-  let content: Driver<String>
+  let title = BehaviorRelay<String>(value: "")
+  let content = BehaviorRelay<String>(value: "")
 
   private let disposeBag = DisposeBag()
   private let keyboardSize = BehaviorRelay<CGRect>(value: .zero)
+  private let buttons: [CategoryButton]
   private var translationYMultiflier: CGFloat = 1
-  private lazy var buttons = [self.redButton,
-                              self.orangeButton,
-                              self.yellowButton,
-                              self.greenButton,
-                              self.tealButton,
-                              self.blueButton,
-                              self.indigoButton,
-                              self.purpleButton]
 
   // MARK: UI
 
@@ -109,35 +103,31 @@ final class DreamView: UIView {
   convenience init(_ type: Type) {
     self.init(frame: .zero)
 
+    self.setupDream()
+
     switch type {
-    case .create:
-      break
-
-    case .read(let dream):
-      self.setupDream(dream)
-
+    case .read:
       for button in self.buttons {
         button.isEnabled = false
       }
       self.titleTextField.isEnabled = false
       self.contentTextView.isUserInteractionEnabled = false
-      return
 
-    case .update(let dream):
-      self.setupDream(dream)
+    default:
+      self.setupCategoryButton()
+      self.setupTextFieldAndTextView()
     }
-
-    self.setupCategoryButton()
-    self.setupTextFieldAndTextView()
-
-    self.content.map { $0.isEmpty == false }
-      .drive(self.contentTextViewPlaceholder.rx.isHidden)
-      .disposed(by: self.disposeBag)
   }
 
   override init(frame: CGRect) {
-    self.title = self.titleTextField.rx.text.orEmpty.distinctUntilChanged().asDriver(onErrorJustReturn: "")
-    self.content = self.contentTextView.rx.text.orEmpty.distinctUntilChanged().asDriver(onErrorJustReturn: "")
+    self.buttons = [self.redButton,
+                    self.orangeButton,
+                    self.yellowButton,
+                    self.greenButton,
+                    self.tealButton,
+                    self.blueButton,
+                    self.indigoButton,
+                    self.purpleButton]
 
     super.init(frame: frame)
 
@@ -223,7 +213,7 @@ extension DreamView {
 
     self.category.distinctUntilChanged()
       .withPrevious()
-      .subscribe(onNext: { [weak self] old, new in
+      .bind { [weak self] old, new in
         guard let self = self else { return }
         self.buttons[new.rawValue].backgroundColor = new.toColor()
         self.buttons[new.rawValue].theme.titleColor(from: themed { $0.background }, for: .normal)
@@ -231,22 +221,35 @@ extension DreamView {
           self.buttons[old.rawValue].theme.backgroundColor = themed { $0.background }
           self.buttons[old.rawValue].titleLabel?.textColor = old.toColor()
         }
-      })
+      }
       .disposed(by: self.disposeBag)
   }
 
   private func setupTextFieldAndTextView() {
+    self.titleTextField.rx.text.orEmpty.distinctUntilChanged()
+      .asDriver(onErrorJustReturn: "")
+      .drive(self.title)
+      .disposed(by: self.disposeBag)
+    self.contentTextView.rx.text.orEmpty.distinctUntilChanged()
+      .asDriver(onErrorJustReturn: "")
+      .drive(self.content)
+      .disposed(by: self.disposeBag)
+
+    self.content.map { $0.isEmpty == false }
+      .bind(to: self.contentTextViewPlaceholder.rx.isHidden)
+      .disposed(by: self.disposeBag)
+
     self.titleTextField.rx.controlEvent(.editingDidEnd)
-      .subscribe(onNext: { [weak self] _ in
+      .bind { [weak self] _ in
         self?.titleTextField.resignFirstResponder()
-      })
+      }
       .disposed(by: self.disposeBag)
 
     self.contentTextView.rx.didEndEditing
-      .subscribe(onNext: { [weak self] _ in
+      .bind { [weak self] _ in
         self?.contentTextView.resignFirstResponder()
         self?.transform = .identity
-      })
+      }
       .disposed(by: self.disposeBag)
     NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
       .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue }
@@ -260,7 +263,7 @@ extension DreamView {
         guard let self = self else { return false }
         return self.frame.maxY > $0.minY
       }
-      .subscribe(onNext: { [weak self] keyboardSize in
+      .bind { [weak self] keyboardSize in
         guard let self = self else { return }
         let contentSizeMaxY
           = self.contentTextView.frame.minY + self.contentTextView.contentSize.height + self.frame.minY
@@ -271,11 +274,11 @@ extension DreamView {
             self.translationYMultiflier += 1
           }
         }
-      })
+      }
       .disposed(by: self.disposeBag)
     self.contentTextView.rx.didBeginEditing
       .withLatestFrom(self.keyboardSize)
-      .subscribe(onNext: { [weak self] keyboardSize in
+      .bind { [weak self] keyboardSize in
         guard let self = self else { return }
         let contentSizeMaxY
           = self.contentTextView.frame.minY + self.contentTextView.contentSize.height + self.frame.minY
@@ -285,7 +288,7 @@ extension DreamView {
             self.transform = CGAffineTransform(translationX: 0, y: -12 * self.translationYMultiflier)
           }
         }
-      })
+      }
       .disposed(by: self.disposeBag)
 
     let toolBar = UIToolbar()
@@ -295,17 +298,21 @@ extension DreamView {
     toolBar.theme.tintColor = themed { $0.primary }
     self.contentTextView.inputAccessoryView = toolBar
 
-    doneButton.rx.tap.subscribe(onNext: { [weak self] _ in
+    doneButton.rx.tap.bind { [weak self] _ in
       self?.contentTextView.resignFirstResponder()
-    })
+    }
     .disposed(by: self.disposeBag)
   }
 
-  private func setupDream(_ dream: Dream) {
-    if let category = Category(rawValue: dream.category) {
-      self.category.accept(category)
-    }
-    self.titleTextField.text = dream.title
-    self.contentTextView.text = dream.content
+  private func setupDream() {
+    self.dream.compactMap { $0 }.debug()
+      .bind { [weak self] dream in
+        if let category = Category(rawValue: dream.category) {
+          self?.category.accept(category)
+        }
+        self?.titleTextField.text = dream.title
+        self?.contentTextView.text = dream.content
+      }
+      .disposed(by: self.disposeBag)
   }
 }

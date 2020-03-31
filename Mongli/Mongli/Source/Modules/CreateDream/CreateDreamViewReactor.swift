@@ -13,6 +13,7 @@ import RxCocoa
 import RxSwift
 
 final class CreateDreamViewReactor: Reactor {
+
   enum Action {
     case createDream(Dream)
   }

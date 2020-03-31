@@ -26,6 +26,7 @@ protocol Theme {
   var placeholder: UIColor { get }
   var logoText: UIColor { get }
   var darkWhite: UIColor { get }
+  var red: UIColor { get }
 
   var navigationBarTitle: [NSAttributedString.Key: Any] { get }
   var gradient: CAGradientLayer { get }
@@ -37,6 +38,7 @@ extension Theme {
   var buttonEnableTitle: UIColor { self.primary }
   var buttonDisableTitle: UIColor { self.background }
   var logoText: UIColor { .init(hex: 0x404040) }
+  var red: UIColor { .init(hex: 0xE74C3C) }
 
   var navigationBarTitle: [NSAttributedString.Key: Any] {
     [.font: FontManager.hpi17L, .foregroundColor: self.darkWhite]

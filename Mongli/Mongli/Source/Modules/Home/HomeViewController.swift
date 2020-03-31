@@ -23,7 +23,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
   var steps = PublishRelay<Step>()
 
   private let monthlyDreams = BehaviorRelay<MonthlyDreams>(value: MonthlyDreams())
-  private let didSelectDate = PublishRelay<Date>()
+  private let date = BehaviorRelay<Date>(value: Date())
   private let currentPageDidChange = PublishRelay<Date>()
 
   // MARK: UI
@@ -49,7 +49,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
   }
   private let tableView = UITableView().then {
     $0.register(SummaryDreamTableViewCell.self, forCellReuseIdentifier: "SummaryDreamTableViewCell")
-    $0.rowHeight = UITableView.automaticDimension
+    $0.rowHeight = 76
     $0.theme.backgroundColor = themed { $0.background }
   }
   private let placeholderView = PlaceholderView(.noContent)
@@ -80,9 +80,9 @@ final class HomeViewController: BaseViewController, View, Stepper {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.coverView.addSubview(self.placeholderView)
+    self.coverView.addSubview(self.tableView)
     self.subViews = [self.calendar,
                      self.coverView,
-                     self.tableView,
                      self.createDreamButton,
                      self.spinner]
   }
@@ -137,7 +137,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
 
 extension HomeViewController {
   private func bindAction(_ reactor: Reactor) {
-    self.didSelectDate
+    self.date
       .map { Reactor.Action.selectDate($0) }
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)
@@ -166,35 +166,43 @@ extension HomeViewController {
 
   private func bindState(_ reactor: Reactor) {
     reactor.state.map { $0.selectedDate }
+      .distinctUntilChanged()
       .map { LocalizedString.aDreamOfDateFormat.localizedDateString($0) }
       .bind(to: self.coverView.label.rx.text)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dailyDreams }
+      .distinctUntilChanged()
       .bind(to: self.tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
                                         cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dailyDreams }
+      .distinctUntilChanged()
       .map { !$0.isEmpty }
       .bind(to: self.placeholderView.rx.isHidden)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dailyDreams }
+      .distinctUntilChanged()
       .map { $0.isEmpty }
       .bind(to: self.tableView.rx.isHidden)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dailyDreams }
+      .distinctUntilChanged()
       .map { $0.isEmpty }
       .bind(to: self.coverView.button.rx.isHidden)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.monthlyDreams }
+      .distinctUntilChanged()
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
       .bind(to: self.monthlyDreams)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.deleteIsSuccess }
+      .distinctUntilChanged()
       .filter { $0 }
       .map { _ in MongliStep.toast(.deletedMsg) }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.selectedDreamID }
+      .distinctUntilChanged()
       .compactMap { $0 }
       .map { MongliStep.readDreamIsRequired($0) }
       .bind(to: self.steps)
@@ -205,6 +213,7 @@ extension HomeViewController {
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }
+      .distinctUntilChanged()
       .bind(to: self.spinner.rx.isAnimating)
       .disposed(by: self.disposeBag)
   }
@@ -234,7 +243,7 @@ extension HomeViewController: FSCalendarDelegateAppearance, FSCalendarDataSource
   }
 
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-    self.didSelectDate.accept(date)
+    self.date.accept(date)
   }
 
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {

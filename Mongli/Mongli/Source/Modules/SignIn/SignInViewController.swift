@@ -68,9 +68,9 @@ final class SignInViewController: BaseViewController, View, Stepper {
 
   override func setupUserInteraction() {
     self.signInButton.rx.controlEvent(.touchUpInside)
-      .subscribe(onNext: { [weak self] _ in
+      .bind { [weak self] _ in
         self?.controller.performRequests()
-      })
+      }
       .disposed(by: self.disposeBag)
   }
 
