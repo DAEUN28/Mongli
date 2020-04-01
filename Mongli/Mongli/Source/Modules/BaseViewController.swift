@@ -30,6 +30,7 @@ class BaseViewController: UIViewController {
       }
     }
   }
+  private(set) var didNotSetupConstraints = true
 
   // MARK: Initializing
 
@@ -42,12 +43,10 @@ class BaseViewController: UIViewController {
   }
 
   deinit {
-    log.info("DEINIT: \(self.className)")
+    log.verbose("DEINIT: \(self.className)")
   }
 
   // MARK: Layout Constraints
-
-  private(set) var didNotSetupConstraints = true
 
   override func viewDidLoad() {
     self.view.setNeedsUpdateConstraints()
@@ -78,7 +77,7 @@ class BaseViewController: UIViewController {
   }
 
   func setupDreamNavigationBar(date: Driver<Date>) -> UIBarButtonItem {
-    self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationController?.setNavigationBarHidden(false, animated: false)
     self.navigationController?.navigationBar.theme.tintColor = themed { $0.darkWhite }
     self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     self.navigationController?.navigationBar.clipsToBounds = true

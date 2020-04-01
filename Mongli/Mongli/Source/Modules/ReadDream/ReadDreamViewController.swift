@@ -99,7 +99,7 @@ extension ReadDreamViewController {
   }
 
   private func bindState(_ reactor: Reactor) {
-    reactor.state.map { $0.dream }.debug()
+    reactor.state.map { $0.dream }
       .asDriver(onErrorJustReturn: nil)
       .drive(self.dreamView.dream)
       .disposed(by: self.disposeBag)

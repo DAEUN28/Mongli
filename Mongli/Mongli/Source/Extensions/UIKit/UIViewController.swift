@@ -42,7 +42,7 @@ extension UIViewController {
       break
     }
 
-    self.present(alert, animated: true)
+    self.present(alert, animated: false)
   }
 
   func presentDatepickerActionSheet(_ handler: @escaping (Date) -> Void) {
@@ -70,6 +70,6 @@ extension UIViewController {
       $0.trailing.equalToSuperview()
     }
 
-    self.present(actionSheet, animated: true)
+    self.present(actionSheet, animated: false)
   }
 }

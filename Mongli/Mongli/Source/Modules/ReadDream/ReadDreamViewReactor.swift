@@ -41,11 +41,10 @@ final class ReadDreamViewReactor: Reactor {
 
   func transform(state: Observable<State>) -> Observable<State> {
     return state.flatMap { [weak self] state -> Observable<State> in
-      guard let self = self else { return .empty() }
-      if state.dream != nil { return .just(state) }
+      guard let self = self, state.dream == nil else { return .just(state) }
       var state = state
 
-      return self.service.readDream(self.id)
+      return self.service.readDream(self.id).debug()
         .asObservable()
         .map {
           switch $0 {

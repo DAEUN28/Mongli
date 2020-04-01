@@ -47,7 +47,9 @@ final class SummaryDreamTableViewCell: UITableViewCell {
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+
     self.backgroundColor = .clear
+    self.selectionStyle = .none
     self.containerView.layer.cornerRadius = 10
 
     self.contentView.addSubview(self.containerView)
@@ -55,10 +57,6 @@ final class SummaryDreamTableViewCell: UITableViewCell {
     self.containerView.addSubview(self.summaryLabel)
     self.containerView.addSubview(self.dateLabel)
     self.containerView.addSubview(self.cloudImageView)
-
-    self.titleLabel.sizeToFit()
-    self.summaryLabel.sizeToFit()
-    self.dateLabel.sizeToFit()
   }
 
   required init?(coder: NSCoder) {
@@ -83,32 +81,36 @@ final class SummaryDreamTableViewCell: UITableViewCell {
   // MARK: Layout
 
   override func layoutSubviews() {
+    self.titleLabel.sizeToFit()
+    self.summaryLabel.sizeToFit()
+    self.dateLabel.sizeToFit()
+
     self.containerView.snp.makeConstraints {
-         $0.top.equalToSuperview().inset(10)
-         $0.bottom.equalToSuperview().inset(10)
-         $0.leading.equalToSuperview()
-         $0.trailing.equalToSuperview()
-       }
-       self.cloudImageView.snp.makeConstraints {
-         $0.centerY.equalToSuperview()
-         $0.trailing.equalToSuperview().inset(12)
-         $0.width.equalTo(20)
-         $0.height.equalTo(20)
-       }
-       self.titleLabel.snp.makeConstraints {
-         $0.top.equalToSuperview().inset(12)
-         $0.leading.equalToSuperview().inset(12)
-       }
-       self.dateLabel.snp.makeConstraints {
-         $0.bottom.equalTo(self.titleLabel.snp.bottom)
-         $0.leading.equalTo(self.titleLabel.snp.trailing).offset(8)
-       }
-       self.summaryLabel.snp.makeConstraints {
-         $0.top.equalTo(self.titleLabel.snp.bottom).offset(4)
-         $0.bottom.equalToSuperview().inset(12)
-         $0.leading.equalTo(self.titleLabel.snp.leading)
-         $0.trailing.equalTo(self.cloudImageView.snp.leading).inset(8)
-       }
+      $0.top.equalToSuperview().inset(10)
+      $0.bottom.equalToSuperview().inset(10)
+      $0.leading.equalToSuperview()
+      $0.trailing.equalToSuperview()
+    }
+    self.cloudImageView.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.trailing.equalToSuperview().inset(12)
+      $0.width.equalTo(20)
+      $0.height.equalTo(20)
+    }
+    self.titleLabel.snp.makeConstraints {
+      $0.top.equalToSuperview().inset(12)
+      $0.leading.equalToSuperview().inset(12)
+    }
+    self.dateLabel.snp.makeConstraints {
+      $0.bottom.equalTo(self.titleLabel.snp.bottom)
+      $0.leading.equalTo(self.titleLabel.snp.trailing).offset(8)
+    }
+    self.summaryLabel.snp.makeConstraints {
+      $0.top.equalTo(self.titleLabel.snp.bottom).offset(4)
+      $0.bottom.equalToSuperview().inset(12)
+      $0.leading.equalTo(self.titleLabel.snp.leading)
+      $0.trailing.equalTo(self.cloudImageView.snp.leading).inset(8)
+    }
   }
 
 }

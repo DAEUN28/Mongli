@@ -8,7 +8,6 @@
 
 import UIKit
 
-import Firebase
 import RxFlow
 import RxSwift
 import RxCocoa
@@ -33,7 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     if let flow = self.appFlow { self.setupFlow(flow) }
-    FirebaseApp.configure()
+    self.coordinator.rx.willNavigate.bind { flow, step in
+      log.info("will navigate to flow=\(flow) and step=\(step)")
+    }
+    .disposed(by: self.disposeBag)
+
+    self.coordinator.rx.didNavigate.bind { flow, step in
+      log.info("did navigate to flow=\(flow) and step=\(step)")
+    }
+    .disposed(by: self.disposeBag)
+
     return true
   }
 
@@ -48,16 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
   func setupFlow(_ flow: AppFlow) {
-    self.coordinator.rx.willNavigate.bind { flow, step in
-      log.info("will navigate to flow=\(flow) and step=\(step)")
-    }
-    .disposed(by: self.disposeBag)
-
-    self.coordinator.rx.didNavigate.bind { flow, step in
-      log.info("did navigate to flow=\(flow) and step=\(step)")
-    }
-    .disposed(by: self.disposeBag)
-
     self.coordinator.coordinate(flow: flow, with: AppStepper(self.authService))
   }
 }

@@ -10,9 +10,10 @@ import Foundation
 
 import ReactorKit
 import RxCocoa
+import RxFlow
 import RxSwift
 
-final class HomeViewReactor: Reactor {
+final class HomeViewReactor: Reactor, Stepper {
 
   enum Action {
     case selectDate(Date)
@@ -35,14 +36,13 @@ final class HomeViewReactor: Reactor {
     var selectedDate: String = LocalizedString.aDreamOfDateFormat.localizedDate(Date())
     var dailyDreams: [SummaryDream] = [SummaryDream]()
     var monthlyDreams: MonthlyDreams = MonthlyDreams()
-    var deleteIsSuccess: Bool = false
-    var selectedDreamID: Int?
-    var error: LocalizedString?
     var isLoading: Bool = false
   }
 
   let initialState = State()
   private let service: DreamService
+
+  var steps = PublishRelay<Step>()
 
   init(_ service: DreamService) {
     self.service = service
@@ -113,34 +113,28 @@ final class HomeViewReactor: Reactor {
     switch mutation {
     case .setSelectedDate(let date):
       state.selectedDate = LocalizedString.aDreamOfDateFormat.localizedDate(date)
-      return state
 
     case .setDailyDreams(let dailyDreams):
       state.dailyDreams = dailyDreams
-      state.error = nil
-      return state
 
     case .setMonthlyDreams(let monthlyDreams):
       state.monthlyDreams = monthlyDreams
-      state.error = nil
-      return state
 
     case .setDeleteIsSuccess(let isSuccess):
-      state.deleteIsSuccess = isSuccess
-      state.error = nil
-      return state
+      if !isSuccess { return state }
+      self.steps.accept(MongliStep.toast(.deletedMsg))
 
     case .setSelectedDreamID(let dreamID):
-      state.selectedDreamID = dreamID
-      return state
+      self.steps.accept(MongliStep.readDreamIsRequired(dreamID))
 
     case .setError(let error):
-      state.error = error
-      return state
+      guard let error = error else { return state }
+      self.steps.accept(MongliStep.toast(error))
 
     case .setLoading(let isLoading):
       state.isLoading = isLoading
-      return state
     }
+
+    return state
   }
 }

@@ -87,7 +87,7 @@ extension HomeFlow {
   }
 
   private func dismiss() -> FlowContributors {
-    self.rootViewController.popViewController(animated: true)
+    self.rootViewController.popViewController(animated: false)
     return .none
   }
 
@@ -96,7 +96,9 @@ extension HomeFlow {
     let vc = HomeViewController(reactor)
 
     self.rootViewController.setViewControllers([vc], animated: false)
-    return .one(flowContributor: .contribute(withNext: vc))
+    return .one(flowContributor: .contribute(withNextPresentable: vc,
+                                             withNextStepper: CompositeStepper(steppers: [vc, reactor]),
+                                             allowStepWhenNotPresented: true))
   }
 
   private func navigateToCreateDream() -> FlowContributors {

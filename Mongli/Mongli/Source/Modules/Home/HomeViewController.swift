@@ -22,8 +22,8 @@ final class HomeViewController: BaseViewController, View, Stepper {
 
   var steps = PublishRelay<Step>()
 
-  private let monthlyDreams = BehaviorRelay<MonthlyDreams>(value: MonthlyDreams())
   private let date = BehaviorRelay<Date>(value: Date())
+  private let monthlyDreams = BehaviorRelay<MonthlyDreams?>(value: nil)
   private let currentPageDidChange = PublishRelay<Date>()
 
   // MARK: UI
@@ -80,15 +80,15 @@ final class HomeViewController: BaseViewController, View, Stepper {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.coverView.addSubview(self.placeholderView)
-    self.coverView.addSubview(self.tableView)
     self.subViews = [self.calendar,
                      self.coverView,
+                     self.tableView,
                      self.createDreamButton,
                      self.spinner]
   }
 
   override func viewWillAppear(_ animated: Bool) {
-    self.navigationController?.setNavigationBarHidden(true, animated: true)
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
 
   // MARK: Setup
@@ -146,7 +146,7 @@ extension HomeViewController {
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)
     self.coverView.button.rx.tap
-      .withLatestFrom(Observable.just(self.calendar.selectedDate))
+      .withLatestFrom(self.date)
       .compactMap { $0 }
       .map { dateFormatter.string(from: $0) }
       .map { MongliStep.alert(.delete($0),
@@ -195,23 +195,6 @@ extension HomeViewController {
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
       .bind(to: self.monthlyDreams)
       .disposed(by: self.disposeBag)
-    reactor.state.map { $0.deleteIsSuccess }
-      .distinctUntilChanged()
-      .filter { $0 }
-      .map { _ in MongliStep.toast(.deletedMsg) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
-    reactor.state.map { $0.selectedDreamID }
-      .distinctUntilChanged()
-      .compactMap { $0 }
-      .map { MongliStep.readDreamIsRequired($0) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
-    reactor.state.map { $0.error }
-      .compactMap { $0 }
-      .map { MongliStep.toast($0) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }
       .distinctUntilChanged()
       .bind(to: self.spinner.rx.isAnimating)
@@ -226,13 +209,13 @@ extension HomeViewController: FSCalendarDelegateAppearance, FSCalendarDataSource
                 appearance: FSCalendarAppearance,
                 eventDefaultColorsFor date: Date) -> [UIColor]? {
     let key = dateFormatter.string(from: date)
-    guard let categories = self.monthlyDreams.value[key] else { return nil }
+    guard let categories = self.monthlyDreams.value?[key] else { return nil }
     return categories.compactMap { Category(rawValue: $0)?.toColor() }
   }
 
   func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
     let key = dateFormatter.string(from: date)
-    guard let categories = self.monthlyDreams.value[key] else { return 0 }
+    guard let categories = self.monthlyDreams.value?[key] else { return 0 }
     return categories.count
   }
 

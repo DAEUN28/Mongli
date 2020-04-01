@@ -40,7 +40,6 @@
 		BF4454AD241F95D300632E38 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454AC241F95D300632E38 /* LogManager.swift */; };
 		BF4454B2241FA63600632E38 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454B1241FA63600632E38 /* Token.swift */; };
 		BF4454B4241FA63D00632E38 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454B3241FA63D00632E38 /* Analysis.swift */; };
-		BF4454BA2420A69200632E38 /* privateKey in Resources */ = {isa = PBXBuildFile; fileRef = BF4454B82420A69200632E38 /* privateKey */; };
 		BF4454BC2420A93500632E38 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454BB2420A93500632E38 /* TokenManager.swift */; };
 		BF4454BE2420ACB400632E38 /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454BD2420ACB400632E38 /* Dream.swift */; };
 		BF4454C12420F59400632E38 /* MongliAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4454C02420F59400632E38 /* MongliAPI.swift */; };
@@ -82,6 +81,7 @@
 		BFB0A913242CE31B00BCBFD4 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */; };
 		BFB0A915242CFDEE00BCBFD4 /* ObservableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */; };
 		BFBFB63A2432D24600C15CDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBFB6392432D24600C15CDD /* GoogleService-Info.plist */; };
+		BFBFB63C2432E1A500C15CDD /* privateKey in Resources */ = {isa = PBXBuildFile; fileRef = BFBFB63B2432E1A500C15CDD /* privateKey */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -144,7 +144,6 @@
 		BF4454AC241F95D300632E38 /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		BF4454B1241FA63600632E38 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		BF4454B3241FA63D00632E38 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
-		BF4454B82420A69200632E38 /* privateKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey; sourceTree = "<group>"; };
 		BF4454BB2420A93500632E38 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		BF4454BD2420ACB400632E38 /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
 		BF4454C02420F59400632E38 /* MongliAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliAPI.swift; sourceTree = "<group>"; };
@@ -189,6 +188,7 @@
 		BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableType.swift; sourceTree = "<group>"; };
 		BFBFB6392432D24600C15CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BFBFB63B2432E1A500C15CDD /* privateKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -334,7 +334,7 @@
 				BF44547B241E3FFA00632E38 /* Assets.xcassets */,
 				BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */,
 				BF4454DA24225C3000632E38 /* Localizable.strings */,
-				BF4454B82420A69200632E38 /* privateKey */,
+				BFBFB63B2432E1A500C15CDD /* privateKey */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -367,8 +367,6 @@
 				BF4454F4242442D400632E38 /* ReadDream */,
 				BF4454F12424429100632E38 /* Search */,
 				BF4454E824239CBB00632E38 /* SignIn */,
-				BF4454E924239CEC00632E38 /* Statics */,
-				BF4454F5242442DA00632E38 /* UpdateDream */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -462,13 +460,6 @@
 			path = SignIn;
 			sourceTree = "<group>";
 		};
-		BF4454E924239CEC00632E38 /* Statics */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Statics;
-			sourceTree = "<group>";
-		};
 		BF4454F0242441AA00632E38 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,13 +503,6 @@
 				BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */,
 			);
 			path = ReadDream;
-			sourceTree = "<group>";
-		};
-		BF4454F5242442DA00632E38 /* UpdateDream */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UpdateDream;
 			sourceTree = "<group>";
 		};
 		BF44551D2424F3CC00632E38 /* Components */ = {
@@ -671,12 +655,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF4454C4242108F100632E38 /* .swiftlint.yml in Resources */,
+				BFBFB63C2432E1A500C15CDD /* privateKey in Resources */,
 				BF44547F241E3FFA00632E38 /* LaunchScreen.storyboard in Resources */,
 				BF44547C241E3FFA00632E38 /* Assets.xcassets in Resources */,
 				BF4454D824225C3000632E38 /* Localizable.strings in Resources */,
 				BF4455182424E87000632E38 /* 12롯데마트행복Bold.ttf in Resources */,
 				BF44551A2424E87500632E38 /* 12롯데마트행복Medium.ttf in Resources */,
-				BF4454BA2420A69200632E38 /* privateKey in Resources */,
 				BFBFB63A2432D24600C15CDD /* GoogleService-Info.plist in Resources */,
 				BF4455192424E87200632E38 /* 12롯데마트행복Light.ttf in Resources */,
 			);
