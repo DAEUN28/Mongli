@@ -70,8 +70,8 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
   }
 
   override func setupUserInteraction() {
-    BehaviorRelay.combineLatest(self.dreamView.title, self.dreamView.content) { !($0.isEmpty && $1.isEmpty) }
-      .do(onNext: { [weak self] in self?.setDoneButtonTheme($0) })
+    BehaviorRelay.combineLatest(self.dreamView.title, self.dreamView.content) { !$0.isEmpty && !$1.isEmpty }
+      .do(onNext: { [weak self] in self?.doneButton.setTheme($0) })
       .bind(to: self.doneButton.rx.isEnabled)
       .disposed(by: self.disposeBag)
     self.setupDreamNavigationBar(date.asDriver()).rx.tap
@@ -118,19 +118,5 @@ extension CreateDreamViewController {
     reactor.state.map { $0.isLoading }
       .bind(to: self.spinner.rx.isAnimating)
       .disposed(by: self.disposeBag)
-  }
-}
-
-// MARK: Util
-
-extension CreateDreamViewController {
-  private func setDoneButtonTheme(_ isEnabled: Bool) {
-    if isEnabled {
-      self.doneButton.theme.backgroundColor = themed { $0.buttonEnable }
-      self.doneButton.theme.titleColor(from: themed { $0.buttonEnableTitle }, for: .normal)
-    } else {
-      self.doneButton.theme.backgroundColor = themed { $0.buttonDisable }
-      self.doneButton.theme.titleColor(from: themed { $0.buttonDisableTitle }, for: .normal)
-    }
   }
 }

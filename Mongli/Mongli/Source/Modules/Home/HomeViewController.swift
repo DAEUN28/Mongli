@@ -149,13 +149,13 @@ extension HomeViewController {
       .withLatestFrom(self.date)
       .compactMap { $0 }
       .map { dateFormatter.string(from: $0) }
-      .map { MongliStep.alert(.delete($0),
-                              title: .allTheDreamsOfDateFormat,
-                              message: .deleteDreamDesc) { [weak self] _ in
-                                guard let self = self else { return }
-                                Observable.just(Reactor.Action.deleteAllDreams)
-                                  .bind(to: reactor.action)
-                                  .disposed(by: self.disposeBag) }}
+      .map { MongliStep.alert(.delete($0)) { [weak self] _ in
+        guard let self = self else { return }
+        Observable.just(Reactor.Action.deleteAllDreams)
+          .bind(to: reactor.action)
+          .disposed(by: self.disposeBag)
+        }
+      }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     self.tableView.rx.itemSelected

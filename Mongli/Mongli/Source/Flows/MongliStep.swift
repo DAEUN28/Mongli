@@ -14,9 +14,9 @@ enum MongliStep: Step {
   // Global
   case toast(LocalizedString)
   case alert(_ type: UIViewController.AlertType,
-    title: LocalizedString?,
-    message: LocalizedString?,
-    handler: ((UIAlertAction) -> Void)?)
+    title: LocalizedString? = nil,
+    message: LocalizedString? = nil,
+    handler: ((UIAlertAction) -> Void)? = nil)
   case datePickerActionSheet((Date) -> Void)
   case unauthorized
   case dismiss

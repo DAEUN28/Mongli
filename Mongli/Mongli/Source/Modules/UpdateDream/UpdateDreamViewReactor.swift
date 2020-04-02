@@ -10,24 +10,25 @@ import Foundation
 
 import ReactorKit
 import RxCocoa
+import RxFlow
 import RxSwift
 
-final class UpdateDreamViewReactor: Reactor {
+final class UpdateDreamViewReactor: Reactor, Stepper {
 
   enum Action {
-    case updateDream
+    case updateDream(Dream)
   }
 
   enum Mutation {
-    case setError(LocalizedString?)
     case setLoading(Bool)
   }
 
   struct State {
-    var existingDream: Dream
-    var error: LocalizedString?
+    let existingDream: Dream
     var isLoading: Bool = false
   }
+
+  var steps = PublishRelay<Step>()
 
   let initialState: State
   private let service: DreamService
@@ -41,36 +42,34 @@ final class UpdateDreamViewReactor: Reactor {
   }
 
   func mutate(action: Action) -> Observable<Mutation> {
-    return .empty()
-//    switch action {
-//    case .deleteDream:
-//      guard let id = self.currentState.dream?.id else { return .empty() }
-//
-//      let startLoading: Observable<Mutation> = .just(.setLoading(true))
-//      let result: Observable<Mutation> = self.service.deleteDream(id)
-//        .asObservable()
-//        .map {
-//          switch $0 {
-//          case .success: return .setLoading(false)
-//          case .error(let err): return .setError(err.message)
-//          }
-//        }
-//
-//      return .concat([startLoading, result])
-//    }
+    switch action {
+    case .updateDream(let dream):
+      let startLoading: Observable<Mutation> = .just(.setLoading(true))
+      let result: Observable<Mutation> = self.service.updateDream(dream)
+        .delay(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+        .asObservable()
+        .map { [weak self] in
+          switch $0 {
+          case .success:
+            self?.steps.accept(MongliStep.updateDreamIsComplete(dream))
+            return .setLoading(false)
+
+          case .error(let err):
+            self?.steps.accept(MongliStep.toast(err.message ?? LocalizedString.unknownErrorMsg))
+            return .setLoading(true)
+          }
+        }
+
+      return .concat([startLoading, result])
+    }
   }
 
   func reduce(state: State, mutation: Mutation) -> State {
-    return state
-//    var state = state
-//    switch mutation {
-//    case .setError(let error):
-//      state.error = error
-//      return state
-//
-//    case .setLoading(let isLoading):
-//      state.isLoading = isLoading
-//      return state
-//    }
+    var state = state
+    switch mutation {
+    case .setLoading(let isLoading):
+      state.isLoading = isLoading
+      return state
+    }
   }
 }

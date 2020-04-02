@@ -27,13 +27,15 @@ enum LocalizedString: String, Equatable, Hashable {
   // Common
   case mongli
   case mongliSubtitle
-  case retryMsg
-  case deletedMsg
   case cancel
   case delete
   case select
   case done
+  case `continue`
+  case retryMsg
+  case deletedMsg
   case deleteDreamDesc
+  case cancelDreamDesc
   case category
   case categoryInfoText
 

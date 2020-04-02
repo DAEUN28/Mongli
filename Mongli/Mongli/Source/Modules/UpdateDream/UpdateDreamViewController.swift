@@ -25,7 +25,7 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
   // MARK: UI
 
-  private let dreamView = DreamView(.create)
+  private let dreamView = DreamView(.update)
   private let doneButton = UIButton().then {
     $0.setTitle(.updateDream)
     $0.titleLabel?.font = FontManager.hpi17L
@@ -48,31 +48,54 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    self.subViews = [self.dreamView, self.deleteButton, self.updateButton, self.spinner]
+    self.subViews = [self.dreamView, self.doneButton, self.spinner]
+
+    // present alert when willMove
+//    let id = reactor?.initialState.existingDream.id
+//    let dream = Observable.combineLatest(self.date.map { dateFormatter.string(from: $0) }.asObservable(),
+//                                         self.dreamView.category.asObservable(),
+//                                         self.dreamView.title.asObservable(),
+//                                         self.dreamView.content.asObservable()) { Dream(id: id,
+//                                                                                         date: $0,
+//                                                                                         category: $1.rawValue,
+//                                                                                         title: $2,
+//                                                                                         content: $3) }
+//
+//    guard let touchesMoved = self.navigationController?.interactivePopGestureRecognizer?.rx.touchesMoved else { return }
+//    let backButton = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
+//    self.navigationItem.backBarButtonItem = backButton
+//
+//    Observable.combineLatest(touchesMoved, backButton.rx.tap.asObservable())
+//      .withLatestFrom(dream)
+//      .filter { [weak self] in self?.reactor?.initialState.existingDream != $0 }
+//      .map { _ in MongliStep.alert(.cancelWrite) { [weak self] _ in self?.steps.accept(MongliStep.dismiss) } }
+//      .bind(to: self.steps)
+//      .disposed(by: self.disposeBag)
   }
 
   // MARK: Setup
 
   override func setupConstraints() {
-//    self.deleteButton.snp.makeConstraints {
-//      $0.height.equalTo(44)
-//      $0.bottom.equalToSafeArea(self.view).inset(12)
-//      $0.leading.equalToSuperview().inset(32)
-//      $0.trailing.equalTo(self.view.snp.centerX).offset(-6)
-//    }
-//    self.updateButton.snp.makeConstraints {
-//      $0.height.equalTo(44)
-//      $0.bottom.equalToSafeArea(self.view).inset(12)
-//      $0.leading.equalTo(self.view.snp.centerX).offset(6)
-//      $0.trailing.equalToSuperview().inset(32)
-//    }
-//    self.dreamView.snp.makeConstraints {
-//      $0.bottom.equalTo(self.deleteButton.snp.top).offset(-16)
-//    }
+    self.doneButton.snp.makeConstraints {
+      $0.height.equalTo(44)
+      $0.bottom.equalToSafeArea(self.view).inset(12)
+      $0.leading.equalToSuperview().inset(32)
+      $0.trailing.equalToSuperview().inset(32)
+    }
+    self.dreamView.snp.makeConstraints {
+      $0.bottom.equalTo(self.doneButton.snp.top).offset(-16)
+    }
   }
 
   override func setupUserInteraction() {
-
+    BehaviorRelay.combineLatest(self.dreamView.title, self.dreamView.content) { !$0.isEmpty && !$1.isEmpty }
+      .do(onNext: { [weak self] in self?.doneButton.setTheme($0) })
+      .bind(to: self.doneButton.rx.isEnabled)
+      .disposed(by: self.disposeBag)
+    self.setupDreamNavigationBar(date.asDriver()).rx.tap
+      .map { _ in MongliStep.datePickerActionSheet { [weak self] in self?.date.accept($0) } }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
   }
 
   // MARK: Binding
@@ -85,30 +108,29 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
 extension UpdateDreamViewController {
   private func bindAction(_ reactor: Reactor) {
-
+    let id = reactor.initialState.existingDream.id
+    let dream = Observable.combineLatest(self.date.map { dateFormatter.string(from: $0) }.asObservable(),
+                                         self.dreamView.category.asObservable(),
+                                         self.dreamView.title.asObservable(),
+                                         self.dreamView.content.asObservable()) { Dream(id: id,
+                                                                                         date: $0,
+                                                                                         category: $1.rawValue,
+                                                                                         title: $2,
+                                                                                         content: $3) }
+    self.doneButton.rx.tap.withLatestFrom(dream)
+      .map { Reactor.Action.updateDream($0) }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
-//    reactor.state.map { $0.dream }
-//      .asDriver(onErrorJustReturn: nil)
-//      .drive(self.dreamView.dream)
-//      .disposed(by: self.disposeBag)
-//    reactor.state.map { $0.dream?.date }
-//      .compactMap { $0 }
-//      .bind { [weak self] in self?.setupDreamNavigationBar(dateString: $0) }
-//      .disposed(by: self.disposeBag)
-//    reactor.state.map { $0.error }
-//      .compactMap { $0 }
-//      .map { MongliStep.toast($0) }
-//      .bind(to: self.steps)
-//      .disposed(by: self.disposeBag)
-//    reactor.state.map { $0.isLoading }.skip(1)
-//      .filter { !$0 }
-//      .map { _ in MongliStep.dismiss }
-//      .bind(to: self.steps)
-//      .disposed(by: self.disposeBag)
-//    reactor.state.map { $0.isLoading }
-//      .bind(to: self.spinner.rx.isAnimating)
-//      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.existingDream }
+      .take(1)
+      .bind(to: self.dreamView.dream)
+      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.isLoading }
+      .distinctUntilChanged()
+      .bind(to: self.spinner.rx.isAnimating)
+      .disposed(by: self.disposeBag)
   }
 }

@@ -78,6 +78,10 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
     }
   }
 
+  func setupDream(_ dream: Dream) {
+    self.dreamView.dream.accept(dream)
+  }
+
   // MARK: Binding
 
   func bind(reactor: Reactor) {
@@ -90,13 +94,13 @@ extension ReadDreamViewController {
   private func bindAction(_ reactor: Reactor) {
     self.deleteButton.rx.tap
       .withLatestFrom(self.dreamView.title)
-      .map { MongliStep.alert(.delete($0),
-                              title: nil,
-                              message: .deleteDreamDesc) { [weak self] _ in
-                                guard let self = self else { return }
-                                Observable.just(Reactor.Action.deleteDream)
-                                  .bind(to: reactor.action)
-                                  .disposed(by: self.disposeBag) }}
+      .map { MongliStep.alert(.delete($0)) { [weak self] _ in
+        guard let self = self else { return }
+        Observable.just(Reactor.Action.deleteDream)
+          .bind(to: reactor.action)
+          .disposed(by: self.disposeBag)
+        }
+      }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
   }

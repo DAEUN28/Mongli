@@ -103,20 +103,23 @@ final class DreamView: UIView {
   convenience init(_ type: Type) {
     self.init(frame: .zero)
 
-    self.setupDream()
     self.setupCategoryButton()
     self.setupTextFieldAndTextView()
 
     switch type {
+    case .create:
+      return
+
     case .read:
+      self.setupDream()
       for button in self.buttons {
         button.isEnabled = false
       }
       self.titleTextField.isEnabled = false
       self.contentTextView.isUserInteractionEnabled = false
 
-    default:
-      break
+    case .update:
+      self.setupDream()
     }
   }
 
@@ -294,8 +297,9 @@ extension DreamView {
 
     let toolBar = UIToolbar()
     toolBar.sizeToFit()
+    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let doneButton = UIBarButtonItem(title: LocalizedString.done.localized, style: .done, target: nil, action: nil)
-    toolBar.items = [doneButton]
+    toolBar.setItems([flexibleSpace, doneButton], animated: false)
     toolBar.theme.tintColor = themed { $0.primary }
     self.contentTextView.inputAccessoryView = toolBar
 

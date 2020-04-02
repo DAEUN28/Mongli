@@ -23,13 +23,15 @@
 // Common
 "mongli" = "몽리";
 "mongliSubtitle" = ":꿈을 꾸는 동안";
-"retryMsg" = "다시 한번 시도해주세요";
-"deletedMsg" = "삭제되었습니다";
 "cancel" = "취소";
 "delete" = "삭제";
 "select" = "선택";
 "done" = "완료";
-"deleteDreamDesc" = "삭제된 꿈은 복구할 수 없습니다.\n정말 삭제하시겠습니까?";
+"continue" = "계속 작성";
+"retryMsg" = "다시 한번 시도해주세요";
+"deletedMsg" = "삭제되었습니다";
+"deleteDreamDesc" = "삭제된 꿈은 복구할 수 없습니다\n정말 삭제하시겠습니까?";
+"cancelDreamDesc" = "꿈은 저장되지 않습니다\n작성을 취소하시겠습니까?";
 "category" = "카테고리";
 "categoryInfoText" = "꿈의 종류란?";
 

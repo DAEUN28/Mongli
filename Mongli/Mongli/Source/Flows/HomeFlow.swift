@@ -60,6 +60,9 @@ final class HomeFlow: Flow {
     case .updateDreamIsRequired(let dream):
       return self.navigateToUpdateDream(dream)
 
+    case .updateDreamIsComplete(let dream):
+      return self.navigateToReadDream(dream)
+
     default:
       return .none
     }
@@ -128,6 +131,16 @@ extension HomeFlow {
     vc.hidesBottomBarWhenPushed = true
 
     self.rootViewController.pushViewController(vc, animated: true)
-    return .one(flowContributor: .contribute(withNext: vc))
+    return .one(flowContributor: .contribute(withNextPresentable: vc,
+                                             withNextStepper: CompositeStepper(steppers: [vc, reactor]),
+                                             allowStepWhenNotPresented: true))
+  }
+
+  private func navigateToReadDream(_ dream: Dream) -> FlowContributors {
+    self.rootViewController.popViewController(animated: true)
+    guard let vc = self.rootViewController.topViewController as? ReadDreamViewController else { return .none }
+    vc.setupDream(dream)
+
+    return .none
   }
 }

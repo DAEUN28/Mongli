@@ -8,6 +8,9 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
+
 extension UIButton {
   func setUnderlineTitle(_ text: LocalizedString) {
     let attributedString = NSMutableAttributedString(string: text.localized)
@@ -19,5 +22,15 @@ extension UIButton {
 
   func setTitle(_ title: LocalizedString) {
     self.setTitle(title.localized, for: .normal)
+  }
+
+  func setTheme(_ isEnabled: Bool) {
+    if isEnabled {
+      self.theme.backgroundColor = themed { $0.buttonEnable }
+      self.theme.titleColor(from: themed { $0.buttonEnableTitle }, for: .normal)
+    } else {
+      self.theme.backgroundColor = themed { $0.buttonDisable }
+      self.theme.titleColor(from: themed { $0.buttonDisableTitle }, for: .normal)
+    }
   }
 }
