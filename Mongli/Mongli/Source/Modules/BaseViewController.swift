@@ -70,12 +70,12 @@ class BaseViewController: UIViewController {
   func setupViews() { }
   func setupUserInteraction() { }
 
-  func setupDreamNavigationBar(dateString: String) {
+  func setupDreamNavigationBar(_ string: String) {
     self.setupNavigationBar()
-    self.title = LocalizedString.aDreamOfDateFormat.localizedDateString(dateString)
+    self.title = LocalizedString.aDreamOfDateFormat.localizedDate(dateFormatter.date(from: string))
   }
 
-  func setupDreamNavigationBar(date: Driver<Date>) -> UIBarButtonItem {
+  func setupDreamNavigationBar(_ date: Driver<Date>) -> UIBarButtonItem {
     self.setupNavigationBar()
     date.map { LocalizedString.aDreamOfDateFormat.localizedDate($0) }
       .drive(self.rx.title)

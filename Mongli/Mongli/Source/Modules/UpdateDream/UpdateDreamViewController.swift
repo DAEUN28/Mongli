@@ -21,14 +21,14 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
   var steps = PublishRelay<Step>()
 
+  private let date = BehaviorRelay<Date>(value: Date())
+
   // MARK: UI
 
-  private let dreamView = DreamView(.read)
+  private let dreamView = DreamView(.create)
   private let doneButton = UIButton().then {
-    $0.setTitle(.deleteDreamText)
+    $0.setTitle(.updateDream)
     $0.titleLabel?.font = FontManager.hpi17L
-    $0.theme.titleColor(from: themed { $0.red }, for: .normal)
-    $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
   }
   private let spinner = Spinner()

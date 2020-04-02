@@ -25,14 +25,14 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
 
   private let dreamView = DreamView(.read)
   private let deleteButton = UIButton().then {
-    $0.setTitle(.deleteDreamText)
+    $0.setTitle(.deleteDream)
     $0.titleLabel?.font = FontManager.hpi17L
     $0.theme.titleColor(from: themed { $0.red }, for: .normal)
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
   }
   private let updateButton = UIButton().then {
-    $0.setTitle(.updateDreamText)
+    $0.setTitle(.updateDream)
     $0.titleLabel?.font = FontManager.hpi17L
     $0.theme.titleColor(from: themed { $0.primary }, for: .normal)
     $0.theme.backgroundColor = themed { $0.background }
@@ -78,10 +78,6 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
     }
   }
 
-  override func setupUserInteraction() {
-
-  }
-
   // MARK: Binding
 
   func bind(reactor: Reactor) {
@@ -118,7 +114,7 @@ extension ReadDreamViewController {
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dream?.date }
       .compactMap { $0 }
-      .bind { [weak self] in self?.setupDreamNavigationBar(dateString: $0) }
+      .bind { [weak self] in self?.setupDreamNavigationBar($0) }
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.error }
       .compactMap { $0 }

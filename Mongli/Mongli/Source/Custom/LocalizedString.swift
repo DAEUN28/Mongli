@@ -66,13 +66,11 @@ enum LocalizedString: String, Equatable, Hashable {
   // Home
   case deleteAllDream
 
-  // Create Dream
+  // Dream
   case createDream
+  case deleteDream
+  case updateDream
   case selectDateText
-
-  // Read Dream
-  case deleteDreamText
-  case updateDreamText
 }
 
 extension LocalizedString {
@@ -80,16 +78,24 @@ extension LocalizedString {
     return NSLocalizedString(self.rawValue, comment: "")
   }
 
-  func localizedDateString(_ string: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = self.localized
-    guard let date = dateFormatter.date(from: string) else { return string }
-    return dateFormatter.string(from: date)
+  private var isKorean: Bool {
+    switch Locale.current.languageCode {
+    case "ko", "ko_KR": return true
+    default: return false
+    }
   }
 
-  func localizedDate(_ date: Date) -> String {
+  func localizedDate(_ date: Date?) -> String {
+    guard let date = date else { return "" }
+
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = self.localized
-    return dateFormatter.string(from: date)
+
+    if self.isKorean {
+      dateFormatter.dateFormat = self.localized
+      return dateFormatter.string(from: date)
+    } else {
+      dateFormatter.dateFormat = "MMMM d, yyyy"
+      return self.localized + dateFormatter.string(from: date)
+    }
   }
 }

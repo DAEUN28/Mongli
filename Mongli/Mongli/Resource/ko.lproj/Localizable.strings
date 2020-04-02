@@ -62,10 +62,8 @@
 // Home
 "deleteAllDream" = "모든 꿈 삭제";
 
-// Create Dream
+// Dream
 "createDream" = "기록하기";
+"deleteDream" = "삭제하기";
+"updateDream" = "수정하기";
 "selectDateText" = "언제 이 꿈을 꾸셨나요?";
-
-// Read Dream
-"deleteDreamText" = "삭제하기";
-"updateDreamText" = "수정하기";

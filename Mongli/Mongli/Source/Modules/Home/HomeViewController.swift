@@ -167,7 +167,7 @@ extension HomeViewController {
   private func bindState(_ reactor: Reactor) {
     reactor.state.map { $0.selectedDate }
       .distinctUntilChanged()
-      .map { LocalizedString.aDreamOfDateFormat.localizedDateString($0) }
+      .map { LocalizedString.aDreamOfDateFormat.localizedDate($0) }
       .bind(to: self.coverView.label.rx.text)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dailyDreams }

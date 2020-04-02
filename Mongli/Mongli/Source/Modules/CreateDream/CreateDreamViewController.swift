@@ -74,7 +74,7 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
       .do(onNext: { [weak self] in self?.setDoneButtonTheme($0) })
       .bind(to: self.doneButton.rx.isEnabled)
       .disposed(by: self.disposeBag)
-    self.setupDreamNavigationBar(date: date.asDriver()).rx.tap
+    self.setupDreamNavigationBar(date.asDriver()).rx.tap
       .map { _ in MongliStep.datePickerActionSheet { [weak self] in self?.date.accept($0) } }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)

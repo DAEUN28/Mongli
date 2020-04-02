@@ -33,7 +33,7 @@ final class HomeViewReactor: Reactor, Stepper {
   }
 
   struct State {
-    var selectedDate: String = LocalizedString.aDreamOfDateFormat.localizedDate(Date())
+    var selectedDate: Date = Date()
     var dailyDreams: [SummaryDream] = [SummaryDream]()
     var monthlyDreams: MonthlyDreams = MonthlyDreams()
     var isLoading: Bool = false
@@ -86,10 +86,11 @@ final class HomeViewReactor: Reactor, Stepper {
 
     case .deleteAllDreams:
       if self.currentState.isLoading { return .empty() }
+      let dateString = dateFormatter.string(from: self.currentState.selectedDate)
 
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
       let endLoading: Observable<Mutation> = .just(.setLoading(false))
-      let result: Observable<Mutation> = self.service.deleteDailyDreams(self.currentState.selectedDate)
+      let result: Observable<Mutation> = self.service.deleteDailyDreams(dateString)
         .asObservable()
         .map {
           switch $0 {
@@ -112,7 +113,7 @@ final class HomeViewReactor: Reactor, Stepper {
     var state = state
     switch mutation {
     case .setSelectedDate(let date):
-      state.selectedDate = LocalizedString.aDreamOfDateFormat.localizedDate(date)
+      state.selectedDate = date
 
     case .setDailyDreams(let dailyDreams):
       state.dailyDreams = dailyDreams
