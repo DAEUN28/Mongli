@@ -14,7 +14,6 @@
 		BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0C242B5F8400271BFC /* PlaceholderView.swift */; };
 		BF330A12242B724B00271BFC /* CreateDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A10242B6F0700271BFC /* CreateDreamViewController.swift */; };
 		BF330A13242B724D00271BFC /* CreateDreamViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A11242B6F0700271BFC /* CreateDreamViewReactor.swift */; };
-		BF330A14242B725200271BFC /* ReadDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0F242B6F0200271BFC /* ReadDreamViewController.swift */; };
 		BF330A15242B725500271BFC /* ReadDreamViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */; };
 		BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43271124273F2A00B1A9DE /* SearchQuery.swift */; };
 		BF4327142428800B00B1A9DE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4327132428800B00B1A9DE /* User.swift */; };
@@ -82,6 +81,9 @@
 		BFB0A915242CFDEE00BCBFD4 /* ObservableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */; };
 		BFBFB63A2432D24600C15CDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBFB6392432D24600C15CDD /* GoogleService-Info.plist */; };
 		BFBFB63C2432E1A500C15CDD /* privateKey in Resources */ = {isa = PBXBuildFile; fileRef = BFBFB63B2432E1A500C15CDD /* privateKey */; };
+		BFBFB6432435B93700C15CDD /* ReadDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6422435B93700C15CDD /* ReadDreamViewController.swift */; };
+		BFBFB6462435BADC00C15CDD /* UpdateDreamViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6442435B94B00C15CDD /* UpdateDreamViewReactor.swift */; };
+		BFBFB6472435BAE000C15CDD /* UpdateDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6452435B94B00C15CDD /* UpdateDreamViewController.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,7 +113,6 @@
 		BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 		BF330A0C242B5F8400271BFC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDreamViewReactor.swift; sourceTree = "<group>"; };
-		BF330A0F242B6F0200271BFC /* ReadDreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDreamViewController.swift; sourceTree = "<group>"; };
 		BF330A10242B6F0700271BFC /* CreateDreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDreamViewController.swift; sourceTree = "<group>"; };
 		BF330A11242B6F0700271BFC /* CreateDreamViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDreamViewReactor.swift; sourceTree = "<group>"; };
 		BF43271124273F2A00B1A9DE /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
@@ -189,6 +190,9 @@
 		BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableType.swift; sourceTree = "<group>"; };
 		BFBFB6392432D24600C15CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFBFB63B2432E1A500C15CDD /* privateKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privateKey; sourceTree = "<group>"; };
+		BFBFB6422435B93700C15CDD /* ReadDreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadDreamViewController.swift; sourceTree = "<group>"; };
+		BFBFB6442435B94B00C15CDD /* UpdateDreamViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamViewReactor.swift; sourceTree = "<group>"; };
+		BFBFB6452435B94B00C15CDD /* UpdateDreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamViewController.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				BF4454F4242442D400632E38 /* ReadDream */,
 				BF4454F12424429100632E38 /* Search */,
 				BF4454E824239CBB00632E38 /* SignIn */,
+				BFBFB6412435B90300C15CDD /* UpdateDream */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -499,7 +504,7 @@
 		BF4454F4242442D400632E38 /* ReadDream */ = {
 			isa = PBXGroup;
 			children = (
-				BF330A0F242B6F0200271BFC /* ReadDreamViewController.swift */,
+				BFBFB6422435B93700C15CDD /* ReadDreamViewController.swift */,
 				BF330A0E242B6F0200271BFC /* ReadDreamViewReactor.swift */,
 			);
 			path = ReadDream;
@@ -528,6 +533,15 @@
 				BF4455172424E74F00632E38 /* 12롯데마트행복Medium.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		BFBFB6412435B90300C15CDD /* UpdateDream */ = {
+			isa = PBXGroup;
+			children = (
+				BFBFB6452435B94B00C15CDD /* UpdateDreamViewController.swift */,
+				BFBFB6442435B94B00C15CDD /* UpdateDreamViewReactor.swift */,
+			);
+			path = UpdateDream;
 			sourceTree = "<group>";
 		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
@@ -810,8 +824,10 @@
 			files = (
 				BF4454E22422701000632E38 /* DreamService.swift in Sources */,
 				BF432731242A366700B1A9DE /* UIImage.swift in Sources */,
+				BFBFB6432435B93700C15CDD /* ReadDreamViewController.swift in Sources */,
 				BFB0A911242CDEBD00BCBFD4 /* Spinner+Rx.swift in Sources */,
 				BF4455212424F89B00632E38 /* LogoView.swift in Sources */,
+				BFBFB6472435BAE000C15CDD /* UpdateDreamViewController.swift in Sources */,
 				BF330A15242B725500271BFC /* ReadDreamViewReactor.swift in Sources */,
 				BF4454E52423703000632E38 /* MongliStep.swift in Sources */,
 				BF4454B4241FA63D00632E38 /* Analysis.swift in Sources */,
@@ -844,7 +860,6 @@
 				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
 				BF44550124244EA000632E38 /* MoreViewReactor.swift in Sources */,
 				BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */,
-				BF330A14242B725200271BFC /* ReadDreamViewController.swift in Sources */,
 				BF44550524244ED800632E38 /* SearchViewReactor.swift in Sources */,
 				BF4454D024211FCD00632E38 /* NetworkResult.swift in Sources */,
 				BF4327292429F11900B1A9DE /* SnapKit.swift in Sources */,
@@ -869,6 +884,7 @@
 				BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */,
 				BF330A07242B462600271BFC /* FSCalendar+RxTheme.swift in Sources */,
 				BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */,
+				BFBFB6462435BADC00C15CDD /* UpdateDreamViewReactor.swift in Sources */,
 				BF43272F242A352600B1A9DE /* Keys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

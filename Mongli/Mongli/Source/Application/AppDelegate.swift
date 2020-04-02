@@ -33,12 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     if let flow = self.appFlow { self.setupFlow(flow) }
     self.coordinator.rx.willNavigate.bind { flow, step in
-      log.info("will navigate to flow=\(flow) and step=\(step)")
+      print("🚀 will navigate to flow=\(flow) and step=\(step) 🚀")
     }
     .disposed(by: self.disposeBag)
 
     self.coordinator.rx.didNavigate.bind { flow, step in
-      log.info("did navigate to flow=\(flow) and step=\(step)")
+      print("🚀 did navigate to flow=\(flow) and step=\(step) 🚀")
     }
     .disposed(by: self.disposeBag)
 

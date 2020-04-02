@@ -49,6 +49,6 @@ enum MongliStep: Step {
   case deleteDreamIsComplete
 
   // UpdateDream
-  case updateDreamIsRequired
-  case updateDreamIsComplete
+  case updateDreamIsRequired(Dream)
+  case updateDreamIsComplete(Dream)
 }

@@ -16,6 +16,7 @@ final class ReadDreamViewReactor: Reactor {
 
   enum Action {
     case deleteDream
+    case updatedDream(Dream)
   }
 
   enum Mutation {
@@ -44,7 +45,7 @@ final class ReadDreamViewReactor: Reactor {
       guard let self = self, state.dream == nil else { return .just(state) }
       var state = state
 
-      return self.service.readDream(self.id).debug()
+      return self.service.readDream(self.id)
         .asObservable()
         .map {
           switch $0 {
@@ -76,6 +77,9 @@ final class ReadDreamViewReactor: Reactor {
         }
 
       return .concat([startLoading, result])
+
+    case .updatedDream(let dream):
+      return .empty()
     }
   }
 

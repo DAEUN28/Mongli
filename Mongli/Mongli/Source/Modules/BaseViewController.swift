@@ -71,18 +71,12 @@ class BaseViewController: UIViewController {
   func setupUserInteraction() { }
 
   func setupDreamNavigationBar(dateString: String) {
-    let date = Observable.just(dateFormatter.date(from: dateString)).compactMap { $0 }
-      .asDriver(onErrorJustReturn: Date())
-    self.setupDreamNavigationBar(date: date).isEnabled = false
+    self.setupNavigationBar()
+    self.title = LocalizedString.aDreamOfDateFormat.localizedDateString(dateString)
   }
 
   func setupDreamNavigationBar(date: Driver<Date>) -> UIBarButtonItem {
-    self.navigationController?.setNavigationBarHidden(false, animated: false)
-    self.navigationController?.navigationBar.theme.tintColor = themed { $0.darkWhite }
-    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    self.navigationController?.navigationBar.clipsToBounds = true
-
-    self.navigationController?.navigationBar.theme.titleTextAttributes = themed { $0.navigationBarTitle }
+    self.setupNavigationBar()
     date.map { LocalizedString.aDreamOfDateFormat.localizedDate($0) }
       .drive(self.rx.title)
       .disposed(by: self.disposeBag)
@@ -91,6 +85,15 @@ class BaseViewController: UIViewController {
     self.navigationItem.rightBarButtonItem = button
 
     return button
+  }
+
+  private func setupNavigationBar() {
+    self.navigationController?.setNavigationBarHidden(false, animated: false)
+    self.navigationController?.navigationBar.theme.tintColor = themed { $0.darkWhite }
+    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    self.navigationController?.navigationBar.clipsToBounds = true
+
+    self.navigationController?.navigationBar.theme.titleTextAttributes = themed { $0.navigationBarTitle }
   }
 
   private func setupBackground() {

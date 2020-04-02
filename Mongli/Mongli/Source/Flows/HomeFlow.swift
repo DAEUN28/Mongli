@@ -57,6 +57,9 @@ final class HomeFlow: Flow {
     case .readDreamIsRequired(let id):
       return self.navigateToReadDream(id)
 
+    case .updateDreamIsRequired(let dream):
+      return self.navigateToUpdateDream(dream)
+
     default:
       return .none
     }
@@ -104,16 +107,27 @@ extension HomeFlow {
   private func navigateToCreateDream() -> FlowContributors {
     let reactor = CreateDreamViewReactor(self.service)
     let vc = CreateDreamViewController(reactor)
+    vc.hidesBottomBarWhenPushed = true
 
-    self.rootViewController.pushViewController(vc, animated: false)
+    self.rootViewController.pushViewController(vc, animated: true)
     return .one(flowContributor: .contribute(withNext: vc))
   }
 
   private func navigateToReadDream(_ id: Int) -> FlowContributors {
     let reactor = ReadDreamViewReactor(self.service, id: id)
     let vc = ReadDreamViewController(reactor)
+    vc.hidesBottomBarWhenPushed = true
 
-    self.rootViewController.pushViewController(vc, animated: false)
+    self.rootViewController.pushViewController(vc, animated: true)
+    return .one(flowContributor: .contribute(withNext: vc))
+  }
+
+  private func navigateToUpdateDream(_ dream: Dream) -> FlowContributors {
+    let reactor = UpdateDreamViewReactor(self.service, dream: dream)
+    let vc = UpdateDreamViewController(reactor)
+    vc.hidesBottomBarWhenPushed = true
+
+    self.rootViewController.pushViewController(vc, animated: true)
     return .one(flowContributor: .contribute(withNext: vc))
   }
 }

@@ -104,6 +104,8 @@ final class DreamView: UIView {
     self.init(frame: .zero)
 
     self.setupDream()
+    self.setupCategoryButton()
+    self.setupTextFieldAndTextView()
 
     switch type {
     case .read:
@@ -114,8 +116,7 @@ final class DreamView: UIView {
       self.contentTextView.isUserInteractionEnabled = false
 
     default:
-      self.setupCategoryButton()
-      self.setupTextFieldAndTextView()
+      break
     }
   }
 
@@ -305,7 +306,7 @@ extension DreamView {
   }
 
   private func setupDream() {
-    self.dream.compactMap { $0 }.debug()
+    self.dream.compactMap { $0 }
       .bind { [weak self] dream in
         if let category = Category(rawValue: dream.category) {
           self?.category.accept(category)

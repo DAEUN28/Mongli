@@ -27,14 +27,14 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
   private let deleteButton = UIButton().then {
     $0.setTitle(.deleteDreamText)
     $0.titleLabel?.font = FontManager.hpi17L
-    $0.titleLabel?.theme.textColor = themed { $0.red }
+    $0.theme.titleColor(from: themed { $0.red }, for: .normal)
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
   }
   private let updateButton = UIButton().then {
     $0.setTitle(.updateDreamText)
     $0.titleLabel?.font = FontManager.hpi17L
-    $0.titleLabel?.theme.textColor = themed { $0.primary }
+    $0.theme.titleColor(from: themed { $0.primary }, for: .normal)
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
   }
@@ -65,12 +65,12 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
       $0.height.equalTo(44)
       $0.bottom.equalToSafeArea(self.view).inset(12)
       $0.leading.equalToSuperview().inset(32)
-      $0.trailing.equalTo(self.view.snp.centerX).offset(6)
+      $0.trailing.equalTo(self.view.snp.centerX).offset(-6)
     }
     self.updateButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.bottom.equalToSafeArea(self.view).inset(12)
-      $0.leading.equalTo(self.view.snp.centerX).inset(6)
+      $0.leading.equalTo(self.view.snp.centerX).offset(6)
       $0.trailing.equalToSuperview().inset(32)
     }
     self.dreamView.snp.makeConstraints {
@@ -93,15 +93,32 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
 extension ReadDreamViewController {
   private func bindAction(_ reactor: Reactor) {
     self.deleteButton.rx.tap
-      .map { Reactor.Action.deleteDream }
-      .bind(to: reactor.action)
+      .withLatestFrom(self.dreamView.title)
+      .map { MongliStep.alert(.delete($0),
+                              title: nil,
+                              message: .deleteDreamDesc) { [weak self] _ in
+                                guard let self = self else { return }
+                                Observable.just(Reactor.Action.deleteDream)
+                                  .bind(to: reactor.action)
+                                  .disposed(by: self.disposeBag) }}
+      .bind(to: self.steps)
       .disposed(by: self.disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
+    self.updateButton.rx.tap
+      .withLatestFrom(reactor.state.map { $0.dream })
+      .compactMap { $0 }
+      .map { MongliStep.updateDreamIsRequired($0) }
+      .bind(to: self.steps)
+      .disposed(by: self.disposeBag)
     reactor.state.map { $0.dream }
       .asDriver(onErrorJustReturn: nil)
       .drive(self.dreamView.dream)
+      .disposed(by: self.disposeBag)
+    reactor.state.map { $0.dream?.date }
+      .compactMap { $0 }
+      .bind { [weak self] in self?.setupDreamNavigationBar(dateString: $0) }
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.error }
       .compactMap { $0 }
