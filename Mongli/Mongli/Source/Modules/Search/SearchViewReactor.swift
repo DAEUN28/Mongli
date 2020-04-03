@@ -10,17 +10,14 @@ import Foundation
 
 import ReactorKit
 import RxCocoa
-import RxFlow
 import RxSwift
 
-final class SearchViewReactor: Reactor, Stepper {
+final class SearchViewReactor: Reactor {
   var initialState: String = ""
 
   typealias Action = NoAction
 
   typealias State = String
-
-  var steps = PublishRelay<Step>()
 
   let service: DreamService
 

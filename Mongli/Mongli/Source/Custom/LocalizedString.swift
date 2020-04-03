@@ -83,6 +83,10 @@ enum LocalizedString: String, Equatable, Hashable {
   case deleteDream
   case updateDream
   case selectDateText
+
+  // Search
+  case searchText
+  case searchPlaceholder
 }
 
 extension LocalizedString {

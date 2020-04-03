@@ -23,4 +23,7 @@ enum SFSymbolKey: String, Hashable {
   // Home
   case pencil = "pencil.and.outline"
   case cloud = "cloud.fill"
+
+  // Search
+  case filter = "slider.horizontal.3"
 }

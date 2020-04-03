@@ -28,10 +28,6 @@ class TabBarFlow: Flow {
     self.dreamService = dreamService
   }
 
-  deinit {
-    log.info("DEINIT: TabBarFlow")
-  }
-
   func navigate(to step: Step) -> FlowContributors {
     guard let step = step as? MongliStep else { return .none }
 
@@ -50,7 +46,6 @@ extension TabBarFlow {
   private func navigateToHome() -> FlowContributors {
     let homeFlow = HomeFlow(self.dreamService)
     let searchFlow = SearchFlow(self.dreamService)
-//    let moreVC = MoreViewController(moreReactor)
     let moreFlow = MoreFlow(self.authService)
 
     Flows.whenReady(flow1: homeFlow, flow2: searchFlow, flow3: moreFlow) { [unowned self] home, search, more in

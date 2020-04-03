@@ -28,10 +28,6 @@ final class HomeFlow: Flow {
     self.service = service
   }
 
-  deinit {
-    log.info("DEINIT: AppFlow")
-  }
-
   func navigate(to step: Step) -> FlowContributors {
     guard let step = step as? MongliStep else { return .none }
 

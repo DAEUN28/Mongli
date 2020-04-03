@@ -28,15 +28,13 @@ final class SearchFlow: Flow {
     self.service = service
   }
 
-  deinit {
-    log.info("DEINIT: AppFlow")
-  }
-
   func navigate(to step: Step) -> FlowContributors {
     guard let step = step as? MongliStep else { return .none }
 
     switch step {
-    case .searchIsRequired: return self.navigateToSearch()
+    case .searchIsRequired:
+      return self.navigateToSearch()
+      
     default: return .none
     }
   }
@@ -48,7 +46,7 @@ extension SearchFlow {
     let reactor = SearchViewReactor(self.service)
     let vc = SearchViewController(reactor)
 
-    return .one(flowContributor: .contribute(withNextPresentable: vc,
-                                             withNextStepper: reactor))
+    self.rootViewController.setViewControllers([vc], animated: false)
+    return .one(flowContributor: .contribute(withNext: vc))
   }
 }

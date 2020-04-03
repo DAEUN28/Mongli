@@ -22,6 +22,7 @@ struct FontManager {
   static let sys14B = UIFont.systemFont(ofSize: 14, weight: .bold)
   static let sys15L = UIFont.systemFont(ofSize: 15, weight: .light)
   static let sys15B = UIFont.systemFont(ofSize: 15, weight: .bold)
+  static let sys16L = UIFont.systemFont(ofSize: 16, weight: .light)
   static let sys17SB = UIFont.systemFont(ofSize: 17, weight: .semibold)
 
   // 12롯데마트행복

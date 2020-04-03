@@ -28,10 +28,6 @@ final class AppFlow: Flow {
     self.dreamService = dreamService
   }
 
-  deinit {
-    log.info("DEINIT: AppFlow")
-  }
-
   func navigate(to step: Step) -> FlowContributors {
     guard let step = step as? MongliStep else { return .none }
 

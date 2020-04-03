@@ -79,3 +79,7 @@
 "deleteDream" = "삭제하기";
 "updateDream" = "수정하기";
 "selectDateText" = "언제 이 꿈을 꾸셨나요?";
+
+// Search
+"searchText" = "당신의 꿈을 꺼내어보세요";
+"searchPlaceholder" = "꿈 검색";

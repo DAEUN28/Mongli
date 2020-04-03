@@ -28,7 +28,9 @@ class CategoryInfoViewController: UIViewController {
 
     $0.theme.textAttributes = themed { $0.categoryInfoDesc }
   }
-  private let stackView = CategoryInfoViewController.makeStackView()
+  private let stackView = CategoryInfoViewController.makeStackView().then {
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
   private let closeButton = BottomButton(.close)
 
   // MARK: View Life Cycle
