@@ -32,12 +32,11 @@ enum LocalizedString: String, Equatable, Hashable {
   case select
   case done
   case `continue`
+  case close
   case retryMsg
   case deletedMsg
   case deleteDreamDesc
   case cancelDreamDesc
-  case category
-  case categoryInfoText
 
   // Tab bar
   case home
@@ -51,6 +50,9 @@ enum LocalizedString: String, Equatable, Hashable {
   case dreamContentPlaceholder
 
   // Category
+  case category
+  case categoryInfoText
+  case categoryInfoDesc
   case red
   case orange
   case yellow
@@ -59,6 +61,14 @@ enum LocalizedString: String, Equatable, Hashable {
   case blue
   case indigo
   case purple
+  case redText
+  case orangeText
+  case yellowText
+  case greenText
+  case tealText
+  case blueText
+  case indigoText
+  case purpleText
 
   // DateFormat
   case calendarHeaderDateFormat

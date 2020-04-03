@@ -85,6 +85,9 @@
 		BFBFB6462435BADC00C15CDD /* UpdateDreamViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6442435B94B00C15CDD /* UpdateDreamViewReactor.swift */; };
 		BFBFB6472435BAE000C15CDD /* UpdateDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6452435B94B00C15CDD /* UpdateDreamViewController.swift */; };
 		BFBFB64C2435F99600C15CDD /* UIGestureRecognizer+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB64A2435DD4B00C15CDD /* UIGestureRecognizer+Rx.swift */; };
+		BFBFB6512436138600C15CDD /* CategoryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6502436138600C15CDD /* CategoryInfoViewController.swift */; };
+		BFBFB653243613F000C15CDD /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB652243613F000C15CDD /* BottomButton.swift */; };
+		BFBFB65524361DC900C15CDD /* UILabel+RxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -195,6 +198,9 @@
 		BFBFB6442435B94B00C15CDD /* UpdateDreamViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamViewReactor.swift; sourceTree = "<group>"; };
 		BFBFB6452435B94B00C15CDD /* UpdateDreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamViewController.swift; sourceTree = "<group>"; };
 		BFBFB64A2435DD4B00C15CDD /* UIGestureRecognizer+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Rx.swift"; sourceTree = "<group>"; };
+		BFBFB6502436138600C15CDD /* CategoryInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInfoViewController.swift; sourceTree = "<group>"; };
+		BFBFB652243613F000C15CDD /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
+		BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+RxTheme.swift"; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -262,6 +268,7 @@
 				BF44550E242453CB00632E38 /* RxFlow.swift */,
 				BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */,
 				BFBFB64A2435DD4B00C15CDD /* UIGestureRecognizer+Rx.swift */,
+				BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -374,6 +381,7 @@
 				BF4454F4242442D400632E38 /* ReadDream */,
 				BF4454F12424429100632E38 /* Search */,
 				BF4454E824239CBB00632E38 /* SignIn */,
+				BFBFB64F2436135600C15CDD /* Statics */,
 				BFBFB6412435B90300C15CDD /* UpdateDream */,
 			);
 			path = Modules;
@@ -524,6 +532,7 @@
 				BF432734242B2DC900B1A9DE /* Spinner.swift */,
 				BF43272C242A345800B1A9DE /* SummaryDreamTableViewCell.swift */,
 				BF4327192428DE4E00B1A9DE /* ToastView.swift */,
+				BFBFB652243613F000C15CDD /* BottomButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -545,6 +554,14 @@
 				BFBFB6442435B94B00C15CDD /* UpdateDreamViewReactor.swift */,
 			);
 			path = UpdateDream;
+			sourceTree = "<group>";
+		};
+		BFBFB64F2436135600C15CDD /* Statics */ = {
+			isa = PBXGroup;
+			children = (
+				BFBFB6502436138600C15CDD /* CategoryInfoViewController.swift */,
+			);
+			path = Statics;
 			sourceTree = "<group>";
 		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
@@ -835,6 +852,7 @@
 				BF4454E52423703000632E38 /* MongliStep.swift in Sources */,
 				BF4454B4241FA63D00632E38 /* Analysis.swift in Sources */,
 				BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */,
+				BFBFB65524361DC900C15CDD /* UILabel+RxTheme.swift in Sources */,
 				BF4454D22421ED7B00632E38 /* Service.swift in Sources */,
 				BF4454EB24239CFB00632E38 /* BaseViewController.swift in Sources */,
 				BF4454C624210AC800632E38 /* StorageManager.swift in Sources */,
@@ -849,6 +867,7 @@
 				BF4327202428F80D00B1A9DE /* CoverView.swift in Sources */,
 				BF4454C92421130400632E38 /* Realm.swift in Sources */,
 				BF432735242B2DC900B1A9DE /* Spinner.swift in Sources */,
+				BFBFB6512436138600C15CDD /* CategoryInfoViewController.swift in Sources */,
 				BF4454FD24244E7000632E38 /* HomeViewReactor.swift in Sources */,
 				BFBFB64C2435F99600C15CDD /* UIGestureRecognizer+Rx.swift in Sources */,
 				BF44552C2425019200632E38 /* UILabel.swift in Sources */,
@@ -856,6 +875,7 @@
 				BF4454DE24225EF600632E38 /* LocalizedString.swift in Sources */,
 				BF330A12242B724B00271BFC /* CreateDreamViewController.swift in Sources */,
 				BF4455092424507100632E38 /* HomeFlow.swift in Sources */,
+				BFBFB653243613F000C15CDD /* BottomButton.swift in Sources */,
 				BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */,
 				BF4455122424D16100632E38 /* Theme.swift in Sources */,
 				BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */,

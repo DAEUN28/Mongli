@@ -50,6 +50,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
   private let tableView = UITableView().then {
     $0.register(SummaryDreamTableViewCell.self, forCellReuseIdentifier: "SummaryDreamTableViewCell")
     $0.rowHeight = 76
+    $0.separatorStyle = .none
     $0.theme.backgroundColor = themed { $0.background }
   }
   private let placeholderView = PlaceholderView(.noContent)
@@ -61,7 +62,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
   }
   private let spinner = Spinner()
 
-  // MARK: initializing
+  // MARK: Initializing
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }

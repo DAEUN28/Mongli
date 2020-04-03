@@ -48,6 +48,9 @@ final class HomeFlow: Flow {
     case .dismiss:
       return self.dismiss()
 
+    case .categoryInfoIsRequired:
+      return self.navigateToCategoryInfo()
+
     case .homeIsRequired:
       return self.navigateToHome()
 
@@ -140,6 +143,13 @@ extension HomeFlow {
     self.rootViewController.popViewController(animated: true)
     guard let vc = self.rootViewController.topViewController as? ReadDreamViewController else { return .none }
     vc.setupDream(dream)
+
+    return .none
+  }
+
+  private func navigateToCategoryInfo() -> FlowContributors {
+    let vc = CategoryInfoViewController()
+    self.rootViewController.topViewController?.present(vc, animated: true)
 
     return .none
   }

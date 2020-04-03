@@ -30,7 +30,7 @@ class BaseViewController: UIViewController {
       }
     }
   }
-  private(set) var didNotSetupConstraints = true
+  private(set) var didSetupConstraints = false
 
   // MARK: Initializing
 
@@ -56,9 +56,9 @@ class BaseViewController: UIViewController {
   }
 
   override func updateViewConstraints() {
-    if self.didNotSetupConstraints {
+    if !self.didSetupConstraints {
       self.setupConstraints()
-      self.didNotSetupConstraints = false
+      self.didSetupConstraints = true
     }
     super.updateViewConstraints()
   }

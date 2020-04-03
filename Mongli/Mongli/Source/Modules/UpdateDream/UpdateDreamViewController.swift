@@ -25,7 +25,7 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
   // MARK: UI
 
-  private let dreamView = DreamView(.update)
+  private let dreamView: DreamView
   private let doneButton = UIButton().then {
     $0.setTitle(.updateDream)
     $0.titleLabel?.font = FontManager.hpi17L
@@ -33,10 +33,12 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
   }
   private let spinner = Spinner()
 
-  // MARK: initializing
+  // MARK: Initializing
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
+    self.dreamView = DreamView(.create, steps: self.steps)
+
     super.init()
   }
 

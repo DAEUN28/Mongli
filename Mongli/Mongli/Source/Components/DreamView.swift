@@ -9,6 +9,7 @@
 import UIKit
 
 import RxCocoa
+import RxFlow
 import RxSwift
 import SnapKit
 
@@ -39,7 +40,7 @@ final class DreamView: UIView {
     $0.font = FontManager.sys17SB
     $0.theme.textColor = themed { $0.darkWhite }
   }
-  let categoryInfoButton = UIButton().then {
+  private let categoryInfoButton = UIButton().then {
     $0.setUnderlineTitle(.categoryInfoText)
     $0.titleLabel?.font = FontManager.sys12L
     $0.titleLabel?.theme.textColor = themed { $0.darkWhite }
@@ -100,11 +101,16 @@ final class DreamView: UIView {
 
   // MARK: Initializing
 
-  convenience init(_ type: Type) {
+  convenience init(_ type: Type, steps: PublishRelay<Step>) {
     self.init(frame: .zero)
 
     self.setupCategoryButton()
     self.setupTextFieldAndTextView()
+
+    self.categoryInfoButton.rx.tap
+      .map { MongliStep.categoryInfoIsRequired }
+      .bind(to: steps)
+      .disposed(by: self.disposeBag)
 
     switch type {
     case .create:

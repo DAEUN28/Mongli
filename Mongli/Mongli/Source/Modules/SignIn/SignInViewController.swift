@@ -32,7 +32,7 @@ final class SignInViewController: BaseViewController, View, Stepper {
   private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
   private let logoView = LogoView()
 
-  // MARK: initializing
+  // MARK: Initializing
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }

@@ -29,6 +29,7 @@ protocol Theme {
   var red: UIColor { get }
 
   var navigationBarTitle: [NSAttributedString.Key: Any] { get }
+  var categoryInfoDesc: NSMutableAttributedString { get }
   var gradient: CAGradientLayer { get }
 }
 
@@ -42,6 +43,20 @@ extension Theme {
 
   var navigationBarTitle: [NSAttributedString.Key: Any] {
     [.font: FontManager.hpi17L, .foregroundColor: self.darkWhite]
+  }
+  var categoryInfoDesc: NSMutableAttributedString {
+    let text = LocalizedString.categoryInfoDesc.localized as NSString
+    let string = NSMutableAttributedString(string: text as String)
+    string.addAttributes([.foregroundColor: self.primary],
+                         range: text.range(of: "몽리"))
+    string.addAttributes([.foregroundColor: self.primary],
+                         range: text.range(of: "카테고리"))
+    string.addAttributes([.foregroundColor: self.primary],
+                           range: text.range(of: "8가지"))
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.lineSpacing = 10
+    string.addAttributes([.paragraphStyle: paragraphStyle], range: text.range(of: text as String))
+    return string
   }
   var gradient: CAGradientLayer {
     let gradient = CAGradientLayer()

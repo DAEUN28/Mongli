@@ -28,12 +28,11 @@
 "select" = "선택";
 "done" = "완료";
 "continue" = "계속 작성";
+"close" = "닫기";
 "retryMsg" = "다시 한번 시도해주세요";
 "deletedMsg" = "삭제되었습니다";
 "deleteDreamDesc" = "삭제된 꿈은 복구할 수 없습니다\n정말 삭제하시겠습니까?";
 "cancelDreamDesc" = "꿈은 저장되지 않습니다\n작성을 취소하시겠습니까?";
-"category" = "카테고리";
-"categoryInfoText" = "꿈의 종류란?";
 
 // Tab bar
 "home" = "홈";
@@ -47,6 +46,9 @@
 "dreamContentPlaceholder" = "소중한 꿈의 내용을 입력해주세요";
 
 // Category
+"category" = "카테고리";
+"categoryInfoText" = "꿈의 종류란?";
+"categoryInfoDesc" = "꿈의 종류는 매우 다양합니다\n몽리에서는\n다양한 꿈들 중 대표적인 꿈 8가지를\n카테고리로 제공합니다";
 "red" = "흉몽";
 "orange" = "길몽";
 "yellow" = "예지몽";
@@ -55,6 +57,14 @@
 "teal" = "자각몽";
 "indigo" = "잡몽";
 "purple" = "기타";
+"redText" = "불길한 꿈";
+"orangeText" = "좋은 징조의 꿈";
+"yellowText" = "앞으로 일어날 일에 관한 꿈";
+"greenText" = "실제 사실과는 반대인 꿈";
+"blueText" = "아이를 밸 것이라고 알려주는 꿈";
+"tealText" = "꿈을 꾸는 중이라는 것을 스스로 깨닫고 있는 상태에서 꾸는 꿈";
+"indigoText" = "심신이 너무 피로하여 비몽사몽간에 멍한 상태에서 헛것이 보이는 듯이 꾸는 꿈";
+"purpleText" = "위 꿈의 종류에 속하지 않는 꿈";
 
 // DateFormat
 "aDreamOfDateFormat" = "yyyy년 M월 d일의 꿈";

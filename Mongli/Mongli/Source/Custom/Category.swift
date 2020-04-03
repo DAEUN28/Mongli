@@ -45,4 +45,18 @@ extension Category {
     case .purple: return .purple
     }
   }
+
+  func toText() -> LocalizedString {
+    switch self {
+    case .red: return .redText
+    case .orange: return .orangeText
+    case .yellow: return .yellowText
+    case .green: return .greenText
+    case .teal: return .tealText
+    case .blue: return .blueText
+    case .indigo: return .indigoText
+    case .purple: return .purpleText
+    }
+
+  }
 }

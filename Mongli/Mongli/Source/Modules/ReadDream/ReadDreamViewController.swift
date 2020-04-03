@@ -23,7 +23,7 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
 
   // MARK: UI
 
-  private let dreamView = DreamView(.read)
+  private let dreamView: DreamView
   private let deleteButton = UIButton().then {
     $0.setTitle(.deleteDream)
     $0.titleLabel?.font = FontManager.hpi17L
@@ -40,10 +40,12 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
   }
   private let spinner = Spinner()
 
-  // MARK: initializing
+  // MARK: Initializing
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
+    self.dreamView = DreamView(.create, steps: self.steps)
+
     super.init()
   }
 

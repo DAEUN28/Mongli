@@ -40,7 +40,7 @@ final class SummaryDreamTableViewCell: UITableViewCell {
     $0.textColor = .white
   }
   private let cloudImageView = UIImageView(image: UIImage(.cloud)).then {
-    $0.theme.tintColor = themed { $0.text }
+    $0.tintColor = .white
   }
 
   // MARK: Initializing
