@@ -87,6 +87,15 @@ enum LocalizedString: String, Equatable, Hashable {
   // Search
   case searchText
   case searchPlaceholder
+  case searchFilterText
+  case criteria
+  case alignment
+  case title
+  case content
+  case noKeyword
+  case newest
+  case alphabetically
+  case filterApplyText
 }
 
 extension LocalizedString {

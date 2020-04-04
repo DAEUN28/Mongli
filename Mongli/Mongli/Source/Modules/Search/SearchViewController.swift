@@ -42,6 +42,7 @@ final class SearchViewController: BaseViewController, View, Stepper {
     $0.theme.backgroundColor = themed { $0.darkWhite }
     $0.layer.cornerRadius = 10
   }
+  private let filterVC = FilterViewController()
   private let coverView = CoverView().then {
     $0.button.isHidden = true
   }
@@ -128,6 +129,12 @@ final class SearchViewController: BaseViewController, View, Stepper {
   }
 
   override func setupUserInteraction() {
+    self.filterButton.rx.tap
+      .bind { [weak self] _ in
+        guard let self = self else { return }
+        self.present(self.filterVC, animated: true)
+      }
+      .disposed(by: self.disposeBag)
     self.createDreamButton.rx.tap
       .map { MongliStep.createDreamIsRequired }
       .bind(to: self.steps)

@@ -83,3 +83,12 @@
 // Search
 "searchText" = "당신의 꿈을 꺼내어보세요";
 "searchPlaceholder" = "꿈 검색";
+"searchFilterText" = "검색 필터 설정";
+"criteria" = "기준";
+"alignment" = "정렬";
+"title" = "제목";
+"content" = "내용";
+"noKeyword" = "키워드없이";
+"newest" = "최신순";
+"alphabetically" = "가나다순";
+"filterApplyText" = "필터 적용하기";
