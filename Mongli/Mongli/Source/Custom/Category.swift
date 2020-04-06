@@ -20,6 +20,8 @@ enum Category: Int {
 }
 
 extension Category {
+  static let categories: [Category] = [.red, .orange, .yellow, .green, .teal, .blue, .indigo, .purple]
+
   func toColor() -> UIColor {
     switch self {
     case .red: return .init(hex: 0xFF6C64)
@@ -57,6 +59,5 @@ extension Category {
     case .indigo: return .indigoText
     case .purple: return .purpleText
     }
-
   }
 }

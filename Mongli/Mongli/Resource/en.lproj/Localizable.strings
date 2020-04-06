@@ -79,7 +79,6 @@
 "createDream" = "기록하기";
 "deleteDream" = "삭제하기";
 "updateDream" = "수정하기";
-"selectDateText" = "언제 이 꿈을 꾸셨나요?";
 
 // Search
 "searchText" = "당신의 꿈을 꺼내어보세요";
@@ -87,9 +86,13 @@
 "searchFilterText" = "검색 필터 설정";
 "criteria" = "Criteria";
 "alignment" = "Alignment";
+"period" = "Period";
 "title" = "title";
 "content" = "content";
 "noKeyword" = "noKeyword";
 "newest" = "newest";
 "alphabetically" = "alphabetically";
 "filterApplyText" = "필터 적용하기";
+"notSelect" = "선택안함";
+"startDate" = "시작일";
+"endDate" = "종료일";

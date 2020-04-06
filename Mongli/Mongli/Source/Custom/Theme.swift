@@ -29,6 +29,7 @@ protocol Theme {
   var red: UIColor { get }
 
   var navigationBarTitle: [NSAttributedString.Key: Any] { get }
+  var segmentedControlTitle: [NSAttributedString.Key: Any] { get }
   var categoryInfoDesc: NSMutableAttributedString { get }
   var gradient: CAGradientLayer { get }
 }
@@ -43,6 +44,9 @@ extension Theme {
 
   var navigationBarTitle: [NSAttributedString.Key: Any] {
     [.font: FontManager.hpi17L, .foregroundColor: self.darkWhite]
+  }
+  var segmentedControlTitle: [NSAttributedString.Key: Any] {
+    [.foregroundColor: self.placeholder]
   }
   var categoryInfoDesc: NSMutableAttributedString {
     let text = LocalizedString.categoryInfoDesc.localized as NSString

@@ -89,6 +89,7 @@
 		BFBFB653243613F000C15CDD /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB652243613F000C15CDD /* BottomButton.swift */; };
 		BFBFB65524361DC900C15CDD /* UILabel+RxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */; };
 		BFBFB657243888DB00C15CDD /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB656243888DB00C15CDD /* FilterViewController.swift */; };
+		BFBFB65A2439EBBB00C15CDD /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6592439EBBB00C15CDD /* UISegmentedControl.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -203,6 +204,7 @@
 		BFBFB652243613F000C15CDD /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
 		BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+RxTheme.swift"; sourceTree = "<group>"; };
 		BFBFB656243888DB00C15CDD /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		BFBFB6592439EBBB00C15CDD /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -263,14 +265,12 @@
 		BF43271C2428DED100B1A9DE /* Rx */ = {
 			isa = PBXGroup;
 			children = (
+				BFBFB6582439EB9300C15CDD /* RxTheme */,
 				BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */,
-				BF4327242429DF1500B1A9DE /* CALayer+RxTheme.swift */,
-				BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */,
 				BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */,
 				BF44550E242453CB00632E38 /* RxFlow.swift */,
 				BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */,
 				BFBFB64A2435DD4B00C15CDD /* UIGestureRecognizer+Rx.swift */,
-				BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -565,6 +565,17 @@
 				BFBFB6502436138600C15CDD /* CategoryInfoViewController.swift */,
 			);
 			path = Statics;
+			sourceTree = "<group>";
+		};
+		BFBFB6582439EB9300C15CDD /* RxTheme */ = {
+			isa = PBXGroup;
+			children = (
+				BF4327242429DF1500B1A9DE /* CALayer+RxTheme.swift */,
+				BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */,
+				BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */,
+				BFBFB6592439EBBB00C15CDD /* UISegmentedControl.swift */,
+			);
+			path = RxTheme;
 			sourceTree = "<group>";
 		};
 		E0775431A7061DB59336AF34 /* Pods */ = {
@@ -893,6 +904,7 @@
 				BF4327292429F11900B1A9DE /* SnapKit.swift in Sources */,
 				BF330A13242B724D00271BFC /* CreateDreamViewReactor.swift in Sources */,
 				BF4455142424DC0300632E38 /* UIColor.swift in Sources */,
+				BFBFB65A2439EBBB00C15CDD /* UISegmentedControl.swift in Sources */,
 				BF4454F7242444BF00632E38 /* SignInViewReactor.swift in Sources */,
 				BF445473241E3FF800632E38 /* AppDelegate.swift in Sources */,
 				BF43272B2429FFD200B1A9DE /* UIButton.swift in Sources */,

@@ -80,9 +80,7 @@ class CategoryInfoViewController: UIViewController {
     stackView.distribution = .equalSpacing
     stackView.backgroundColor = .clear
 
-    let categories: [Category] = [.red, .orange, .yellow, .green, .teal, .blue, .indigo, .purple]
-
-    for category in categories {
+    for category in Category.categories {
       let nameLabel = UILabel()
       nameLabel.setText(category.toName())
       nameLabel.font = FontManager.sys14B

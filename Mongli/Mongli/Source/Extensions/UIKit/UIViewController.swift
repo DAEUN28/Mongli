@@ -55,14 +55,13 @@ extension UIViewController {
     self.present(alert, animated: true)
   }
 
-  func presentDatepickerActionSheet(_ handler: @escaping (Date) -> Void) {
+  func presentDatepickerActionSheet(select date: Date? = nil, _ handler: @escaping (Date) -> Void) {
     let datePicker = UIDatePicker()
     datePicker.locale = Locale.current
     datePicker.datePickerMode = .date
+    if let date = date { datePicker.date = date }
 
-    let actionSheet = UIAlertController(title: LocalizedString.selectDateText.localized,
-                                        message: "",
-                                        preferredStyle: .actionSheet)
+    let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let select = UIAlertAction(title: LocalizedString.select.localized,
                                style: .default) { _ in handler(datePicker.date) }
     let cancel = UIAlertAction(title: LocalizedString.cancel.localized, style: .cancel)
@@ -71,11 +70,10 @@ extension UIViewController {
     actionSheet.addAction(cancel)
 
     actionSheet.view.snp.makeConstraints {
-      $0.height.equalTo(320)
+      $0.height.equalTo(300)
     }
     datePicker.snp.makeConstraints {
       $0.height.equalTo(200)
-      $0.top.equalToSuperview().inset(20)
       $0.leading.equalToSuperview()
       $0.trailing.equalToSuperview()
     }

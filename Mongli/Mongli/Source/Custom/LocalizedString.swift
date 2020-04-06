@@ -82,7 +82,6 @@ enum LocalizedString: String, Equatable, Hashable {
   case createDream
   case deleteDream
   case updateDream
-  case selectDateText
 
   // Search
   case searchText
@@ -90,12 +89,16 @@ enum LocalizedString: String, Equatable, Hashable {
   case searchFilterText
   case criteria
   case alignment
+  case period
   case title
   case content
   case noKeyword
   case newest
   case alphabetically
   case filterApplyText
+  case notSelect
+  case startDate
+  case endDate
 }
 
 extension LocalizedString {
