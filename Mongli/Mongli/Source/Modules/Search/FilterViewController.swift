@@ -60,7 +60,7 @@ final class FilterViewController: UIViewController {
   }
   private let alignmentSegmentedControl = UISegmentedControl().then {
     let alignments: [LocalizedString] = [.newest, .alphabetically]
-    for i in 0..<3 {
+    for i in 0..<2 {
       $0.insertSegment(withTitle: alignments[i].localized, at: i, animated: false)
     }
 
