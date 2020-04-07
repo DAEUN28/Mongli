@@ -181,6 +181,10 @@ final class FilterViewController: UIViewController {
     .compactMap { $0 }
     .bind(to: self.period)
     .disposed(by: self.disposeBag)
+
+    self.closeButton.rx.tap
+      .bind { [weak self] in self?.dismiss(animated: true, completion: nil) }
+      .disposed(by: self.disposeBag)
   }
 }
 
