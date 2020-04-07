@@ -16,30 +16,3 @@ struct SearchQuery: Codable {
   let period: String?
   let keyword: String?
 }
-
-enum Criteria: Int {
-  case title = 0
-  case content
-  case noKeyword
-
-  func toName() -> LocalizedString {
-    switch self {
-    case .title: return .title
-    case .content: return .content
-    case .noKeyword: return .noKeyword
-    }
-  }
-}
-
-enum Alignment: Int {
-  case newest = 0
-  case alphabetically
-
-  func toName() -> LocalizedString {
-    switch self {
-    case .newest: return .newest
-    case .alphabetically: return .alphabetically
-    }
-  }
-}
-

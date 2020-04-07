@@ -33,7 +33,8 @@ extension UIViewController {
 
     switch type {
     case .delete(let dream):
-      alert.title = title?.localizedDate(dateFormatter.date(from: dream)) ?? "" + LocalizedString.delete.localized
+      alert.title = title?.localizedDate(dateFormatter.date(from: dream), .allTheDreamsAdverb) ?? dream
+        + LocalizedString.delete.localized
       alert.message = LocalizedString.deleteDreamDesc.localized
       let delete = UIAlertAction(title: LocalizedString.delete.localized, style: .destructive, handler: handler)
       let cancel = UIAlertAction(title: LocalizedString.cancel.localized, style: .cancel, handler: nil)

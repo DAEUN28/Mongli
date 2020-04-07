@@ -67,9 +67,10 @@
 "purpleText" = "위 꿈의 종류에 속하지 않는 꿈";
 
 // DateFormat
-"aDreamOfDateFormat" = "yyyy년 M월 d일의 꿈";
-"allTheDreamsOfDateFormat" = "yyyy년 M월 d일의 모든 꿈";
+"dreamAdverb" = "의 꿈";
+"allTheDreamsAdverb" = "의 모든 꿈";
 "calendarHeaderDateFormat" = "yyyy년 M월";
+"dateFormat" = "yyyy년 M월 d일";
 
 // Home
 "deleteAllDream" = "모든 꿈 삭제";

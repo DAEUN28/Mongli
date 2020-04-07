@@ -67,10 +67,7 @@
 "purpleText" = "위 꿈의 종류에 속하지 않는 꿈";
 
 
-// DateFormat
-"aDreamOfDateFormat" = "Dream of ";
-"allTheDreamsOfDateFormat" = "All the dreams of ";
-"calendarHeaderDateFormat" = "MMMM yyyy";
+ 
 
 // Home
 "deleteAllDream" = "모든 꿈 삭제";

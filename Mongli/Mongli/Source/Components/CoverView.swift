@@ -16,7 +16,7 @@ final class CoverView: UIView {
   // MARK: UI
 
   let label = UILabel().then {
-    $0.setText(.aDreamOfDateFormat)
+    $0.text = LocalizedString.dateFormat.localizedDate(Date(), .dreamAdverb)
     $0.font = FontManager.hpi20L
     $0.textAlignment = .left
     $0.theme.textColor = themed { $0.primary }

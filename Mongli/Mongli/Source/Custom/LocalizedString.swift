@@ -71,9 +71,10 @@ enum LocalizedString: String, Equatable, Hashable {
   case purpleText
 
   // DateFormat
+  case dreamAdverb
+  case allTheDreamsAdverb
   case calendarHeaderDateFormat
-  case aDreamOfDateFormat
-  case allTheDreamsOfDateFormat
+  case dateFormat
 
   // Home
   case deleteAllDream
@@ -113,17 +114,19 @@ extension LocalizedString {
     }
   }
 
-  func localizedDate(_ date: Date?) -> String {
+  func localizedDate(_ date: Date?, _ adVerb: LocalizedString? = nil) -> String {
     guard let date = date else { return "" }
 
     let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = self.localized
 
-    if self.isKorean {
-      dateFormatter.dateFormat = self.localized
-      return dateFormatter.string(from: date)
-    } else {
-      dateFormatter.dateFormat = "MMMM d, yyyy"
-      return self.localized + dateFormatter.string(from: date)
+    if let adVerb = adVerb {
+      if isKorean {
+        return dateFormatter.string(from: date) + adVerb.localized
+      }
+      return adVerb.localized + dateFormatter.string(from: date)
     }
+
+    return dateFormatter.string(from: date)
   }
 }

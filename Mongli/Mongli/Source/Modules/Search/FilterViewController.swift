@@ -43,9 +43,9 @@ final class FilterViewController: UIViewController {
     $0.theme.textColor = themed { $0.text }
   }
   private let criteriaSegmentedControl = UISegmentedControl().then {
-    let criteria: [Criteria] = [.title, .content, .noKeyword]
-    for criterion in criteria {
-      $0.insertSegment(withTitle: criterion.toName().localized, at: criterion.rawValue, animated: false)
+    let criteria: [LocalizedString] = [.title, .content, .noKeyword]
+    for i in 0..<3 {
+      $0.insertSegment(withTitle: criteria[i].localized, at: i, animated: false)
     }
 
     $0.selectedSegmentIndex = 0
@@ -59,9 +59,9 @@ final class FilterViewController: UIViewController {
     $0.theme.textColor = themed { $0.text }
   }
   private let alignmentSegmentedControl = UISegmentedControl().then {
-    let alignments: [Alignment] = [.newest, .alphabetically]
-    for alignment in alignments {
-      $0.insertSegment(withTitle: alignment.toName().localized, at: alignment.rawValue, animated: false)
+    let alignments: [LocalizedString] = [.newest, .alphabetically]
+    for i in 0..<3 {
+      $0.insertSegment(withTitle: alignments[i].localized, at: i, animated: false)
     }
 
     $0.selectedSegmentIndex = 0
@@ -100,7 +100,6 @@ final class FilterViewController: UIViewController {
     self.view.addSubview(self.titleLabel)
     self.view.addSubview(self.stackView)
     self.view.addSubview(self.closeButton)
-
   }
 
   // MARK: Layout
@@ -141,6 +140,12 @@ final class FilterViewController: UIViewController {
   // MARK: Setup
 
   private func setupUserInteraction() {
+    self.criteriaSegmentedControl.rx.selectedSegmentIndex
+      .bind(to: self.criteria)
+      .disposed(by: self.disposeBag)
+    self.alignmentSegmentedControl.rx.selectedSegmentIndex
+      .bind(to: self.alignment)
+      .disposed(by: self.disposeBag)
     self.categoryButton.rx.tap
       .bind { [weak self] in self?.presentCategoryPicker() }
       .disposed(by: self.disposeBag)

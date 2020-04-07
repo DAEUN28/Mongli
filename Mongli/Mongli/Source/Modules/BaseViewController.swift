@@ -72,12 +72,12 @@ class BaseViewController: UIViewController {
 
   func setupDreamNavigationBar(_ string: String) {
     self.setupNavigationBar()
-    self.title = LocalizedString.aDreamOfDateFormat.localizedDate(dateFormatter.date(from: string))
+    self.title = LocalizedString.dateFormat.localizedDate(dateFormatter.date(from: string), .dreamAdverb)
   }
 
   func setupDreamNavigationBar(_ date: Driver<Date>) -> UIBarButtonItem {
     self.setupNavigationBar()
-    date.map { LocalizedString.aDreamOfDateFormat.localizedDate($0) }
+    date.map { LocalizedString.dateFormat.localizedDate($0, .dreamAdverb) }
       .drive(self.rx.title)
       .disposed(by: self.disposeBag)
 
