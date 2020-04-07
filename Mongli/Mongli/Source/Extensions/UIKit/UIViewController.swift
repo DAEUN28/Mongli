@@ -55,11 +55,10 @@ extension UIViewController {
     self.present(alert, animated: true)
   }
 
-  func presentDatepickerActionSheet(select date: Date? = nil, _ handler: @escaping (Date) -> Void) {
+  func presentDatepickerActionSheet(_ handler: @escaping (Date) -> Void) {
     let datePicker = UIDatePicker()
     datePicker.locale = Locale.current
     datePicker.datePickerMode = .date
-    if let date = date { datePicker.date = date }
 
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let select = UIAlertAction(title: LocalizedString.select.localized,

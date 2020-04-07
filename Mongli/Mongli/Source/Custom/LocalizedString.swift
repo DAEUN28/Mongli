@@ -95,10 +95,10 @@ enum LocalizedString: String, Equatable, Hashable {
   case noKeyword
   case newest
   case alphabetically
-  case filterApplyText
   case notSelect
   case startDate
   case endDate
+  case periodText
 }
 
 extension LocalizedString {
