@@ -33,7 +33,7 @@ enum MongliStep: Step {
 
   // Search
   case searchIsRequired
-  case filterIsRequired(SearchQuery?)
+  case filterIsRequired(SearchQuery)
   case filterIsComplete(SearchQuery)
 
   // More

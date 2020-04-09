@@ -11,7 +11,6 @@ import Foundation
 import RxSwift
 
 typealias StringJSON = [String: String]
-typealias SummaryDreamsJSON = [String: [SummaryDream]]
 typealias MonthlyDreams = [String: [Int]]
 
 protocol ServiceType {
@@ -19,7 +18,7 @@ protocol ServiceType {
   typealias AnalysisResult = Single<NetworkResultWithValue<Analysis>>
   typealias DreamResult = Single<NetworkResultWithValue<Dream>>
   typealias MonthlyDreamsResult = Single<NetworkResultWithValue<MonthlyDreams>>
-  typealias SummaryDreamsResult = Single<NetworkResultWithValue<[SummaryDream]>>
+  typealias SummaryDreamsResult = Single<NetworkResultWithValue<SummaryDreams>>
 
   var currentUser: User? { get }
 }

@@ -23,3 +23,8 @@ struct SummaryDream: Codable, Equatable {
   let title: String
   let summary: String
 }
+
+struct SummaryDreams: Codable {
+  let total: Int?
+  let dreams: [SummaryDream]
+}

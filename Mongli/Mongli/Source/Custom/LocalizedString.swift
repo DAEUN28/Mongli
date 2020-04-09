@@ -100,6 +100,7 @@ enum LocalizedString: String, Equatable, Hashable {
   case startDate
   case endDate
   case periodText
+  case numberOfDreamsText
 }
 
 extension LocalizedString {

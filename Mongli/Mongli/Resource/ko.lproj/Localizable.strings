@@ -96,3 +96,4 @@
 "startDate" = "시작일";
 "endDate" = "종료일";
 "periodText" = "시작일과 종료일을 모두 선택해야 적용됩니다";
+"numberOfDreamsText" = "개의 꿈";

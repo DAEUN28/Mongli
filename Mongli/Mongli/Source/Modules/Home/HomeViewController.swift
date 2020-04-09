@@ -142,10 +142,12 @@ extension HomeViewController {
       .map { Reactor.Action.selectDate($0) }
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)
+
     self.currentPageDidChange
       .map { Reactor.Action.selectMonth($0) }
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)
+
     self.coverView.button.rx.tap
       .withLatestFrom(self.date)
       .compactMap { $0 }
@@ -159,6 +161,7 @@ extension HomeViewController {
       }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
+    
     self.tableView.rx.itemSelected
       .map { Reactor.Action.selectDream($0) }
       .bind(to: reactor.action)
@@ -171,31 +174,37 @@ extension HomeViewController {
       .map { LocalizedString.dateFormat.localizedDate($0, .dreamAdverb) }
       .bind(to: self.coverView.label.rx.text)
       .disposed(by: self.disposeBag)
+
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
       .bind(to: self.tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
                                         cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
       .disposed(by: self.disposeBag)
+
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
       .map { !$0.isEmpty }
       .bind(to: self.placeholderView.rx.isHidden)
       .disposed(by: self.disposeBag)
+
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
       .map { $0.isEmpty }
       .bind(to: self.tableView.rx.isHidden)
       .disposed(by: self.disposeBag)
+
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
       .map { $0.isEmpty }
       .bind(to: self.coverView.button.rx.isHidden)
       .disposed(by: self.disposeBag)
+
     reactor.state.map { $0.monthlyDreams }
       .distinctUntilChanged()
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
       .bind(to: self.monthlyDreams)
       .disposed(by: self.disposeBag)
+
     reactor.state.map { $0.isLoading }
       .distinctUntilChanged()
       .bind(to: self.spinner.rx.isAnimating)

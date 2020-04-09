@@ -10,18 +10,14 @@ import UIKit
 
 import ReactorKit
 import RxCocoa
-import RxFlow
 import RxSwift
 
-final class SearchViewController: BaseViewController, View, Stepper {
+final class SearchViewController: BaseViewController, View {
 
   typealias Reactor = SearchViewReactor
 
-  // MARK: Properties
-
-  var steps = PublishRelay<Step>()
-
   // MARK: UI
+
   private let titleLabel = UILabel().then {
     $0.setText(.searchText)
     $0.font = FontManager.hpi20L
@@ -31,8 +27,8 @@ final class SearchViewController: BaseViewController, View, Stepper {
     $0.placeholder = LocalizedString.searchPlaceholder.localized
     $0.searchTextField.font = FontManager.sys16L
     $0.searchTextField.theme.backgroundColor = themed { $0.darkWhite }
-    $0.barTintColor = UIColor.clear
-    $0.backgroundColor = UIColor.clear
+    $0.barTintColor = .clear
+    $0.backgroundColor = .clear
     $0.isTranslucent = true
     $0.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
   }
@@ -42,7 +38,6 @@ final class SearchViewController: BaseViewController, View, Stepper {
     $0.theme.backgroundColor = themed { $0.darkWhite }
     $0.layer.cornerRadius = 10
   }
-  private let filterVC = FilterViewController()
   private let coverView = CoverView().then {
     $0.button.isHidden = true
   }
@@ -51,6 +46,9 @@ final class SearchViewController: BaseViewController, View, Stepper {
     $0.rowHeight = 76
     $0.separatorStyle = .none
     $0.theme.backgroundColor = themed { $0.background }
+  }
+  private let refreshControl = UIRefreshControl().then {
+    $0.theme.tintColor = themed { $0.primary }
   }
   private let placeholderView = PlaceholderView(.noContent)
   private let createDreamButton = UIButton().then {
@@ -77,6 +75,7 @@ final class SearchViewController: BaseViewController, View, Stepper {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.coverView.addSubview(self.placeholderView)
+    self.tableView.refreshControl = self.refreshControl
     self.subViews = [self.titleLabel,
                      self.searchBar,
                      self.filterButton,
@@ -128,19 +127,6 @@ final class SearchViewController: BaseViewController, View, Stepper {
     }
   }
 
-  override func setupUserInteraction() {
-    self.filterButton.rx.tap
-      .bind { [weak self] _ in
-        guard let self = self else { return }
-        self.present(self.filterVC, animated: true)
-      }
-      .disposed(by: self.disposeBag)
-    self.createDreamButton.rx.tap
-      .map { MongliStep.createDreamIsRequired }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
-  }
-
   // MARK: Binding
 
   func bind(reactor: Reactor) {
@@ -151,37 +137,75 @@ final class SearchViewController: BaseViewController, View, Stepper {
 
 extension SearchViewController {
   private func bindAction(_ reactor: Reactor) {
-//    self.date
-//      .map { Reactor.Action.selectDate($0) }
-//      .bind(to: reactor.action)
-//      .disposed(by: self.disposeBag)
-//    self.currentPageDidChange
-//      .map { Reactor.Action.selectMonth($0) }
-//      .bind(to: reactor.action)
-//      .disposed(by: self.disposeBag)
-//    self.coverView.button.rx.tap
-//      .withLatestFrom(self.date)
-//      .compactMap { $0 }
-//      .map { dateFormatter.string(from: $0) }
-//      .map { MongliStep.alert(.delete($0)) { [weak self] _ in
-//        guard let self = self else { return }
-//        Observable.just(Reactor.Action.deleteAllDreams)
-//          .bind(to: reactor.action)
-//          .disposed(by: self.disposeBag)
-//        }
-//      }
-//      .bind(to: self.steps)
-//      .disposed(by: self.disposeBag)
-//    self.tableView.rx.itemSelected
-//      .map { Reactor.Action.selectDream($0) }
-//      .bind(to: reactor.action)
-//      .disposed(by: self.disposeBag)
+    self.searchBar.rx.searchButtonClicked.withLatestFrom(self.searchBar.rx.text)
+      .map { Reactor.Action.search($0) }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
+
+    self.tableView.rx.itemSelected
+      .map { Reactor.Action.selectDream($0) }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
+
+    self.refreshControl.rx.controlEvent(.valueChanged)
+      .map { _ in Reactor.Action.refresh }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
+
+    self.tableView.rx.prefetchRows
+      .filter { $0.contains(where: { $0.row >= reactor.currentState.dreams.count }) }
+      .map { _ in Reactor.Action.loadMore }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
+
+    self.filterButton.rx.tap
+      .map { Reactor.Action.presentFilter }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
+
+    self.createDreamButton.rx.tap
+      .map { Reactor.Action.navigateToCreateDream }
+      .bind(to: reactor.action)
+      .disposed(by: self.disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
-//    reactor.state.map { $0.isLoading }
-//      .distinctUntilChanged()
-//      .bind(to: self.spinner.rx.isAnimating)
-//      .disposed(by: self.disposeBag)
+    reactor.state.map { "\($0.total)" + LocalizedString.numberOfDreamsText.localized }
+      .distinctUntilChanged()
+      .bind(to: self.coverView.label.rx.text)
+      .disposed(by: self.disposeBag)
+
+    reactor.state.map { $0.dreams }
+      .distinctUntilChanged()
+      .bind(to: self.tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
+                                        cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
+      .disposed(by: self.disposeBag)
+
+    reactor.state.map { $0.dreams }
+      .distinctUntilChanged()
+      .map { !$0.isEmpty }
+      .bind(to: self.placeholderView.rx.isHidden)
+      .disposed(by: self.disposeBag)
+
+    reactor.state.map { $0.dreams }
+      .distinctUntilChanged()
+      .map { $0.isEmpty }
+      .bind(to: self.tableView.rx.isHidden)
+      .disposed(by: self.disposeBag)
+
+    reactor.state.map { $0.searchBarIsEnabled }
+      .distinctUntilChanged()
+      .bind(to: self.searchBar.rx.isUserInteractionEnabled)
+      .disposed(by: self.disposeBag)
+
+    reactor.state.map { $0.isRefreshing }
+      .distinctUntilChanged()
+      .bind(to: self.refreshControl.rx.isRefreshing )
+      .disposed(by: self.disposeBag)
+
+    reactor.state.map { $0.isLoading }
+      .distinctUntilChanged()
+      .bind(to: self.spinner.rx.isAnimating)
+      .disposed(by: self.disposeBag)
   }
 }

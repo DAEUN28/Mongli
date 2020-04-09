@@ -128,14 +128,11 @@ final class DreamService: Service, DreamServiceType {
     let request = provider.rx.request(.readDailyDreams(date))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
-      .map(SummaryDreamsJSON.self)
-      .map { json -> NetworkResultWithValue<[SummaryDream]> in
-        guard let dreams = json["dreams"] else { return .error(.unknown) }
-        return .success(dreams)
-      }
+      .map(SummaryDreams.self)
+      .map { return .success($0) }
       .catchError { [unowned self] in
         self.catchMongliError($0)
-          .map { result -> NetworkResultWithValue<[SummaryDream]> in
+          .map { result -> NetworkResultWithValue<SummaryDreams> in
             switch result {
             case .success: return .error(.unknown)
             case .error(let err): return .error(err)
@@ -178,14 +175,11 @@ final class DreamService: Service, DreamServiceType {
     let request = provider.rx.request(.searchDream(query))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
-      .map(SummaryDreamsJSON.self)
-      .map { json -> NetworkResultWithValue<[SummaryDream]> in
-        guard let dreams = json["dreams"] else { return .error(.unknown) }
-        return .success(dreams)
-      }
+      .map(SummaryDreams.self)
+      .map { return .success($0) }
       .catchError { [unowned self] in
         self.catchMongliError($0)
-          .map { result -> NetworkResultWithValue<[SummaryDream]> in
+          .map { result -> NetworkResultWithValue<SummaryDreams> in
             switch result {
             case .success: return .error(.unknown)
             case .error(let err): return .error(err)

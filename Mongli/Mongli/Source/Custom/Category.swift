@@ -17,6 +17,11 @@ enum Category: Int {
   case blue
   case indigo
   case purple
+
+  init?(_ rawValue: Int?) {
+    guard let rawValue = rawValue else { return nil }
+    self.init(rawValue)
+  }
 }
 
 extension Category {

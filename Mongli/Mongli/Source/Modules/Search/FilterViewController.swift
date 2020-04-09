@@ -9,16 +9,14 @@
 import UIKit
 
 import RxCocoa
+import RxFlow
 import RxSwift
 
-final class FilterViewController: UIViewController {
+final class FilterViewController: UIViewController, Stepper {
 
   // MARK: Properties
 
-  let criteria = BehaviorRelay<Int>(value: 0)
-  let alignment = BehaviorRelay<Int>(value: 0)
-  let category = BehaviorRelay<Int?>(value: nil)
-  let period = BehaviorRelay<String?>(value: nil)
+  var steps = PublishRelay<Step>()
 
   private var didSetupConstraints = false
   private let disposeBag = DisposeBag()
@@ -92,9 +90,75 @@ final class FilterViewController: UIViewController {
   }
   private let closeButton = BottomButton(.close)
 
+  // MARK: Initializing
+
+  convenience init(_ query: SearchQuery) {
+    self.init()
+
+    let criteria = self.criteriaSegmentedControl.rx.selectedSegmentIndex
+    let alignment = self.alignmentSegmentedControl.rx.selectedSegmentIndex
+    let category = BehaviorRelay<Category?>(value: nil)
+    let startDate = BehaviorRelay<Date?>(value: nil)
+    let endDate = BehaviorRelay<Date?>(value: nil)
+    let period = Observable.combineLatest(startDate, endDate) { start, end -> String? in
+      guard let start = start, let end = end else { return nil }
+      return dateFormatter.string(from: start) + "~" + dateFormatter.string(from: end)
+    }
+    let searchQuery = Observable.combineLatest(criteria, alignment, category, period) {
+      SearchQuery(query.page, $0, $1, $2?.rawValue, $3, $0 == 2 ? nil : query.keyword)
+    }
+
+    self.criteriaSegmentedControl.selectedSegmentIndex = query.criteria
+    self.alignmentSegmentedControl.selectedSegmentIndex = query.alignment
+    category.accept(Category(query.category))
+
+    if let startString = query.period?.components(separatedBy: "~").first,
+      let endString = query.period?.components(separatedBy: "~").last,
+      let start = dateFormatter.date(from: startString),
+      let end = dateFormatter.date(from: endString) {
+      startDate.accept(start)
+      endDate.accept(end)
+    }
+
+    self.categoryButton.rx.tap
+      .bind { [weak self] in
+        self?.presentCategoryPicker(select: category.value) { category.accept($0) }
+      }
+      .disposed(by: self.disposeBag)
+    category.map { $0?.toName().localized ?? LocalizedString.notSelect.localized }
+      .bind(to: self.categoryButton.rx.title())
+      .disposed(by: self.disposeBag)
+
+    self.periodView.startDateButton.rx.tap
+      .bind { [weak self] in
+        self?.presentDatepickerActionSheet(select: startDate.value) { startDate.accept($0) }
+      }
+      .disposed(by: self.disposeBag)
+    self.periodView.endDateButton.rx.tap
+      .bind { [weak self] in
+        self?.presentDatepickerActionSheet(select: endDate.value) { endDate.accept($0) }
+      }
+      .disposed(by: self.disposeBag)
+    startDate.map { dateFormatter.string(for: $0) ?? LocalizedString.notSelect.localized }
+      .bind(to: self.periodView.startDateButton.rx.title())
+      .disposed(by: self.disposeBag)
+    endDate.map { dateFormatter.string(for: $0) ?? LocalizedString.notSelect.localized }
+      .bind(to: self.periodView.endDateButton.rx.title())
+      .disposed(by: self.disposeBag)
+
+    self.closeButton.rx.tap.withLatestFrom(searchQuery)
+      .bind { [weak self] in self?.steps.accept(MongliStep.filterIsComplete($0)) }
+      .disposed(by: self.disposeBag)
+  }
+
+  required convenience init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   // MARK: View Life Cycle
 
   override func viewDidLoad() {
+    self.isModalInPresentation = true
     self.view.theme.backgroundColor = themed { $0.background }
 
     self.view.addSubview(self.titleLabel)
@@ -135,56 +199,6 @@ final class FilterViewController: UIViewController {
       self.didSetupConstraints = true
     }
     super.updateViewConstraints()
-  }
-
-  // MARK: Setup
-
-  private func setupUserInteraction() {
-    self.criteriaSegmentedControl.rx.selectedSegmentIndex
-      .bind(to: self.criteria)
-      .disposed(by: self.disposeBag)
-    self.alignmentSegmentedControl.rx.selectedSegmentIndex
-      .bind(to: self.alignment)
-      .disposed(by: self.disposeBag)
-    self.categoryButton.rx.tap
-      .bind { [weak self] in self?.presentCategoryPicker() }
-      .disposed(by: self.disposeBag)
-
-    let startDate = BehaviorRelay<Date?>(value: nil)
-    let endDate = BehaviorRelay<Date?>(value: nil)
-
-    self.periodView.startDateButton.rx.tap
-      .bind { [weak self] in
-        self?.presentDatepickerActionSheet(select: startDate.value) {
-          startDate.accept($0)
-          if let date = $0 {
-            self?.periodView.startDateButton.setTitle(dateFormatter.string(from: date), for: .normal)
-          }
-        }
-      }
-      .disposed(by: self.disposeBag)
-    self.periodView.endDateButton.rx.tap
-      .bind { [weak self] in
-        self?.presentDatepickerActionSheet(select: endDate.value) {
-          endDate.accept($0)
-          if let date = $0 {
-            self?.periodView.endDateButton.setTitle(dateFormatter.string(from: date), for: .normal)
-          }
-        }
-      }
-      .disposed(by: self.disposeBag)
-
-    Observable.combineLatest(startDate, endDate) { start, end -> String? in
-      guard let start = start, let end = end else { return nil }
-      return dateFormatter.string(from: start) + "~" + dateFormatter.string(from: end)
-    }
-    .compactMap { $0 }
-    .bind(to: self.period)
-    .disposed(by: self.disposeBag)
-
-    self.closeButton.rx.tap
-      .bind { [weak self] in self?.dismiss(animated: true, completion: nil) }
-      .disposed(by: self.disposeBag)
   }
 }
 
@@ -227,25 +241,20 @@ extension FilterViewController {
     return containerView
   }
 
-  private func presentCategoryPicker() {
+  private func presentCategoryPicker(select category: Category? = nil, _ handler: @escaping (Category?) -> Void) {
     let picker = UIPickerView()
     Observable.just(Category.categories)
       .bind(to: picker.rx.itemTitles) { return $1.toName().localized }
       .disposed(by: self.disposeBag)
-    if let selectedRow = self.category.value {
+    if let selectedRow = category?.rawValue {
       picker.selectRow(selectedRow, inComponent: 0, animated: false)
     }
 
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    let select = UIAlertAction(title: LocalizedString.select.localized, style: .default) { [weak self] _ in
-      guard let selectedCategory = Category(rawValue: picker.selectedRow(inComponent: 0))?.toName() else { return }
-      self?.category.accept(picker.selectedRow(inComponent: 0))
-      self?.categoryButton.setTitle(selectedCategory)
-    }
-    let notSelect = UIAlertAction(title: LocalizedString.notSelect.localized, style: .default) { [weak self] _ in
-      self?.category.accept(nil)
-      self?.categoryButton.setTitle(.notSelect)
-    }
+    let select = UIAlertAction(title: LocalizedString.select.localized,
+                               style: .default) { _ in handler(Category(rawValue: picker.selectedRow(inComponent: 0))) }
+    let notSelect = UIAlertAction(title: LocalizedString.notSelect.localized,
+                                  style: .default) { _ in handler(nil) }
     let cancel = UIAlertAction(title: LocalizedString.cancel.localized, style: .cancel)
     actionSheet.view.addSubview(picker)
     actionSheet.addAction(select)

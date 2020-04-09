@@ -60,7 +60,7 @@ final class HomeViewReactor: Reactor, Stepper {
           .asObservable()
           .map {
             switch $0 {
-            case .success(let summaryDreams): return .setDailyDreams(summaryDreams)
+            case .success(let summaryDreams): return .setDailyDreams(summaryDreams.dreams)
             case .error(let error):
               return error == .noContent ? .setDailyDreams([]) : .setError(error.message)
             }
