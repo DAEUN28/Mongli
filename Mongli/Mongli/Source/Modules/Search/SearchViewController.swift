@@ -89,6 +89,10 @@ final class SearchViewController: BaseViewController, View {
     self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
 
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.searchBar.resignFirstResponder()
+  }
+
   // MARK: Setup
 
   override func setupConstraints() {
@@ -125,6 +129,14 @@ final class SearchViewController: BaseViewController, View {
       $0.bottom.equalToSafeArea(self.view).inset(12)
       $0.trailing.equalToSafeArea(self.view).inset(12)
     }
+  }
+
+  override func setupUserInteraction() {
+    self.searchBar.rx.searchButtonClicked
+      .bind { [weak self] _ in
+        self?.searchBar.resignFirstResponder()
+      }
+      .disposed(by: self.disposeBag)
   }
 
   // MARK: Binding
