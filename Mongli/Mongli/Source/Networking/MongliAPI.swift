@@ -36,7 +36,7 @@ extension MongliAPI: TargetType {
   // MARK: baseURL
 
   var baseURL: URL {
-    return URL(string: "http://192.168.11.4:2525/api")!
+    return URL(string: "http://192.168.11.5:2222/api")!
   }
 
   // MARK: path
@@ -69,7 +69,7 @@ extension MongliAPI: TargetType {
       return "/dreams/" + date
 
     case .searchDream:
-      return "/search"
+      return "/dreams"
     }
   }
 

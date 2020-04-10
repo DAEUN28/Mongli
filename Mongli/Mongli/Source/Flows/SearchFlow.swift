@@ -13,22 +13,10 @@ import RxFlow
 import RxSwift
 
 // MARK: Flow
-final class SearchFlow: Flow {
-  var root: Presentable {
-    return self.rootViewController
-  }
 
-  private let rootViewController = UINavigationController().then {
-    $0.setNavigationBarHidden(true, animated: false)
-  }
+final class SearchFlow: DreamFlow {
 
-  private let service: DreamService
-
-  init(_ service: DreamService) {
-    self.service = service
-  }
-
-  func navigate(to step: Step) -> FlowContributors {
+  override func navigate(to step: Step) -> FlowContributors {
     guard let step = step as? MongliStep else { return .none }
 
     switch step {
@@ -41,12 +29,14 @@ final class SearchFlow: Flow {
     case .filterIsComplete(let query):
       return self.dismissFilter(query)
 
-    default: return .none
+    default:
+      return super.navigate(to: step)
     }
   }
 }
 
 // MARK: navigate functions
+
 extension SearchFlow {
   private func navigateToSearch() -> FlowContributors {
     let reactor = SearchViewReactor(self.service)

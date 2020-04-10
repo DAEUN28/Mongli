@@ -75,6 +75,7 @@
 		BF4455212424F89B00632E38 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4455202424F89B00632E38 /* LogoView.swift */; };
 		BF44552C2425019200632E38 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44552B2425019200632E38 /* UILabel.swift */; };
 		BF44552E2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */; };
+		BF49D5672440B2BB00FF7852 /* DreamFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF49D5662440B2BA00FF7852 /* DreamFlow.swift */; };
 		BFB0A90F242CDD0600BCBFD4 /* DreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */; };
 		BFB0A911242CDEBD00BCBFD4 /* Spinner+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */; };
 		BFB0A913242CE31B00BCBFD4 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */; };
@@ -190,6 +191,7 @@
 		BF4455202424F89B00632E38 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		BF44552B2425019200632E38 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASAuthorizationAppleIDButton+Rx.swift"; sourceTree = "<group>"; };
+		BF49D5662440B2BA00FF7852 /* DreamFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamFlow.swift; sourceTree = "<group>"; };
 		BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamView.swift; sourceTree = "<group>"; };
 		BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spinner+Rx.swift"; sourceTree = "<group>"; };
 		BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				BF4327262429EAA400B1A9DE /* MoreFlow.swift */,
 				BF44550A2424507B00632E38 /* SearchFlow.swift */,
 				BF44550624244F7700632E38 /* TabBarFlow.swift */,
+				BF49D5662440B2BA00FF7852 /* DreamFlow.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -896,6 +899,7 @@
 				BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */,
 				BF43271A2428DE4E00B1A9DE /* ToastView.swift in Sources */,
 				BF4454B2241FA63600632E38 /* Token.swift in Sources */,
+				BF49D5672440B2BB00FF7852 /* DreamFlow.swift in Sources */,
 				BF4454AD241F95D300632E38 /* LogManager.swift in Sources */,
 				BF44550124244EA000632E38 /* MoreViewReactor.swift in Sources */,
 				BF445477241E3FF800632E38 /* SignInViewController.swift in Sources */,

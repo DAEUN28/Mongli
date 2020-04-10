@@ -44,7 +44,7 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
-    self.dreamView = DreamView(.create, steps: self.steps)
+    self.dreamView = DreamView(.read, steps: self.steps)
 
     super.init()
   }
@@ -114,9 +114,8 @@ extension ReadDreamViewController {
       .map { MongliStep.updateDreamIsRequired($0) }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
-    reactor.state.map { $0.dream }
-      .asDriver(onErrorJustReturn: nil)
-      .drive(self.dreamView.dream)
+    reactor.state.map { $0.dream }.debug()
+      .bind(to: self.dreamView.dream)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dream?.date }
       .compactMap { $0 }

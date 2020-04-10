@@ -161,7 +161,7 @@ extension HomeViewController {
       }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
-    
+
     self.tableView.rx.itemSelected
       .map { Reactor.Action.selectDream($0) }
       .bind(to: reactor.action)

@@ -13,7 +13,9 @@ import RxFlow
 import RxSwift
 
 // MARK: Flow
+
 final class MoreFlow: Flow {
+  
   var root: Presentable {
     return self.rootViewController
   }
@@ -41,6 +43,7 @@ final class MoreFlow: Flow {
 }
 
 // MARK: navigate functions
+
 extension MoreFlow {
   private func navigateToMore() -> FlowContributors {
     return .one(flowContributor: .contribute(withNext: self.rootViewController))

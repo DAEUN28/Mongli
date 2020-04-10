@@ -13,7 +13,9 @@ import RxFlow
 import RxSwift
 
 // MARK: Flow
+
 final class AppFlow: Flow {
+  
   var root: Presentable {
     return self.rootWindow
   }
@@ -48,6 +50,7 @@ final class AppFlow: Flow {
 }
 
 // MARK: navigate functions
+
 extension AppFlow {
   private func showToast(message: LocalizedString) -> FlowContributors {
     self.rootWindow.rootViewController?.showToast(message)

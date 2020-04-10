@@ -37,7 +37,7 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
-    self.dreamView = DreamView(.create, steps: self.steps)
+    self.dreamView = DreamView(.update, steps: self.steps)
 
     super.init()
   }

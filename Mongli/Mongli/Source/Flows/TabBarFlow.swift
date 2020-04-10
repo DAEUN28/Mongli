@@ -11,7 +11,9 @@ import UIKit
 import RxFlow
 
 // MARK: Flow
+
 class TabBarFlow: Flow {
+  
   var root: Presentable {
     return self.rootViewController
   }
@@ -42,6 +44,7 @@ class TabBarFlow: Flow {
 }
 
 // MARK: navigate functions
+
 extension TabBarFlow {
   private func navigateToHome() -> FlowContributors {
     let homeFlow = HomeFlow(self.dreamService)
