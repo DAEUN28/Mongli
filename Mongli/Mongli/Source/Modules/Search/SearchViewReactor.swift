@@ -60,7 +60,7 @@ final class SearchViewReactor: Reactor, Stepper {
           : Observable.just(.searchBarIsEnabled(true))
       }
 
-    return .merge(action, keywordIsEnabled)
+    return .concat(action, keywordIsEnabled)
   }
 
   func mutate(action: Action) -> Observable<Mutation> {
