@@ -40,10 +40,10 @@
 "more" = "More";
 
 // Placeholder
-"noContentText" = "꿈이 없어요ㅠㅠ";
-"noSearchedContentText" = "검색결과가 없어요ㅠㅠ";
-"dreamTitleText" = "소중한 꿈의 제목을 입력해주세요";
-"dreamContentText" = "소중한 꿈의 내용을 입력해주세요";
+"noContentPlaceholder" = "꿈이 없어요ㅠㅠ";
+"noSearchedContentPlaceholder" = "검색결과가 없어요ㅠㅠ";
+"dreamTitlePlaceholder" = "소중한 꿈의 제목을 입력해주세요";
+"dreamContentPlaceholder" = "소중한 꿈의 내용을 입력해주세요";
 
 // Category
 "category" = "Category";

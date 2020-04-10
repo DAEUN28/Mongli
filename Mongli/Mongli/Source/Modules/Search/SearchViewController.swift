@@ -50,7 +50,7 @@ final class SearchViewController: BaseViewController, View {
   private let refreshControl = UIRefreshControl().then {
     $0.theme.tintColor = themed { $0.primary }
   }
-  private let placeholderView = PlaceholderView(.noContent)
+  private let placeholderView = PlaceholderView(.noSearchedContent)
   private let createDreamButton = UIButton().then {
     $0.setImage(UIImage(.pencil), for: .normal)
     $0.layer.cornerRadius = 25
