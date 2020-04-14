@@ -15,7 +15,7 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 - [ ] View the Mongs ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
 - [ ] Search the Mong
 - [ ] Save, update and Loading the Mong using AppleID
-- [ ] View the data that analysis the Mong using Horizontal-BarChart ([Charts](https://github.com/danielgindi/Charts))
+- [ ] View the data that analysis the Mong using Horizontal-BarChart
 
 
 
@@ -25,7 +25,6 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 - [ ] Reactive Flow Coordinator pattern ([RxFlow](https://github.com/RxSwiftCommunity/RxFlow))
 - [ ] REST API v3 (for unauthenticated or basic authentication ([Moya](https://github.com/Moya/Moya) and Codable)
 - [ ] Programmatically UI ([SnapKit](https://github.com/SnapKit/SnapKit))
-- [ ] Custom transition animations ([Hero](https://github.com/HeroTransitions/Hero))
 - [ ] Analytics, Crashlytics ([Firebase](http://firebase.google.com))
 - [ ] Swift style and conventions ([SwiftLint](https://github.com/realm/SwiftLint))
 
