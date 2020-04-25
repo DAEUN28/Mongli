@@ -11,12 +11,9 @@ import Foundation
 import RxSwift
 
 final class AuthService: Service, AuthServiceType {
-  var currentUserAnalysis: Analysis? {
-    return StorageManager.shared.readAnalysis()
-  }
 
   var userIsSignedIn: Observable<Bool> {
-    return .just(currentUser != nil)
+    return .just(StorageManager.shared.readUser() != nil)
   }
 
   func logout() -> BasicResult {
@@ -60,8 +57,8 @@ final class AuthService: Service, AuthServiceType {
     let request = provider.rx.request(.rename(name))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
-      .map { [unowned self] _ -> NetworkResult in
-        if var user = self.currentUser {
+      .map { _ -> NetworkResult in
+        if var user = StorageManager.shared.readUser() {
           user.name = name
           if StorageManager.shared.updateUser(user) { return .success }
           return .error(.unknown)
@@ -88,6 +85,9 @@ final class AuthService: Service, AuthServiceType {
       .filterSuccessfulStatusCodes()
       .map(Analysis.self)
       .map {
+        if let _ = StorageManager.shared.readAnalysis(), StorageManager.shared.createAnalysis($0) {
+          return .success($0)
+        }
         if StorageManager.shared.updateAnalysis($0) { return .success($0) }
         return .error(.unknown)
       }

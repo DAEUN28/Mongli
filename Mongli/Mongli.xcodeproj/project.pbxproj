@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3DCE17D7778FA759B09C2E49 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D91CE847018A2125172549A /* Pods_Mongli.framework */; };
 		74492B166BA435CC3A967352 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */; };
+		BF064CC72452BAFF003D2C87 /* FloatingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0E8D824460821000D3C17 /* FloatingItem.swift */; };
 		BF330A07242B462600271BFC /* FSCalendar+RxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */; };
 		BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */; };
 		BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0C242B5F8400271BFC /* PlaceholderView.swift */; };
@@ -91,6 +92,7 @@
 		BFBFB65524361DC900C15CDD /* UILabel+RxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */; };
 		BFBFB657243888DB00C15CDD /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB656243888DB00C15CDD /* FilterViewController.swift */; };
 		BFBFB65A2439EBBB00C15CDD /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFB6592439EBBB00C15CDD /* UISegmentedControl.swift */; };
+		BFF0E8D72444961E000D3C17 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0E8D62444961E000D3C17 /* ChartView.swift */; };
 		F11FEC0AE88C692D0025B94E /* Pods_Mongli_MongliUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +209,8 @@
 		BFBFB65424361DC900C15CDD /* UILabel+RxTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+RxTheme.swift"; sourceTree = "<group>"; };
 		BFBFB656243888DB00C15CDD /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		BFBFB6592439EBBB00C15CDD /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
+		BFF0E8D62444961E000D3C17 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		BFF0E8D824460821000D3C17 /* FloatingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingItem.swift; sourceTree = "<group>"; };
 		CA40BC9856DA164441271022 /* Pods_Mongli_MongliUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mongli_MongliUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D972BF9E0BDB5CA1D924C9BD /* Pods-MongliTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.release.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.release.xcconfig"; sourceTree = "<group>"; };
 		E376809359816E39573CC6B7 /* Pods-MongliTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MongliTests.debug.xcconfig"; path = "Target Support Files/Pods-MongliTests/Pods-MongliTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -530,15 +534,17 @@
 		BF44551D2424F3CC00632E38 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BFBFB652243613F000C15CDD /* BottomButton.swift */,
 				BFB0A912242CE31B00BCBFD4 /* CategoryButton.swift */,
+				BFF0E8D62444961E000D3C17 /* ChartView.swift */,
 				BF43271F2428F80D00B1A9DE /* CoverView.swift */,
 				BFB0A90E242CDD0600BCBFD4 /* DreamView.swift */,
+				BFF0E8D824460821000D3C17 /* FloatingItem.swift */,
 				BF4455202424F89B00632E38 /* LogoView.swift */,
 				BF330A0C242B5F8400271BFC /* PlaceholderView.swift */,
 				BF432734242B2DC900B1A9DE /* Spinner.swift */,
 				BF43272C242A345800B1A9DE /* SummaryDreamTableViewCell.swift */,
 				BF4327192428DE4E00B1A9DE /* ToastView.swift */,
-				BFBFB652243613F000C15CDD /* BottomButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -882,6 +888,7 @@
 				BF4327272429EAA400B1A9DE /* MoreFlow.swift in Sources */,
 				BF44550B2424507B00632E38 /* SearchFlow.swift in Sources */,
 				BF4327202428F80D00B1A9DE /* CoverView.swift in Sources */,
+				BFF0E8D72444961E000D3C17 /* ChartView.swift in Sources */,
 				BF4454C92421130400632E38 /* Realm.swift in Sources */,
 				BF432735242B2DC900B1A9DE /* Spinner.swift in Sources */,
 				BFBFB6512436138600C15CDD /* CategoryInfoViewController.swift in Sources */,
@@ -894,6 +901,7 @@
 				BF330A12242B724B00271BFC /* CreateDreamViewController.swift in Sources */,
 				BF4455092424507100632E38 /* HomeFlow.swift in Sources */,
 				BFBFB653243613F000C15CDD /* BottomButton.swift in Sources */,
+				BF064CC72452BAFF003D2C87 /* FloatingItem.swift in Sources */,
 				BF4327162428C94100B1A9DE /* ReachabilityManager.swift in Sources */,
 				BF4455122424D16100632E38 /* Theme.swift in Sources */,
 				BF4454CE24211F1D00632E38 /* ServiceType.swift in Sources */,

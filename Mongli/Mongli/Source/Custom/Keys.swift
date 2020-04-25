@@ -26,4 +26,11 @@ enum SFSymbolKey: String, Hashable {
 
   // Search
   case filter = "slider.horizontal.3"
+
+  // More
+  case menu = "gear"
+  case close = "xmark"
+  case contact = "envelope.fill"
+  case opensourceLisence = "doc.text.fill"
+  case accountManagement = "person.fill"
 }

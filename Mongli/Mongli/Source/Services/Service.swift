@@ -15,10 +15,6 @@ import RxSwift
 class Service: ServiceType {
   let provider = MoyaProvider<MongliAPI>()
 
-  var currentUser: User? {
-    return StorageManager.shared.readUser()
-  }
-
   func signIn(_ uid: String, name: String?) -> BasicResult {
     return provider.rx.request(.signIn(uid, name: name))
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
@@ -34,7 +30,7 @@ class Service: ServiceType {
           user.name = name
         }
 
-        if self?.currentUser != nil {
+        if StorageManager.shared.readUser() != nil {
           if StorageManager.shared.updateUser(user) { return .success }
         }
 
@@ -88,10 +84,9 @@ class Service: ServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(StringJSON.self)
-      .map { [weak self] json -> NetworkResult in
+      .map { json -> NetworkResult in
         guard let token = json["accessToken"],
-          let self = self,
-          var user = self.currentUser else { return .error(.unknown) }
+           var user = StorageManager.shared.readUser() else { return .error(.unknown) }
 
         user.token.accessToken = token
         if StorageManager.shared.updateUser(user) { throw NetworkError.ok }
@@ -105,13 +100,12 @@ class Service: ServiceType {
             : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
         }
       }
-      .catchError { [weak self] error -> BasicResult in
-        guard let error = NetworkError(error),
-          let self = self else { return .just(.error(.unknown)) }
+      .catchError { error -> BasicResult in
+        guard let error = NetworkError(error) else { return .just(.error(.unknown)) }
 
         switch error {
         case .unauthorized:
-          if let user = self.currentUser {
+          if let user = StorageManager.shared.readUser() {
             return self.signIn(user.uid, name: nil)
           }
           return self.forceLogout()

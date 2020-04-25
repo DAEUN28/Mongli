@@ -101,6 +101,12 @@ enum LocalizedString: String, Equatable, Hashable {
   case endDate
   case periodText
   case numberOfDreamsText
+
+  // More
+  case moreText
+  case contact
+  case opensourceLisence
+  case accountManagement
 }
 
 extension LocalizedString {

@@ -15,7 +15,7 @@ import RxSwift
 // MARK: Flow
 
 class DreamFlow: Flow {
-  
+
   var root: Presentable {
     return self.rootViewController
   }

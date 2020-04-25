@@ -33,9 +33,10 @@ final class ChartView: UIView {
 
   private let nameStackView = UIStackView().then {
     $0.axis = .vertical
-    $0.alignment = .leading
+    $0.alignment = .trailing
     $0.distribution = .fillEqually
     $0.spacing = 36
+    $0.translatesAutoresizingMaskIntoConstraints = false
 
     for category in Category.categories {
       let nameLabel = UILabel()
@@ -53,12 +54,14 @@ final class ChartView: UIView {
     $0.alignment = .fill
     $0.distribution = .fillEqually
     $0.spacing = 36
+    $0.translatesAutoresizingMaskIntoConstraints = false
   }
 
   // MARK: Initializing
 
   override init(frame: CGRect) {
     super.init(frame: frame)
+    self.translatesAutoresizingMaskIntoConstraints = false
 
     if let analysisCounts = self.analysisCounts {
       for i in 0..<analysisCounts.count {
@@ -67,6 +70,11 @@ final class ChartView: UIView {
         self.barChartStackView.addArrangedSubview(stackView)
       }
     }
+
+    self.addSubview(nameStackView)
+    self.addSubview(lineView)
+    self.addSubview(barChartStackView)
+
     self.setupConstraints()
   }
 
@@ -83,9 +91,10 @@ final class ChartView: UIView {
       $0.leading.equalToSuperview()
     }
     self.lineView.snp.makeConstraints {
+      $0.width.equalTo(1)
       $0.top.equalToSuperview()
       $0.bottom.equalToSuperview()
-      $0.leading.equalTo(self.nameStackView.snp.trailing).inset(8)
+      $0.leading.equalTo(self.nameStackView.snp.trailing).offset(8)
     }
     self.barChartStackView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(8)

@@ -97,3 +97,9 @@
 "endDate" = "종료일";
 "periodText" = "시작일과 종료일을 모두 선택해야 적용됩니다";
 "numberOfDreamsText" = "개의 꿈";
+
+// More
+"moreText" = "님은\n지금까지 %d개의 꿈을 꾸었어요!";
+"contact" = "문의하기";
+"opensourceLisence" = "오픈소스 라이선스";
+"accountManagement" = "계정관리";

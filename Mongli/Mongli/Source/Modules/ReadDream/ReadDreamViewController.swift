@@ -114,7 +114,7 @@ extension ReadDreamViewController {
       .map { MongliStep.updateDreamIsRequired($0) }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
-    reactor.state.map { $0.dream }.debug()
+    reactor.state.map { $0.dream }
       .bind(to: self.dreamView.dream)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.dream?.date }

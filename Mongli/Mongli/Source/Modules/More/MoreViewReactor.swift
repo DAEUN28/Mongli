@@ -13,14 +13,26 @@ import RxCocoa
 import RxFlow
 import RxSwift
 
-final class MoreViewReactor: Reactor {
-  var initialState: String = ""
+final class MoreViewReactor: Reactor, Stepper {
 
-  typealias Action = NoAction
+  enum Action {
+    
+  }
 
-  typealias State = String
+  enum Mutation {
+    case setError(LocalizedString?)
+    case setLoading(Bool)
+  }
 
-  let service: AuthService
+  struct State {
+    var error: LocalizedString?
+    var isLoading: Bool = false
+  }
+
+  let initialState: State = State()
+  private let service: AuthService
+
+  var steps = PublishRelay<Step>()
 
   init(_ service: AuthService) {
     self.service = service

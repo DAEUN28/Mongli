@@ -16,7 +16,7 @@ extension UIButton {
     let attributedString = NSMutableAttributedString(string: text.localized)
     attributedString.addAttribute(NSAttributedString.Key.underlineStyle,
                                   value: NSUnderlineStyle.thick.rawValue,
-                                  range: NSRange.init(location: 0, length: attributedString.length))
+                                  range: .init(location: 0, length: attributedString.length))
     self.setAttributedTitle(attributedString, for: .normal)
   }
 

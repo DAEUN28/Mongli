@@ -36,8 +36,11 @@ final class MoreFlow: Flow {
     guard let step = step as? MongliStep else { return .none }
 
     switch step {
-    case .moreIsRequired: return self.navigateToMore()
-    default: return .none
+    case .moreIsRequired:
+      return self.navigateToMore()
+
+    default:
+      return .none
     }
   }
 }
@@ -46,6 +49,7 @@ final class MoreFlow: Flow {
 
 extension MoreFlow {
   private func navigateToMore() -> FlowContributors {
-    return .one(flowContributor: .contribute(withNext: self.rootViewController))
+    return .one(flowContributor: .contribute(withNextPresentable: self.rootViewController,
+                                             withNextStepper: self.reactor))
   }
 }
