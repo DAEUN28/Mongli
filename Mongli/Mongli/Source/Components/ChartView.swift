@@ -8,16 +8,16 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
+
 final class ChartView: UIView {
 
   // MARK: Properties
 
-  var didAnalysisUpdate = false {
-    didSet {
-      if self.didAnalysisUpdate { self.setNeedsLayout() }
-    }
-  }
+  var didAnalysisUpdate = BehaviorRelay<Bool>(value: false)
 
+  private let disposeBag = DisposeBag()
   private var barUnitWidth: Int {
     guard let analysisCounts = self.analysisCounts, let max = analysisCounts.max() else { return 0 }
     let barMaxWidth = (self.frame.maxX - 16) - self.lineView.frame.maxX
@@ -76,6 +76,11 @@ final class ChartView: UIView {
     self.addSubview(barChartStackView)
 
     self.setupConstraints()
+
+    didAnalysisUpdate.bind { [weak self] in
+      if $0 { self?.setNeedsLayout() }
+    }
+    .disposed(by: disposeBag)
   }
 
   required init(coder: NSCoder) {
@@ -105,14 +110,15 @@ final class ChartView: UIView {
   }
 
   override func layoutSubviews() {
-    if didAnalysisUpdate {
+    if didAnalysisUpdate.value {
       guard let analysisCounts = self.analysisCounts else { return }
       for i in 0..<self.barChartStackView.arrangedSubviews.count {
         guard let barStackView = self.barChartStackView.arrangedSubviews[i] as? UIStackView else { return }
         let barView = barStackView.arrangedSubviews[0]
         barView.frame.size.width = CGFloat((analysisCounts[i] * self.barUnitWidth))
       }
-      self.didAnalysisUpdate = false
+      self.didAnalysisUpdate.accept(false)
+      UserDefaults.standard.set(false, forKey: "needAnalysisUpdate")
     }
   }
 }

@@ -48,6 +48,7 @@ enum LocalizedString: String, Equatable, Hashable {
   case noSearchedContentPlaceholder
   case dreamTitlePlaceholder
   case dreamContentPlaceholder
+  case renamePlaceholder
 
   // Category
   case category
@@ -107,6 +108,13 @@ enum LocalizedString: String, Equatable, Hashable {
   case contact
   case opensourceLisence
   case accountManagement
+  case logout
+  case deleteUser
+  case deleteUserDesc
+  case secession
+  case rename
+  case renameDesc
+  case change
 }
 
 extension LocalizedString {

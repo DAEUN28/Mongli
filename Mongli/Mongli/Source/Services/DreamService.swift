@@ -16,6 +16,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
+      .do(afterSuccess: { _ in UserDefaults.standard.set(true, forKey: "needAnalysisUpdate") })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {
@@ -82,6 +83,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
+      .do(afterSuccess: { _ in UserDefaults.standard.set(true, forKey: "needAnalysisUpdate") })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {
@@ -157,6 +159,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
+      .do(afterSuccess: { _ in UserDefaults.standard.set(true, forKey: "needAnalysisUpdate") })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {

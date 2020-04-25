@@ -79,21 +79,21 @@ final class AuthService: Service, AuthServiceType {
     return request
   }
 
-  func readAnalysis() -> AnalysisResult {
+  func readAnalysis() -> BasicResult {
     let request = provider.rx.request(.readAnalysis)
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(Analysis.self)
       .map {
-        if let _ = StorageManager.shared.readAnalysis(), StorageManager.shared.createAnalysis($0) {
-          return .success($0)
+        if StorageManager.shared.readAnalysis() == nil {
+          return StorageManager.shared.createAnalysis($0) ? .success : .error(.unknown)
         }
-        if StorageManager.shared.updateAnalysis($0) { return .success($0) }
+        if StorageManager.shared.updateAnalysis($0) { return .success }
         return .error(.unknown)
       }
       .catchError { [unowned self] in
         self.catchMongliError($0)
-          .map { result -> NetworkResultWithValue<Analysis> in
+          .map { result -> NetworkResult in
             switch result {
             case .success: return .error(.unknown)
             case .error(let err): return .error(err)

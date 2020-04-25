@@ -114,7 +114,7 @@ extension CreateDreamViewController {
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }.skip(1)
       .filter { !$0 }
-      .map { _ in MongliStep.dismiss }
+      .map { _ in MongliStep.popVC }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }

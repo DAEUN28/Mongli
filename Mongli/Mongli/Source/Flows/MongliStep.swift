@@ -13,12 +13,10 @@ import RxFlow
 enum MongliStep: Step {
   // Global
   case toast(LocalizedString)
-  case alert(_ type: UIViewController.AlertType,
-    title: LocalizedString? = nil,
-    message: LocalizedString? = nil,
-    handler: ((UIAlertAction) -> Void)? = nil)
+  case alert(_ type: UIViewController.AlertType, handler: ((UIAlertAction) -> Void)? = nil)
   case datePickerActionSheet((Date) -> Void)
   case unauthorized
+  case popVC
   case dismiss
   case categoryInfoIsRequired
   case popoverDatePickerIsRequired
@@ -39,7 +37,10 @@ enum MongliStep: Step {
   // More
   case moreIsRequired
   case contactIsRequired
-  case openSourceLisenceIsRequired
+  case opensourceLisenceIsRequired
+  case accountManagementIsRequired(logoutHandler: ((UIAlertAction) -> Void),
+    deleteUserHandler: ((UIAlertAction) -> Void),
+    renameHandler: ((String?) -> Void))
 
   // CreateDream
   case createDreamIsRequired

@@ -6,6 +6,7 @@
 //  Copyright © 2020 DaEun Kim. All rights reserved.
 //
 
+import AuthenticationServices
 import UIKit
 
 import RxFlow
@@ -31,7 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    if let flow = self.appFlow { self.setupFlow(flow) }
+    guard let flow = self.appFlow else { return true }
+    self.setupFlow(flow)
+    
     self.coordinator.rx.willNavigate.bind { flow, step in
       print("🚀 will navigate to flow=\(flow) and step=\(step) 🚀")
     }
@@ -41,6 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print("🚀 did navigate to flow=\(flow) and step=\(step) 🚀")
     }
     .disposed(by: self.disposeBag)
+
+    let notificationName = ASAuthorizationAppleIDProvider.credentialRevokedNotification
+    NotificationCenter.default.addObserver(forName: notificationName, object: nil, queue: nil) { [unowned self] _ in
+      self.authService.deleteUser().asObservable().bind { [unowned self] in
+        switch $0 {
+        case .success: self.setupFlow(flow)
+        case .error(let error): self.window?.rootViewController?.showToast(error.message ?? .unknownErrorMsg)
+        }
+      }
+      .disposed(by: self.disposeBag)
+    }
 
     return true
   }

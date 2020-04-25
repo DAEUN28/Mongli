@@ -126,11 +126,54 @@ class MoreViewController: BaseViewController, View {
 
 extension MoreViewController {
   private func bindAction(_ reactor: Reactor) {
+    self.rx.viewWillAppear.filter { _ in
+      return UserDefaults.standard.bool(forKey: "needAnalysisUpdate")
+    }
+    .map { _ in Reactor.Action.readAnalysis }
+    .bind(to: reactor.action)
+    .disposed(by: disposeBag)
 
+    chartView.didAnalysisUpdate.skip(1)
+      .filter { !$0 }
+      .map { _ in Reactor.Action.didChartViewUpdate }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    coverView.button.rx.tap
+      .map { _ in Reactor.Action.presentCategoryInfo }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    floatingItems[0].didButtonTap
+      .map { _ in Reactor.Action.navigateToContact }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    floatingItems[1].didButtonTap
+      .map { _ in Reactor.Action.presentOpensource }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    floatingItems[2].didButtonTap
+      .map { _ in Reactor.Action.presentAccountManagement }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
+    reactor.state.map { $0.didAnalysisUpdate }
+      .distinctUntilChanged()
+      .bind { [unowned self] in
+        self.chartView.didAnalysisUpdate.accept($0)
+      }
+      .disposed(by: disposeBag)
 
+    let title = Observable.combineLatest(reactor.state.map { $0.name }.distinctUntilChanged(),
+                                         reactor.state.map { $0.total }.distinctUntilChanged())
+    title.bind { [unowned self] name, total in
+        self.titleLabel.text = name + String(format: LocalizedString.moreText.localized, total)
+    }
+    .disposed(by: disposeBag)
   }
 }
 

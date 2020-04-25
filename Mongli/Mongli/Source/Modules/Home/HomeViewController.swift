@@ -151,8 +151,7 @@ extension HomeViewController {
     self.coverView.button.rx.tap
       .withLatestFrom(self.date)
       .compactMap { $0 }
-      .map { dateFormatter.string(from: $0) }
-      .map { MongliStep.alert(.delete($0)) { [weak self] _ in
+      .map { MongliStep.alert(.deleteDreams($0)) { [weak self] _ in
         guard let self = self else { return }
         Observable.just(Reactor.Action.deleteAllDreams)
           .bind(to: reactor.action)

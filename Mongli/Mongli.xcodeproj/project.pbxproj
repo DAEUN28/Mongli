@@ -10,6 +10,9 @@
 		3DCE17D7778FA759B09C2E49 /* Pods_Mongli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D91CE847018A2125172549A /* Pods_Mongli.framework */; };
 		74492B166BA435CC3A967352 /* Pods_MongliTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */; };
 		BF064CC72452BAFF003D2C87 /* FloatingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0E8D824460821000D3C17 /* FloatingItem.swift */; };
+		BF064CC924546F3E003D2C87 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CC824546F3E003D2C87 /* UIAlertController.swift */; };
+		BF064CCB245470D0003D2C87 /* UIAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CCA245470D0003D2C87 /* UIAlertAction.swift */; };
+		BF064CCD2454A071003D2C87 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */; };
 		BF330A07242B462600271BFC /* FSCalendar+RxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */; };
 		BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */; };
 		BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0C242B5F8400271BFC /* PlaceholderView.swift */; };
@@ -118,6 +121,9 @@
 		5FC16AFACA234A05573030B5 /* Pods-Mongli.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli.release.xcconfig"; path = "Target Support Files/Pods-Mongli/Pods-Mongli.release.xcconfig"; sourceTree = "<group>"; };
 		B839494DEDC6F490336E6031 /* Pods_MongliTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MongliTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBCB1D1B35A99011F0A4783 /* Pods-Mongli-MongliUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mongli-MongliUITests.release.xcconfig"; path = "Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BF064CC824546F3E003D2C87 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
+		BF064CCA245470D0003D2C87 /* UIAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertAction.swift; sourceTree = "<group>"; };
+		BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSCalendar+RxTheme.swift"; sourceTree = "<group>"; };
 		BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 		BF330A0C242B5F8400271BFC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
@@ -264,6 +270,8 @@
 				BF43271D2428DEEC00B1A9DE /* UIViewController.swift */,
 				BF43272A2429FFD200B1A9DE /* UIButton.swift */,
 				BF432730242A366700B1A9DE /* UIImage.swift */,
+				BF064CC824546F3E003D2C87 /* UIAlertController.swift */,
+				BF064CCA245470D0003D2C87 /* UIAlertAction.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -277,6 +285,7 @@
 				BF44550E242453CB00632E38 /* RxFlow.swift */,
 				BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */,
 				BFBFB64A2435DD4B00C15CDD /* UIGestureRecognizer+Rx.swift */,
+				BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -877,11 +886,13 @@
 				BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */,
 				BFBFB65524361DC900C15CDD /* UILabel+RxTheme.swift in Sources */,
 				BF4454D22421ED7B00632E38 /* Service.swift in Sources */,
+				BF064CC924546F3E003D2C87 /* UIAlertController.swift in Sources */,
 				BF4454EB24239CFB00632E38 /* BaseViewController.swift in Sources */,
 				BF4454C624210AC800632E38 /* StorageManager.swift in Sources */,
 				BFB0A913242CE31B00BCBFD4 /* CategoryButton.swift in Sources */,
 				BFB0A90F242CDD0600BCBFD4 /* DreamView.swift in Sources */,
 				BF4454FB24244A7500632E38 /* HomeViewController.swift in Sources */,
+				BF064CCB245470D0003D2C87 /* UIAlertAction.swift in Sources */,
 				BF44550324244ECF00632E38 /* SearchViewController.swift in Sources */,
 				BF44550F242453CB00632E38 /* RxFlow.swift in Sources */,
 				BF43272D242A345800B1A9DE /* SummaryDreamTableViewCell.swift in Sources */,
@@ -933,6 +944,7 @@
 				BF4454E02422683700632E38 /* AuthService.swift in Sources */,
 				BFB0A915242CFDEE00BCBFD4 /* ObservableType.swift in Sources */,
 				BF44550724244F7700632E38 /* TabBarFlow.swift in Sources */,
+				BF064CCD2454A071003D2C87 /* UIViewController+Rx.swift in Sources */,
 				BF43271224273F2A00B1A9DE /* SearchQuery.swift in Sources */,
 				BF330A07242B462600271BFC /* FSCalendar+RxTheme.swift in Sources */,
 				BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */,

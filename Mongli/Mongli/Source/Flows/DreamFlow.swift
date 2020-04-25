@@ -36,14 +36,14 @@ class DreamFlow: Flow {
     case .toast(let message):
       return self.showToast(message: message)
 
-    case let .alert(type, title, message, handler):
-      return self.presentAlert(type, title: title, message: message, handler: handler)
+    case let .alert(type, handler):
+      return self.presentAlert(type, handler: handler)
 
     case .datePickerActionSheet(let handler):
       return self.presentDatepickerActionSheet(handler)
 
-    case .dismiss:
-      return self.dismiss()
+    case .popVC:
+      return self.popVC()
 
     case .categoryInfoIsRequired:
       return self.navigateToCategoryInfo()
@@ -75,13 +75,8 @@ extension DreamFlow {
   }
 
   private func presentAlert(_ type: UIViewController.AlertType,
-                            title: LocalizedString?,
-                            message: LocalizedString?,
                             handler: ((UIAlertAction) -> Void)?) -> FlowContributors {
-    self.rootViewController.topViewController?.presentAlert(type,
-                                                            title: title,
-                                                            message: message,
-                                                            handler: handler)
+    self.rootViewController.topViewController?.presentAlert(type, handler: handler)
     return .none
   }
 
@@ -90,7 +85,7 @@ extension DreamFlow {
     return .none
   }
 
-  private func dismiss() -> FlowContributors {
+  private func popVC() -> FlowContributors {
     self.rootViewController.popViewController(animated: false)
     return .none
   }

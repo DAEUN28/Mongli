@@ -96,7 +96,7 @@ extension ReadDreamViewController {
   private func bindAction(_ reactor: Reactor) {
     self.deleteButton.rx.tap
       .withLatestFrom(self.dreamView.title)
-      .map { MongliStep.alert(.delete($0)) { [weak self] _ in
+      .map { MongliStep.alert(.deleteDream($0)) { [weak self] _ in
         guard let self = self else { return }
         Observable.just(Reactor.Action.deleteDream)
           .bind(to: reactor.action)
@@ -128,7 +128,7 @@ extension ReadDreamViewController {
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }.skip(1)
       .filter { !$0 }
-      .map { _ in MongliStep.dismiss }
+      .map { _ in MongliStep.popVC }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
     reactor.state.map { $0.isLoading }

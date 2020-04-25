@@ -44,6 +44,7 @@
 "noSearchedContentPlaceholder" = "검색결과가 없어요ㅠㅠ";
 "dreamTitlePlaceholder" = "소중한 꿈의 제목을 입력해주세요";
 "dreamContentPlaceholder" = "소중한 꿈의 내용을 입력해주세요";
+"renamePlaceholder" = "새로운 이름";
 
 // Category
 "category" = "카테고리";
@@ -103,3 +104,12 @@
 "contact" = "문의하기";
 "opensourceLisence" = "오픈소스 라이선스";
 "accountManagement" = "계정관리";
+"logout" = "로그아웃";
+"deleteUser" = "회원탈퇴";
+"deleteUserDesc" = "계정과 지금까지 기록한 모든 꿈이 삭제됩니다\n삭제한 꿈은 복구할 수 없습니다";
+"secession" = "탈퇴";
+"rename" = "이름변경";
+"renameDesc" = "새로 표시될 이름을 입력해주세요";
+"change" = "변경";
+
+
