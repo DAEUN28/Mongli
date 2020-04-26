@@ -20,9 +20,9 @@ final class MoreViewReactor: Reactor, Stepper {
     case readAnalysis
     case didChartViewUpdate
     case presentCategoryInfo
-    case navigateToContact
-    case presentOpensource
     case presentAccountManagement
+    case presentOpensource
+    case navigateToContact
   }
 
   enum Mutation {
@@ -65,14 +65,6 @@ final class MoreViewReactor: Reactor, Stepper {
       steps.accept(MongliStep.categoryInfoIsRequired)
       return .empty()
 
-    case .navigateToContact:
-      steps.accept(MongliStep.contactIsRequired)
-      return .empty()
-
-    case .presentOpensource:
-      steps.accept(MongliStep.opensourceLisenceIsRequired)
-      return .empty()
-
     case .presentAccountManagement:
       let result = PublishRelay<Mutation>()
 
@@ -104,6 +96,15 @@ final class MoreViewReactor: Reactor, Stepper {
                                                           deleteUserHandler: deleteUserHandler,
                                                           renameHandler: renameHandler))
       return result.asObservable()
+
+    case .presentOpensource:
+      steps.accept(MongliStep.opensourceLisenceIsRequired)
+      return .empty()
+
+    case .navigateToContact:
+      steps.accept(MongliStep.contactIsRequired)
+      return .empty()
+
     }
   }
 
@@ -115,7 +116,7 @@ final class MoreViewReactor: Reactor, Stepper {
       if didAnalysisUpdate {
         state.total = StorageManager.shared.readAnalysis()?.total ?? state.total
       }
-
+      
     case .setName(let name):
       state.name = name
 

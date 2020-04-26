@@ -20,8 +20,15 @@ final class FloatingItem: UIView {
 
   // MARK: UI
 
-  private let label = UILabel()
-  private let button = UIButton()
+  private let label = UILabel().then {
+    $0.font = FontManager.sys14L
+    $0.theme.textColor = themed { $0.primary }
+  }
+  let button = UIButton().then {
+    $0.layer.cornerRadius = 25
+    $0.tintColor = .white
+    $0.theme.backgroundColor = themed { $0.primary.withAlphaComponent(0.8) }
+  }
 
   init(_ symbolKey: SFSymbolKey) {
     super.init(frame: .zero)
@@ -30,14 +37,7 @@ final class FloatingItem: UIView {
     self.translatesAutoresizingMaskIntoConstraints = false
 
     button.setImage(UIImage(symbolKey), for: .normal)
-    button.frame.size = .init(width: 50, height: 50)
-    button.layer.cornerRadius = 25
-    button.tintColor = .white
-    button.theme.backgroundColor = themed { $0.primary.withAlphaComponent(0.8) }
-
     label.setText(LocalizedString(rawValue: String(describing: symbolKey))!)
-    label.font = FontManager.sys14L
-    label.theme.textColor = themed { $0.primary }
 
     self.addSubview(button)
     self.addSubview(label)
@@ -53,8 +53,11 @@ final class FloatingItem: UIView {
       $0.centerY.equalTo(button.snp.centerY)
       $0.trailing.equalTo(button.snp.leading).offset(-12)
     }
+    self.snp.makeConstraints {
+      $0.leading.equalTo(label)
+    }
 
-    button.rx.tap.bind(to: didButtonTap).disposed(by: self.disposeBag)
+    button.rx.tap.debug().bind(to: didButtonTap).disposed(by: self.disposeBag)
   }
 
   required init(coder: NSCoder) {

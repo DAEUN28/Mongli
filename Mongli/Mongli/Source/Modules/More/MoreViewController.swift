@@ -47,7 +47,7 @@ class MoreViewController: BaseViewController, View {
     $0.tintColor = .white
     $0.theme.backgroundColor = themed { $0.primary }
   }
-  private let floatingItems: [FloatingItem] = [.init(.contact), .init(.opensourceLisence), .init(.accountManagement)]
+  private let floatingItems: [FloatingItem] = [.init(.accountManagement), .init(.opensourceLisence), .init(.contact)]
   private let spinner = Spinner()
 
   // MARK: Initializing
@@ -74,9 +74,9 @@ class MoreViewController: BaseViewController, View {
 
   override func setupConstraints() {
     titleLabel.snp.makeConstraints {
+      $0.height.equalTo(titleLabel.intrinsicContentSize.height)
       $0.top.equalToSafeArea(self.view).inset(20)
       $0.leading.equalToSuperview().inset(28)
-      $0.trailing.equalToSuperview().inset(28)
     }
     coverView.snp.makeConstraints {
       $0.top.equalTo(titleLabel.snp.bottom).offset(20)
@@ -144,8 +144,8 @@ extension MoreViewController {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    floatingItems[0].didButtonTap
-      .map { _ in Reactor.Action.navigateToContact }
+    floatingItems[0].didButtonTap.debug()
+      .map { _ in Reactor.Action.presentAccountManagement }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
@@ -155,7 +155,7 @@ extension MoreViewController {
       .disposed(by: disposeBag)
 
     floatingItems[2].didButtonTap
-      .map { _ in Reactor.Action.presentAccountManagement }
+      .map { _ in Reactor.Action.navigateToContact }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
   }

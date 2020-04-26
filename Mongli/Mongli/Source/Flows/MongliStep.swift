@@ -36,11 +36,11 @@ enum MongliStep: Step {
 
   // More
   case moreIsRequired
-  case contactIsRequired
-  case opensourceLisenceIsRequired
   case accountManagementIsRequired(logoutHandler: ((UIAlertAction) -> Void),
     deleteUserHandler: ((UIAlertAction) -> Void),
     renameHandler: ((String?) -> Void))
+  case opensourceLisenceIsRequired
+  case contactIsRequired
 
   // CreateDream
   case createDreamIsRequired

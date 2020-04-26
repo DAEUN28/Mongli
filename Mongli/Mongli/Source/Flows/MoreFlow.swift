@@ -48,14 +48,14 @@ final class MoreFlow: Flow {
     case .moreIsRequired:
       return self.navigateToMore()
 
-    case .contactIsRequired:
-      return self.presentContact()
+    case let .accountManagementIsRequired(logoutHandler, deleteUserHandler, renameHandler):
+      return self.presentAccountManagementActionSheet(logoutHandler, deleteUserHandler, renameHandler)
 
     case .opensourceLisenceIsRequired:
       return self.presentOpensourceLisence()
 
-    case let .accountManagementIsRequired(logoutHandler, deleteUserHandler, renameHandler):
-      return self.presentAccountManagementActionSheet(logoutHandler, deleteUserHandler, renameHandler)
+    case .contactIsRequired:
+      return self.presentContact()
 
     default:
       return .none
