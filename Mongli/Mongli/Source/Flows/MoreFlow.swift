@@ -93,6 +93,11 @@ extension MoreFlow {
   }
 
   private func presentContact() -> FlowContributors {
+    guard let url = URL(string: "mailto:acone1128@gmail.com") else {
+      return self.showToast(message: .unknownErrorMsg)
+    }
+    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+
     return .none
   }
 
