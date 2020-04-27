@@ -48,7 +48,7 @@ class MoreViewController: BaseViewController, View {
     $0.theme.backgroundColor = themed { $0.primary }
   }
   private let floatingItems: [FloatingItem] = [.init(.accountManagement), .init(.opensourceLisence), .init(.contact)]
-  private let spinner = Spinner()
+  private let placeholderView = PlaceholderView()
 
   // MARK: Initializing
 
@@ -68,7 +68,7 @@ class MoreViewController: BaseViewController, View {
     super.viewDidLoad()
 
     self.subViews = [titleLabel, coverView, chartView, menuButton,
-                     floatingItems[0], floatingItems[1], floatingItems[2]]
+                     floatingItems[0], floatingItems[1], floatingItems[2], placeholderView]
   }
 
   // MARK: Setup
@@ -168,6 +168,11 @@ extension MoreViewController {
       self.titleLabel.text = name + String(format: LocalizedString.moreText.localized, total)
     }
     .disposed(by: disposeBag)
+
+    reactor.state.map { $0.total }
+      .map { $0 != 0 }
+      .bind(to: placeholderView.rx.isHidden)
+      .disposed(by: disposeBag)
   }
 }
 
