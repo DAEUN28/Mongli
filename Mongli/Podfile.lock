@@ -3,6 +3,7 @@ PODS:
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.34)
+  - Carte (2.2.1)
   - CocoaLumberjack/Core (3.6.1)
   - CocoaLumberjack/Swift (3.6.1):
     - CocoaLumberjack/Core
@@ -70,7 +71,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
-  - Hero (1.5.0)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
   - LoggerAPI (1.9.0):
@@ -120,12 +120,12 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Carte
   - CocoaLumberjack/Swift
   - Crashlytics
   - Firebase/Analytics
   - Firebase/Core
   - FSCalendar
-  - Hero
   - Moya
   - Moya/RxSwift
   - ReactorKit
@@ -145,6 +145,7 @@ SPEC REPOS:
     - BlueCryptor
     - BlueECC
     - BlueRSA
+    - Carte
     - CocoaLumberjack
     - Crashlytics
     - Fabric
@@ -159,7 +160,6 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
-    - Hero
     - KituraContracts
     - LoggerAPI
     - Logging
@@ -184,6 +184,7 @@ SPEC CHECKSUMS:
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
+  Carte: 6bcff4eaa894ff5b979d646de833fec96e04a38c
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
@@ -198,7 +199,6 @@ SPEC CHECKSUMS:
   GoogleDataTransport: b29a21d813e906014ca16c00897827e40e4a24ab
   GoogleDataTransportCCTSupport: 6f15a89b0ca35d6fa523e1f752ef818588885988
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
-  Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   LoggerAPI: fb78461eedac5316b290f2404d88b9d614d96c57
   Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
@@ -218,6 +218,6 @@ SPEC CHECKSUMS:
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
 
-PODFILE CHECKSUM: 144fada625b2bc3604a3a66009f6acca2f510620
+PODFILE CHECKSUM: 3da5ef45454916566c478baad4a4696f3b3ce342
 
 COCOAPODS: 1.9.1

@@ -133,7 +133,7 @@ extension MoreViewController {
     .map { _ in Reactor.Action.readAnalysis }
     .bind(to: reactor.action)
     .disposed(by: disposeBag)
-    
+
     coverView.button.rx.tap
       .map { _ in Reactor.Action.presentCategoryInfo }
       .bind(to: reactor.action)

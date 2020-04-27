@@ -112,7 +112,7 @@ final class MoreViewReactor: Reactor, Stepper {
       if didAnalysisUpdate {
         state.total = StorageManager.shared.readAnalysis()?.total ?? state.total
       }
-      
+
     case .setName(let name):
       state.name = name
 

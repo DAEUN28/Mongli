@@ -21,7 +21,6 @@ target 'Mongli' do
 
   # UI
   pod 'SnapKit'
-  pod 'Hero'
   pod 'FSCalendar'
 
   # Logging
@@ -34,6 +33,7 @@ target 'Mongli' do
   pod 'Then'
   pod 'SwiftLint'
   pod 'SwiftJWT'
+  pod 'Carte'
 
   # SDK
   pod 'Crashlytics'
@@ -47,6 +47,11 @@ target 'Mongli' do
 
   target 'MongliUITests' do
     # Pods for testing
+  end
+
+  post_install do |installer|
+    pods_dir = File.dirname(installer.pods_project.path)
+    at_exit { `ruby #{pods_dir}/Carte/Sources/Carte/carte.rb configure` }
   end
 
 end

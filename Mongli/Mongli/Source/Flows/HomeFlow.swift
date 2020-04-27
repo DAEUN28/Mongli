@@ -15,7 +15,7 @@ import RxSwift
 // MARK: Flow
 
 final class HomeFlow: DreamFlow {
-  
+
   override func navigate(to step: Step) -> FlowContributors {
     guard let step = step as? MongliStep else { return .none }
 

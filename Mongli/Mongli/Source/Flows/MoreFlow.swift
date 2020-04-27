@@ -8,6 +8,7 @@
 
 import UIKit
 
+import Carte
 import RxCocoa
 import RxFlow
 import RxSwift
@@ -15,7 +16,7 @@ import RxSwift
 // MARK: Flow
 
 final class MoreFlow: Flow {
-  
+
   var root: Presentable {
     return self.rootViewController
   }
@@ -26,6 +27,8 @@ final class MoreFlow: Flow {
 
   private let reactor: MoreViewReactor
   private let service: AuthService
+  private let navigationController = UINavigationController()
+  private let carteViewController = OpensourceLisenceViewController()
 
   init(_ service: AuthService) {
     self.service = service
@@ -94,6 +97,9 @@ extension MoreFlow {
   }
 
   private func presentOpensourceLisence() -> FlowContributors {
+    navigationController.viewControllers = [carteViewController]
+    self.rootViewController.present(navigationController, animated: true, completion: nil)
+
     return .none
   }
 

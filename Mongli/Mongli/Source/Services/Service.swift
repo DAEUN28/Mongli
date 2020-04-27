@@ -20,7 +20,7 @@ class Service: ServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map(Token.self)
-      .map { [weak self] token -> NetworkResult in
+      .map { token -> NetworkResult in
         var user = User(uid: uid, name: "", token: token)
 
         if let name = name {

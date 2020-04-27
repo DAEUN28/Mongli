@@ -13,6 +13,7 @@
 		BF064CC924546F3E003D2C87 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CC824546F3E003D2C87 /* UIAlertController.swift */; };
 		BF064CCB245470D0003D2C87 /* UIAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CCA245470D0003D2C87 /* UIAlertAction.swift */; };
 		BF064CCD2454A071003D2C87 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */; };
+		BF064CD12456FEF1003D2C87 /* OpensourceLisenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */; };
 		BF330A07242B462600271BFC /* FSCalendar+RxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */; };
 		BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */; };
 		BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0C242B5F8400271BFC /* PlaceholderView.swift */; };
@@ -124,6 +125,7 @@
 		BF064CC824546F3E003D2C87 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		BF064CCA245470D0003D2C87 /* UIAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertAction.swift; sourceTree = "<group>"; };
 		BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
+		BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpensourceLisenceViewController.swift; sourceTree = "<group>"; };
 		BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSCalendar+RxTheme.swift"; sourceTree = "<group>"; };
 		BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 		BF330A0C242B5F8400271BFC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 		BF4454D524225B2300632E38 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */,
 				BF432732242A38FA00B1A9DE /* Category.swift */,
 				BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */,
 				BF43272E242A352600B1A9DE /* Keys.swift */,
@@ -940,6 +943,7 @@
 				BF4327252429DF1500B1A9DE /* CALayer+RxTheme.swift in Sources */,
 				BF4327142428800B00B1A9DE /* User.swift in Sources */,
 				BF4454E724238DB800632E38 /* AppFlow.swift in Sources */,
+				BF064CD12456FEF1003D2C87 /* OpensourceLisenceViewController.swift in Sources */,
 				BF44552E2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift in Sources */,
 				BF4454E02422683700632E38 /* AuthService.swift in Sources */,
 				BFB0A915242CFDEE00BCBFD4 /* ObservableType.swift in Sources */,

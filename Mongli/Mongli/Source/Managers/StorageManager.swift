@@ -91,7 +91,7 @@ final class StorageManager {
   }
 
   func updateAnalysis(_ analysis: Analysis) -> Bool {
-    var data = self.readAnalysis()
+    let data = self.readAnalysis()
     return (try? realm.safeWrite {
       data?.total = analysis.total
       data?.red = analysis.red

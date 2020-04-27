@@ -110,7 +110,7 @@ final class FilterViewController: UIViewController, Stepper {
 
     self.criteriaSegmentedControl.selectedSegmentIndex = query.criteria
     self.alignmentSegmentedControl.selectedSegmentIndex = query.alignment
-    category.accept(Category(query.category ?? 8))
+    category.accept(Category(rawValue: query.category ?? 8))
 
     if let startString = query.period?.components(separatedBy: "~").first,
       let endString = query.period?.components(separatedBy: "~").last,
