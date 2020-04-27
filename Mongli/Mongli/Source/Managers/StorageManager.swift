@@ -92,11 +92,21 @@ final class StorageManager {
 
   func updateAnalysis(_ analysis: Analysis) -> Bool {
     var data = self.readAnalysis()
-    return (try? realm.safeWrite { data = analysis }) != nil
+    return (try? realm.safeWrite {
+      data?.total = analysis.total
+      data?.red = analysis.red
+      data?.orange = analysis.orange
+      data?.yellow = analysis.yellow
+      data?.green = analysis.green
+      data?.teal = analysis.teal
+      data?.blue = analysis.blue
+      data?.indigo = analysis.indigo
+      data?.purple = analysis.purple
+    }) != nil
   }
 
   func deleteAnalysis() -> Bool {
-    guard let analysis = self.readAnalysis() else { return false}
+    guard let analysis = self.readAnalysis() else { return false }
     return (try? realm.safeWrite { realm.delete(analysis) }) != nil
   }
 
