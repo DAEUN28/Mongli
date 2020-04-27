@@ -133,13 +133,7 @@ extension MoreViewController {
     .map { _ in Reactor.Action.readAnalysis }
     .bind(to: reactor.action)
     .disposed(by: disposeBag)
-
-//    chartView.didAnalysisUpdate
-//      .filter { !$0 }
-//      .map { _ in Reactor.Action.didChartViewUpdate }.debug()
-//      .bind(to: reactor.action)
-//      .disposed(by: disposeBag)
-
+    
     coverView.button.rx.tap
       .map { _ in Reactor.Action.presentCategoryInfo }
       .bind(to: reactor.action)
@@ -162,7 +156,7 @@ extension MoreViewController {
   }
 
   private func bindState(_ reactor: Reactor) {
-    reactor.state.map { $0.didAnalysisUpdate }.debug("didAnalysisUpdate")
+    reactor.state.map { $0.didAnalysisUpdate }
       .bind { [unowned self] in
         self.chartView.didAnalysisUpdate.accept($0)
       }
@@ -171,7 +165,7 @@ extension MoreViewController {
     let title = Observable.combineLatest(reactor.state.map { $0.name }.distinctUntilChanged(),
                                          reactor.state.map { $0.total }.distinctUntilChanged())
     title.bind { [unowned self] name, total in
-        self.titleLabel.text = name + String(format: LocalizedString.moreText.localized, total)
+      self.titleLabel.text = name + String(format: LocalizedString.moreText.localized, total)
     }
     .disposed(by: disposeBag)
   }

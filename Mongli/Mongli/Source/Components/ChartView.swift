@@ -20,6 +20,7 @@ final class ChartView: UIView {
   private let disposeBag = DisposeBag()
   private var barUnitWidth: Int {
     guard let analysisCounts = self.analysisCounts, let max = analysisCounts.max() else { return 0 }
+    if self.frame == .zero || max < 12 { return 20 }
     let barMaxWidth = (self.frame.maxX - 16) - self.lineView.frame.maxX
     return Int(barMaxWidth) / max
   }
@@ -116,9 +117,14 @@ final class ChartView: UIView {
       for i in 0..<barChartStackView.arrangedSubviews.count {
         let barView = barChartStackView.arrangedSubviews[i].subviews[0]
         let countLabel = barChartStackView.arrangedSubviews[i].subviews[1] as? UILabel
-        barView.frame.size.width = CGFloat((analysisCounts[i] * self.barUnitWidth))
+//        barView.frame.size.width = CGFloat((analysisCounts[i] * self.barUnitWidth))
         countLabel?.text = "\(analysisCounts[i])"
-//        barView.
+        barView.snp.remakeConstraints {
+          $0.width.equalTo(analysisCounts[i] * self.barUnitWidth)
+          $0.height.equalTo(20)
+          $0.centerY.equalToSuperview()
+          $0.leading.equalToSuperview()
+        }
       }
       didAnalysisUpdate.accept(false)
       UserDefaults.standard.set(false, forKey: "needAnalysisUpdate")
@@ -131,20 +137,20 @@ final class ChartView: UIView {
 extension ChartView {
   private func makeBarView(_ category: Category, count: Int) -> UIView {
     let containerView = UIView()
-    let barView = UIView(frame: .init(origin: .zero,
-                                      size: .init(width: self.barUnitWidth * count, height: 20)))
+    let barView = UIView()
     let countLabel = UILabel()
 
     barView.backgroundColor = category.toColor()
     countLabel.text = "\(count)"
+    countLabel.font = FontManager.sys12T
     countLabel.theme.textColor = themed { $0.primary }
 
     containerView.addSubview(barView)
     containerView.addSubview(countLabel)
 
     barView.snp.makeConstraints {
-//      $0.width.equalTo(self.barUnitWidth * count)
-//      $0.height.equalTo(20)
+      $0.width.equalTo(self.barUnitWidth * count)
+      $0.height.equalTo(20)
       $0.centerY.equalToSuperview()
       $0.leading.equalToSuperview()
     }
