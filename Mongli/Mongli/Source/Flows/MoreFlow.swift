@@ -109,9 +109,12 @@ extension MoreFlow {
       self.rootViewController.presentAlert(.rename(renameHandler))
     }
 
+    let cancelAction = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
+
     actionSheet.addAction(logoutAction)
     actionSheet.addAction(deleteUserAction)
     actionSheet.addAction(renameAction)
+    actionSheet.addAction(cancelAction)
 
     self.rootViewController.present(actionSheet, animated: true, completion: nil)
 

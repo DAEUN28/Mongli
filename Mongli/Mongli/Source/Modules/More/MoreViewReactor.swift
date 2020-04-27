@@ -18,7 +18,6 @@ final class MoreViewReactor: Reactor, Stepper {
 
   enum Action {
     case readAnalysis
-    case didChartViewUpdate
     case presentCategoryInfo
     case presentAccountManagement
     case presentOpensource
@@ -57,9 +56,6 @@ final class MoreViewReactor: Reactor, Stepper {
           case .error(let error): return .setError(error.message)
           }
       }
-
-    case .didChartViewUpdate:
-      return .just(.setDidAnalysisUpdate(false))
 
     case .presentCategoryInfo:
       steps.accept(MongliStep.categoryInfoIsRequired)

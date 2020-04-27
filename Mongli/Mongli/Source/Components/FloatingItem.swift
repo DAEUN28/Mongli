@@ -57,7 +57,7 @@ final class FloatingItem: UIView {
       $0.leading.equalTo(label)
     }
 
-    button.rx.tap.debug().bind(to: didButtonTap).disposed(by: self.disposeBag)
+    button.rx.tap.bind(to: didButtonTap).disposed(by: self.disposeBag)
   }
 
   required init(coder: NSCoder) {

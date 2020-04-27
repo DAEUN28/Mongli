@@ -33,7 +33,7 @@ final class ChartView: UIView {
 
   private let nameStackView = UIStackView().then {
     $0.axis = .vertical
-    $0.alignment = .trailing
+    $0.alignment = .fill
     $0.distribution = .fillEqually
     $0.spacing = 36
     $0.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +42,7 @@ final class ChartView: UIView {
       let nameLabel = UILabel()
       nameLabel.setText(category.toName())
       nameLabel.font = FontManager.sys14L
+      nameLabel.textAlignment = .right
       nameLabel.theme.textColor = themed { $0.primary }
       $0.addArrangedSubview(nameLabel)
     }
@@ -66,8 +67,8 @@ final class ChartView: UIView {
     if let analysisCounts = self.analysisCounts {
       for i in 0..<analysisCounts.count {
         guard let category = Category(rawValue: i) else { return }
-        let stackView = self.makeBarStackView(category, count: analysisCounts[i])
-        self.barChartStackView.addArrangedSubview(stackView)
+        let barView = self.makeBarView(category, count: analysisCounts[i])
+        self.barChartStackView.addArrangedSubview(barView)
       }
     }
 
@@ -77,10 +78,10 @@ final class ChartView: UIView {
 
     self.setupConstraints()
 
-    didAnalysisUpdate.bind { [weak self] in
-      if $0 { self?.setNeedsLayout() }
-    }
-    .disposed(by: disposeBag)
+    didAnalysisUpdate
+      .filter { $0 }
+      .bind { [unowned self] _ in self.setNeedsLayout() }
+      .disposed(by: disposeBag)
   }
 
   required init(coder: NSCoder) {
@@ -90,18 +91,18 @@ final class ChartView: UIView {
   // MARK: Layout
 
   private func setupConstraints() {
-    self.nameStackView.snp.makeConstraints {
+    nameStackView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(8)
       $0.bottom.equalToSuperview().inset(8)
       $0.leading.equalToSuperview()
     }
-    self.lineView.snp.makeConstraints {
+    lineView.snp.makeConstraints {
       $0.width.equalTo(1)
       $0.top.equalToSuperview()
       $0.bottom.equalToSuperview()
       $0.leading.equalTo(self.nameStackView.snp.trailing).offset(8)
     }
-    self.barChartStackView.snp.makeConstraints {
+    barChartStackView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(8)
       $0.bottom.equalToSuperview().inset(8)
       $0.leading.equalTo(self.lineView.snp.trailing)
@@ -112,12 +113,14 @@ final class ChartView: UIView {
   override func layoutSubviews() {
     if didAnalysisUpdate.value {
       guard let analysisCounts = self.analysisCounts else { return }
-      for i in 0..<self.barChartStackView.arrangedSubviews.count {
-        guard let barStackView = self.barChartStackView.arrangedSubviews[i] as? UIStackView else { return }
-        let barView = barStackView.arrangedSubviews[0]
+      for i in 0..<barChartStackView.arrangedSubviews.count {
+        let barView = barChartStackView.arrangedSubviews[i].subviews[0]
+        let countLabel = barChartStackView.arrangedSubviews[i].subviews[1] as? UILabel
         barView.frame.size.width = CGFloat((analysisCounts[i] * self.barUnitWidth))
+        countLabel?.text = "\(analysisCounts[i])"
+//        barView.
       }
-      self.didAnalysisUpdate.accept(false)
+      didAnalysisUpdate.accept(false)
       UserDefaults.standard.set(false, forKey: "needAnalysisUpdate")
     }
   }
@@ -126,23 +129,30 @@ final class ChartView: UIView {
 // MARK: private funcion
 
 extension ChartView {
-  private func makeBarStackView(_ category: Category, count: Int) -> UIStackView {
-    let stackView = UIStackView()
+  private func makeBarView(_ category: Category, count: Int) -> UIView {
+    let containerView = UIView()
     let barView = UIView(frame: .init(origin: .zero,
                                       size: .init(width: self.barUnitWidth * count, height: 20)))
     let countLabel = UILabel()
 
-    stackView.axis = .horizontal
-    stackView.alignment = .leading
-    stackView.distribution = .fillEqually
-    stackView.spacing = 4
     barView.backgroundColor = category.toColor()
     countLabel.text = "\(count)"
     countLabel.theme.textColor = themed { $0.primary }
 
-    stackView.addArrangedSubview(barView)
-    stackView.addArrangedSubview(countLabel)
+    containerView.addSubview(barView)
+    containerView.addSubview(countLabel)
 
-    return stackView
+    barView.snp.makeConstraints {
+//      $0.width.equalTo(self.barUnitWidth * count)
+//      $0.height.equalTo(20)
+      $0.centerY.equalToSuperview()
+      $0.leading.equalToSuperview()
+    }
+    countLabel.snp.makeConstraints {
+      $0.centerY.equalToSuperview()
+      $0.leading.equalTo(barView.snp.trailing).offset(4)
+    }
+
+    return containerView
   }
 }

@@ -49,14 +49,12 @@ final class CoverView: UIView {
   // MARK: Layout
 
   override func layoutSubviews() {
-    self.label.sizeToFit()
-    self.button.sizeToFit()
-
     self.label.snp.makeConstraints {
       $0.top.equalToSuperview().inset(24)
       $0.leading.equalToSuperview().inset(28)
     }
     self.button.snp.makeConstraints {
+      $0.height.equalTo(button.intrinsicContentSize.height)
       $0.bottomMargin.equalTo(self.label.snp.bottom)
       $0.trailing.equalToSuperview().inset(32)
     }

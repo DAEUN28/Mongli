@@ -55,6 +55,7 @@ class MoreViewController: BaseViewController, View {
   init(_ reactor: Reactor) {
     super.init()
     self.reactor = reactor
+
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -133,18 +134,18 @@ extension MoreViewController {
     .bind(to: reactor.action)
     .disposed(by: disposeBag)
 
-    chartView.didAnalysisUpdate.skip(1)
-      .filter { !$0 }
-      .map { _ in Reactor.Action.didChartViewUpdate }
-      .bind(to: reactor.action)
-      .disposed(by: disposeBag)
+//    chartView.didAnalysisUpdate
+//      .filter { !$0 }
+//      .map { _ in Reactor.Action.didChartViewUpdate }.debug()
+//      .bind(to: reactor.action)
+//      .disposed(by: disposeBag)
 
     coverView.button.rx.tap
       .map { _ in Reactor.Action.presentCategoryInfo }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    floatingItems[0].didButtonTap.debug()
+    floatingItems[0].didButtonTap
       .map { _ in Reactor.Action.presentAccountManagement }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
@@ -161,8 +162,7 @@ extension MoreViewController {
   }
 
   private func bindState(_ reactor: Reactor) {
-    reactor.state.map { $0.didAnalysisUpdate }
-      .distinctUntilChanged()
+    reactor.state.map { $0.didAnalysisUpdate }.debug("didAnalysisUpdate")
       .bind { [unowned self] in
         self.chartView.didAnalysisUpdate.accept($0)
       }
