@@ -173,6 +173,11 @@ extension MoreViewController {
       .map { $0 != 0 }
       .bind(to: placeholderView.rx.isHidden)
       .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.total }
+      .map { $0 == 0 }
+      .bind(to: chartView.rx.isHidden)
+      .disposed(by: disposeBag)
   }
 }
 
