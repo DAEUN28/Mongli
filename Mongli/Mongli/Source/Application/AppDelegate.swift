@@ -71,7 +71,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     appleIDProvider.getCredentialState(forUserID: uid) { [unowned self] state, _ in
       switch state {
       case .authorized: return
-      default: self.signInIsRequired()
+      default:
+        self.authService.deleteUser().asObservable().bind { [unowned self]  in
+          switch $0 {
+          case .success: self.appStepper?.steps.accept(MongliStep.signInIsRequired)
+          case .error(let error): self.appStepper?.steps.accept(MongliStep.toast(error.message))
+          }
+        }
+        .disposed(by: self.disposeBag)
       }
     }
   }

@@ -36,7 +36,7 @@ enum NetworkError: Int, Error {
     self = networkError
   }
 
-  var message: LocalizedString? {
+  var message: LocalizedString {
     switch self {
     case .badRequest: return .badRequestErrorMsg
     case .unauthorized: return .unauthorizedErrorMsg

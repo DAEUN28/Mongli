@@ -75,7 +75,7 @@ final class MoreViewReactor: Reactor, Stepper {
         .disposed(by: self.disposeBag)
       }
       let deleteUserHandler: (UIAlertAction) -> Void = { _ in
-        guard let url = URL(string: "prefs:root=CASTLE") else { return }
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
       }
       let renameHandler: (String?) -> Void = { [weak self] in

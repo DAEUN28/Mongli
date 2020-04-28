@@ -128,7 +128,7 @@ class MoreViewController: BaseViewController, View {
 extension MoreViewController {
   private func bindAction(_ reactor: Reactor) {
     self.rx.viewWillAppear
-      .withLatestFrom(RefreshCenter.shared.moreNeedRefresh).debug()
+      .withLatestFrom(RefreshCenter.shared.moreNeedRefresh)
       .filter { $0 }
       .map { _ in Reactor.Action.readAnalysis }
       .bind(to: reactor.action)
