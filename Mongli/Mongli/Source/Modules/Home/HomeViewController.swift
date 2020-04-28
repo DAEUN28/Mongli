@@ -24,7 +24,7 @@ final class HomeViewController: BaseViewController, View, Stepper {
 
   private let date = BehaviorRelay<Date>(value: Date())
   private let monthlyDreams = BehaviorRelay<MonthlyDreams?>(value: nil)
-  private let currentPageDidChange = PublishRelay<Date>()
+  private let currentPageDidChange = BehaviorRelay<Date>(value: Date())
 
   // MARK: UI
 
@@ -199,7 +199,7 @@ extension HomeViewController {
       .disposed(by: self.disposeBag)
 
     reactor.state.map { $0.monthlyDreams }
-      .distinctUntilChanged()
+      .distinctUntilChanged().debug()
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
       .bind(to: self.monthlyDreams)
       .disposed(by: self.disposeBag)

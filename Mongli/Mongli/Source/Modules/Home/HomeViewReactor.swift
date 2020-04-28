@@ -70,10 +70,14 @@ final class HomeViewReactor: Reactor, Stepper {
 
     case .selectMonth(let month):
       if self.currentState.isLoading { return .empty() }
-      let monthString = dateFormatter.string(from: month)
+      let monthString: String = {
+        var arr = dateFormatter.string(from: month).components(separatedBy: "-")
+        arr.removeLast()
+        return arr.joined(separator: "-")
+      }()
 
       let result: Observable<Mutation> = self.service.readMonthlyDreams(monthString)
-          .asObservable()
+        .asObservable().debug()
           .map {
             switch $0 {
             case .success(let monthlyDreams): return .setMonthlyDreams(monthlyDreams)
