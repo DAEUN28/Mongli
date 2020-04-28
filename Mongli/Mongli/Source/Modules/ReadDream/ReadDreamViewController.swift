@@ -23,7 +23,7 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
 
   // MARK: UI
 
-  private let dreamView: DreamView
+  private let dreamView = DreamView(.read)
   private let deleteButton = UIButton().then {
     $0.setTitle(.deleteDream)
     $0.titleLabel?.font = FontManager.hpi17L
@@ -44,8 +44,6 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
-    self.dreamView = DreamView(.read, steps: self.steps)
-
     super.init()
   }
 
@@ -78,6 +76,13 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
     self.dreamView.snp.makeConstraints {
       $0.bottom.equalTo(self.deleteButton.snp.top).offset(-16)
     }
+  }
+
+  override func setupUserInteraction() {
+    dreamView.categoryInfoIsRequired
+      .map { MongliStep.categoryInfoIsRequired }
+      .bind(to: steps)
+      .disposed(by: disposeBag)
   }
 
   func setupDream(_ dream: Dream) {

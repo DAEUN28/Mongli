@@ -25,7 +25,7 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
   // MARK: UI
 
-  private let dreamView: DreamView
+  private let dreamView = DreamView(.update)
   private let doneButton = UIButton().then {
     $0.setTitle(.updateDream)
     $0.titleLabel?.font = FontManager.hpi17L
@@ -37,8 +37,6 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
-    self.dreamView = DreamView(.update, steps: self.steps)
-
     super.init()
   }
 
@@ -94,10 +92,16 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
       .do(onNext: { [weak self] in self?.doneButton.setTheme($0) })
       .bind(to: self.doneButton.rx.isEnabled)
       .disposed(by: self.disposeBag)
+
     self.setupDreamNavigationBar(date.asDriver()).rx.tap
       .map { _ in MongliStep.datePickerActionSheet { [weak self] in self?.date.accept($0) } }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
+
+    dreamView.categoryInfoIsRequired
+      .map { MongliStep.categoryInfoIsRequired }
+      .bind(to: steps)
+      .disposed(by: disposeBag)
   }
 
   // MARK: Binding

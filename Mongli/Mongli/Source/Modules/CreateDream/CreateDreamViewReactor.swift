@@ -39,7 +39,7 @@ final class CreateDreamViewReactor: Reactor {
     switch action {
     case .createDream(let dream):
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
-      let result: Observable<Mutation> = self.service.createDream(dream)
+      let result: Observable<Mutation> = service.createDream(dream)
         .asObservable()
         .map {
           switch $0 {
@@ -57,11 +57,11 @@ final class CreateDreamViewReactor: Reactor {
     switch mutation {
     case .setError(let error):
       state.error = error
-      return state
 
     case .setLoading(let isLoading):
       state.isLoading = isLoading
-      return state
     }
+
+    return state
   }
 }

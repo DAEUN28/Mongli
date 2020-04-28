@@ -25,7 +25,7 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
 
   // MARK: UI
 
-  private let dreamView: DreamView
+  private let dreamView = DreamView(.create)
   private let doneButton = UIButton().then {
     $0.setTitle(.createDream)
     $0.titleLabel?.font = FontManager.hpi17L
@@ -37,8 +37,6 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
 
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
-    self.dreamView = DreamView(.create, steps: self.steps)
-
     super.init()
   }
 
@@ -50,7 +48,7 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.subViews = [self.dreamView, self.doneButton, self.spinner]
+    self.subViews = [dreamView, doneButton, spinner]
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -60,65 +58,73 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
   // MARK: Setup
 
   override func setupConstraints() {
-    self.doneButton.snp.makeConstraints {
+    doneButton.snp.makeConstraints {
       $0.height.equalTo(44)
-      $0.bottom.equalToSafeArea(self.view).inset(12)
+      $0.bottom.equalToSafeArea(view).inset(12)
       $0.leading.equalToSuperview().inset(32)
       $0.trailing.equalToSuperview().inset(32)
     }
-    self.dreamView.snp.makeConstraints {
-      $0.bottom.equalTo(self.doneButton.snp.top).offset(-16)
+    dreamView.snp.makeConstraints {
+      $0.bottom.equalTo(doneButton.snp.top).offset(-16)
     }
   }
 
   override func setupUserInteraction() {
-    BehaviorRelay.combineLatest(self.dreamView.title, self.dreamView.content) { !$0.isEmpty && !$1.isEmpty }
+    BehaviorRelay.combineLatest(dreamView.title, dreamView.content) { !$0.isEmpty && !$1.isEmpty }
       .do(onNext: { [weak self] in self?.doneButton.setTheme($0) })
-      .bind(to: self.doneButton.rx.isEnabled)
-      .disposed(by: self.disposeBag)
-    self.setupDreamNavigationBar(date.asDriver()).rx.tap
-      .map { _ in MongliStep.datePickerActionSheet { [weak self] in self?.date.accept($0) } }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
+      .bind(to: doneButton.rx.isEnabled)
+      .disposed(by: disposeBag)
+
+    setupDreamNavigationBar(date.asDriver()).rx.tap
+      .map { [weak self] _ in MongliStep.datePickerActionSheet { self?.date.accept($0) } }
+      .bind(to: steps)
+      .disposed(by: disposeBag)
+
+    dreamView.categoryInfoIsRequired
+      .map { MongliStep.categoryInfoIsRequired }
+      .bind(to: steps)
+      .disposed(by: disposeBag)
   }
 
   // MARK: Binding
 
   func bind(reactor: Reactor) {
-    self.bindAction(reactor)
-    self.bindState(reactor)
+    bindAction(reactor)
+    bindState(reactor)
   }
 }
 
 extension CreateDreamViewController {
   private func bindAction(_ reactor: Reactor) {
-    let dream = Observable.combineLatest(self.date.map { dateFormatter.string(from: $0) }.asObservable(),
-                                         self.dreamView.category.asObservable(),
-                                         self.dreamView.title.asObservable(),
-                                         self.dreamView.content.asObservable()) {  Dream(id: nil,
-                                                                                         date: $0,
-                                                                                         category: $1.rawValue,
-                                                                                         title: $2,
-                                                                                         content: $3) }
-    self.doneButton.rx.tap.withLatestFrom(dream)
+    let dream = Observable.combineLatest(date.map { dateFormatter.string(from: $0) }.asObservable(),
+                                         dreamView.category.asObservable(),
+                                         dreamView.title.asObservable(),
+                                         dreamView.content.asObservable()) { Dream(id: nil,
+                                                                                   date: $0,
+                                                                                   category: $1.rawValue,
+                                                                                   title: $2,
+                                                                                   content: $3) }
+    doneButton.rx.tap.withLatestFrom(dream)
       .map { Reactor.Action.createDream($0) }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
     reactor.state.map { $0.error }
       .compactMap { $0 }
       .map { MongliStep.toast($0) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
+      .bind(to: steps)
+      .disposed(by: disposeBag)
+
     reactor.state.map { $0.isLoading }.skip(1)
       .filter { !$0 }
       .map { _ in MongliStep.popVC }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
+      .bind(to: steps)
+      .disposed(by: disposeBag)
+
     reactor.state.map { $0.isLoading }
-      .bind(to: self.spinner.rx.isAnimating)
-      .disposed(by: self.disposeBag)
+      .bind(to: spinner.rx.isAnimating)
+      .disposed(by: disposeBag)
   }
 }
