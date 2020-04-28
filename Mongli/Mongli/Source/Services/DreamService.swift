@@ -16,7 +16,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
-      .do(afterSuccess: { _ in UserDefaults.standard.set(true, forKey: "needAnalysisUpdate") })
+      .do(afterSuccess: { _ in RefreshCenter.shared.refreshAll() })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {
@@ -64,6 +64,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
+      .do(afterSuccess: { _ in RefreshCenter.shared.homeNeedRefresh.accept(true) })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {
@@ -83,7 +84,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
-      .do(afterSuccess: { _ in UserDefaults.standard.set(true, forKey: "needAnalysisUpdate") })
+      .do(afterSuccess: { _ in RefreshCenter.shared.refreshAll() })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {
@@ -104,6 +105,7 @@ final class DreamService: Service, DreamServiceType {
       .filterSuccessfulStatusCodes()
       .map(MonthlyDreams.self)
       .map { .success($0) }
+      .do(afterSuccess: { _ in RefreshCenter.shared.homeNeedRefresh.accept(false) })
       .catchError { [unowned self] in
         self.catchMongliError($0)
           .map { result -> NetworkResultWithValue<MonthlyDreams> in
@@ -132,6 +134,7 @@ final class DreamService: Service, DreamServiceType {
       .filterSuccessfulStatusCodes()
       .map(SummaryDreams.self)
       .map { return .success($0) }
+      .do(afterSuccess: { _ in RefreshCenter.shared.homeNeedRefresh.accept(false) })
       .catchError { [unowned self] in
         self.catchMongliError($0)
           .map { result -> NetworkResultWithValue<SummaryDreams> in
@@ -159,7 +162,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
-      .do(afterSuccess: { _ in UserDefaults.standard.set(true, forKey: "needAnalysisUpdate") })
+      .do(afterSuccess: { _ in RefreshCenter.shared.refreshAll() })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {

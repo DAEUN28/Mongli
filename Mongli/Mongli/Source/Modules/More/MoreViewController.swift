@@ -127,12 +127,12 @@ class MoreViewController: BaseViewController, View {
 
 extension MoreViewController {
   private func bindAction(_ reactor: Reactor) {
-    self.rx.viewWillAppear.filter { _ in
-      return UserDefaults.standard.bool(forKey: "needAnalysisUpdate")
-    }
-    .map { _ in Reactor.Action.readAnalysis }
-    .bind(to: reactor.action)
-    .disposed(by: disposeBag)
+    self.rx.viewWillAppear
+      .withLatestFrom(RefreshCenter.shared.moreNeedRefresh).debug()
+      .filter { $0 }
+      .map { _ in Reactor.Action.readAnalysis }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
 
     coverView.button.rx.tap
       .map { _ in Reactor.Action.presentCategoryInfo }
@@ -157,9 +157,7 @@ extension MoreViewController {
 
   private func bindState(_ reactor: Reactor) {
     reactor.state.map { $0.didAnalysisUpdate }
-      .bind { [unowned self] in
-        self.chartView.didAnalysisUpdate.accept($0)
-      }
+      .bind(to: self.chartView.didAnalysisUpdate)
       .disposed(by: disposeBag)
 
     let title = Observable.combineLatest(reactor.state.map { $0.name }.distinctUntilChanged(),
@@ -173,7 +171,7 @@ extension MoreViewController {
       .map { $0 != 0 }
       .bind(to: placeholderView.rx.isHidden)
       .disposed(by: disposeBag)
-    
+
     reactor.state.map { $0.total }
       .map { $0 == 0 }
       .bind(to: chartView.rx.isHidden)

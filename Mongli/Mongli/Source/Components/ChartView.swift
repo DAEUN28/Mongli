@@ -65,8 +65,6 @@ final class ChartView: UIView {
     super.init(frame: frame)
     self.translatesAutoresizingMaskIntoConstraints = false
 
-
-
     self.addSubview(nameStackView)
     self.addSubview(lineView)
     self.addSubview(barChartStackView)
@@ -106,25 +104,23 @@ final class ChartView: UIView {
   }
 
   override func layoutSubviews() {
-    if didAnalysisUpdate.value {
-      guard let analysisCounts = self.analysisCounts else { return }
-      if barChartStackView.arrangedSubviews.count < 1 { return self.setUpBarChartStackView() }
+    guard let analysisCounts = self.analysisCounts else { return }
+    if barChartStackView.arrangedSubviews.count < 1 { return self.setUpBarChartStackView() }
 
-      for i in 0..<barChartStackView.arrangedSubviews.count {
-        let barView = barChartStackView.arrangedSubviews[i].subviews[0]
-        let countLabel = barChartStackView.arrangedSubviews[i].subviews[1] as? UILabel
-//        barView.frame.size.width = CGFloat((analysisCounts[i] * self.barUnitWidth))
-        countLabel?.text = "\(analysisCounts[i])"
-        barView.snp.remakeConstraints {
-          $0.width.equalTo(analysisCounts[i] * self.barUnitWidth)
-          $0.height.equalTo(20)
-          $0.centerY.equalToSuperview()
-          $0.leading.equalToSuperview()
-        }
+    for i in 0..<barChartStackView.arrangedSubviews.count {
+      let barView = barChartStackView.arrangedSubviews[i].subviews[0]
+      let countLabel = barChartStackView.arrangedSubviews[i].subviews[1] as? UILabel
+      countLabel?.text = "\(analysisCounts[i])"
+      barView.snp.remakeConstraints {
+        $0.width.equalTo(analysisCounts[i] * self.barUnitWidth)
+        $0.height.equalTo(20)
+        $0.centerY.equalToSuperview()
+        $0.leading.equalToSuperview()
       }
-      didAnalysisUpdate.accept(false)
-      UserDefaults.standard.set(false, forKey: "needAnalysisUpdate")
     }
+
+    didAnalysisUpdate.accept(false)
+    RefreshCenter.shared.moreNeedRefresh.accept(false)
   }
 }
 

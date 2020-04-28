@@ -77,14 +77,14 @@ final class HomeViewReactor: Reactor, Stepper {
       }()
 
       let result: Observable<Mutation> = self.service.readMonthlyDreams(monthString)
-        .asObservable().debug()
-          .map {
-            switch $0 {
-            case .success(let monthlyDreams): return .setMonthlyDreams(monthlyDreams)
-            case .error(let error):
-              return error == .noContent ? .setMonthlyDreams([:]) : .setError(error.message)
-            }
+        .asObservable()
+        .map {
+          switch $0 {
+          case .success(let monthlyDreams): return .setMonthlyDreams(monthlyDreams)
+          case .error(let error):
+            return error == .noContent ? .setMonthlyDreams([:]) : .setError(error.message)
           }
+        }
 
       return result
 

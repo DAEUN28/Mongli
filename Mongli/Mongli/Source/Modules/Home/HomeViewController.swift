@@ -23,8 +23,8 @@ final class HomeViewController: BaseViewController, View, Stepper {
   var steps = PublishRelay<Step>()
 
   private let date = BehaviorRelay<Date>(value: Date())
+  private let month = BehaviorRelay<Date>(value: Date())
   private let monthlyDreams = BehaviorRelay<MonthlyDreams?>(value: nil)
-  private let currentPageDidChange = BehaviorRelay<Date>(value: Date())
 
   // MARK: UI
 
@@ -138,18 +138,21 @@ final class HomeViewController: BaseViewController, View, Stepper {
 
 extension HomeViewController {
   private func bindAction(_ reactor: Reactor) {
-    self.date
+    let needRefresh = self.rx.viewWillAppear
+      .withLatestFrom(RefreshCenter.shared.homeNeedRefresh.filter { $0 })
+
+    Observable.merge(needRefresh.withLatestFrom(date), date.asObservable())
       .map { Reactor.Action.selectDate($0) }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.currentPageDidChange
+    Observable.merge(needRefresh.withLatestFrom(month), month.asObservable())
       .map { Reactor.Action.selectMonth($0) }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.coverView.button.rx.tap
-      .withLatestFrom(self.date)
+    coverView.button.rx.tap
+      .withLatestFrom(date)
       .compactMap { $0 }
       .map { MongliStep.alert(.deleteDreams($0)) { [weak self] _ in
         guard let self = self else { return }
@@ -158,13 +161,13 @@ extension HomeViewController {
           .disposed(by: self.disposeBag)
         }
       }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
+      .bind(to: steps)
+      .disposed(by: disposeBag)
 
-    self.tableView.rx.itemSelected
+    tableView.rx.itemSelected
       .map { Reactor.Action.selectDream($0) }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
@@ -199,7 +202,7 @@ extension HomeViewController {
       .disposed(by: self.disposeBag)
 
     reactor.state.map { $0.monthlyDreams }
-      .distinctUntilChanged().debug()
+      .distinctUntilChanged()
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
       .bind(to: self.monthlyDreams)
       .disposed(by: self.disposeBag)
@@ -239,6 +242,6 @@ extension HomeViewController: FSCalendarDelegateAppearance, FSCalendarDataSource
   }
 
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-    self.currentPageDidChange.accept(calendar.currentPage)
+    self.month.accept(calendar.currentPage)
   }
 }

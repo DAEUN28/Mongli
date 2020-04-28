@@ -54,8 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     .disposed(by: self.disposeBag)
 
-    UserDefaults.standard.set(true, forKey: "needAnalysisUpdate")
-
     return true
   }
 
