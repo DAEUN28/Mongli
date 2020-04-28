@@ -22,11 +22,7 @@ final class SignInViewController: BaseViewController, View, Stepper {
 
   var steps = PublishRelay<Step>()
 
-  private let controller: ASAuthorizationController = {
-    let request = ASAuthorizationAppleIDProvider().createRequest()
-    request.requestedScopes = [.fullName]
-    return ASAuthorizationController(authorizationRequests: [request])
-  }()
+  private let asController: ASAuthorizationController
 
   // MARK: UI
   private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
@@ -34,8 +30,12 @@ final class SignInViewController: BaseViewController, View, Stepper {
 
   // MARK: Initializing
 
-  init(_ reactor: Reactor) {
+  init(_ reactor: Reactor, appleIDProvider: ASAuthorizationAppleIDProvider) {
     defer { self.reactor = reactor }
+    let request = appleIDProvider.createRequest()
+    request.requestedScopes = [.fullName]
+    self.asController = ASAuthorizationController(authorizationRequests: [request])
+
     super.init()
   }
 
@@ -69,7 +69,7 @@ final class SignInViewController: BaseViewController, View, Stepper {
   override func setupUserInteraction() {
     self.signInButton.rx.controlEvent(.touchUpInside)
       .bind { [weak self] _ in
-        self?.controller.performRequests()
+        self?.asController.performRequests()
       }
       .disposed(by: self.disposeBag)
   }
@@ -84,7 +84,7 @@ final class SignInViewController: BaseViewController, View, Stepper {
 
 extension SignInViewController {
   private func bindAction(_ reactor: Reactor) {
-    self.controller.rx.didCompleteWithAuthorization
+    self.asController.rx.didCompleteWithAuthorization
       .map { Reactor.Action.signIn($0) }
       .bind(to: reactor.action)
       .disposed(by: self.disposeBag)

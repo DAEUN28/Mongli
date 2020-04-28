@@ -48,7 +48,7 @@ class MoreViewController: BaseViewController, View {
     $0.theme.backgroundColor = themed { $0.primary }
   }
   private let floatingItems: [FloatingItem] = [.init(.accountManagement), .init(.opensourceLisence), .init(.contact)]
-  private let placeholderView = PlaceholderView()
+  private let placeholderView = PlaceholderView(.noContent)
 
   // MARK: Initializing
 

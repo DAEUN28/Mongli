@@ -6,6 +6,7 @@
 //  Copyright © 2020 DaEun Kim. All rights reserved.
 //
 
+import AuthenticationServices
 import UIKit
 
 import RxCocoa
@@ -15,7 +16,7 @@ import RxSwift
 // MARK: Flow
 
 final class AppFlow: Flow {
-  
+
   var root: Presentable {
     return self.rootWindow
   }
@@ -23,11 +24,16 @@ final class AppFlow: Flow {
   private let rootWindow: UIWindow
   private let authService: AuthService
   private let dreamService: DreamService
+  private let appleIDProvider: ASAuthorizationAppleIDProvider
 
-  init(window: UIWindow, authService: AuthService, dreamService: DreamService) {
+  init(_ window: UIWindow,
+       authService: AuthService,
+       dreamService: DreamService,
+       appleIDProvider: ASAuthorizationAppleIDProvider) {
     self.rootWindow = window
     self.authService = authService
     self.dreamService = dreamService
+    self.appleIDProvider = appleIDProvider
   }
 
   func navigate(to step: Step) -> FlowContributors {
@@ -58,8 +64,8 @@ extension AppFlow {
   }
 
   private func navigateToSignIn() -> FlowContributors {
-    let reactor = SignInViewReactor(self.authService)
-    let vc = SignInViewController(reactor)
+    let reactor = SignInViewReactor(authService)
+    let vc = SignInViewController(reactor, appleIDProvider: appleIDProvider)
     self.rootWindow.rootViewController = vc
 
     return .one(flowContributor: .contribute(withNext: vc))

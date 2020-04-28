@@ -41,6 +41,7 @@ enum NetworkError: Int, Error {
     case .badRequest: return .badRequestErrorMsg
     case .unauthorized: return .unauthorizedErrorMsg
     case .notFound: return .notFoundErrorMsg
+    case .conflict: return .userConflictErrorMsg
     case .serverError: return .serverErrorMsg
     default: return .unknownErrorMsg
     }

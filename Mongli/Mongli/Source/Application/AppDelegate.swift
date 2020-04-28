@@ -23,17 +23,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   private let authService = AuthService()
   private let dreamService = DreamService()
-  lazy var appFlow: AppFlow? = {
+  private let appleIDProvider = ASAuthorizationAppleIDProvider()
+
+  private lazy var appStepper: AppStepper? = {
     guard let window = self.window else { return nil }
-    return AppFlow(window: window, authService: self.authService, dreamService: self.dreamService)
+    return AppStepper(self.authService)
+  }()
+  private lazy var appFlow: AppFlow? = {
+    guard let window = self.window else { return nil }
+    return AppFlow(window,
+                   authService: self.authService,
+                   dreamService: self.dreamService,
+                   appleIDProvider: self.appleIDProvider)
   }()
 
   // MARK: App Life Cycle
 
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    guard let flow = self.appFlow else { return true }
-    self.setupFlow(flow)
+    guard let flow = self.appFlow, let stepper = self.appStepper else { return true }
+    self.coordinator.coordinate(flow: flow, with: stepper)
 
     self.coordinator.rx.willNavigate.bind { flow, step in
       print("🚀 will navigate to flow=\(flow) and step=\(step) 🚀")
@@ -45,17 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     .disposed(by: self.disposeBag)
 
-    let notificationName = ASAuthorizationAppleIDProvider.credentialRevokedNotification
-    NotificationCenter.default.addObserver(forName: notificationName, object: nil, queue: nil) { [unowned self] _ in
-      self.authService.deleteUser().asObservable().bind { [unowned self] in
-        switch $0 {
-        case .success: self.setupFlow(flow)
-        case .error(let error): self.window?.rootViewController?.showToast(error.message ?? .unknownErrorMsg)
-        }
-      }
-      .disposed(by: self.disposeBag)
-    }
-
     return true
   }
 
@@ -66,10 +64,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       themeService.switch(.light)
     }
   }
+
+  func applicationWillEnterForeground(_ application: UIApplication) {
+    guard let uid = StorageManager.shared.readUser()?.uid else { return }
+
+    appleIDProvider.getCredentialState(forUserID: uid) { [unowned self] state, _ in
+      switch state {
+      case .authorized: return
+      default: self.signInIsRequired()
+      }
+    }
+  }
 }
 
 extension AppDelegate {
-  func setupFlow(_ flow: AppFlow) {
-    self.coordinator.coordinate(flow: flow, with: AppStepper(self.authService))
+  func signInIsRequired() {
+    appStepper?.steps.accept(MongliStep.signInIsRequired)
   }
 }

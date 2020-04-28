@@ -100,7 +100,7 @@ class Service: ServiceType {
             : Observable<Int>.timer(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).take(1)
         }
       }
-      .catchError { error -> BasicResult in
+      .catchError { [unowned self] error -> BasicResult in
         guard let error = NetworkError(error) else { return .just(.error(.unknown)) }
 
         switch error {
@@ -124,13 +124,8 @@ class Service: ServiceType {
 
     return self.revokeToken().do(onSuccess: { result in
         switch result {
-        case .success:
-          if let flow = appDelegate.appFlow {
-            return appDelegate.setupFlow(flow)
-          }
-
-        case .error(let err):
-          throw err
+        case .success: appDelegate.signInIsRequired()
+        case .error(let err): throw err
         }
       })
       .catchError { .just(.error(NetworkError($0) ?? .unknown)) }

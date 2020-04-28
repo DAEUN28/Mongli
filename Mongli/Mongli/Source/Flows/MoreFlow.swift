@@ -45,6 +45,10 @@ final class MoreFlow: Flow {
     case let .alert(type, handler):
       return self.presentAlert(type, handler: handler)
 
+    case .signInIsRequired:
+      (UIApplication.shared.delegate as? AppDelegate)?.signInIsRequired()
+      return .none
+
     case .categoryInfoIsRequired:
       return self.presentCategoryInfo()
 
