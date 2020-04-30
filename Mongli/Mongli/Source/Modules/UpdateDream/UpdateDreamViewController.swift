@@ -49,28 +49,6 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.subViews = [self.dreamView, self.doneButton, self.spinner]
-
-    // present alert when willMove
-//    let id = reactor?.initialState.existingDream.id
-//    let dream = Observable.combineLatest(self.date.map { dateFormatter.string(from: $0) }.asObservable(),
-//                                         self.dreamView.category.asObservable(),
-//                                         self.dreamView.title.asObservable(),
-//                                         self.dreamView.content.asObservable()) { Dream(id: id,
-//                                                                                         date: $0,
-//                                                                                         category: $1.rawValue,
-//                                                                                         title: $2,
-//                                                                                         content: $3) }
-//
-//    guard let touchesMoved = self.navigationController?.interactivePopGestureRecognizer?.rx.touchesMoved else { return }
-//    let backButton = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
-//    self.navigationItem.backBarButtonItem = backButton
-//
-//    Observable.combineLatest(touchesMoved, backButton.rx.tap.asObservable())
-//      .withLatestFrom(dream)
-//      .filter { [weak self] in self?.reactor?.initialState.existingDream != $0 }
-//      .map { _ in MongliStep.alert(.cancelWrite) { [weak self] _ in self?.steps.accept(MongliStep.dismiss) } }
-//      .bind(to: self.steps)
-//      .disposed(by: self.disposeBag)
   }
 
   // MARK: Setup

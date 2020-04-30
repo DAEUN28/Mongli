@@ -16,7 +16,7 @@ final class RefreshCenter {
   private init() {}
 
   let homeNeedRefresh = BehaviorRelay<Bool>(value: false)
-  let moreNeedRefresh = BehaviorRelay<Bool>(value: false)
+  let moreNeedRefresh = BehaviorRelay<Bool>(value: true)
 
   func refreshAll() {
     homeNeedRefresh.accept(true)

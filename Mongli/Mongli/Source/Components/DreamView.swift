@@ -165,7 +165,7 @@ final class DreamView: UIView {
     contentTextViewPlaceholder.sizeToFit()
 
     snp.makeConstraints {
-      $0.top.equalToSafeArea(view).inset(20)
+      $0.top.equalToSafeArea(view).inset(12)
       $0.leading.equalToSuperview().inset(32)
       $0.trailing.equalToSuperview().inset(32)
     }
