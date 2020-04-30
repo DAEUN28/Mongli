@@ -14,8 +14,10 @@ extension Reactive where Base: Spinner {
     return Binder(self.base) { view, active in
       if active {
         view.indicator.startAnimating()
+        view.isHidden = false
       } else {
         view.indicator.stopAnimating()
+        view.isHidden = true
       }
     }
   }

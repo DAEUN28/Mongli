@@ -8,7 +8,7 @@
 
 import UIKit
 
-import SnapKit
+import RxSwift
 
 final class Spinner: UIView {
 
@@ -24,8 +24,9 @@ final class Spinner: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.theme.backgroundColor = themed { $0.background.withAlphaComponent(0.5) }
-    
+    self.layer.cornerRadius = 10
+    self.theme.backgroundColor = themed { $0.primary.withAlphaComponent(0.5) }
+
     self.addSubview(self.indicator)
   }
 
@@ -33,7 +34,7 @@ final class Spinner: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func setNeedsUpdateConstraints() {
+  override func updateConstraints() {
     if !didSetupConstraints {
       self.snp.makeConstraints {
         $0.center.equalToSuperview()
@@ -47,6 +48,6 @@ final class Spinner: UIView {
       }
       didSetupConstraints = true
     }
-    super.setNeedsUpdateConstraints()
+    super.updateConstraints()
   }
 }
