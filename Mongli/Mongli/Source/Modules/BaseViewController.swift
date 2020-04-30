@@ -62,26 +62,31 @@ class BaseViewController: UIViewController {
   func setupUserInteraction() { }
 
   func setupDreamNavigationBar(_ string: String) {
-    self.setupNavigationBar()
+    self.setupDreamNavigationBar()
     self.title = LocalizedString.dateFormat.localizedDate(dateFormatter.date(from: string), .dreamAdverb)
   }
 
-  func setupDreamNavigationBar() -> UIBarButtonItem {
-    self.setupNavigationBar()
-
+  func addCalendarBarButton() -> UIBarButtonItem {
     let button = UIBarButtonItem(image: UIImage(.calendar), style: .plain, target: nil, action: nil)
     self.navigationItem.rightBarButtonItem = button
 
     return button
   }
 
-  private func setupNavigationBar() {
+  func setupDreamNavigationBar() {
     self.navigationController?.setNavigationBarHidden(false, animated: false)
     self.navigationController?.navigationBar.theme.tintColor = themed { $0.darkWhite }
     self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     self.navigationController?.navigationBar.clipsToBounds = true
-
     self.navigationController?.navigationBar.theme.titleTextAttributes = themed { $0.navigationBarTitle }
+
+    let backButton = UIBarButtonItem(image: UIImage(.back), style: .plain, target: nil, action: nil)
+    self.navigationItem.leftBarButtonItem = backButton
+    backButton.rx.tap
+      .bind { [weak self] in self?.navigationController?.popViewController(animated: true) }
+      .disposed(by: disposeBag)
+    
+    self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
   }
 
   private func setupBackground() {

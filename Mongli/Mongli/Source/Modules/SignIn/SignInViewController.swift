@@ -43,21 +43,16 @@ final class SignInViewController: BaseViewController, View, Stepper {
     fatalError("init(coder:) has not been implemented")
   }
 
-  // MARK: View Life Cycle
+  // MARK: Setup
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func setupConstraints() {
     self.subViews = [self.logoView, self.signInButton]
 
     UIView.animate(withDuration: 2) {
       self.logoView.backgroundColor = .white
       self.signInButton.transform = CGAffineTransform(translationX: 0, y: -60)
     }
-  }
 
-  // MARK: Setup
-
-  override func setupConstraints() {
     self.signInButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.leading.equalTo(self.view.snp.leading).inset(40)

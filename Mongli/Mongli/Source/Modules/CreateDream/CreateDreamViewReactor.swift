@@ -19,6 +19,7 @@ final class CreateDreamViewReactor: Reactor, Stepper {
     case createDream(Dream)
     case dateTapped
     case categoryInfoTapped
+    case cancelWrite
   }
 
   enum Mutation {
@@ -65,6 +66,10 @@ final class CreateDreamViewReactor: Reactor, Stepper {
 
     case .categoryInfoTapped:
       steps.accept(step: .categoryInfoIsRequired)
+      return .empty()
+
+    case .cancelWrite:
+      steps.accept(step: .alert(.cancelWrite, handler: nil))
       return .empty()
     }
   }

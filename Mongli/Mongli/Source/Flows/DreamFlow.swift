@@ -86,7 +86,7 @@ extension DreamFlow {
   }
 
   private func popVC() -> FlowContributors {
-    self.rootViewController.popViewController(animated: false)
+    self.rootViewController.popViewController(animated: true)
     return .none
   }
 

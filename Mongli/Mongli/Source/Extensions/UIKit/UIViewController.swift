@@ -67,8 +67,10 @@ extension UIViewController {
     case .cancelWrite:
       alert.title = ""
       alert.setMessage(message: .cancelDreamDesc)
-      let continueAction = UIAlertAction(title: .delete, style: .cancel, handler: nil)
-      let cancel = UIAlertAction(title: .cancel, style: .destructive, handler: handler)
+      let continueAction = UIAlertAction(title: .continue, style: .cancel, handler: nil)
+      let cancel = UIAlertAction(title: .cancel, style: .destructive, handler: { [weak self] _ in
+        self?.navigationController?.popViewController(animated: true)
+      })
       alert.addAction(continueAction)
       alert.addAction(cancel)
     }

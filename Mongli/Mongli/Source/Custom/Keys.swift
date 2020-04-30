@@ -16,6 +16,7 @@ enum SFSymbolKey: String, Hashable {
 
   // Common
   case noContentCloud = "icloud.slash.fill"
+  case back = "chevron.left"
 
   // DreamView
   case calendar

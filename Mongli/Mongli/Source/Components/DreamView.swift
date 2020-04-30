@@ -28,6 +28,7 @@ final class DreamView: UIView {
   let title = BehaviorRelay<String>(value: "")
   let content = BehaviorRelay<String>(value: "")
   let categoryButtonTapped = BehaviorRelay<Void>(value: ())
+  let contentsAreExist = BehaviorRelay<Bool>(value: false)
 
   private let disposeBag = DisposeBag()
   private let keyboardSize = BehaviorRelay<CGRect>(value: .zero)
@@ -109,7 +110,13 @@ final class DreamView: UIView {
   convenience init(_ type: Type) {
     self.init(frame: .zero)
 
-    categoryInfoButton.rx.tap.bind(to: categoryButtonTapped).disposed(by: disposeBag)
+    BehaviorRelay.combineLatest(self.title, self.content) { !$0.isEmpty && !$1.isEmpty }
+      .bind(to: contentsAreExist)
+      .disposed(by: disposeBag)
+
+    categoryInfoButton.rx.tap
+      .bind(to: categoryButtonTapped)
+      .disposed(by: disposeBag)
 
     setupCategoryButton()
     setupTextFieldAndTextView()
