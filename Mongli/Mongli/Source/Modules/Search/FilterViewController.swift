@@ -25,7 +25,7 @@ final class FilterViewController: UIViewController, Stepper {
 
   private let titleLabel = UILabel().then {
     $0.setText(.searchFilterText)
-    $0.font = FontManager.hpi20L
+    $0.setFont(.hpi20L)
     $0.theme.textColor = themed { $0.text }
   }
   private let stackView = UIStackView().then {
@@ -37,7 +37,7 @@ final class FilterViewController: UIViewController, Stepper {
   }
   private let criteriaLabel = UILabel().then {
     $0.setText(.criteria)
-    $0.font = FontManager.sys17SB
+    $0.setFont(.sys17S)
     $0.theme.textColor = themed { $0.text }
   }
   private let criteriaSegmentedControl = UISegmentedControl().then {
@@ -53,7 +53,7 @@ final class FilterViewController: UIViewController, Stepper {
   }
   private let alignmentLabel = UILabel().then {
     $0.setText(.alignment)
-    $0.font = FontManager.sys17SB
+    $0.setFont(.sys17S)
     $0.theme.textColor = themed { $0.text }
   }
   private let alignmentSegmentedControl = UISegmentedControl().then {
@@ -69,23 +69,23 @@ final class FilterViewController: UIViewController, Stepper {
   }
   private let categoryLabel = UILabel().then {
     $0.setText(.category)
-    $0.font = FontManager.sys17SB
+    $0.setFont(.sys17S)
     $0.theme.textColor = themed { $0.text }
   }
   private let categoryButton = UIButton().then {
     $0.setTitle(.notSelect)
-    $0.titleLabel?.font = FontManager.sys14B
+    $0.titleLabel?.setFont(.sys14B)
     $0.theme.titleColor(from: themed { $0.text }, for: .normal)
   }
   private let periodLabel = UILabel().then {
     $0.setText(.period)
-    $0.font = FontManager.sys17SB
+    $0.setFont(.sys17S)
     $0.theme.textColor = themed { $0.text }
   }
   private let periodView = PeriodView()
   private let periodTextLabel = UILabel().then {
     $0.setText(.periodText)
-    $0.font = FontManager.sys12L
+    $0.setFont(.sys12L)
     $0.theme.textColor = themed { $0.text }
   }
   private let closeButton = BottomButton(.close)
@@ -312,17 +312,17 @@ private final class PeriodView: UIView {
 
   private let dashLabel = UILabel().then {
     $0.text = "~"
-    $0.font = FontManager.sys14B
+    $0.setFont(.sys14B)
     $0.theme.textColor = themed { $0.text }
   }
   let startDateButton = UIButton().then {
     $0.setTitle(.notSelect)
-    $0.titleLabel?.font = FontManager.sys14B
+    $0.titleLabel?.setFont(.sys14B)
     $0.theme.titleColor(from: themed { $0.text }, for: .normal)
   }
   let endDateButton = UIButton().then {
     $0.setTitle(.notSelect)
-    $0.titleLabel?.font = FontManager.sys14B
+    $0.titleLabel?.setFont(.sys14B)
     $0.theme.titleColor(from: themed { $0.text }, for: .normal)
   }
 

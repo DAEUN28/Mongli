@@ -77,7 +77,7 @@
 		BF4455182424E87000632E38 /* 12롯데마트행복Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF4455152424E74E00632E38 /* 12롯데마트행복Bold.ttf */; };
 		BF4455192424E87200632E38 /* 12롯데마트행복Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF4455162424E74F00632E38 /* 12롯데마트행복Light.ttf */; };
 		BF44551A2424E87500632E38 /* 12롯데마트행복Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF4455172424E74F00632E38 /* 12롯데마트행복Medium.ttf */; };
-		BF44551C2424E93900632E38 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44551B2424E93900632E38 /* FontManager.swift */; };
+		BF44551C2424E93900632E38 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44551B2424E93900632E38 /* Font.swift */; };
 		BF4455212424F89B00632E38 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4455202424F89B00632E38 /* LogoView.swift */; };
 		BF44552C2425019200632E38 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44552B2425019200632E38 /* UILabel.swift */; };
 		BF44552E2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */; };
@@ -199,7 +199,7 @@
 		BF4455152424E74E00632E38 /* 12롯데마트행복Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "12롯데마트행복Bold.ttf"; path = "../12롯데마트행복Bold.ttf"; sourceTree = "<group>"; };
 		BF4455162424E74F00632E38 /* 12롯데마트행복Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "12롯데마트행복Light.ttf"; path = "../12롯데마트행복Light.ttf"; sourceTree = "<group>"; };
 		BF4455172424E74F00632E38 /* 12롯데마트행복Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "12롯데마트행복Medium.ttf"; path = "../12롯데마트행복Medium.ttf"; sourceTree = "<group>"; };
-		BF44551B2424E93900632E38 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
+		BF44551B2424E93900632E38 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		BF4455202424F89B00632E38 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		BF44552B2425019200632E38 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASAuthorizationAppleIDButton+Rx.swift"; sourceTree = "<group>"; };
@@ -283,10 +283,10 @@
 		BF43271C2428DED100B1A9DE /* Rx */ = {
 			isa = PBXGroup;
 			children = (
-				BFBFB6582439EB9300C15CDD /* RxTheme */,
 				BF44552D2425D7AC00632E38 /* ASAuthorizationAppleIDButton+Rx.swift */,
 				BFB0A914242CFDEE00BCBFD4 /* ObservableType.swift */,
 				BF44550E242453CB00632E38 /* RxFlow.swift */,
+				BFBFB6582439EB9300C15CDD /* RxTheme */,
 				BFB0A910242CDEBD00BCBFD4 /* Spinner+Rx.swift */,
 				BFBFB64A2435DD4B00C15CDD /* UIGestureRecognizer+Rx.swift */,
 				BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */,
@@ -414,7 +414,6 @@
 				BF4454AC241F95D300632E38 /* LogManager.swift */,
 				BF4454BB2420A93500632E38 /* TokenManager.swift */,
 				BF4454C524210AC800632E38 /* StorageManager.swift */,
-				BF44551B2424E93900632E38 /* FontManager.swift */,
 				BF4327152428C94100B1A9DE /* ReachabilityManager.swift */,
 			);
 			path = Managers;
@@ -465,14 +464,15 @@
 		BF4454D524225B2300632E38 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */,
 				BF432732242A38FA00B1A9DE /* Category.swift */,
 				BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */,
 				BF43272E242A352600B1A9DE /* Keys.swift */,
 				BF4454DD24225EF600632E38 /* LocalizedString.swift */,
 				BF4454CF24211FCD00632E38 /* NetworkResult.swift */,
-				BF4455112424D16100632E38 /* Theme.swift */,
+				BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */,
 				BF064CF52458517C003D2C87 /* RefreshCenter.swift */,
+				BF4455112424D16100632E38 /* Theme.swift */,
+				BF44551B2424E93900632E38 /* Font.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -940,7 +940,7 @@
 				BF4454BC2420A93500632E38 /* TokenManager.swift in Sources */,
 				BF4454C12420F59400632E38 /* MongliAPI.swift in Sources */,
 				BF4454BE2420ACB400632E38 /* Dream.swift in Sources */,
-				BF44551C2424E93900632E38 /* FontManager.swift in Sources */,
+				BF44551C2424E93900632E38 /* Font.swift in Sources */,
 				BF4454FF24244E9600632E38 /* MoreViewController.swift in Sources */,
 				BF432733242A38FA00B1A9DE /* Category.swift in Sources */,
 				BF4327252429DF1500B1A9DE /* CALayer+RxTheme.swift in Sources */,

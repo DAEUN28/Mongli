@@ -27,7 +27,7 @@ final class DreamView: UIView {
   let category = BehaviorRelay<Category>(value: .red)
   let title = BehaviorRelay<String>(value: "")
   let content = BehaviorRelay<String>(value: "")
-  let categoryInfoIsRequired = BehaviorRelay<Void>(value: ())
+  let categoryButtonTapped = BehaviorRelay<Void>(value: ())
 
   private let disposeBag = DisposeBag()
   private let keyboardSize = BehaviorRelay<CGRect>(value: .zero)
@@ -37,12 +37,12 @@ final class DreamView: UIView {
 
   private let categoryLabel = UILabel().then {
     $0.setText(.category)
-    $0.font = FontManager.sys17SB
+    $0.setFont(.sys17S)
     $0.theme.textColor = themed { $0.darkWhite }
   }
   private let categoryInfoButton = UIButton().then {
     $0.setUnderlineTitle(.categoryInfoText)
-    $0.titleLabel?.font = FontManager.sys12L
+    $0.titleLabel?.setFont(.sys12L)
     $0.titleLabel?.theme.textColor = themed { $0.darkWhite }
   }
   private let subStackView1 = UIStackView().then {
@@ -71,7 +71,7 @@ final class DreamView: UIView {
     $0.textAlignment = .center
     $0.returnKeyType = .done
     $0.enablesReturnKeyAutomatically = true
-    $0.font = FontManager.sys17SB
+    $0.font = Font.sys17S.uifont
     $0.theme.textColor = themed { $0.primary }
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 8
@@ -80,7 +80,7 @@ final class DreamView: UIView {
     $0.textAlignment = .natural
     $0.returnKeyType = .done
     $0.enablesReturnKeyAutomatically = true
-    $0.font = FontManager.sys10L
+    $0.font = Font.sys10L.uifont
     $0.theme.textColor = themed { $0.text }
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
@@ -89,7 +89,7 @@ final class DreamView: UIView {
   private let contentTextViewPlaceholder = UILabel().then {
     $0.text = LocalizedString.dreamContentPlaceholder.localized
     $0.textAlignment = .natural
-    $0.font = FontManager.sys10L
+    $0.setFont(.sys10L)
     $0.theme.textColor = themed { $0.placeholder }
   }
   private let toolBar = UIToolbar().then {
@@ -109,7 +109,7 @@ final class DreamView: UIView {
   convenience init(_ type: Type) {
     self.init(frame: .zero)
 
-    categoryInfoButton.rx.tap.bind(to: categoryInfoIsRequired).disposed(by: disposeBag)
+    categoryInfoButton.rx.tap.bind(to: categoryButtonTapped).disposed(by: disposeBag)
 
     setupCategoryButton()
     setupTextFieldAndTextView()

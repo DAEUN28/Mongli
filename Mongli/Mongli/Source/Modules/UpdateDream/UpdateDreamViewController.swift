@@ -28,7 +28,7 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
   private let dreamView = DreamView(.update)
   private let doneButton = UIButton().then {
     $0.setTitle(.updateDream)
-    $0.titleLabel?.font = FontManager.hpi17L
+    $0.titleLabel?.setFont(.hpi17L)
     $0.layer.cornerRadius = 12
   }
   private let spinner = Spinner()
@@ -71,12 +71,12 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
       .bind(to: self.doneButton.rx.isEnabled)
       .disposed(by: self.disposeBag)
 
-    self.setupDreamNavigationBar(date.asDriver()).rx.tap
+    self.setupDreamNavigationBar().rx.tap
       .map { _ in MongliStep.datePickerActionSheet { [weak self] in self?.date.accept($0) } }
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
 
-    dreamView.categoryInfoIsRequired
+    dreamView.categoryButtonTapped
       .map { MongliStep.categoryInfoIsRequired }
       .bind(to: steps)
       .disposed(by: disposeBag)

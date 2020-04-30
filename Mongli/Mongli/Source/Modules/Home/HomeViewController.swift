@@ -32,9 +32,9 @@ final class HomeViewController: BaseViewController, View, Stepper {
     $0.backgroundColor = .clear
     $0.appearance.headerDateFormat = LocalizedString.calendarHeaderDateFormat.localized
     $0.appearance.headerTitleColor = .white
-    $0.appearance.headerTitleFont = FontManager.hpi20B
+    $0.appearance.headerTitleFont = Font.hpi20B.uifont
     $0.appearance.weekdayTextColor = .white
-    $0.appearance.weekdayFont = FontManager.sys15B
+    $0.appearance.weekdayFont = Font.sys15B.uifont
     $0.appearance.caseOptions = .weekdayUsesSingleUpperCase
     $0.appearance.titleDefaultColor = .white
     $0.appearance.titlePlaceholderColor = UIColor(hex: 0xC4C4C4)

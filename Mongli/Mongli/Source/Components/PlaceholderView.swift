@@ -26,7 +26,7 @@ final class PlaceholderView: UIView {
   }
   private let label = UILabel().then {
     $0.setText(.noContentPlaceholder)
-    $0.font = FontManager.hpi17L
+    $0.setFont(.hpi17L)
     $0.theme.textColor = themed { $0.primary }
   }
 

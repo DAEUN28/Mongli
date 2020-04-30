@@ -26,14 +26,14 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
   private let dreamView = DreamView(.read)
   private let deleteButton = UIButton().then {
     $0.setTitle(.deleteDream)
-    $0.titleLabel?.font = FontManager.hpi17L
+    $0.titleLabel?.setFont(.hpi17L)
     $0.theme.titleColor(from: themed { $0.red }, for: .normal)
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
   }
   private let updateButton = UIButton().then {
     $0.setTitle(.updateDream)
-    $0.titleLabel?.font = FontManager.hpi17L
+    $0.titleLabel?.setFont(.hpi17L)
     $0.theme.titleColor(from: themed { $0.primary }, for: .normal)
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
@@ -79,7 +79,7 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
   }
 
   override func setupUserInteraction() {
-    dreamView.categoryInfoIsRequired
+    dreamView.categoryButtonTapped
       .map { MongliStep.categoryInfoIsRequired }
       .bind(to: steps)
       .disposed(by: disposeBag)

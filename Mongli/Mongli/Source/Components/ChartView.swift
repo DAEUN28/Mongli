@@ -42,7 +42,7 @@ final class ChartView: UIView {
     for category in Category.categories {
       let nameLabel = UILabel()
       nameLabel.setText(category.toName())
-      nameLabel.font = FontManager.sys14L
+      nameLabel.setFont(.sys14L)
       nameLabel.textAlignment = .right
       nameLabel.theme.textColor = themed { $0.primary }
       $0.addArrangedSubview(nameLabel)
@@ -137,7 +137,7 @@ extension ChartView {
 
       barView.backgroundColor = category.toColor()
       countLabel.text = "\(count)"
-      countLabel.font = FontManager.sys12T
+      countLabel.setFont(.sys12T)
       countLabel.theme.textColor = themed { $0.primary }
 
       containerView.addSubview(barView)

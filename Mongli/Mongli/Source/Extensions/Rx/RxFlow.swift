@@ -8,10 +8,18 @@
 
 import Foundation
 
+import RxCocoa
 import RxFlow
+import RxSwift
 
 extension OneStepper {
   convenience init(_ step: MongliStep) {
     self.init(withSingleStep: step)
+  }
+}
+
+extension PublishRelay where Element == Step {
+  func accept(_ step: MongliStep) {
+    self.accept(step)
   }
 }

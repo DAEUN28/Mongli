@@ -33,7 +33,7 @@ class MoreViewController: BaseViewController, View {
                                   value: paragraphStyle,
                                   range: .init(location: 0, length: attributedString.length))
     $0.attributedText = attributedString
-    $0.font = FontManager.hpi20L
+    $0.setFont(.hpi20L)
     $0.theme.textColor = themed { $0.darkWhite }
   }
   private let coverView = CoverView().then {

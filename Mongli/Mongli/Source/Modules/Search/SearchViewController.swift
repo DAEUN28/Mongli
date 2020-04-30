@@ -20,12 +20,12 @@ final class SearchViewController: BaseViewController, View {
 
   private let titleLabel = UILabel().then {
     $0.setText(.searchText)
-    $0.font = FontManager.hpi20L
+    $0.setFont(.hpi20L)
     $0.theme.textColor = themed { $0.darkWhite }
   }
   private let searchBar = UISearchBar().then {
     $0.placeholder = LocalizedString.searchPlaceholder.localized
-    $0.searchTextField.font = FontManager.sys16L
+    $0.searchTextField.font = Font.sys16L.uifont
     $0.searchTextField.theme.backgroundColor = themed { $0.darkWhite }
     $0.barTintColor = .clear
     $0.backgroundColor = .clear

@@ -17,13 +17,13 @@ final class CoverView: UIView {
 
   let label = UILabel().then {
     $0.text = LocalizedString.dateFormat.localizedDate(Date(), .dreamAdverb)
-    $0.font = FontManager.hpi20L
+    $0.setFont(.hpi20L)
     $0.textAlignment = .left
     $0.theme.textColor = themed { $0.primary }
   }
   let button = UIButton().then {
     $0.setUnderlineTitle(.deleteAllDream)
-    $0.titleLabel?.font = FontManager.sys12L
+    $0.titleLabel?.setFont(.sys12L)
     $0.titleLabel?.textAlignment = .right
     $0.titleLabel?.theme.textColor = themed { $0.primary }
   }

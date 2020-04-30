@@ -17,7 +17,7 @@ final class BottomButton: UIButton {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.titleLabel?.font = FontManager.hpi17L
+    self.titleLabel?.setFont(.hpi17L)
     self.theme.backgroundColor = themed { $0.primary }
     self.theme.titleColor(from: themed { $0.background }, for: .normal)
     self.layer.cornerRadius = 12

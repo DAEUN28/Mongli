@@ -18,7 +18,7 @@ final class CategoryButton: UIButton {
     super.init(frame: .zero)
 
     self.setTitle(category.toName().localized, for: .normal)
-    self.titleLabel?.font = FontManager.sys10M
+    self.titleLabel?.setFont(.sys10M)
     self.titleLabel?.textAlignment = .center
     self.theme.backgroundColor = themed { $0.background }
     self.setTitleColor(category.toColor(), for: .normal)

@@ -12,4 +12,8 @@ extension UILabel {
   func setText(_ text: LocalizedString) {
     self.text = text.localized
   }
+
+  func setFont(_ font: Font) {
+    self.font = font.uifont
+  }
 }

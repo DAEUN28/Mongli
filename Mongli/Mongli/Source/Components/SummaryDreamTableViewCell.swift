@@ -24,18 +24,18 @@ final class SummaryDreamTableViewCell: UITableViewCell {
   private let containerView = UIView()
   private let titleLabel = UILabel().then {
     $0.text = "title"
-    $0.font = FontManager.sys12B
+    $0.setFont(.sys12B)
     $0.textColor = .white
   }
   private let summaryLabel = UILabel().then {
     $0.text = "summary"
-    $0.font = FontManager.sys10R
+    $0.setFont(.sys10R)
     $0.lineBreakMode = .byTruncatingTail
     $0.textColor = .white
   }
   private let dateLabel = UILabel().then {
     $0.text = "yyyy.MM.dd"
-    $0.font = FontManager.sys10M
+    $0.setFont(.sys10M)
     $0.isHidden = true
     $0.textColor = .white
   }

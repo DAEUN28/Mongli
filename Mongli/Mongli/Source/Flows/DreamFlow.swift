@@ -96,7 +96,8 @@ extension DreamFlow {
     vc.hidesBottomBarWhenPushed = true
 
     self.rootViewController.pushViewController(vc, animated: true)
-    return .one(flowContributor: .contribute(withNext: vc))
+    return .one(flowContributor: .contribute(withNextPresentable: vc,
+                                             withNextStepper: reactor))
   }
 
   private func navigateToReadDream(_ id: Int) -> FlowContributors {

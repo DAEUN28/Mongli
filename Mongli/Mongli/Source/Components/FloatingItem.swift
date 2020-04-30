@@ -21,7 +21,7 @@ final class FloatingItem: UIView {
   // MARK: UI
 
   private let label = UILabel().then {
-    $0.font = FontManager.sys14L
+    $0.setFont(.sys14L)
     $0.theme.textColor = themed { $0.primary }
   }
   let button = UIButton().then {

@@ -43,7 +43,7 @@ extension Theme {
   var red: UIColor { .init(hex: 0xE74C3C) }
 
   var navigationBarTitle: [NSAttributedString.Key: Any] {
-    [.font: FontManager.hpi17L, .foregroundColor: self.darkWhite]
+    [.font: Font.hpi17L.uifont, .foregroundColor: self.darkWhite]
   }
   var segmentedControlTitle: [NSAttributedString.Key: Any] {
     [.foregroundColor: self.placeholder]

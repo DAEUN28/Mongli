@@ -23,7 +23,7 @@ class CategoryInfoViewController: UIViewController {
   private let desciptionLabel = UILabel().then {
     $0.numberOfLines = 4
     $0.setText(.categoryInfoDesc)
-    $0.font = FontManager.sys17SB
+    $0.setFont(.sys17S)
     $0.theme.textColor = themed { $0.assistant }
 
     $0.theme.textAttributes = themed { $0.categoryInfoDesc }
@@ -83,12 +83,12 @@ class CategoryInfoViewController: UIViewController {
     for category in Category.categories {
       let nameLabel = UILabel()
       nameLabel.setText(category.toName())
-      nameLabel.font = FontManager.sys14B
+      nameLabel.setFont(.sys14B)
       nameLabel.textColor = category.toColor()
 
       let textLabel = UILabel()
       textLabel.setText(category.toText())
-      textLabel.font = FontManager.sys10L
+      textLabel.setFont(.sys10L)
       textLabel.theme.textColor = themed { $0.text }
 
       let containerView = UIStackView()

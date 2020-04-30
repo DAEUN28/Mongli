@@ -13,7 +13,7 @@ final class ToastView: UIView {
   // MARK: UI
 
   private let label = UILabel().then {
-    $0.font = FontManager.sys12B
+    $0.setFont(.sys12B)
     $0.theme.textColor = themed { $0.background }
   }
 

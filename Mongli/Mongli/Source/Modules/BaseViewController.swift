@@ -21,7 +21,7 @@ class BaseViewController: UIViewController {
     return type(of: self).description().components(separatedBy: ".").last ?? ""
   }()
 
-  var disposeBag = DisposeBag()
+  var disposeBag: DisposeBag = .init()
   var subViews: [UIView]? {
     willSet {
       guard let views = newValue else { return }
@@ -30,7 +30,6 @@ class BaseViewController: UIViewController {
       }
     }
   }
-  private(set) var didSetupConstraints = false
 
   // MARK: Initializing
 
@@ -51,16 +50,9 @@ class BaseViewController: UIViewController {
   override func viewDidLoad() {
     self.view.setNeedsUpdateConstraints()
     self.setupViews()
+    self.setupConstraints()
     self.setupUserInteraction()
     self.setupBackground()
-  }
-
-  override func updateViewConstraints() {
-    if !self.didSetupConstraints {
-      self.setupConstraints()
-      self.didSetupConstraints = true
-    }
-    super.updateViewConstraints()
   }
 
   func setupConstraints() { }
@@ -75,11 +67,8 @@ class BaseViewController: UIViewController {
     self.title = LocalizedString.dateFormat.localizedDate(dateFormatter.date(from: string), .dreamAdverb)
   }
 
-  func setupDreamNavigationBar(_ date: Driver<Date>) -> UIBarButtonItem {
+  func setupDreamNavigationBar() -> UIBarButtonItem {
     self.setupNavigationBar()
-    date.map { LocalizedString.dateFormat.localizedDate($0, .dreamAdverb) }
-      .drive(self.rx.title)
-      .disposed(by: self.disposeBag)
 
     let button = UIBarButtonItem(image: UIImage(.calendar), style: .plain, target: nil, action: nil)
     self.navigationItem.rightBarButtonItem = button
