@@ -48,11 +48,10 @@ class BaseViewController: UIViewController {
   // MARK: Layout Constraints
 
   override func viewDidLoad() {
-    self.view.setNeedsUpdateConstraints()
     self.setupViews()
-    self.setupConstraints()
     self.setupUserInteraction()
     self.setupBackground()
+    self.setupConstraints()
   }
 
   func setupConstraints() { }

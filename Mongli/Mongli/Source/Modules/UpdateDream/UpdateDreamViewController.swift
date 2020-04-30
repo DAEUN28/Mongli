@@ -44,16 +44,11 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
     fatalError("init(coder:) has not been implemented")
   }
 
-  // MARK: View Life Cycle
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.subViews = [self.dreamView, self.doneButton, self.spinner]
-  }
-
   // MARK: Setup
 
   override func setupConstraints() {
+    self.subViews = [self.dreamView, self.doneButton, self.spinner]
+    
     self.doneButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.bottom.equalToSafeArea(self.view).inset(12)

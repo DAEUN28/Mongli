@@ -19,7 +19,13 @@ extension OneStepper {
 }
 
 extension PublishRelay where Element == Step {
-  func accept(_ step: MongliStep) {
+  func accept(step: MongliStep) {
+    self.accept(step)
+  }
+}
+
+extension BehaviorRelay where Element == Step {
+  func accept(step: MongliStep) {
     self.accept(step)
   }
 }

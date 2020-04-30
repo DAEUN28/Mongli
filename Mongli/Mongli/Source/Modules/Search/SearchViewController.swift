@@ -72,19 +72,6 @@ final class SearchViewController: BaseViewController, View {
 
   // MARK: View Life Cycle
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.coverView.addSubview(self.placeholderView)
-    self.tableView.refreshControl = self.refreshControl
-    self.subViews = [self.titleLabel,
-                     self.searchBar,
-                     self.filterButton,
-                     self.coverView,
-                     self.tableView,
-                     self.createDreamButton,
-                     self.spinner]
-  }
-
   override func viewDidAppear(_ animated: Bool) {
     self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
@@ -96,6 +83,16 @@ final class SearchViewController: BaseViewController, View {
   // MARK: Setup
 
   override func setupConstraints() {
+    self.coverView.addSubview(self.placeholderView)
+    self.tableView.refreshControl = self.refreshControl
+    self.subViews = [self.titleLabel,
+                     self.searchBar,
+                     self.filterButton,
+                     self.coverView,
+                     self.tableView,
+                     self.createDreamButton,
+                     self.spinner]
+    
     self.titleLabel.snp.makeConstraints {
       $0.top.equalToSafeArea(self.view).inset(20)
       $0.leading.equalToSuperview().inset(28)

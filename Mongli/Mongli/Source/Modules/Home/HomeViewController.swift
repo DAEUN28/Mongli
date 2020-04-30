@@ -76,18 +76,6 @@ final class HomeViewController: BaseViewController, View, Stepper {
     fatalError("init(coder:) has not been implemented")
   }
 
-  // MARK: View Life Cycle
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.coverView.addSubview(self.placeholderView)
-    self.subViews = [self.calendar,
-                     self.coverView,
-                     self.tableView,
-                     self.createDreamButton,
-                     self.spinner]
-  }
-  
   override func viewDidAppear(_ animated: Bool) {
     self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
@@ -95,6 +83,14 @@ final class HomeViewController: BaseViewController, View, Stepper {
   // MARK: Setup
 
   override func setupConstraints() {
+    self.coverView.addSubview(self.placeholderView)
+
+    self.subViews = [self.calendar,
+                     self.coverView,
+                     self.tableView,
+                     self.createDreamButton,
+                     self.spinner]
+
     self.calendar.snp.makeConstraints {
       $0.top.equalToSafeArea(self.view).inset(12)
       $0.bottom.equalTo(self.view.snp.centerY)

@@ -10,27 +10,25 @@ import UIKit
 
 import ReactorKit
 import RxCocoa
-import RxFlow
 import RxSwift
 
-final class CreateDreamViewController: BaseViewController, View, Stepper {
+final class CreateDreamViewController: BaseViewController, View {
 
   typealias Reactor = CreateDreamViewReactor
 
   // MARK: Properties
 
-  var steps = PublishRelay<Step>()
-
-  private let date = BehaviorRelay<Date>(value: Date())
+  private let date: BehaviorRelay<Date> = .init(value: .init())
 
   // MARK: UI
 
-  private let dreamView = DreamView(.create)
-  private let doneButton = UIButton().then {
+  private let dreamView: DreamView = .init(.create)
+  private let doneButton: UIButton = UIButton().then {
     $0.setTitle(.createDream)
-    $0.titleLabel?.font = FontManager.hpi17L
+    $0.titleLabel?.setFont(.hpi17L)
     $0.layer.cornerRadius = 12
   }
+
   private let spinner = Spinner()
 
   // MARK: Initializing
@@ -96,16 +94,6 @@ final class CreateDreamViewController: BaseViewController, View, Stepper {
       .do(onNext: { [weak self] in self?.doneButton.setTheme($0) })
       .bind(to: doneButton.rx.isEnabled)
       .disposed(by: disposeBag)
-
-    setupDreamNavigationBar(date.asDriver()).rx.tap
-      .map { [weak self] _ in MongliStep.datePickerActionSheet { self?.date.accept($0) } }
-      .bind(to: steps)
-      .disposed(by: disposeBag)
-
-    dreamView.categoryInfoIsRequired
-      .map { MongliStep.categoryInfoIsRequired }
-      .bind(to: steps)
-      .disposed(by: disposeBag)
   }
 
   // MARK: Binding
@@ -130,22 +118,27 @@ extension CreateDreamViewController {
       .map { Reactor.Action.createDream($0) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
+
+    setupDreamNavigationBar().rx.tap
+      .map { Reactor.Action.dateTapped }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    dreamView.categoryButtonTapped
+      .map { Reactor.Action.categoryInfoTapped }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
-    reactor.state.map { $0.error }
-      .compactMap { $0 }
-      .map { MongliStep.toast($0) }
-      .bind(to: steps)
-      .disposed(by: disposeBag)
-
-    reactor.state.map { $0.isLoading }.skip(1)
-      .filter { !$0 }
-      .map { _ in MongliStep.popVC }
-      .bind(to: steps)
+    reactor.state.map { $0.date }
+      .distinctUntilChanged()
+      .map { LocalizedString.dateFormat.localizedDate($0, .dreamAdverb) }
+      .bind(to: self.rx.title)
       .disposed(by: disposeBag)
 
     reactor.state.map { $0.isLoading }
+      .distinctUntilChanged()
       .bind(to: spinner.rx.isAnimating)
       .disposed(by: disposeBag)
   }

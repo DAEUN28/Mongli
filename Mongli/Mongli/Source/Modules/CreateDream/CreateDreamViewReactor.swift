@@ -10,25 +10,32 @@ import Foundation
 
 import ReactorKit
 import RxCocoa
+import RxFlow
 import RxSwift
 
-final class CreateDreamViewReactor: Reactor {
+final class CreateDreamViewReactor: Reactor, Stepper {
 
   enum Action {
     case createDream(Dream)
+    case dateTapped
+    case categoryInfoTapped
   }
 
   enum Mutation {
-    case setError(LocalizedString?)
+    case setDate(Date)
+    case setPopVC
+    case setError(LocalizedString)
     case setLoading(Bool)
   }
 
   struct State {
-    var error: LocalizedString?
+    var date: Date = .init()
     var isLoading: Bool = false
   }
 
-  let initialState: State = State()
+  var steps: PublishRelay<Step> = .init()
+  let initialState: State = .init()
+
   private let service: DreamService
 
   init(_ service: DreamService) {
@@ -39,24 +46,40 @@ final class CreateDreamViewReactor: Reactor {
     switch action {
     case .createDream(let dream):
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
+      let endLoading: Observable<Mutation> = .just(.setLoading(false))
       let result: Observable<Mutation> = service.createDream(dream)
         .asObservable()
         .map {
           switch $0 {
-          case .success: return .setLoading(false)
+          case .success: return .setPopVC
           case .error(let error): return .setError(error.message)
           }
         }
 
-      return .concat([startLoading, result])
+      return .concat([startLoading, result, endLoading])
+
+    case .dateTapped:
+      let date = PublishRelay<Mutation>()
+      steps.accept(step: .datePickerActionSheet({ date.accept(.setDate($0)) }))
+      return date.asObservable()
+
+    case .categoryInfoTapped:
+      steps.accept(step: .categoryInfoIsRequired)
+      return .empty()
     }
   }
 
   func reduce(state: State, mutation: Mutation) -> State {
     var state = state
     switch mutation {
+    case .setDate(let date):
+      state.date = date
+
+    case .setPopVC:
+      steps.accept(step: .popVC)
+
     case .setError(let error):
-      state.error = error
+      steps.accept(step: .toast(error))
 
     case .setLoading(let isLoading):
       state.isLoading = isLoading

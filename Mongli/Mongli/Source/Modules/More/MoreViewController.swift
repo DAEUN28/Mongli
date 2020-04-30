@@ -55,25 +55,18 @@ class MoreViewController: BaseViewController, View {
   init(_ reactor: Reactor) {
     super.init()
     self.reactor = reactor
-
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  // MARK: View Life Cycle
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    self.subViews = [titleLabel, coverView, chartView, menuButton,
-                     floatingItems[0], floatingItems[1], floatingItems[2], placeholderView]
-  }
-
   // MARK: Setup
 
   override func setupConstraints() {
+    self.subViews = [titleLabel, coverView, chartView, menuButton,
+                     floatingItems[0], floatingItems[1], floatingItems[2], placeholderView]
+
     titleLabel.snp.makeConstraints {
       $0.height.equalTo(titleLabel.intrinsicContentSize.height)
       $0.top.equalToSafeArea(self.view).inset(20)
