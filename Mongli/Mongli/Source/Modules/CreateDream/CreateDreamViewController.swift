@@ -22,13 +22,12 @@ final class CreateDreamViewController: BaseViewController, View {
 
   // MARK: UI
 
-  private let dreamView: DreamView = .init(.create)
+  private let dreamView = DreamView(.create)
   private let doneButton: UIButton = UIButton().then {
     $0.setTitle(.createDream)
     $0.titleLabel?.setFont(.hpi17L)
     $0.layer.cornerRadius = 12
   }
-
   private let spinner = Spinner()
 
   // MARK: Initializing
@@ -52,7 +51,7 @@ final class CreateDreamViewController: BaseViewController, View {
 
   override func setupConstraints() {
     self.subViews = [dreamView, doneButton, spinner]
-    
+
     doneButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.bottom.equalToSafeArea(view).inset(12)

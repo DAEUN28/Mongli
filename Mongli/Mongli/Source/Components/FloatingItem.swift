@@ -15,8 +15,8 @@ final class FloatingItem: UIView {
 
   // MARK: Properties
 
-  let didButtonTap = BehaviorRelay<Void>(value: ())
-  private let disposeBag = DisposeBag()
+  let buttonDidTap: BehaviorRelay<Void> = .init(value: ())
+  private let disposeBag: DisposeBag = .init()
 
   // MARK: UI
 
@@ -57,7 +57,7 @@ final class FloatingItem: UIView {
       $0.leading.equalTo(label)
     }
 
-    button.rx.tap.bind(to: didButtonTap).disposed(by: self.disposeBag)
+    button.rx.tap.bind(to: buttonDidTap).disposed(by: self.disposeBag)
   }
 
   required init(coder: NSCoder) {

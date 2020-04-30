@@ -50,14 +50,14 @@ final class HomeViewController: BaseViewController, View {
     $0.separatorStyle = .none
     $0.theme.backgroundColor = themed { $0.background }
   }
-  private let placeholderView: PlaceholderView = .init(.noContent)
+  private let placeholderView = PlaceholderView(.noContent)
   private let createDreamButton = UIButton().then {
     $0.setImage(UIImage(.pencil), for: .normal)
     $0.layer.cornerRadius = 25
     $0.tintColor = .white
     $0.theme.backgroundColor = themed { $0.primary }
   }
-  private let spinner: Spinner = .init()
+  private let spinner = Spinner()
 
   // MARK: Initializing
 
@@ -81,11 +81,7 @@ final class HomeViewController: BaseViewController, View {
 
   override func setupConstraints() {
     coverView.addSubview(placeholderView)
-    self.subViews = [calendar,
-                     coverView,
-                     tableView,
-                     createDreamButton,
-                     spinner]
+    self.subViews = [calendar, coverView, tableView, createDreamButton, spinner]
 
     calendar.snp.makeConstraints {
       $0.top.equalToSafeArea(view).inset(12)

@@ -15,13 +15,13 @@ final class ChartView: UIView {
 
   // MARK: Properties
 
-  var didAnalysisUpdate = BehaviorRelay<Bool>(value: false)
+  var didAnalysisUpdate: BehaviorRelay<Bool> = .init(value: false)
 
-  private let disposeBag = DisposeBag()
+  private let disposeBag: DisposeBag = .init()
   private var barUnitWidth: Int {
-    guard let analysisCounts = self.analysisCounts, let max = analysisCounts.max() else { return 0 }
-    if self.frame == .zero || max < 12 { return 20 }
-    let barMaxWidth = (self.frame.maxX - 16) - self.lineView.frame.maxX
+    guard let analysisCounts = analysisCounts, let max = analysisCounts.max() else { return 0 }
+    if frame == .zero || max < 12 { return 20 }
+    let barMaxWidth = (frame.maxX - 16) - lineView.frame.maxX
     return Int(barMaxWidth) / max
   }
   private var analysisCounts: [Int]? {
@@ -63,17 +63,17 @@ final class ChartView: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.translatesAutoresizingMaskIntoConstraints = false
+    translatesAutoresizingMaskIntoConstraints = false
 
-    self.addSubview(nameStackView)
-    self.addSubview(lineView)
-    self.addSubview(barChartStackView)
+    addSubview(nameStackView)
+    addSubview(lineView)
+    addSubview(barChartStackView)
 
-    self.setupConstraints()
+    setupConstraints()
 
     didAnalysisUpdate
       .filter { $0 }
-      .bind { [unowned self] _ in self.setNeedsLayout() }
+      .bind { [weak self] _ in self?.setNeedsLayout() }
       .disposed(by: disposeBag)
   }
 
@@ -93,26 +93,26 @@ final class ChartView: UIView {
       $0.width.equalTo(1)
       $0.top.equalToSuperview()
       $0.bottom.equalToSuperview()
-      $0.leading.equalTo(self.nameStackView.snp.trailing).offset(8)
+      $0.leading.equalTo(nameStackView.snp.trailing).offset(8)
     }
     barChartStackView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(8)
       $0.bottom.equalToSuperview().inset(8)
-      $0.leading.equalTo(self.lineView.snp.trailing)
+      $0.leading.equalTo(lineView.snp.trailing)
       $0.trailing.equalToSuperview()
     }
   }
 
   override func layoutSubviews() {
-    guard let analysisCounts = self.analysisCounts else { return }
-    if barChartStackView.arrangedSubviews.count < 1 { return self.setUpBarChartStackView() }
+    guard let analysisCounts = analysisCounts else { return }
+    if barChartStackView.arrangedSubviews.count < 1 { return setUpBarChartStackView() }
 
     for i in 0..<barChartStackView.arrangedSubviews.count {
       let barView = barChartStackView.arrangedSubviews[i].subviews[0]
       let countLabel = barChartStackView.arrangedSubviews[i].subviews[1] as? UILabel
       countLabel?.text = "\(analysisCounts[i])"
       barView.snp.remakeConstraints {
-        $0.width.equalTo(analysisCounts[i] * self.barUnitWidth)
+        $0.width.equalTo(analysisCounts[i] * barUnitWidth)
         $0.height.equalTo(20)
         $0.centerY.equalToSuperview()
         $0.leading.equalToSuperview()
@@ -128,7 +128,7 @@ final class ChartView: UIView {
 
 extension ChartView {
   private func setUpBarChartStackView() {
-    guard let analysisCounts = self.analysisCounts else { return }
+    guard let analysisCounts = analysisCounts else { return }
 
     func makeBarView(_ category: Category, count: Int) -> UIView {
       let containerView = UIView()
@@ -144,7 +144,7 @@ extension ChartView {
       containerView.addSubview(countLabel)
 
       barView.snp.makeConstraints {
-        $0.width.equalTo(self.barUnitWidth * count)
+        $0.width.equalTo(barUnitWidth * count)
         $0.height.equalTo(20)
         $0.centerY.equalToSuperview()
         $0.leading.equalToSuperview()
@@ -160,7 +160,7 @@ extension ChartView {
     for i in 0..<analysisCounts.count {
       guard let category = Category(rawValue: i) else { return }
       let barView = makeBarView(category, count: analysisCounts[i])
-      self.barChartStackView.addArrangedSubview(barView)
+      barChartStackView.addArrangedSubview(barView)
     }
   }
 }

@@ -512,9 +512,9 @@
 		BF4454F12424429100632E38 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				BFBFB656243888DB00C15CDD /* FilterViewController.swift */,
 				BF44550224244ECF00632E38 /* SearchViewController.swift */,
 				BF44550424244ED800632E38 /* SearchViewReactor.swift */,
-				BFBFB656243888DB00C15CDD /* FilterViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";

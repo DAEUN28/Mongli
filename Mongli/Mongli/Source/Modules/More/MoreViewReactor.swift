@@ -6,7 +6,6 @@
 //  Copyright © 2020 DaEun Kim. All rights reserved.
 //
 
-import Foundation
 import AuthenticationServices
 
 import ReactorKit
@@ -18,10 +17,10 @@ final class MoreViewReactor: Reactor, Stepper {
 
   enum Action {
     case readAnalysis
-    case presentCategoryInfo
-    case presentAccountManagement
-    case presentOpensource
-    case navigateToContact
+    case categoryInfoButtonDidTap
+    case accountManagementButtonDidTap
+    case opensourceButtonDidTap
+    case contactButtonDidTap
   }
 
   enum Mutation {
@@ -36,11 +35,12 @@ final class MoreViewReactor: Reactor, Stepper {
     var total: Int = StorageManager.shared.readAnalysis()?.total ?? 0
   }
 
-  let initialState: State = State()
+  let initialState: State = .init()
+  
   private let service: AuthService
-  private let disposeBag = DisposeBag()
+  private let disposeBag: DisposeBag = .init()
 
-  var steps = PublishRelay<Step>()
+  var steps: PublishRelay<Step> = .init()
 
   init(_ service: AuthService) {
     self.service = service
@@ -49,7 +49,7 @@ final class MoreViewReactor: Reactor, Stepper {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .readAnalysis:
-      return self.service.readAnalysis().asObservable()
+      return service.readAnalysis().asObservable()
         .map {
           switch $0 {
           case .success: return .setDidAnalysisUpdate(true)
@@ -57,18 +57,18 @@ final class MoreViewReactor: Reactor, Stepper {
           }
       }
 
-    case .presentCategoryInfo:
-      steps.accept(MongliStep.categoryInfoIsRequired)
+    case .categoryInfoButtonDidTap:
+      steps.accept(step: .categoryInfoIsRequired)
       return .empty()
 
-    case .presentAccountManagement:
+    case .accountManagementButtonDidTap:
       let result = PublishRelay<Mutation>()
 
       let logoutHandler: (UIAlertAction) -> Void = { [weak self] _ in
         guard let self = self else { return }
-        self.service.logout().asObservable().bind { [weak self] in
+        self.service.logout().asObservable().bind {
           switch $0 {
-          case .success: self?.steps.accept(MongliStep.signInIsRequired)
+          case .success: self.steps.accept(step: .signInIsRequired)
           case .error(let error): result.accept(.setError(error.message))
           }
         }
@@ -88,17 +88,17 @@ final class MoreViewReactor: Reactor, Stepper {
         }.disposed(by: self.disposeBag)
       }
 
-      steps.accept(MongliStep.accountManagementIsRequired(logoutHandler: logoutHandler,
-                                                          deleteUserHandler: deleteUserHandler,
-                                                          renameHandler: renameHandler))
+      steps.accept(step: .accountManagementIsRequired(logoutHandler: logoutHandler,
+                                                      deleteUserHandler: deleteUserHandler,
+                                                      renameHandler: renameHandler))
       return result.asObservable()
 
-    case .presentOpensource:
-      steps.accept(MongliStep.opensourceLisenceIsRequired)
+    case .opensourceButtonDidTap:
+      steps.accept(step: .opensourceLisenceIsRequired)
       return .empty()
 
-    case .navigateToContact:
-      steps.accept(MongliStep.contactIsRequired)
+    case .contactButtonDidTap:
+      steps.accept(step: .contactIsRequired)
       return .empty()
 
     }
@@ -117,7 +117,7 @@ final class MoreViewReactor: Reactor, Stepper {
       state.name = name
 
     case .setError(let error):
-      self.steps.accept(MongliStep.toast(error ?? .unknownErrorMsg))
+      self.steps.accept(step: .toast(error ?? .unknownErrorMsg))
     }
 
     return state

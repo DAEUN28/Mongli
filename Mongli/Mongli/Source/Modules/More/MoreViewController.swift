@@ -69,12 +69,12 @@ class MoreViewController: BaseViewController, View {
 
     titleLabel.snp.makeConstraints {
       $0.height.equalTo(titleLabel.intrinsicContentSize.height)
-      $0.top.equalToSafeArea(self.view).inset(20)
+      $0.top.equalToSafeArea(view).inset(20)
       $0.leading.equalToSuperview().inset(28)
     }
     coverView.snp.makeConstraints {
       $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-      $0.bottom.equalToSafeArea(self.view)
+      $0.bottom.equalToSafeArea(view)
       $0.leading.equalToSuperview()
       $0.trailing.equalToSuperview()
     }
@@ -83,15 +83,15 @@ class MoreViewController: BaseViewController, View {
     }
     chartView.snp.makeConstraints {
       $0.top.equalTo(coverView.button.snp.bottom).offset(8)
-      $0.bottom.equalToSafeArea(self.view).inset(100)
+      $0.bottom.equalToSafeArea(view).inset(100)
       $0.leading.equalToSuperview().inset(28)
       $0.trailing.equalToSuperview().inset(28)
     }
     menuButton.snp.makeConstraints {
       $0.width.equalTo(50)
       $0.height.equalTo(50)
-      $0.bottom.equalToSafeArea(self.view).inset(12)
-      $0.trailing.equalToSafeArea(self.view).inset(12)
+      $0.bottom.equalToSafeArea(view).inset(12)
+      $0.trailing.equalToSafeArea(view).inset(12)
     }
     var spacingToMenuButtton = 12
     for item in floatingItems {
@@ -104,10 +104,11 @@ class MoreViewController: BaseViewController, View {
   }
 
   override func setupUserInteraction() {
-    self.menuButton.rx.tap.bind { [unowned self] _ in
+    self.menuButton.rx.tap.bind { [weak self] _ in
+      guard let self = self else { return }
       self.isMenuOpend ? self.cloaseMenu() : self.openMenu()
     }
-    .disposed(by: self.disposeBag)
+    .disposed(by: disposeBag)
   }
 
   // MARK: Binding
@@ -128,35 +129,35 @@ extension MoreViewController {
       .disposed(by: disposeBag)
 
     coverView.button.rx.tap
-      .map { _ in Reactor.Action.presentCategoryInfo }
+      .map { _ in Reactor.Action.categoryInfoButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    floatingItems[0].didButtonTap
-      .map { _ in Reactor.Action.presentAccountManagement }
+    floatingItems[0].buttonDidTap
+      .map { _ in Reactor.Action.accountManagementButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    floatingItems[1].didButtonTap
-      .map { _ in Reactor.Action.presentOpensource }
+    floatingItems[1].buttonDidTap
+      .map { _ in Reactor.Action.opensourceButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    floatingItems[2].didButtonTap
-      .map { _ in Reactor.Action.navigateToContact }
+    floatingItems[2].buttonDidTap
+      .map { _ in Reactor.Action.contactButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
     reactor.state.map { $0.didAnalysisUpdate }
-      .bind(to: self.chartView.didAnalysisUpdate)
+      .bind(to: chartView.didAnalysisUpdate)
       .disposed(by: disposeBag)
 
     let title = Observable.combineLatest(reactor.state.map { $0.name }.distinctUntilChanged(),
                                          reactor.state.map { $0.total }.distinctUntilChanged())
-    title.bind { [unowned self] name, total in
-      self.titleLabel.text = name + String(format: LocalizedString.moreText.localized, total)
+    title.bind { [weak self] name, total in
+      self?.titleLabel.text = name + String(format: LocalizedString.moreText.localized, total)
     }
     .disposed(by: disposeBag)
 
