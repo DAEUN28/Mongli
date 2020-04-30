@@ -68,7 +68,7 @@ extension AppFlow {
     let vc = SignInViewController(reactor, appleIDProvider: appleIDProvider)
     self.rootWindow.rootViewController = vc
 
-    return .one(flowContributor: .contribute(withNext: vc))
+    return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: reactor))
   }
 
   private func navigateToTabBar() -> FlowContributors {

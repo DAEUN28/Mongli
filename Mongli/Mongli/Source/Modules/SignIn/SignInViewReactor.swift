@@ -10,25 +10,25 @@ import AuthenticationServices
 
 import ReactorKit
 import RxCocoa
+import RxFlow
 import RxSwift
 
-final class SignInViewReactor: Reactor {
+final class SignInViewReactor: Reactor, Stepper {
 
   enum Action {
     case signIn(ASAuthorization?)
   }
 
   enum Mutation {
-    case setSignedIn(Bool)
-    case setError(LocalizedString?)
+    case setSignedIn
+    case setError(LocalizedString)
   }
 
-  struct State {
-    var isSignedIn: Bool = false
-    var error: LocalizedString?
-  }
+  struct State { }
 
-  let initialState: State = State()
+  let initialState: State = .init()
+  var steps: PublishRelay<Step> = .init()
+
   private let service: AuthService
 
   init(_ service: AuthService) {
@@ -47,7 +47,7 @@ final class SignInViewReactor: Reactor {
           .asObservable()
           .map {
             switch $0 {
-            case .success: return .setSignedIn(true)
+            case .success: return .setSignedIn
             case .error(let error): return .setError(error.message)
             }
           }
@@ -57,15 +57,10 @@ final class SignInViewReactor: Reactor {
   }
 
   func reduce(state: State, mutation: Mutation) -> State {
-    var state = state
     switch mutation {
-    case .setSignedIn(let isSignedIn):
-      state.isSignedIn = isSignedIn
-      return state
-
-    case .setError(let error):
-      state.error = error
-      return state
+    case .setSignedIn: steps.accept(step: .userIsSignedIn)
+    case .setError(let error): steps.accept(step: .toast(error))
     }
+    return state
   }
 }
