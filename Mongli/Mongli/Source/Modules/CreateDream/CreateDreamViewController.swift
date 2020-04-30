@@ -113,12 +113,12 @@ extension CreateDreamViewController {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    dreamView.categoryButtonTapped
+    dreamView.categoryButtonDidTap
       .map { Reactor.Action.categoryInfoButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    backAction.withLatestFrom(dreamView.contentsAreExist)
+    backAction.withLatestFrom(dreamView.contentsAreExist).debug("back")
       .filter { $0 }
       .map { _ in Reactor.Action.cancelWrite }
       .bind(to: reactor.action)

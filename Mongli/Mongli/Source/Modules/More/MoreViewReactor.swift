@@ -36,11 +36,10 @@ final class MoreViewReactor: Reactor, Stepper {
   }
 
   let initialState: State = .init()
-  
+  var steps: PublishRelay<Step> = .init()
+
   private let service: AuthService
   private let disposeBag: DisposeBag = .init()
-
-  var steps: PublishRelay<Step> = .init()
 
   init(_ service: AuthService) {
     self.service = service
@@ -69,7 +68,7 @@ final class MoreViewReactor: Reactor, Stepper {
         self.service.logout().asObservable().bind {
           switch $0 {
           case .success: self.steps.accept(step: .signInIsRequired)
-          case .error(let error): result.accept(.setError(error.message))
+          case .error(let error): self.steps.accept(step: .toast(error.message))
           }
         }
         .disposed(by: self.disposeBag)
@@ -83,7 +82,7 @@ final class MoreViewReactor: Reactor, Stepper {
         self.service.rename(name).asObservable().bind {
           switch $0 {
           case .success: result.accept(.setName(name))
-          case .error(let error): result.accept(.setError(error.message))
+          case .error(let error): self.steps.accept(step: .toast(error.message))
           }
         }.disposed(by: self.disposeBag)
       }

@@ -13,7 +13,7 @@ import RxCocoa
 
 extension Reactive where Base: UIGestureRecognizer {
   var touchesMoved: Observable<Void> {
-    let selector = #selector(UIGestureRecognizer.touchesMoved(_:with:))
+    let selector = #selector(Base.touchesMoved(_:with:))
     return self.methodInvoked(selector)
       .map { _ in () }
   }

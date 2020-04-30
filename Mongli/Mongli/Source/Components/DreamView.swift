@@ -23,15 +23,15 @@ final class DreamView: UIView {
 
   // MARK: Properties
 
-  let dream = BehaviorRelay<Dream?>(value: nil)
-  let category = BehaviorRelay<Category>(value: .red)
-  let title = BehaviorRelay<String>(value: "")
-  let content = BehaviorRelay<String>(value: "")
-  let categoryButtonTapped = BehaviorRelay<Void>(value: ())
-  let contentsAreExist = BehaviorRelay<Bool>(value: false)
+  let dream: BehaviorRelay<Dream?> = .init(value: nil)
+  let category: BehaviorRelay<Category> = .init(value: .red)
+  let title: BehaviorRelay<String> = .init(value: "")
+  let content: BehaviorRelay<String> = .init(value: "")
+  let categoryButtonDidTap: BehaviorRelay<Void> = .init(value: ())
+  let contentsAreExist: BehaviorRelay<Bool> = .init(value: false)
 
-  private let disposeBag = DisposeBag()
-  private let keyboardSize = BehaviorRelay<CGRect>(value: .zero)
+  private let disposeBag: DisposeBag = .init()
+  private let keyboardSize: BehaviorRelay<CGRect> = .init(value: .zero)
   private var translationYMultiflier: CGFloat = 1
 
   // MARK: UI
@@ -115,7 +115,7 @@ final class DreamView: UIView {
       .disposed(by: disposeBag)
 
     categoryInfoButton.rx.tap
-      .bind(to: categoryButtonTapped)
+      .bind(to: categoryButtonDidTap)
       .disposed(by: disposeBag)
 
     setupCategoryButton()

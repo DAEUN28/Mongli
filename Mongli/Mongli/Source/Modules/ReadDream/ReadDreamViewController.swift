@@ -10,16 +10,11 @@ import UIKit
 
 import ReactorKit
 import RxCocoa
-import RxFlow
 import RxSwift
 
-final class ReadDreamViewController: BaseViewController, View, Stepper {
+final class ReadDreamViewController: BaseViewController, View {
 
   typealias Reactor = ReadDreamViewReactor
-
-  // MARK: Properties
-
-  var steps = PublishRelay<Step>()
 
   // MARK: UI
 
@@ -38,7 +33,6 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
     $0.theme.backgroundColor = themed { $0.background }
     $0.layer.cornerRadius = 12
   }
-  private let spinner = Spinner()
 
   // MARK: Initializing
 
@@ -54,85 +48,63 @@ final class ReadDreamViewController: BaseViewController, View, Stepper {
   // MARK: Setup
 
   override func setupConstraints() {
-    self.subViews = [self.dreamView, self.deleteButton, self.updateButton, self.spinner]
-    
-    self.deleteButton.snp.makeConstraints {
+    subViews = [dreamView, deleteButton, updateButton]
+
+    deleteButton.snp.makeConstraints {
       $0.height.equalTo(44)
-      $0.bottom.equalToSafeArea(self.view).inset(12)
+      $0.bottom.equalToSafeArea(view).inset(12)
       $0.leading.equalToSuperview().inset(32)
-      $0.trailing.equalTo(self.view.snp.centerX).offset(-6)
+      $0.trailing.equalTo(view.snp.centerX).offset(-6)
     }
-    self.updateButton.snp.makeConstraints {
+    updateButton.snp.makeConstraints {
       $0.height.equalTo(44)
-      $0.bottom.equalToSafeArea(self.view).inset(12)
-      $0.leading.equalTo(self.view.snp.centerX).offset(6)
+      $0.bottom.equalToSafeArea(view).inset(12)
+      $0.leading.equalTo(view.snp.centerX).offset(6)
       $0.trailing.equalToSuperview().inset(32)
     }
-    self.dreamView.snp.makeConstraints {
-      $0.bottom.equalTo(self.deleteButton.snp.top).offset(-16)
+    dreamView.snp.makeConstraints {
+      $0.bottom.equalTo(deleteButton.snp.top).offset(-16)
     }
-  }
-
-  override func setupUserInteraction() {
-    dreamView.categoryButtonTapped
-      .map { MongliStep.categoryInfoIsRequired }
-      .bind(to: steps)
-      .disposed(by: disposeBag)
   }
 
   func setupDream(_ dream: Dream) {
-    self.dreamView.dream.accept(dream)
+    dreamView.dream.accept(dream)
   }
 
   // MARK: Binding
 
   func bind(reactor: Reactor) {
-    self.bindAction(reactor)
-    self.bindState(reactor)
+    bindAction(reactor)
+    bindState(reactor)
   }
 }
 
 extension ReadDreamViewController {
   private func bindAction(_ reactor: Reactor) {
-    self.deleteButton.rx.tap
-      .withLatestFrom(self.dreamView.title)
-      .map { MongliStep.alert(.deleteDream($0)) { [weak self] _ in
-        guard let self = self else { return }
-        Observable.just(Reactor.Action.deleteDream)
-          .bind(to: reactor.action)
-          .disposed(by: self.disposeBag)
-        }
-      }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
+    dreamView.categoryButtonDidTap
+      .map { Reactor.Action.categoryButtonDidTap }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    deleteButton.rx.tap
+      .map { Reactor.Action.deleteButtonDidTap }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    updateButton.rx.tap
+      .map { Reactor.Action.updateButtonDidTap }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
-    self.updateButton.rx.tap
-      .withLatestFrom(reactor.state.map { $0.dream })
-      .compactMap { $0 }
-      .map { MongliStep.updateDreamIsRequired($0) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
     reactor.state.map { $0.dream }
-      .bind(to: self.dreamView.dream)
-      .disposed(by: self.disposeBag)
+      .bind(to: dreamView.dream)
+      .disposed(by: disposeBag)
+
     reactor.state.map { $0.dream?.date }
       .compactMap { $0 }
       .bind { [weak self] in self?.setupDreamNavigationBar($0) }
-      .disposed(by: self.disposeBag)
-    reactor.state.map { $0.error }
-      .compactMap { $0 }
-      .map { MongliStep.toast($0) }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
-    reactor.state.map { $0.isLoading }.skip(1)
-      .filter { !$0 }
-      .map { _ in MongliStep.popVC }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
-    reactor.state.map { $0.isLoading }
-      .bind(to: self.spinner.rx.isAnimating)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
   }
 }

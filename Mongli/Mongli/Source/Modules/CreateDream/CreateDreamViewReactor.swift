@@ -34,8 +34,8 @@ final class CreateDreamViewReactor: Reactor, Stepper {
     var isLoading: Bool = false
   }
 
-  var steps: PublishRelay<Step> = .init()
   let initialState: State = .init()
+  var steps: PublishRelay<Step> = .init()
 
   private let service: DreamService
 

@@ -10,30 +10,32 @@ import Foundation
 
 import ReactorKit
 import RxCocoa
+import RxFlow
 import RxSwift
 
-final class ReadDreamViewReactor: Reactor {
+final class ReadDreamViewReactor: Reactor, Stepper {
 
   enum Action {
-    case deleteDream
-    case updatedDream(Dream)
+    case categoryButtonDidTap
+    case deleteButtonDidTap
+    case updateButtonDidTap
   }
 
   enum Mutation {
     case setDream(Dream?)
-    case setError(LocalizedString?)
-    case setLoading(Bool)
+    case setError(LocalizedString)
   }
 
   struct State {
     var dream: Dream?
-    var error: LocalizedString?
-    var isLoading: Bool = false
   }
 
   let initialState: State = State()
+  var steps: PublishRelay<Step> = .init()
+
   private let service: DreamService
   private let id: Int
+  private let disposeBag: DisposeBag = . init()
 
   init(_ service: DreamService, id: Int) {
     self.service = service
@@ -49,37 +51,44 @@ final class ReadDreamViewReactor: Reactor {
         .asObservable()
         .map {
           switch $0 {
-          case .success(let dream):
-            state.dream = dream
-            return state
-
-          case .error(let err):
-            state.error = err.message
-            return state
+          case .success(let dream): state.dream = dream
+          case .error(let error): self.steps.accept(step: .toast(error.message))
           }
+          return state
       }
     }
   }
 
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
-    case .deleteDream:
-      guard let id = self.currentState.dream?.id else { return .empty() }
-
-      let startLoading: Observable<Mutation> = .just(.setLoading(true))
-      let result: Observable<Mutation> = self.service.deleteDream(id)
-        .asObservable()
-        .map {
-          switch $0 {
-          case .success: return .setLoading(false)
-          case .error(let err): return .setError(err.message)
-          }
-        }
-
-      return .concat([startLoading, result])
-
-    case .updatedDream(let dream):
+    case .categoryButtonDidTap:
+      steps.accept(step: .categoryInfoIsRequired)
       return .empty()
+
+    case .deleteButtonDidTap:
+      guard let dream = self.currentState.dream, let id = dream.id else { return .empty() }
+
+      steps.accept(step: .alert(.deleteDream(dream.title), handler: { [weak self] _ in
+        guard let self = self else { return }
+
+        self.service.deleteDream(id).asObservable()
+          .bind {
+            switch $0 {
+            case .success: self.steps.accept(step: .popVC)
+            case .error(let error): self.steps.accept(step: .toast(error.message))
+            }
+          }
+          .disposed(by: self.disposeBag)
+      }))
+
+      return .empty()
+
+    case .updateButtonDidTap:
+      if let dream = currentState.dream {
+        steps.accept(step: .updateDreamIsRequired(dream))
+      }
+      return .empty()
+
     }
   }
 
@@ -88,15 +97,10 @@ final class ReadDreamViewReactor: Reactor {
     switch mutation {
     case .setDream(let dream):
       state.dream = dream
-      return state
 
     case .setError(let error):
-      state.error = error
-      return state
-
-    case .setLoading(let isLoading):
-      state.isLoading = isLoading
-      return state
+      steps.accept(step: .toast(error))
     }
+    return state
   }
 }

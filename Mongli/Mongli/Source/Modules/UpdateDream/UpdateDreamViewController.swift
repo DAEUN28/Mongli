@@ -71,7 +71,7 @@ final class UpdateDreamViewController: BaseViewController, View, Stepper {
       .bind(to: self.steps)
       .disposed(by: self.disposeBag)
 
-    dreamView.categoryButtonTapped
+    dreamView.categoryButtonDidTap
       .map { MongliStep.categoryInfoIsRequired }
       .bind(to: steps)
       .disposed(by: disposeBag)
