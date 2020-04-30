@@ -16,6 +16,10 @@ final class SearchViewController: BaseViewController, View {
 
   typealias Reactor = SearchViewReactor
 
+  // MARK: Properties
+
+  let nokeywordSearch: PublishRelay<Void> = .init()
+
   // MARK: UI
 
   private let titleLabel = UILabel().then {
@@ -73,148 +77,150 @@ final class SearchViewController: BaseViewController, View {
   // MARK: View Life Cycle
 
   override func viewDidAppear(_ animated: Bool) {
-    self.navigationController?.setNavigationBarHidden(true, animated: true)
+    navigationController?.setNavigationBarHidden(true, animated: true)
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    self.searchBar.resignFirstResponder()
+    searchBar.resignFirstResponder()
   }
 
   // MARK: Setup
 
   override func setupConstraints() {
-    self.coverView.addSubview(self.placeholderView)
-    self.tableView.refreshControl = self.refreshControl
-    self.subViews = [self.titleLabel,
-                     self.searchBar,
-                     self.filterButton,
-                     self.coverView,
-                     self.tableView,
-                     self.createDreamButton,
-                     self.spinner]
+    coverView.addSubview(placeholderView)
+    tableView.refreshControl = refreshControl
+    subViews = [titleLabel,
+                 searchBar,
+                 filterButton,
+                 coverView,
+                 tableView,
+                 createDreamButton,
+                 spinner]
 
-    self.titleLabel.snp.makeConstraints {
-      $0.top.equalToSafeArea(self.view).inset(20)
+    titleLabel.snp.makeConstraints {
+      $0.top.equalToSafeArea(view).inset(20)
       $0.leading.equalToSuperview().inset(28)
     }
-    self.searchBar.snp.makeConstraints {
-      $0.top.equalTo(self.titleLabel.snp.bottom).offset(10)
+    searchBar.snp.makeConstraints {
+      $0.top.equalTo(titleLabel.snp.bottom).offset(10)
       $0.leading.equalToSuperview().inset(20)
     }
-    self.filterButton.snp.makeConstraints {
-      $0.width.equalTo(self.filterButton.snp.height)
-      $0.top.equalTo(self.searchBar.searchTextField.snp.top)
-      $0.bottom.equalTo(self.searchBar.searchTextField.snp.bottom)
-      $0.leading.equalTo(self.searchBar.snp.trailing).offset(12)
+    filterButton.snp.makeConstraints {
+      $0.width.equalTo(filterButton.snp.height)
+      $0.top.equalTo(searchBar.searchTextField.snp.top)
+      $0.bottom.equalTo(searchBar.searchTextField.snp.bottom)
+      $0.leading.equalTo(searchBar.snp.trailing).offset(12)
       $0.trailing.equalToSuperview().inset(28)
     }
-    self.coverView.snp.makeConstraints {
-      $0.top.equalTo(self.searchBar.searchTextField.snp.bottom).offset(20)
-      $0.bottom.equalToSafeArea(self.view)
+    coverView.snp.makeConstraints {
+      $0.top.equalTo(searchBar.searchTextField.snp.bottom).offset(20)
+      $0.bottom.equalToSafeArea(view)
       $0.leading.equalToSuperview()
       $0.trailing.equalToSuperview()
     }
-    self.tableView.snp.makeConstraints {
-      $0.top.equalTo(self.coverView.label.snp.bottom).offset(12)
-      $0.bottom.equalToSafeArea(self.view)
+    tableView.snp.makeConstraints {
+      $0.top.equalTo(coverView.label.snp.bottom).offset(12)
+      $0.bottom.equalToSafeArea(view)
       $0.leading.equalToSuperview().inset(24)
       $0.trailing.equalToSuperview().inset(24)
     }
-    self.createDreamButton.snp.makeConstraints {
+    createDreamButton.snp.makeConstraints {
       $0.width.equalTo(50)
       $0.height.equalTo(50)
-      $0.bottom.equalToSafeArea(self.view).inset(12)
-      $0.trailing.equalToSafeArea(self.view).inset(12)
+      $0.bottom.equalToSafeArea(view).inset(12)
+      $0.trailing.equalToSafeArea(view).inset(12)
     }
   }
 
   override func setupUserInteraction() {
-    self.searchBar.rx.searchButtonClicked
-      .bind { [weak self] _ in
-        self?.searchBar.resignFirstResponder()
-      }
-      .disposed(by: self.disposeBag)
+    searchBar.rx.searchButtonClicked
+      .bind { [weak self] _ in self?.searchBar.resignFirstResponder() }
+      .disposed(by: disposeBag)
   }
 
   // MARK: Binding
 
   func bind(reactor: Reactor) {
-    self.bindAction(reactor)
-    self.bindState(reactor)
+    bindAction(reactor)
+    bindState(reactor)
   }
 }
 
 extension SearchViewController {
   private func bindAction(_ reactor: Reactor) {
-    self.searchBar.rx.searchButtonClicked.withLatestFrom(self.searchBar.rx.text)
+    searchBar.rx.searchButtonClicked.withLatestFrom(searchBar.rx.text)
       .map { Reactor.Action.search($0) }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.tableView.rx.itemSelected
+    nokeywordSearch.map { Reactor.Action.search(nil) }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    tableView.rx.itemSelected
       .map { Reactor.Action.selectDream($0) }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.refreshControl.rx.controlEvent(.valueChanged)
+    refreshControl.rx.controlEvent(.valueChanged)
       .map { _ in Reactor.Action.refresh }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.tableView.rx.prefetchRows
-      .filter { $0.contains(where: { $0.row >= reactor.currentState.dreams.count }) }
+    tableView.rx.prefetchRows
+      .filter { $0.contains(where: { $0.row >= reactor.currentState.dreams.count - 1 }) }
       .map { _ in Reactor.Action.loadMore }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.filterButton.rx.tap
-      .map { Reactor.Action.presentFilter }
+    filterButton.rx.tap
+      .map { Reactor.Action.filterButtonDidTap }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.createDreamButton.rx.tap
-      .map { Reactor.Action.navigateToCreateDream }
+    createDreamButton.rx.tap
+      .map { Reactor.Action.createButtonDidTap }
       .bind(to: reactor.action)
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
     reactor.state.map { "\($0.total)" + LocalizedString.numberOfDreamsText.localized }
       .distinctUntilChanged()
-      .bind(to: self.coverView.label.rx.text)
-      .disposed(by: self.disposeBag)
+      .bind(to: coverView.label.rx.text)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.dreams }
       .distinctUntilChanged()
-      .bind(to: self.tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
-                                        cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
-      .disposed(by: self.disposeBag)
+      .bind(to: tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
+                                   cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.dreams }
       .distinctUntilChanged()
       .map { !$0.isEmpty }
-      .bind(to: self.placeholderView.rx.isHidden)
-      .disposed(by: self.disposeBag)
+      .bind(to: placeholderView.rx.isHidden)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.dreams }
       .distinctUntilChanged()
       .map { $0.isEmpty }
-      .bind(to: self.tableView.rx.isHidden)
-      .disposed(by: self.disposeBag)
+      .bind(to: tableView.rx.isHidden)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.searchBarIsEnabled }
-      .distinctUntilChanged()
-      .bind(to: self.searchBar.rx.isUserInteractionEnabled)
-      .disposed(by: self.disposeBag)
+      .distinctUntilChanged().debug()
+      .bind(to: searchBar.rx.isUserInteractionEnabled)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.isRefreshing }
       .distinctUntilChanged()
-      .bind(to: self.refreshControl.rx.isRefreshing )
-      .disposed(by: self.disposeBag)
+      .bind(to: refreshControl.rx.isRefreshing )
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.isLoading }
       .distinctUntilChanged()
-      .bind(to: self.spinner.rx.isAnimating)
-      .disposed(by: self.disposeBag)
+      .bind(to: spinner.rx.isAnimating)
+      .disposed(by: disposeBag)
   }
 }

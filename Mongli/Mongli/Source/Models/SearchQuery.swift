@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SearchQuery: Codable {
+struct SearchQuery: Codable, Equatable {
   var page: Int
   let criteria: Int
   let alignment: Int

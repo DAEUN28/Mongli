@@ -17,10 +17,6 @@ class BaseViewController: UIViewController {
 
   // MARK: Properties
 
-  lazy private var className: String = {
-    return type(of: self).description().components(separatedBy: ".").last ?? ""
-  }()
-
   var disposeBag: DisposeBag = .init()
   var subViews: [UIView]? {
     willSet {
@@ -30,6 +26,11 @@ class BaseViewController: UIViewController {
       }
     }
   }
+
+  private var didSetupConstraints = false
+  lazy private var className: String = {
+    return type(of: self).description().components(separatedBy: ".").last ?? ""
+  }()
 
   // MARK: Initializing
 
@@ -51,7 +52,14 @@ class BaseViewController: UIViewController {
     self.setupViews()
     self.setupUserInteraction()
     self.setupBackground()
-    self.setupConstraints()
+  }
+
+  override func updateViewConstraints() {
+    if !didSetupConstraints {
+      self.setupConstraints()
+      didSetupConstraints = true
+    }
+    super.updateViewConstraints()
   }
 
   func setupConstraints() { }

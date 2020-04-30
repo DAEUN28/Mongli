@@ -55,6 +55,9 @@ class MoreViewController: BaseViewController, View {
   init(_ reactor: Reactor) {
     super.init()
     self.reactor = reactor
+    
+    self.subViews = [titleLabel, coverView, chartView, menuButton,
+                     floatingItems[0], floatingItems[1], floatingItems[2], placeholderView]
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -64,9 +67,6 @@ class MoreViewController: BaseViewController, View {
   // MARK: Setup
 
   override func setupConstraints() {
-    self.subViews = [titleLabel, coverView, chartView, menuButton,
-                     floatingItems[0], floatingItems[1], floatingItems[2], placeholderView]
-
     titleLabel.snp.makeConstraints {
       $0.height.equalTo(titleLabel.intrinsicContentSize.height)
       $0.top.equalToSafeArea(view).inset(20)

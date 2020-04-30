@@ -35,6 +35,8 @@ final class CreateDreamViewController: BaseViewController, View {
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
     super.init()
+
+    self.subViews = [dreamView, doneButton, spinner]
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -50,8 +52,6 @@ final class CreateDreamViewController: BaseViewController, View {
   // MARK: Setup
 
   override func setupConstraints() {
-    self.subViews = [dreamView, doneButton, spinner]
-
     doneButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.bottom.equalToSafeArea(view).inset(12)

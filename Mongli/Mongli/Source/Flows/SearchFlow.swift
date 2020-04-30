@@ -58,6 +58,7 @@ extension SearchFlow {
     self.rootViewController.visibleViewController?.dismiss(animated: true)
     guard let vc = self.rootViewController.topViewController as? SearchViewController else { return .none }
     vc.reactor?.searchQuery.accept(query)
+    if query.criteria == 2 { vc.nokeywordSearch.accept(()) }
 
     return .none
   }

@@ -51,7 +51,6 @@ final class HomeViewReactor: Reactor, Stepper {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .selectDate(let date):
-      if currentState.isLoading { return .empty() }
       let dateString = dateFormatter.string(from: date)
 
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
@@ -68,7 +67,6 @@ final class HomeViewReactor: Reactor, Stepper {
       return .concat([startLoading, result, endLoading])
 
     case .selectMonth(let month):
-      if currentState.isLoading { return .empty() }
       let monthString: String = {
         var arr = dateFormatter.string(from: month).components(separatedBy: "-")
         arr.removeLast()

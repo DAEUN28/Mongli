@@ -16,10 +16,10 @@ final class FilterViewController: UIViewController, Stepper {
 
   // MARK: Properties
 
-  var steps = PublishRelay<Step>()
+  var steps: PublishRelay<Step> = .init()
 
+  private let disposeBag: DisposeBag = .init()
   private var didSetupConstraints = false
-  private let disposeBag = DisposeBag()
 
   // MARK: UI
 
@@ -95,8 +95,8 @@ final class FilterViewController: UIViewController, Stepper {
   convenience init(_ query: SearchQuery) {
     self.init()
 
-    let criteria = self.criteriaSegmentedControl.rx.selectedSegmentIndex
-    let alignment = self.alignmentSegmentedControl.rx.selectedSegmentIndex
+    let criteria = criteriaSegmentedControl.rx.selectedSegmentIndex
+    let alignment = alignmentSegmentedControl.rx.selectedSegmentIndex
     let category = BehaviorRelay<Category?>(value: nil)
     let startDate = BehaviorRelay<Date?>(value: nil)
     let endDate = BehaviorRelay<Date?>(value: nil)
@@ -108,8 +108,8 @@ final class FilterViewController: UIViewController, Stepper {
       SearchQuery(query.page, $0, $1, $2?.rawValue, $3, $0 == 2 ? nil : query.keyword)
     }
 
-    self.criteriaSegmentedControl.selectedSegmentIndex = query.criteria
-    self.alignmentSegmentedControl.selectedSegmentIndex = query.alignment
+    criteriaSegmentedControl.selectedSegmentIndex = query.criteria
+    alignmentSegmentedControl.selectedSegmentIndex = query.alignment
     category.accept(Category(rawValue: query.category ?? 8))
 
     if let startString = query.period?.components(separatedBy: "~").first,
@@ -120,35 +120,39 @@ final class FilterViewController: UIViewController, Stepper {
       endDate.accept(end)
     }
 
-    self.categoryButton.rx.tap
+    categoryButton.rx.tap
       .bind { [weak self] in
         self?.presentCategoryPicker(select: category.value) { category.accept($0) }
       }
-      .disposed(by: self.disposeBag)
-    category.map { $0?.toName().localized ?? LocalizedString.notSelect.localized }
-      .bind(to: self.categoryButton.rx.title())
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.periodView.startDateButton.rx.tap
+    category.map { $0?.toName().localized ?? LocalizedString.notSelect.localized }
+      .bind(to: categoryButton.rx.title())
+      .disposed(by: disposeBag)
+
+    periodView.startDateButton.rx.tap
       .bind { [weak self] in
         self?.presentDatepickerActionSheet(select: startDate.value) { startDate.accept($0) }
       }
-      .disposed(by: self.disposeBag)
-    self.periodView.endDateButton.rx.tap
+      .disposed(by: disposeBag)
+
+    periodView.endDateButton.rx.tap
       .bind { [weak self] in
         self?.presentDatepickerActionSheet(select: endDate.value) { endDate.accept($0) }
       }
-      .disposed(by: self.disposeBag)
-    startDate.map { dateFormatter.string(for: $0) ?? LocalizedString.notSelect.localized }
-      .bind(to: self.periodView.startDateButton.rx.title())
-      .disposed(by: self.disposeBag)
-    endDate.map { dateFormatter.string(for: $0) ?? LocalizedString.notSelect.localized }
-      .bind(to: self.periodView.endDateButton.rx.title())
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
 
-    self.closeButton.rx.tap.withLatestFrom(searchQuery)
-      .bind { [weak self] in self?.steps.accept(MongliStep.filterIsComplete($0)) }
-      .disposed(by: self.disposeBag)
+    startDate.map { dateFormatter.string(for: $0) ?? LocalizedString.notSelect.localized }
+      .bind(to: periodView.startDateButton.rx.title())
+      .disposed(by: disposeBag)
+
+    endDate.map { dateFormatter.string(for: $0) ?? LocalizedString.notSelect.localized }
+      .bind(to: periodView.endDateButton.rx.title())
+      .disposed(by: disposeBag)
+
+    closeButton.rx.tap.withLatestFrom(searchQuery)
+      .bind { [weak self] in self?.steps.accept(step: .filterIsComplete($0)) }
+      .disposed(by: disposeBag)
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -158,45 +162,45 @@ final class FilterViewController: UIViewController, Stepper {
   // MARK: View Life Cycle
 
   override func viewDidLoad() {
-    self.isModalInPresentation = true
-    self.view.theme.backgroundColor = themed { $0.background }
+    isModalInPresentation = true
+    view.theme.backgroundColor = themed { $0.background }
 
-    self.view.addSubview(self.titleLabel)
-    self.view.addSubview(self.stackView)
-    self.view.addSubview(self.closeButton)
+    view.addSubview(titleLabel)
+    view.addSubview(stackView)
+    view.addSubview(closeButton)
   }
 
   // MARK: Layout
 
   override func updateViewConstraints() {
-    if !self.didSetupConstraints {
-      self.titleLabel.snp.makeConstraints {
-        $0.top.equalToSafeArea(self.view).inset(20)
+    if !didSetupConstraints {
+      titleLabel.snp.makeConstraints {
+        $0.top.equalToSafeArea(view).inset(20)
         $0.leading.equalToSuperview().inset(20)
       }
-      self.stackView.snp.makeConstraints {
-        $0.top.equalTo(self.titleLabel.snp.bottom).offset(28)
-        $0.bottom.equalTo(self.closeButton.snp.top).offset(-24)
+      stackView.snp.makeConstraints {
+        $0.top.equalTo(titleLabel.snp.bottom).offset(28)
+        $0.bottom.equalTo(closeButton.snp.top).offset(-24)
         $0.leading.equalToSuperview().inset(28)
         $0.trailing.equalToSuperview().inset(28)
       }
 
       let views: [(UIView, UIView, UIView?)]
-        = [(self.criteriaLabel, self.criteriaSegmentedControl, nil),
-           (self.alignmentLabel, self.alignmentSegmentedControl, nil),
-           (self.categoryLabel, self.categoryButton, nil),
-           (self.periodLabel, self.periodView, self.periodTextLabel)]
+        = [(criteriaLabel, criteriaSegmentedControl, nil),
+           (alignmentLabel, alignmentSegmentedControl, nil),
+           (categoryLabel, categoryButton, nil),
+           (periodLabel, periodView, periodTextLabel)]
 
       for (title, sub, desc) in views {
-        self.stackView.addArrangedSubview(self.makeView(title, sub, desc))
+        stackView.addArrangedSubview(makeView(title, sub, desc))
       }
 
-      self.closeButton.snp.makeConstraints {
-        $0.bottom.equalToSafeArea(self.view).inset(24)
+      closeButton.snp.makeConstraints {
+        $0.bottom.equalToSafeArea(view).inset(24)
         $0.leading.equalToSuperview().inset(32)
         $0.trailing.equalToSuperview().inset(32)
       }
-      self.didSetupConstraints = true
+      didSetupConstraints = true
     }
     super.updateViewConstraints()
   }
@@ -241,11 +245,12 @@ extension FilterViewController {
     return containerView
   }
 
-  private func presentCategoryPicker(select category: Category? = nil, _ handler: @escaping (Category?) -> Void) {
+  private func presentCategoryPicker(select category: Category? = nil,
+                                     _ handler: @escaping (Category?) -> Void) {
     let picker = UIPickerView()
     Observable.just(Category.categories)
       .bind(to: picker.rx.itemTitles) { return $1.toName().localized }
-      .disposed(by: self.disposeBag)
+      .disposed(by: disposeBag)
     if let selectedRow = category?.rawValue {
       picker.selectRow(selectedRow, inComponent: 0, animated: false)
     }
@@ -271,7 +276,7 @@ extension FilterViewController {
       $0.trailing.equalToSuperview()
     }
 
-    self.present(actionSheet, animated: true)
+    present(actionSheet, animated: true)
   }
 
   private func presentDatepickerActionSheet(select date: Date? = nil, _ handler: @escaping (Date?) -> Void) {
@@ -300,7 +305,7 @@ extension FilterViewController {
       $0.trailing.equalToSuperview()
     }
 
-    self.present(actionSheet, animated: true)
+    present(actionSheet, animated: true)
   }
 }
 
@@ -329,9 +334,9 @@ private final class PeriodView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    self.addSubview(self.dashLabel)
-    self.addSubview(self.startDateButton)
-    self.addSubview(self.endDateButton)
+    addSubview(dashLabel)
+    addSubview(startDateButton)
+    addSubview(endDateButton)
   }
 
   required init?(coder: NSCoder) {
@@ -339,20 +344,20 @@ private final class PeriodView: UIView {
   }
 
   override func updateConstraints() {
-    if !self.didSetupConstraints {
-      self.dashLabel.snp.makeConstraints {
+    if !didSetupConstraints {
+      dashLabel.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.centerY.equalTo(self.startDateButton.snp.centerY)
+        $0.centerY.equalTo(startDateButton.snp.centerY)
       }
-      self.startDateButton.snp.makeConstraints {
+      startDateButton.snp.makeConstraints {
         $0.top.equalToSuperview()
-        $0.trailing.equalTo(self.dashLabel.snp.leading).offset(-8)
+        $0.trailing.equalTo(dashLabel.snp.leading).offset(-8)
       }
-      self.endDateButton.snp.makeConstraints {
+      endDateButton.snp.makeConstraints {
         $0.top.equalToSuperview()
-        $0.leading.equalTo(self.dashLabel.snp.trailing).offset(8)
+        $0.leading.equalTo(dashLabel.snp.trailing).offset(8)
       }
-      self.didSetupConstraints = true
+      didSetupConstraints = true
     }
     super.updateConstraints()
   }

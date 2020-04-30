@@ -88,7 +88,6 @@ final class ReadDreamViewReactor: Reactor, Stepper {
         steps.accept(step: .updateDreamIsRequired(dream))
       }
       return .empty()
-
     }
   }
 

@@ -39,6 +39,8 @@ final class ReadDreamViewController: BaseViewController, View {
   init(_ reactor: Reactor) {
     defer { self.reactor = reactor }
     super.init()
+
+    self.subViews = [dreamView, deleteButton, updateButton]
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -48,8 +50,6 @@ final class ReadDreamViewController: BaseViewController, View {
   // MARK: Setup
 
   override func setupConstraints() {
-    subViews = [dreamView, deleteButton, updateButton]
-
     deleteButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.bottom.equalToSafeArea(view).inset(12)

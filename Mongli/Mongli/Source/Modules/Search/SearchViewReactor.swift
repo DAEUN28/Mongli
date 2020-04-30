@@ -14,67 +14,62 @@ import RxFlow
 import RxSwift
 
 final class SearchViewReactor: Reactor, Stepper {
-
+  
   enum Action {
     case search(String?)
     case selectDream(IndexPath)
-    case searchBarIsEnabled(Bool)
     case refresh
     case loadMore
-    case presentFilter
-    case navigateToCreateDream
+    case filterButtonDidTap
+    case createButtonDidTap
   }
-
+  
   enum Mutation {
     case setDreams(SummaryDreams?)
     case appendDreams([SummaryDream])
     case setSearchBarEnabled(Bool)
     case setRefreshing(Bool)
+    case setError(LocalizedString)
     case setLoading(Bool)
-    case setError(LocalizedString?)
   }
-
+  
   struct State {
     var total: Int = 0
-    var dreams: [SummaryDream] = []
+    var dreams: [SummaryDream] = .init()
     var searchBarIsEnabled: Bool = true
     var isRefreshing: Bool = false
     var isLoading: Bool = false
   }
-
-  let searchQuery = BehaviorRelay<SearchQuery>(value: SearchQuery())
-  let initialState = State()
+  
+  let searchQuery: BehaviorRelay<SearchQuery> = .init(value: .init())
+  let initialState: State = .init()
+  var steps: PublishRelay<Step> = .init()
+  
   private let service: DreamService
-
-  var steps = PublishRelay<Step>()
-
+  
   init(_ service: DreamService) {
     self.service = service
   }
-
-  func transform(action: Observable<Action>) -> Observable<Action> {
-    let keywordIsEnabled: Observable<Action> = self.searchQuery
-      .flatMap {
-        $0.criteria == 2
-          ? Observable.of(.searchBarIsEnabled(false), .search(nil))
-          : Observable.just(.searchBarIsEnabled(true))
-      }
-
-    return .concat(action, keywordIsEnabled)
+  
+  func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+    let setSearchBarEnabled: Observable<Mutation> = searchQuery.distinctUntilChanged()
+      .map { $0.criteria != 2 }
+      .map { .setSearchBarEnabled($0) }
+    
+    return .merge([mutation, setSearchBarEnabled])
   }
-
+  
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .search(let keyword):
-      if self.currentState.isLoading || self.currentState.isRefreshing { return .empty() }
-      var query = self.searchQuery.value
+      if currentState.isLoading || currentState.isRefreshing { return .empty() }
+      var query = searchQuery.value
       query.page = 0
       query.keyword = keyword
-      self.searchQuery.accept(query)
-
+      
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
       let endLoading: Observable<Mutation> = .just(.setLoading(false))
-      let setDreams: Observable<Mutation> = self.service.searchDream(query).asObservable()
+      let setDreams: Observable<Mutation> = service.searchDream(query).asObservable()
         .map {
           switch $0 {
           case .success(let summaryDreams): return .setDreams(summaryDreams)
@@ -82,27 +77,27 @@ final class SearchViewReactor: Reactor, Stepper {
             return error == .noContent ? .setDreams(nil) : .setError(error.message)
           }
       }
-
+      .do(afterNext: { [weak self] _ in
+        self?.searchQuery.accept(query)
+      })
+      
       return .concat([startLoading, setDreams, endLoading])
-
+      
     case .selectDream(let indexPath):
-      let dreamID = self.currentState.dreams[indexPath.row].id
-      self.steps.accept(MongliStep.readDreamIsRequired(dreamID))
-
+      let dreamID = currentState.dreams[indexPath.row].id
+      steps.accept(step: .readDreamIsRequired(dreamID))
+      
       return .empty()
-
-    case .searchBarIsEnabled(let isEnabled):
-      return .just(.setSearchBarEnabled(isEnabled))
-
+      
     case .refresh:
-      if self.currentState.isLoading || self.currentState.isRefreshing { return .empty() }
-      var query = self.searchQuery.value
+      if currentState.isLoading || currentState.isRefreshing { return .empty() }
+      if searchQuery.value.criteria != 2 && searchQuery.value.keyword == nil { return .empty() }
+      var query = searchQuery.value
       query.page = 0
-      self.searchQuery.accept(query)
-
+      
       let startRefreshing: Observable<Mutation> = .just(.setRefreshing(true))
       let endRefreshing: Observable<Mutation> = .just(.setRefreshing(false))
-      let setDreams: Observable<Mutation> = self.service.searchDream(query).asObservable()
+      let setDreams: Observable<Mutation> = service.searchDream(query).asObservable()
         .map {
           switch $0 {
           case .success(let summaryDreams): return .setDreams(summaryDreams)
@@ -110,64 +105,69 @@ final class SearchViewReactor: Reactor, Stepper {
             return error == .noContent ? .setDreams(nil) : .setError(error.message)
           }
       }
-
+      .do(afterNext: { [weak self] _ in
+        self?.searchQuery.accept(query)
+      })
+      
       return .concat([startRefreshing, setDreams, endRefreshing])
-
+      
     case .loadMore:
-      if self.currentState.isLoading || self.currentState.isRefreshing { return .empty() }
-      if self.currentState.dreams.count == self.currentState.total { return .empty() }
-
-      var query = self.searchQuery.value
+      if currentState.isLoading || currentState.isRefreshing { return .empty() }
+      if currentState.dreams.count == currentState.total { return .empty() }
+      
+      var query = searchQuery.value
       query.page += 1
-      self.searchQuery.accept(query)
-
+      searchQuery.accept(query)
+      
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
       let endLoading: Observable<Mutation> = .just(.setLoading(false))
-      let appendDreams: Observable<Mutation> = self.service.searchDream(query).asObservable()
+      let appendDreams: Observable<Mutation> = service.searchDream(query).asObservable()
         .map {
           switch $0 {
-          case .success(let summaryDreams): return .setDreams(summaryDreams)
+          case .success(let summaryDreams): return .appendDreams(summaryDreams.dreams)
           case .error(let error):
             return error == .noContent ? .setDreams(nil) : .setError(error.message)
           }
       }
-
+      .do(afterNext: { [weak self] _ in
+        self?.searchQuery.accept(query)
+      })
+      
       return .concat([startLoading, appendDreams, endLoading])
-
-    case .presentFilter:
-      self.steps.accept(MongliStep.filterIsRequired(self.searchQuery.value))
+      
+    case .filterButtonDidTap:
+      steps.accept(step: .filterIsRequired(searchQuery.value))
       return .empty()
-
-    case .navigateToCreateDream:
-      self.steps.accept(MongliStep.createDreamIsRequired)
+      
+    case .createButtonDidTap:
+      steps.accept(step: .createDreamIsRequired)
       return .empty()
     }
   }
-
+  
   func reduce(state: State, mutation: Mutation) -> State {
     var state = state
     switch mutation {
     case .setDreams(let dreams):
       state.total = dreams?.total ?? 0
       state.dreams = dreams?.dreams ?? []
-
+      
     case .appendDreams(let dreams):
       state.dreams.append(contentsOf: dreams)
-
+      
     case .setSearchBarEnabled(let isEnabled):
       state.searchBarIsEnabled = isEnabled
-
+      
     case .setRefreshing(let isRefreshing):
       state.isRefreshing = isRefreshing
-
+      
     case .setLoading(let isLoading):
       state.isLoading = isLoading
-
+      
     case .setError(let error):
-      guard let error = error else { return state }
-      self.steps.accept(MongliStep.toast(error))
+      steps.accept(step: .toast(error))
     }
-
+    
     return state
   }
 }

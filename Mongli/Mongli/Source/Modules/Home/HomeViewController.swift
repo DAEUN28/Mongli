@@ -67,6 +67,9 @@ final class HomeViewController: BaseViewController, View {
 
     calendar.delegate = self
     calendar.dataSource = self
+    
+    coverView.addSubview(placeholderView)
+    self.subViews = [calendar, coverView, tableView, createDreamButton, spinner]
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -80,9 +83,6 @@ final class HomeViewController: BaseViewController, View {
   // MARK: Setup
 
   override func setupConstraints() {
-    coverView.addSubview(placeholderView)
-    self.subViews = [calendar, coverView, tableView, createDreamButton, spinner]
-
     calendar.snp.makeConstraints {
       $0.top.equalToSafeArea(view).inset(12)
       $0.bottom.equalTo(view.snp.centerY)
