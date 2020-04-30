@@ -42,7 +42,7 @@ extension SearchFlow {
     let reactor = SearchViewReactor(self.service)
     let vc = SearchViewController(reactor)
 
-    self.rootViewController.setViewControllers([vc], animated: false)
+    self.rootViewController.setViewControllers([vc], animated: true)
     return .one(flowContributor: .contribute(withNextPresentable: vc,
                                              withNextStepper: reactor))
   }

@@ -85,11 +85,18 @@ class BaseViewController: UIViewController {
     backButton.rx.tap
       .bind { [weak self] in self?.navigationController?.popViewController(animated: true) }
       .disposed(by: disposeBag)
-    
-    self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+
+    self.navigationController?.interactivePopGestureRecognizer?.delegate = self
   }
 
   private func setupBackground() {
     self.view.layer.theme.backgroundGradient = themed { $0.gradient }
+  }
+}
+
+extension BaseViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return false
   }
 }

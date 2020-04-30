@@ -52,6 +52,7 @@ final class CreateDreamViewController: BaseViewController, View {
 
   override func setupConstraints() {
     self.subViews = [dreamView, doneButton, spinner]
+    
     doneButton.snp.makeConstraints {
       $0.height.equalTo(44)
       $0.bottom.equalToSafeArea(view).inset(12)
@@ -109,12 +110,12 @@ extension CreateDreamViewController {
       .disposed(by: disposeBag)
 
     addCalendarBarButton().rx.tap
-      .map { Reactor.Action.dateTapped }
+      .map { Reactor.Action.dateButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
     dreamView.categoryButtonTapped
-      .map { Reactor.Action.categoryInfoTapped }
+      .map { Reactor.Action.categoryInfoButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 

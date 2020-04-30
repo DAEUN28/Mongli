@@ -17,8 +17,8 @@ final class CreateDreamViewReactor: Reactor, Stepper {
 
   enum Action {
     case createDream(Dream)
-    case dateTapped
-    case categoryInfoTapped
+    case dateButtonDidTap
+    case categoryInfoButtonDidTap
     case cancelWrite
   }
 
@@ -59,12 +59,12 @@ final class CreateDreamViewReactor: Reactor, Stepper {
 
       return .concat([startLoading, result, endLoading])
 
-    case .dateTapped:
+    case .dateButtonDidTap:
       let date = PublishRelay<Mutation>()
       steps.accept(step: .datePickerActionSheet({ date.accept(.setDate($0)) }))
       return date.asObservable()
 
-    case .categoryInfoTapped:
+    case .categoryInfoButtonDidTap:
       steps.accept(step: .categoryInfoIsRequired)
       return .empty()
 

@@ -162,7 +162,7 @@ final class DreamService: Service, DreamServiceType {
       .timeout(RxTimeInterval.seconds(2), scheduler: MainScheduler.instance)
       .filterSuccessfulStatusCodes()
       .map { _ in .success }
-      .do(afterSuccess: { _ in RefreshCenter.shared.refreshAll() })
+      .do(afterSuccess: { _ in RefreshCenter.shared.moreNeedRefresh.accept(true) })
       .catchError { [unowned self] in self.catchMongliError($0) }
 
     if let checkToken = self.checkToken() {

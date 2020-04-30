@@ -21,7 +21,7 @@ class DreamFlow: Flow {
   }
 
   let rootViewController = UINavigationController().then {
-    $0.setNavigationBarHidden(true, animated: false)
+    $0.setNavigationBarHidden(true, animated: true)
   }
   let service: DreamService
 

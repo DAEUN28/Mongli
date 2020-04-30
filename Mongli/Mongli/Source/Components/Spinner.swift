@@ -8,10 +8,13 @@
 
 import UIKit
 
-import RxSwift
 import SnapKit
 
 final class Spinner: UIView {
+
+  // MARK: Properties
+
+  private var didSetupConstraints = false
 
   // MARK: UI
 
@@ -24,20 +27,26 @@ final class Spinner: UIView {
     self.theme.backgroundColor = themed { $0.background.withAlphaComponent(0.5) }
     
     self.addSubview(self.indicator)
-
-    self.snp.makeConstraints {
-      $0.center.equalToSuperview()
-      $0.width.equalTo(80)
-      $0.height.equalTo(80)
-    }
-    self.indicator.snp.makeConstraints {
-      $0.center.equalToSuperview()
-      $0.width.equalTo(40)
-      $0.height.equalTo(40)
-    }
   }
 
   required init(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func setNeedsUpdateConstraints() {
+    if !didSetupConstraints {
+      self.snp.makeConstraints {
+        $0.center.equalToSuperview()
+        $0.width.equalTo(80)
+        $0.height.equalTo(80)
+      }
+      self.indicator.snp.makeConstraints {
+        $0.center.equalToSuperview()
+        $0.width.equalTo(40)
+        $0.height.equalTo(40)
+      }
+      didSetupConstraints = true
+    }
+    super.setNeedsUpdateConstraints()
   }
 }

@@ -73,7 +73,7 @@ final class SearchViewController: BaseViewController, View {
   // MARK: View Life Cycle
 
   override func viewDidAppear(_ animated: Bool) {
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
+    self.navigationController?.setNavigationBarHidden(true, animated: true)
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -92,7 +92,7 @@ final class SearchViewController: BaseViewController, View {
                      self.tableView,
                      self.createDreamButton,
                      self.spinner]
-    
+
     self.titleLabel.snp.makeConstraints {
       $0.top.equalToSafeArea(self.view).inset(20)
       $0.leading.equalToSuperview().inset(28)

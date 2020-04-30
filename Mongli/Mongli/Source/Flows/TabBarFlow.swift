@@ -76,7 +76,7 @@ extension TabBarFlow {
         }
       }
 
-      self.rootViewController.setViewControllers([home, search, more], animated: false)
+      self.rootViewController.setViewControllers([home, search, more], animated: true)
     }
 
     return .multiple(flowContributors: [.contribute(withNextPresentable: homeFlow,

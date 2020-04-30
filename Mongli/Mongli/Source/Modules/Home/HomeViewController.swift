@@ -11,20 +11,17 @@ import UIKit
 import FSCalendar
 import ReactorKit
 import RxCocoa
-import RxFlow
 import RxSwift
 
-final class HomeViewController: BaseViewController, View, Stepper {
+final class HomeViewController: BaseViewController, View {
 
   typealias Reactor = HomeViewReactor
 
   // MARK: Properties
 
-  var steps = PublishRelay<Step>()
-
-  private let date = BehaviorRelay<Date>(value: Date())
-  private let month = BehaviorRelay<Date>(value: Date())
-  private let monthlyDreams = BehaviorRelay<MonthlyDreams?>(value: nil)
+  private let date: BehaviorRelay<Date> = .init(value: Date())
+  private let month: BehaviorRelay<Date> = .init(value: Date())
+  private let monthlyDreams: BehaviorRelay<MonthlyDreams?> = .init(value: nil)
 
   // MARK: UI
 
@@ -53,14 +50,14 @@ final class HomeViewController: BaseViewController, View, Stepper {
     $0.separatorStyle = .none
     $0.theme.backgroundColor = themed { $0.background }
   }
-  private let placeholderView = PlaceholderView(.noContent)
+  private let placeholderView: PlaceholderView = .init(.noContent)
   private let createDreamButton = UIButton().then {
     $0.setImage(UIImage(.pencil), for: .normal)
     $0.layer.cornerRadius = 25
     $0.tintColor = .white
     $0.theme.backgroundColor = themed { $0.primary }
   }
-  private let spinner = Spinner()
+  private let spinner: Spinner = .init()
 
   // MARK: Initializing
 
@@ -68,8 +65,8 @@ final class HomeViewController: BaseViewController, View, Stepper {
     defer { self.reactor = reactor }
     super.init()
 
-    self.calendar.delegate = self
-    self.calendar.dataSource = self
+    calendar.delegate = self
+    calendar.dataSource = self
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -77,64 +74,63 @@ final class HomeViewController: BaseViewController, View, Stepper {
   }
 
   override func viewDidAppear(_ animated: Bool) {
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
+    navigationController?.setNavigationBarHidden(true, animated: false)
   }
 
   // MARK: Setup
 
   override func setupConstraints() {
-    self.coverView.addSubview(self.placeholderView)
+    coverView.addSubview(placeholderView)
+    self.subViews = [calendar,
+                     coverView,
+                     tableView,
+                     createDreamButton,
+                     spinner]
 
-    self.subViews = [self.calendar,
-                     self.coverView,
-                     self.tableView,
-                     self.createDreamButton,
-                     self.spinner]
-
-    self.calendar.snp.makeConstraints {
-      $0.top.equalToSafeArea(self.view).inset(12)
-      $0.bottom.equalTo(self.view.snp.centerY)
+    calendar.snp.makeConstraints {
+      $0.top.equalToSafeArea(view).inset(12)
+      $0.bottom.equalTo(view.snp.centerY)
       $0.leading.equalToSuperview()
       $0.trailing.equalToSuperview()
     }
-    self.coverView.snp.makeConstraints {
-      $0.top.equalTo(self.calendar.snp.bottom)
-      $0.bottom.equalToSafeArea(self.view)
+    coverView.snp.makeConstraints {
+      $0.top.equalTo(calendar.snp.bottom)
+      $0.bottom.equalToSafeArea(view)
       $0.leading.equalToSuperview()
       $0.trailing.equalToSuperview()
     }
-    self.tableView.snp.makeConstraints {
-      $0.top.equalTo(self.coverView.label.snp.bottom).offset(12)
-      $0.bottom.equalToSafeArea(self.view)
+    tableView.snp.makeConstraints {
+      $0.top.equalTo(coverView.label.snp.bottom).offset(12)
+      $0.bottom.equalToSafeArea(view)
       $0.leading.equalToSuperview().inset(24)
       $0.trailing.equalToSuperview().inset(24)
     }
-    self.createDreamButton.snp.makeConstraints {
+    createDreamButton.snp.makeConstraints {
       $0.width.equalTo(50)
       $0.height.equalTo(50)
-      $0.bottom.equalToSafeArea(self.view).inset(12)
-      $0.trailing.equalToSafeArea(self.view).inset(12)
+      $0.bottom.equalToSafeArea(view).inset(12)
+      $0.trailing.equalToSafeArea(view).inset(12)
     }
   }
 
   override func setupUserInteraction() {
-    self.createDreamButton.rx.tap
-      .map { MongliStep.createDreamIsRequired }
-      .bind(to: self.steps)
-      .disposed(by: self.disposeBag)
+    date.distinctUntilChanged()
+      .map { LocalizedString.dateFormat.localizedDate($0, .dreamAdverb) }
+      .bind(to: coverView.label.rx.text)
+      .disposed(by: disposeBag)
   }
 
   // MARK: Binding
 
   func bind(reactor: Reactor) {
-    self.bindAction(reactor)
-    self.bindState(reactor)
+    bindAction(reactor)
+    bindState(reactor)
   }
 }
 
 extension HomeViewController {
   private func bindAction(_ reactor: Reactor) {
-    let needRefresh = self.rx.viewWillAppear
+    let needRefresh = rx.viewWillAppear
       .withLatestFrom(RefreshCenter.shared.homeNeedRefresh.filter { $0 })
 
     Observable.merge(needRefresh.withLatestFrom(date), date.asObservable())
@@ -150,63 +146,56 @@ extension HomeViewController {
     coverView.button.rx.tap
       .withLatestFrom(date)
       .compactMap { $0 }
-      .map { MongliStep.alert(.deleteDreams($0)) { [weak self] _ in
-        guard let self = self else { return }
-        Observable.just(Reactor.Action.deleteAllDreams)
-          .bind(to: reactor.action)
-          .disposed(by: self.disposeBag)
-        }
-      }
-      .bind(to: steps)
+      .map { Reactor.Action.deleteAllDreamsButtonDidTap($0) }
+      .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
     tableView.rx.itemSelected
       .map { Reactor.Action.selectDream($0) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
+
+    createDreamButton.rx.tap
+      .map { Reactor.Action.createDreamButtonDidTap }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
   }
 
   private func bindState(_ reactor: Reactor) {
-    reactor.state.map { $0.selectedDate }
-      .distinctUntilChanged()
-      .map { LocalizedString.dateFormat.localizedDate($0, .dreamAdverb) }
-      .bind(to: self.coverView.label.rx.text)
-      .disposed(by: self.disposeBag)
-
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
-      .bind(to: self.tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
-                                        cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
-      .disposed(by: self.disposeBag)
+      .bind(to: tableView.rx.items(cellIdentifier: "SummaryDreamTableViewCell",
+                                   cellType: SummaryDreamTableViewCell.self)) { $2.configure($1) }
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
       .map { !$0.isEmpty }
-      .bind(to: self.placeholderView.rx.isHidden)
-      .disposed(by: self.disposeBag)
+      .bind(to: placeholderView.rx.isHidden)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
       .map { $0.isEmpty }
-      .bind(to: self.tableView.rx.isHidden)
-      .disposed(by: self.disposeBag)
+      .bind(to: tableView.rx.isHidden)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.dailyDreams }
       .distinctUntilChanged()
       .map { $0.isEmpty }
-      .bind(to: self.coverView.button.rx.isHidden)
-      .disposed(by: self.disposeBag)
+      .bind(to: coverView.button.rx.isHidden)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.monthlyDreams }
       .distinctUntilChanged()
       .do(onNext: { [weak self] _ in self?.calendar.reloadData() })
-      .bind(to: self.monthlyDreams)
-      .disposed(by: self.disposeBag)
+      .bind(to: monthlyDreams)
+      .disposed(by: disposeBag)
 
     reactor.state.map { $0.isLoading }
       .distinctUntilChanged()
-      .bind(to: self.spinner.rx.isAnimating)
-      .disposed(by: self.disposeBag)
+      .bind(to: spinner.rx.isAnimating)
+      .disposed(by: disposeBag)
   }
 }
 
@@ -217,13 +206,13 @@ extension HomeViewController: FSCalendarDelegateAppearance, FSCalendarDataSource
                 appearance: FSCalendarAppearance,
                 eventDefaultColorsFor date: Date) -> [UIColor]? {
     let key = dateFormatter.string(from: date)
-    guard let categories = self.monthlyDreams.value?[key] else { return nil }
+    guard let categories = monthlyDreams.value?[key] else { return nil }
     return categories.compactMap { Category(rawValue: $0)?.toColor() }
   }
 
   func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
     let key = dateFormatter.string(from: date)
-    guard let categories = self.monthlyDreams.value?[key] else { return 0 }
+    guard let categories = monthlyDreams.value?[key] else { return 0 }
     return categories.count
   }
 
@@ -238,6 +227,6 @@ extension HomeViewController: FSCalendarDelegateAppearance, FSCalendarDataSource
   }
 
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-    self.month.accept(calendar.currentPage)
+    month.accept(calendar.currentPage)
   }
 }
