@@ -79,8 +79,7 @@ final class DreamView: UIView {
   }
   private let contentTextView = UITextView().then {
     $0.textAlignment = .natural
-    $0.returnKeyType = .done
-    $0.enablesReturnKeyAutomatically = true
+    $0.returnKeyType = .next
     $0.font = Font.sys10L.uifont
     $0.theme.textColor = themed { $0.text }
     $0.theme.backgroundColor = themed { $0.background }
@@ -110,7 +109,7 @@ final class DreamView: UIView {
   convenience init(_ type: Type) {
     self.init(frame: .zero)
 
-    BehaviorRelay.combineLatest(self.title, self.content) { !$0.isEmpty && !$1.isEmpty }
+    BehaviorRelay.combineLatest(title, content) { !$0.isEmpty && !$1.isEmpty }
       .bind(to: contentsAreExist)
       .disposed(by: disposeBag)
 
@@ -305,15 +304,15 @@ extension DreamView {
     }
     .disposed(by: disposeBag)
 
-    let toolBar = UIToolbar()
-    toolBar.sizeToFit()
+    let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44))
     let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let doneButton = UIBarButtonItem(title: LocalizedString.done.localized, style: .done, target: nil, action: nil)
     toolBar.setItems([flexibleSpace, doneButton], animated: false)
     toolBar.theme.tintColor = themed { $0.primary }
     contentTextView.inputAccessoryView = toolBar
 
-    doneButton.rx.tap.bind { [weak self] _ in self?.contentTextView.resignFirstResponder() }
+    doneButton.rx.tap
+      .bind { [weak self] _ in self?.contentTextView.resignFirstResponder() }
       .disposed(by: disposeBag)
   }
 
