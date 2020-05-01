@@ -66,8 +66,13 @@ final class SearchViewController: BaseViewController, View {
   // MARK: Initializing
 
   init(_ reactor: Reactor) {
-    defer { self.reactor = reactor }
     super.init()
+    self.reactor = reactor
+    coverView.addSubview(placeholderView)
+    tableView.refreshControl = refreshControl
+    self.subViews = [titleLabel, searchBar, filterButton, coverView,
+                     tableView, createDreamButton, spinner]
+    self.setupUserInteraction()
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -77,7 +82,7 @@ final class SearchViewController: BaseViewController, View {
   // MARK: View Life Cycle
 
   override func viewDidAppear(_ animated: Bool) {
-    navigationController?.setNavigationBarHidden(true, animated: true)
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -87,16 +92,6 @@ final class SearchViewController: BaseViewController, View {
   // MARK: Setup
 
   override func setupConstraints() {
-    coverView.addSubview(placeholderView)
-    tableView.refreshControl = refreshControl
-    subViews = [titleLabel,
-                 searchBar,
-                 filterButton,
-                 coverView,
-                 tableView,
-                 createDreamButton,
-                 spinner]
-
     titleLabel.snp.makeConstraints {
       $0.top.equalToSafeArea(view).inset(20)
       $0.leading.equalToSuperview().inset(28)
@@ -209,7 +204,7 @@ extension SearchViewController {
       .disposed(by: disposeBag)
 
     reactor.state.map { $0.searchBarIsEnabled }
-      .distinctUntilChanged().debug()
+      .distinctUntilChanged()
       .bind(to: searchBar.rx.isUserInteractionEnabled)
       .disposed(by: disposeBag)
 

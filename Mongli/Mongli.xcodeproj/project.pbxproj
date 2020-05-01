@@ -402,7 +402,7 @@
 				BF4454F4242442D400632E38 /* ReadDream */,
 				BF4454F12424429100632E38 /* Search */,
 				BF4454E824239CBB00632E38 /* SignIn */,
-				BFBFB64F2436135600C15CDD /* Statics */,
+				BFBFB64F2436135600C15CDD /* CategoryInfo */,
 				BFBFB6412435B90300C15CDD /* UpdateDream */,
 			);
 			path = Modules;
@@ -583,12 +583,12 @@
 			path = UpdateDream;
 			sourceTree = "<group>";
 		};
-		BFBFB64F2436135600C15CDD /* Statics */ = {
+		BFBFB64F2436135600C15CDD /* CategoryInfo */ = {
 			isa = PBXGroup;
 			children = (
 				BFBFB6502436138600C15CDD /* CategoryInfoViewController.swift */,
 			);
-			path = Statics;
+			path = CategoryInfo;
 			sourceTree = "<group>";
 		};
 		BFBFB6582439EB9300C15CDD /* RxTheme */ = {

@@ -23,14 +23,13 @@ final class DreamView: UIView {
 
   // MARK: Properties
 
-  let dream: BehaviorRelay<Dream?> = .init(value: nil)
-  let category: BehaviorRelay<Category> = .init(value: .red)
-  let title: BehaviorRelay<String> = .init(value: "")
-  let content: BehaviorRelay<String> = .init(value: "")
+  let dream: BehaviorRelay<Dream> = .init(value: .init())
+  let existingDream: BehaviorRelay<Dream?> = .init(value: nil)
   let categoryButtonDidTap: BehaviorRelay<Void> = .init(value: ())
   let contentsAreExist: BehaviorRelay<Bool> = .init(value: false)
 
   private let disposeBag: DisposeBag = .init()
+  private let category: BehaviorRelay<Category> = .init(value: .red)
   private let keyboardSize: BehaviorRelay<CGRect> = .init(value: .zero)
   private var translationYMultiflier: CGFloat = 1
 
@@ -109,9 +108,19 @@ final class DreamView: UIView {
   convenience init(_ type: Type) {
     self.init(frame: .zero)
 
-    BehaviorRelay.combineLatest(title, content) { !$0.isEmpty && !$1.isEmpty }
-      .bind(to: contentsAreExist)
+    let title: BehaviorRelay<String> = .init(value: "")
+    let content = contentTextView.rx.text.orEmpty.distinctUntilChanged()
+    titleTextField.rx.text.orEmpty.distinctUntilChanged()
+      .bind(to: title)
       .disposed(by: disposeBag)
+
+    Observable<Dream>.combineLatest(category.asObservable(), title, content) { [weak self] in
+      guard let self = self else { return .init() }
+      if let dream = self.existingDream.value { return dream.newDream(category: $0.rawValue, title: $1, content: $2) }
+      return self.dream.value.newDream(category: $0.rawValue, title: $1, content: $2)
+    }
+    .bind(to: dream)
+    .disposed(by: disposeBag)
 
     categoryInfoButton.rx.tap
       .bind(to: categoryButtonDidTap)
@@ -122,6 +131,11 @@ final class DreamView: UIView {
 
     switch type {
     case .create:
+      dream.map { !$0.title.isEmpty && !$0.content.isEmpty }
+        .distinctUntilChanged()
+        .bind(to: contentsAreExist)
+        .disposed(by: disposeBag)
+
       return
 
     case .read:
@@ -134,6 +148,18 @@ final class DreamView: UIView {
 
     case .update:
       setupDream()
+
+      titleTextField.rx.observe(String.self, "text")
+        .compactMap { $0 }
+        .bind(to: title)
+        .disposed(by: disposeBag)
+
+      dream.map { [weak self] in
+        !$0.title.isEmpty && !$0.content.isEmpty && $0 != self?.existingDream.value
+      }
+      .distinctUntilChanged()
+      .bind(to: contentsAreExist)
+      .disposed(by: disposeBag)
     }
   }
 
@@ -233,17 +259,8 @@ extension DreamView {
   }
 
   private func setupTextFieldAndTextView() {
-    titleTextField.rx.text.orEmpty.distinctUntilChanged()
-      .asDriver(onErrorJustReturn: "")
-      .drive(title)
-      .disposed(by: disposeBag)
-
     contentTextView.rx.text.orEmpty.distinctUntilChanged()
-      .asDriver(onErrorJustReturn: "")
-      .drive(content)
-      .disposed(by: disposeBag)
-
-    content.map { $0.isEmpty == false }
+      .map { $0.isEmpty == false }
       .bind(to: contentTextViewPlaceholder.rx.isHidden)
       .disposed(by: disposeBag)
 
@@ -317,7 +334,7 @@ extension DreamView {
   }
 
   private func setupDream() {
-    dream.compactMap { $0 }
+    existingDream.compactMap { $0 }
       .bind { [weak self] dream in
         if let category = Category(rawValue: dream.category) {
           self?.category.accept(category)

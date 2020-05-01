@@ -37,14 +37,21 @@ final class ReadDreamViewController: BaseViewController, View {
   // MARK: Initializing
 
   init(_ reactor: Reactor) {
-    defer { self.reactor = reactor }
     super.init()
-
+    self.reactor = reactor
     self.subViews = [dreamView, deleteButton, updateButton]
+    self.setupUserInteraction()
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  // MARK: View Life Cycle
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.setupDreamNavigationBar()
   }
 
   // MARK: Setup
@@ -99,12 +106,17 @@ extension ReadDreamViewController {
 
   private func bindState(_ reactor: Reactor) {
     reactor.state.map { $0.dream }
-      .bind(to: dreamView.dream)
+      .distinctUntilChanged()
+      .bind(to: dreamView.existingDream)
       .disposed(by: disposeBag)
 
     reactor.state.map { $0.dream?.date }
       .compactMap { $0 }
-      .bind { [weak self] in self?.setupDreamNavigationBar($0) }
+      .distinctUntilChanged()
+      .bind { [weak self] in
+        self?.title = LocalizedString.dateFormat.localizedDate(dateFormatter.date(from: $0),
+                                                               .dreamAdverb)
+      }
       .disposed(by: disposeBag)
   }
 }

@@ -55,9 +55,9 @@ class MoreViewController: BaseViewController, View {
   init(_ reactor: Reactor) {
     super.init()
     self.reactor = reactor
-    
     self.subViews = [titleLabel, coverView, chartView, menuButton,
                      floatingItems[0], floatingItems[1], floatingItems[2], placeholderView]
+    self.setupUserInteraction()
   }
 
   required convenience init?(coder aDecoder: NSCoder) {

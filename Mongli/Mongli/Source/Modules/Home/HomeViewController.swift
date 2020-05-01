@@ -62,14 +62,15 @@ final class HomeViewController: BaseViewController, View {
   // MARK: Initializing
 
   init(_ reactor: Reactor) {
-    defer { self.reactor = reactor }
     super.init()
+    self.reactor = reactor
 
     calendar.delegate = self
     calendar.dataSource = self
-    
+
     coverView.addSubview(placeholderView)
     self.subViews = [calendar, coverView, tableView, createDreamButton, spinner]
+    self.setupUserInteraction()
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -77,7 +78,7 @@ final class HomeViewController: BaseViewController, View {
   }
 
   override func viewDidAppear(_ animated: Bool) {
-    navigationController?.setNavigationBarHidden(true, animated: false)
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
 
   // MARK: Setup

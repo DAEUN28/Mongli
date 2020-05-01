@@ -117,12 +117,11 @@ extension DreamFlow {
 
     self.rootViewController.pushViewController(vc, animated: true)
     return .one(flowContributor: .contribute(withNextPresentable: vc,
-                                             withNextStepper: CompositeStepper(steppers: [vc, reactor]),
-                                             allowStepWhenNotPresented: true))
+                                             withNextStepper: reactor))
   }
 
   private func popToReadDream(_ dream: Dream) -> FlowContributors {
-    self.rootViewController.popViewController(animated: true)
+    self.rootViewController.popViewController(animated: false)
     guard let vc = self.rootViewController.topViewController as? ReadDreamViewController else { return .none }
     vc.setupDream(dream)
 

@@ -33,10 +33,10 @@ final class CreateDreamViewController: BaseViewController, View {
   // MARK: Initializing
 
   init(_ reactor: Reactor) {
-    defer { self.reactor = reactor }
     super.init()
-
+    self.reactor = reactor
     self.subViews = [dreamView, doneButton, spinner]
+    self.setupUserInteraction()
   }
 
   required convenience init?(coder aDecoder: NSCoder) {
@@ -44,6 +44,19 @@ final class CreateDreamViewController: BaseViewController, View {
   }
 
   // MARK: View Life Cycle
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.setupDreamNavigationBar()
+
+    self.navigationController?.interactivePopGestureRecognizer?.rx.touchesMoved
+      .bind(to: backAction)
+      .disposed(by: disposeBag)
+
+    self.navigationItem.leftBarButtonItem?.rx.tap
+      .bind(to: backAction)
+      .disposed(by: disposeBag)
+  }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
@@ -69,16 +82,6 @@ final class CreateDreamViewController: BaseViewController, View {
       .do(onNext: { [weak self] in self?.doneButton.setTheme($0) })
       .bind(to: doneButton.rx.isEnabled)
       .disposed(by: disposeBag)
-
-    self.setupDreamNavigationBar()
-
-    self.navigationController?.interactivePopGestureRecognizer?.rx.touchesMoved
-      .bind(to: backAction)
-      .disposed(by: disposeBag)
-
-    self.navigationItem.leftBarButtonItem?.rx.tap
-      .bind(to: backAction)
-      .disposed(by: disposeBag)
   }
 
   // MARK: Binding
@@ -91,18 +94,11 @@ final class CreateDreamViewController: BaseViewController, View {
 
 extension CreateDreamViewController {
   private func bindAction(_ reactor: Reactor) {
-    let date = reactor.state.map { $0.date }
-      .distinctUntilChanged()
-      .map { dateFormatter.string(from: $0)}
+    let dream: Observable<Dream> = dreamView.dream.map { [weak reactor] in
+      guard let reactor = reactor else { return .init() }
+      return $0.newDream(date: dateFormatter.string(from: reactor.currentState.date))
+    }
 
-    let dream = Observable.combineLatest(date,
-                                         dreamView.category.asObservable(),
-                                         dreamView.title.asObservable(),
-                                         dreamView.content.asObservable()) { Dream(id: nil,
-                                                                                   date: $0,
-                                                                                   category: $1.rawValue,
-                                                                                   title: $2,
-                                                                                   content: $3) }
     doneButton.rx.tap.withLatestFrom(dream)
       .map { Reactor.Action.createDream($0) }
       .bind(to: reactor.action)
@@ -118,7 +114,7 @@ extension CreateDreamViewController {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
-    backAction.withLatestFrom(dreamView.contentsAreExist).debug("back")
+    backAction.withLatestFrom(dreamView.contentsAreExist)
       .filter { $0 }
       .map { _ in Reactor.Action.cancelWrite }
       .bind(to: reactor.action)

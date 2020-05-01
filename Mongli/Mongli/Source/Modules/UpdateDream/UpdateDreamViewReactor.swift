@@ -17,20 +17,27 @@ final class UpdateDreamViewReactor: Reactor, Stepper {
 
   enum Action {
     case updateDream(Dream)
+    case dateButtonDidTap
+    case categoryInfoButtonDidTap
+    case cancelWrite
   }
 
   enum Mutation {
+    case setDate(Date)
+    case setUpdateDreamIsComplete(Dream)
+    case setError(LocalizedString)
     case setLoading(Bool)
   }
 
   struct State {
     let existingDream: Dream
+    var date: Date = .init()
     var isLoading: Bool = false
   }
 
-  var steps = PublishRelay<Step>()
-
   let initialState: State
+  var steps: PublishRelay<Step> = .init()
+
   private let service: DreamService
   private let id: Int
 
@@ -38,38 +45,57 @@ final class UpdateDreamViewReactor: Reactor, Stepper {
     self.service = service
     self.id = dream.id ?? 0
 
-    self.initialState = State(existingDream: dream)
+    self.initialState = .init(existingDream: dream)
   }
 
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .updateDream(let dream):
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
-      let result: Observable<Mutation> = self.service.updateDream(dream)
+      let endLoading: Observable<Mutation> = .just(.setLoading(false))
+      let result: Observable<Mutation> = service.updateDream(dream)
         .delay(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
         .asObservable()
-        .map { [weak self] in
+        .map {
           switch $0 {
-          case .success:
-            self?.steps.accept(MongliStep.updateDreamIsComplete(dream))
-            return .setLoading(false)
-
-          case .error(let err):
-            self?.steps.accept(MongliStep.toast(err.message ?? LocalizedString.unknownErrorMsg))
-            return .setLoading(true)
+          case .success: return .setUpdateDreamIsComplete(dream)
+          case .error(let error): return .setError(error.message)
           }
-        }
+      }
 
-      return .concat([startLoading, result])
+      return .concat([startLoading, result, endLoading])
+
+    case .dateButtonDidTap:
+      let date = PublishRelay<Mutation>()
+      steps.accept(step: .datePickerActionSheet({ date.accept(.setDate($0)) }))
+      return date.asObservable()
+
+    case .categoryInfoButtonDidTap:
+      steps.accept(step: .categoryInfoIsRequired)
+      return .empty()
+
+    case .cancelWrite:
+      steps.accept(step: .alert(.cancelWrite, handler: nil))
+      return .empty()
     }
   }
 
   func reduce(state: State, mutation: Mutation) -> State {
     var state = state
     switch mutation {
+    case .setDate(let date):
+      state.date = date
+
+    case .setUpdateDreamIsComplete(let dream):
+      steps.accept(step: .updateDreamIsComplete(dream))
+
+    case .setError(let error):
+      steps.accept(step: .toast(error))
+
     case .setLoading(let isLoading):
       state.isLoading = isLoading
-      return state
     }
+
+    return state
   }
 }

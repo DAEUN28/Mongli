@@ -29,14 +29,14 @@ final class SignInViewController: BaseViewController, View {
   // MARK: Initializing
 
   init(_ reactor: Reactor, appleIDProvider: ASAuthorizationAppleIDProvider) {
-    defer { self.reactor = reactor }
     let request = appleIDProvider.createRequest()
     request.requestedScopes = [.fullName]
     asController = ASAuthorizationController(authorizationRequests: [request])
 
     super.init()
-
+    self.reactor = reactor
     self.subViews = [logoView, signInButton]
+    self.setupUserInteraction()
   }
 
   required convenience init?(coder aDecoder: NSCoder) {

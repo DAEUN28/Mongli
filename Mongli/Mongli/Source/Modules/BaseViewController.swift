@@ -49,9 +49,8 @@ class BaseViewController: UIViewController {
   // MARK: Layout Constraints
 
   override func viewDidLoad() {
-    self.setupViews()
-    self.setupUserInteraction()
-    self.setupBackground()
+    super.viewDidLoad()
+    self.view.layer.theme.backgroundGradient = themed { $0.gradient }
   }
 
   override func updateViewConstraints() {
@@ -66,20 +65,7 @@ class BaseViewController: UIViewController {
 
   // MARK: Setup
 
-  func setupViews() { }
   func setupUserInteraction() { }
-
-  func setupDreamNavigationBar(_ string: String) {
-    self.setupDreamNavigationBar()
-    self.title = LocalizedString.dateFormat.localizedDate(dateFormatter.date(from: string), .dreamAdverb)
-  }
-
-  func addCalendarBarButton() -> UIBarButtonItem {
-    let button = UIBarButtonItem(image: UIImage(.calendar), style: .plain, target: nil, action: nil)
-    self.navigationItem.rightBarButtonItem = button
-
-    return button
-  }
 
   func setupDreamNavigationBar() {
     self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -97,8 +83,11 @@ class BaseViewController: UIViewController {
     self.navigationController?.interactivePopGestureRecognizer?.delegate = self
   }
 
-  private func setupBackground() {
-    self.view.layer.theme.backgroundGradient = themed { $0.gradient }
+  func addCalendarBarButton() -> UIBarButtonItem {
+    let button = UIBarButtonItem(image: UIImage(.calendar), style: .plain, target: nil, action: nil)
+    self.navigationItem.rightBarButtonItem = button
+
+    return button
   }
 }
 

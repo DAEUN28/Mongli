@@ -16,7 +16,7 @@ class CategoryInfoViewController: UIViewController {
   // MARK: Properties
 
   private var didSetupConstraints = false
-  private let disposeBag = DisposeBag()
+  private let disposeBag: DisposeBag = .init()
 
   // MARK: UI
 
@@ -36,39 +36,39 @@ class CategoryInfoViewController: UIViewController {
   // MARK: View Life Cycle
 
   override func viewDidLoad() {
-    self.view.theme.backgroundColor = themed { $0.background }
+    view.theme.backgroundColor = themed { $0.background }
 
-    self.view.addSubview(self.desciptionLabel)
-    self.view.addSubview(self.stackView)
-    self.view.addSubview(self.closeButton)
+    view.addSubview(desciptionLabel)
+    view.addSubview(stackView)
+    view.addSubview(closeButton)
 
-    self.closeButton.rx.tap.bind { [weak self] _ in
+    closeButton.rx.tap.bind { [weak self] _ in
       self?.dismiss(animated: true, completion: nil)
     }
-    .disposed(by: self.disposeBag)
+    .disposed(by: disposeBag)
   }
 
   // MARK: Layout
 
   override func updateViewConstraints() {
-    if !self.didSetupConstraints {
-      self.desciptionLabel.snp.makeConstraints {
+    if !didSetupConstraints {
+      desciptionLabel.snp.makeConstraints {
         $0.top.equalToSuperview().inset(32)
         $0.leading.equalToSuperview().inset(32)
         $0.trailing.equalToSuperview().inset(32)
       }
-      self.stackView.snp.makeConstraints {
-        $0.top.equalTo(self.desciptionLabel.snp.bottom).offset(20)
+      stackView.snp.makeConstraints {
+        $0.top.equalTo(desciptionLabel.snp.bottom).offset(20)
         $0.leading.equalToSuperview().inset(32)
         $0.trailing.equalToSuperview().inset(32)
       }
-      self.closeButton.snp.makeConstraints {
-        $0.top.equalTo(self.stackView.snp.bottom).offset(32)
-        $0.bottom.equalToSafeArea(self.view).inset(12)
+      closeButton.snp.makeConstraints {
+        $0.top.equalTo(stackView.snp.bottom).offset(32)
+        $0.bottom.equalToSafeArea(view).inset(12)
         $0.leading.equalToSuperview().inset(32)
         $0.trailing.equalToSuperview().inset(32)
       }
-      self.didSetupConstraints = true
+      didSetupConstraints = true
     }
     super.updateViewConstraints()
   }
