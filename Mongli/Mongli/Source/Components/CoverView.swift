@@ -32,14 +32,15 @@ final class CoverView: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.clipsToBounds = true
-    self.layer.cornerRadius = 40
-    self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+    clipsToBounds = true
+    layer.cornerRadius = 40
+    layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
 
-    self.theme.backgroundColor = themed { $0.background }
+    theme.backgroundColor = themed { $0.background }
 
-    self.addSubview(label)
-    self.addSubview(button)
+    addSubview(label)
+    addSubview(button)
+    self.setupConstraints()
   }
 
   required init?(coder: NSCoder) {
@@ -48,14 +49,14 @@ final class CoverView: UIView {
 
   // MARK: Layout
 
-  override func layoutSubviews() {
-    self.label.snp.makeConstraints {
+  func setupConstraints() {
+    label.snp.makeConstraints {
       $0.top.equalToSuperview().inset(24)
       $0.leading.equalToSuperview().inset(28)
     }
-    self.button.snp.makeConstraints {
+    button.snp.makeConstraints {
       $0.height.equalTo(button.intrinsicContentSize.height)
-      $0.bottomMargin.equalTo(self.label.snp.bottom)
+      $0.bottomMargin.equalTo(label.snp.bottom)
       $0.trailing.equalToSuperview().inset(32)
     }
   }

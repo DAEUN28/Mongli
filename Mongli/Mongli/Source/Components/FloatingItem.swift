@@ -41,7 +41,16 @@ final class FloatingItem: UIView {
 
     self.addSubview(button)
     self.addSubview(label)
+    self.setupConstraints()
 
+    button.rx.tap.bind(to: buttonDidTap).disposed(by: self.disposeBag)
+  }
+
+  required init(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  private func setupConstraints() {
     button.snp.makeConstraints {
       $0.width.equalTo(50)
       $0.height.equalTo(50)
@@ -56,11 +65,5 @@ final class FloatingItem: UIView {
     self.snp.makeConstraints {
       $0.leading.equalTo(label)
     }
-
-    button.rx.tap.bind(to: buttonDidTap).disposed(by: self.disposeBag)
-  }
-
-  required init(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
 }

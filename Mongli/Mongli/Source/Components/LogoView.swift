@@ -35,6 +35,7 @@ final class LogoView: UIView {
 
     self.addSubview(titleLabel)
     self.addSubview(subtitleLabel)
+    self.setupConstraints()
   }
 
   required init?(coder: NSCoder) {
@@ -43,22 +44,18 @@ final class LogoView: UIView {
 
   // MARK: Layout
 
-  override func layoutSubviews() {
-    self.titleLabel.sizeToFit()
-    self.subtitleLabel.sizeToFit()
-
+  func setupConstraints() {
     self.snp.makeConstraints {
       $0.center.equalToSuperview()
       $0.height.equalTo(200)
       $0.width.equalTo(200)
     }
-
-    self.titleLabel.snp.makeConstraints {
+    titleLabel.snp.makeConstraints {
       $0.center.equalToSuperview()
     }
-    self.subtitleLabel.snp.makeConstraints {
+    subtitleLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()
-      $0.top.equalTo(self.titleLabel.snp.bottom).offset(8)
+      $0.top.equalTo(titleLabel.snp.bottom).offset(8)
     }
   }
 }

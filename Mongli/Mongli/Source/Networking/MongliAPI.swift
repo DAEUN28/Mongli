@@ -36,7 +36,7 @@ extension MongliAPI: TargetType {
   // MARK: baseURL
 
   var baseURL: URL {
-    return URL(string: "http://172.20.10.2:2525/api")!
+    return URL(string: "http://192.168.11.7:2525/api")!
   }
 
   // MARK: path

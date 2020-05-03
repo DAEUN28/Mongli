@@ -25,8 +25,9 @@ final class ToastView: UIView {
     self.alpha = 1
     self.layer.cornerRadius = 8
 
-    self.label.setText(message)
-    self.addSubview(self.label)
+    label.setText(message)
+    self.addSubview(label)
+    self.setupConstraints()
   }
 
   required init?(coder: NSCoder) {
@@ -40,9 +41,8 @@ final class ToastView: UIView {
 
   // MARK: Layout
 
-  override func layoutSubviews() {
+  func setupConstraints() {
     guard let view = self.superview else { return }
-    self.label.sizeToFit()
 
     self.snp.makeConstraints {
       $0.height.equalTo(34)
@@ -50,7 +50,7 @@ final class ToastView: UIView {
       $0.trailing.equalToSuperview().inset(8)
       $0.bottom.equalToSafeArea(view).inset(8)
     }
-    self.label.snp.makeConstraints {
+    label.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.leading.equalToSuperview().inset(12)
       $0.trailing.equalToSuperview().inset(12)

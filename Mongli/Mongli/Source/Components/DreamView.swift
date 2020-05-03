@@ -181,6 +181,8 @@ final class DreamView: UIView {
     addSubview(titleTextField)
     addSubview(contentTextView)
     addSubview(contentTextViewPlaceholder)
+
+    self.setupConstraints()
   }
 
   required init(coder: NSCoder) {
@@ -189,7 +191,7 @@ final class DreamView: UIView {
 
   // MARK: Layout
 
-  override func layoutSubviews() {
+  func setupConstraints() {
     guard let view = superview else { return }
 
     categoryLabel.sizeToFit()

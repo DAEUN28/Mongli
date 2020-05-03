@@ -50,13 +50,14 @@ final class SummaryDreamTableViewCell: UITableViewCell {
 
     self.backgroundColor = .clear
     self.selectionStyle = .none
-    self.containerView.layer.cornerRadius = 10
+    containerView.layer.cornerRadius = 10
 
-    self.contentView.addSubview(self.containerView)
-    self.containerView.addSubview(self.titleLabel)
-    self.containerView.addSubview(self.summaryLabel)
-    self.containerView.addSubview(self.dateLabel)
-    self.containerView.addSubview(self.cloudImageView)
+    contentView.addSubview(containerView)
+    containerView.addSubview(titleLabel)
+    containerView.addSubview(summaryLabel)
+    containerView.addSubview(dateLabel)
+    containerView.addSubview(cloudImageView)
+    self.setupConstraints()
   }
 
   required init?(coder: NSCoder) {
@@ -67,49 +68,45 @@ final class SummaryDreamTableViewCell: UITableViewCell {
 
   func configure(_ dream: SummaryDream) {
     if let backgroundColor = Category(rawValue: dream.category)?.toColor() {
-      self.containerView.backgroundColor = backgroundColor
+      containerView.backgroundColor = backgroundColor
     }
     if let dateString = dream.date,
-      let date = self.dateFormatter.date(from: dateString) {
-      self.dateLabel.text = self.dateFormatter.string(from: date)
-      self.dateLabel.isHidden = false
+      let date = dateFormatter.date(from: dateString) {
+      dateLabel.text = dateFormatter.string(from: date)
+      dateLabel.isHidden = false
     }
-    self.titleLabel.text = dream.title
-    self.summaryLabel.text = dream.summary
+    titleLabel.text = dream.title
+    summaryLabel.text = dream.summary
   }
 
   // MARK: Layout
 
-  override func layoutSubviews() {
-    self.titleLabel.sizeToFit()
-    self.summaryLabel.sizeToFit()
-    self.dateLabel.sizeToFit()
-
-    self.containerView.snp.makeConstraints {
+  func setupConstraints() {
+    containerView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(10)
       $0.bottom.equalToSuperview().inset(10)
       $0.leading.equalToSuperview()
       $0.trailing.equalToSuperview()
     }
-    self.cloudImageView.snp.makeConstraints {
+    cloudImageView.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.trailing.equalToSuperview().inset(12)
       $0.width.equalTo(20)
       $0.height.equalTo(20)
     }
-    self.titleLabel.snp.makeConstraints {
+    titleLabel.snp.makeConstraints {
       $0.top.equalToSuperview().inset(12)
       $0.leading.equalToSuperview().inset(12)
     }
-    self.dateLabel.snp.makeConstraints {
-      $0.bottom.equalTo(self.titleLabel.snp.bottom)
-      $0.leading.equalTo(self.titleLabel.snp.trailing).offset(8)
+    dateLabel.snp.makeConstraints {
+      $0.bottom.equalTo(titleLabel.snp.bottom)
+      $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
     }
-    self.summaryLabel.snp.makeConstraints {
-      $0.top.equalTo(self.titleLabel.snp.bottom).offset(4)
+    summaryLabel.snp.makeConstraints {
+      $0.top.equalTo(titleLabel.snp.bottom).offset(4)
       $0.bottom.equalToSuperview().inset(12)
-      $0.leading.equalTo(self.titleLabel.snp.leading)
-      $0.trailing.equalTo(self.cloudImageView.snp.leading).inset(8)
+      $0.leading.equalTo(titleLabel.snp.leading)
+      $0.trailing.equalTo(cloudImageView.snp.leading).inset(8)
     }
   }
 

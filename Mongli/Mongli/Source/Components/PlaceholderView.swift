@@ -37,12 +37,14 @@ final class PlaceholderView: UIView {
     self.backgroundColor = .clear
 
     switch type {
-    case .noContent: self.label.setText(.noContentPlaceholder)
-    case .noSearchedContent: self.label.setText(.noSearchedContentPlaceholder)
+    case .noContent: label.setText(.noContentPlaceholder)
+    case .noSearchedContent: label.setText(.noSearchedContentPlaceholder)
     }
 
-    self.addSubview(self.imageView)
-    self.addSubview(self.label)
+    self.addSubview(imageView)
+    self.addSubview(label)
+
+    self.setupConstraints()
   }
 
   override init(frame: CGRect) {
@@ -55,20 +57,18 @@ final class PlaceholderView: UIView {
 
   // MARK: Layout
 
-  override func layoutSubviews() {
-    self.label.sizeToFit()
-
+  func setupConstraints() {
     self.snp.makeConstraints {
       $0.center.equalToSuperview()
     }
-    self.imageView.snp.makeConstraints {
+    imageView.snp.makeConstraints {
       $0.width.equalTo(80)
       $0.height.equalTo(80)
       $0.top.equalToSuperview()
       $0.centerX.equalToSuperview()
     }
-    self.label.snp.makeConstraints {
-      $0.top.equalTo(self.imageView.snp.bottom)
+    label.snp.makeConstraints {
+      $0.top.equalTo(imageView.snp.bottom)
       $0.centerX.equalToSuperview()
     }
   }
