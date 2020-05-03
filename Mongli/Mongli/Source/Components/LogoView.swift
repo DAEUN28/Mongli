@@ -35,16 +35,7 @@ final class LogoView: UIView {
 
     self.addSubview(titleLabel)
     self.addSubview(subtitleLabel)
-    self.setupConstraints()
-  }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  // MARK: Layout
-
-  func setupConstraints() {
     self.snp.makeConstraints {
       $0.center.equalToSuperview()
       $0.height.equalTo(200)
@@ -57,5 +48,9 @@ final class LogoView: UIView {
       $0.centerX.equalToSuperview()
       $0.top.equalTo(titleLabel.snp.bottom).offset(8)
     }
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }

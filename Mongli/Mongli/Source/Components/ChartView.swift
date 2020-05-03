@@ -103,7 +103,7 @@ final class ChartView: UIView {
     }
   }
 
-  override func layoutSubviews() {
+  override func updateConstraints() {
     guard let analysisCounts = analysisCounts else { return }
     if barChartStackView.arrangedSubviews.count < 1 { return setUpBarChartStackView() }
 

@@ -32,6 +32,7 @@ final class DreamView: UIView {
   private let category: BehaviorRelay<Category> = .init(value: .red)
   private let keyboardSize: BehaviorRelay<CGRect> = .init(value: .zero)
   private var translationYMultiflier: CGFloat = 1
+  private var didSetupConstraints = false
 
   // MARK: UI
 
@@ -178,8 +179,6 @@ final class DreamView: UIView {
     addSubview(titleTextField)
     addSubview(contentTextView)
     addSubview(contentTextViewPlaceholder)
-
-    self.setupConstraints()
   }
 
   required init(coder: NSCoder) {
@@ -188,12 +187,16 @@ final class DreamView: UIView {
 
   // MARK: Layout
 
-  func setupConstraints() {
-    guard let view = superview else { return }
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      self.setupConstraints()
+      didSetupConstraints = true
+    }
+    super.updateConstraints()
+  }
 
-    categoryLabel.sizeToFit()
-    categoryInfoButton.sizeToFit()
-    contentTextViewPlaceholder.sizeToFit()
+  private func setupConstraints() {
+    guard let view = superview else { return }
 
     snp.makeConstraints {
       $0.top.equalToSafeArea(view).inset(12)

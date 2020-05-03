@@ -54,6 +54,7 @@ enum LocalizedString: String, Equatable, Hashable {
   case category
   case categoryInfoText
   case categoryInfoDesc
+  case eightDreams
   case red
   case orange
   case yellow

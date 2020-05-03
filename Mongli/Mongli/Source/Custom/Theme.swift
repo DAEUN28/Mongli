@@ -52,11 +52,11 @@ extension Theme {
     let text = LocalizedString.categoryInfoDesc.localized as NSString
     let string = NSMutableAttributedString(string: text as String)
     string.addAttributes([.foregroundColor: self.primary],
-                         range: text.range(of: "몽리"))
+                         range: text.range(of: LocalizedString.mongli.localized))
     string.addAttributes([.foregroundColor: self.primary],
-                         range: text.range(of: "카테고리"))
+                         range: text.range(of: LocalizedString.category.localized))
     string.addAttributes([.foregroundColor: self.primary],
-                           range: text.range(of: "8가지"))
+                         range: text.range(of: LocalizedString.eightDreams.localized))
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.lineSpacing = 10
     string.addAttributes([.paragraphStyle: paragraphStyle], range: text.range(of: text as String))

@@ -18,6 +18,7 @@ final class SummaryDreamTableViewCell: UITableViewCell {
   private let dateFormatter = DateFormatter().then {
     $0.dateFormat = "yyyy.MM.dd"
   }
+  private var didSetupConstraints = false
 
   // MARK: UI
 
@@ -57,7 +58,6 @@ final class SummaryDreamTableViewCell: UITableViewCell {
     containerView.addSubview(summaryLabel)
     containerView.addSubview(dateLabel)
     containerView.addSubview(cloudImageView)
-    self.setupConstraints()
   }
 
   required init?(coder: NSCoder) {
@@ -80,6 +80,14 @@ final class SummaryDreamTableViewCell: UITableViewCell {
   }
 
   // MARK: Layout
+
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      self.setupConstraints()
+      didSetupConstraints = true
+    }
+    super.updateConstraints()
+  }
 
   func setupConstraints() {
     containerView.snp.makeConstraints {

@@ -13,6 +13,10 @@ import SnapKit
 
 final class CoverView: UIView {
 
+  // MARK: Properties
+
+  private var didSetupConstraints = false
+
   // MARK: UI
 
   let label = UILabel().then {
@@ -32,15 +36,14 @@ final class CoverView: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    clipsToBounds = true
-    layer.cornerRadius = 40
-    layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+    self.clipsToBounds = true
+    self.layer.cornerRadius = 40
+    self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
 
-    theme.backgroundColor = themed { $0.background }
+    self.theme.backgroundColor = themed { $0.background }
 
-    addSubview(label)
-    addSubview(button)
-    self.setupConstraints()
+    self.addSubview(label)
+    self.addSubview(button)
   }
 
   required init?(coder: NSCoder) {
@@ -49,15 +52,19 @@ final class CoverView: UIView {
 
   // MARK: Layout
 
-  func setupConstraints() {
-    label.snp.makeConstraints {
-      $0.top.equalToSuperview().inset(24)
-      $0.leading.equalToSuperview().inset(28)
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      label.snp.makeConstraints {
+        $0.top.equalToSuperview().inset(24)
+        $0.leading.equalToSuperview().inset(28)
+      }
+      button.snp.makeConstraints {
+        $0.height.equalTo(button.intrinsicContentSize.height)
+        $0.bottomMargin.equalTo(label.snp.bottom)
+        $0.trailing.equalToSuperview().inset(32)
+      }
+      didSetupConstraints = true
     }
-    button.snp.makeConstraints {
-      $0.height.equalTo(button.intrinsicContentSize.height)
-      $0.bottomMargin.equalTo(label.snp.bottom)
-      $0.trailing.equalToSuperview().inset(32)
-    }
+    super.updateConstraints()
   }
 }

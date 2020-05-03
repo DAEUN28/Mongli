@@ -16,7 +16,9 @@ final class FloatingItem: UIView {
   // MARK: Properties
 
   let buttonDidTap: BehaviorRelay<Void> = .init(value: ())
+
   private let disposeBag: DisposeBag = .init()
+  private var didSetupConstraints = false
 
   // MARK: UI
 
@@ -30,6 +32,8 @@ final class FloatingItem: UIView {
     $0.theme.backgroundColor = themed { $0.primary.withAlphaComponent(0.8) }
   }
 
+  // MARK: Initializing
+
   init(_ symbolKey: SFSymbolKey) {
     super.init(frame: .zero)
     self.isHidden = true
@@ -41,7 +45,6 @@ final class FloatingItem: UIView {
 
     self.addSubview(button)
     self.addSubview(label)
-    self.setupConstraints()
 
     button.rx.tap.bind(to: buttonDidTap).disposed(by: self.disposeBag)
   }
@@ -50,20 +53,26 @@ final class FloatingItem: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private func setupConstraints() {
-    button.snp.makeConstraints {
-      $0.width.equalTo(50)
-      $0.height.equalTo(50)
-      $0.top.equalToSuperview()
-      $0.bottom.equalToSuperview()
-      $0.trailing.equalToSuperview()
+  // MARK: Layout
+
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      button.snp.makeConstraints {
+        $0.width.equalTo(50)
+        $0.height.equalTo(50)
+        $0.top.equalToSuperview()
+        $0.bottom.equalToSuperview()
+        $0.trailing.equalToSuperview()
+      }
+      label.snp.makeConstraints {
+        $0.centerY.equalTo(button.snp.centerY)
+        $0.trailing.equalTo(button.snp.leading).offset(-12)
+      }
+      self.snp.makeConstraints {
+        $0.leading.equalTo(label)
+      }
+      didSetupConstraints = true
     }
-    label.snp.makeConstraints {
-      $0.centerY.equalTo(button.snp.centerY)
-      $0.trailing.equalTo(button.snp.leading).offset(-12)
-    }
-    self.snp.makeConstraints {
-      $0.leading.equalTo(label)
-    }
+    super.updateConstraints()
   }
 }
