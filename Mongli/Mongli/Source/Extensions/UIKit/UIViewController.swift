@@ -23,7 +23,7 @@ extension UIViewController {
     self.view.addSubview(toast)
   }
 
-  // swiftlint:disable function_body_length
+  // swiftlint:disable function_body_length superfluous_disable_command
   func presentAlert(_ type: AlertType,
                     handler: ((UIAlertAction) -> Void)? = nil) {
 

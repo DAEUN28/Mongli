@@ -48,6 +48,7 @@ final class HomeViewReactor: Reactor, Stepper {
     self.service = service
   }
 
+  // swiftlint:disable function_body_length cyclomatic_complexity
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .selectDate(let date):

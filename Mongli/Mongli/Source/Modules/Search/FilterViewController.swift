@@ -92,6 +92,7 @@ final class FilterViewController: UIViewController, Stepper {
 
   // MARK: Initializing
 
+  // swiftlint:disable function_body_length
   convenience init(_ query: SearchQuery) {
     self.init()
 

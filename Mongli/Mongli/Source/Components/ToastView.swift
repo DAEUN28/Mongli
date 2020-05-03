@@ -38,8 +38,10 @@ final class ToastView: UIView {
   }
 
   override func didAddSubview(_ subview: UIView) {
-    UIView.animate(withDuration: 3, delay: 1, options: .curveEaseOut, animations: { self.alpha = 0 }) { _ in self.removeFromSuperview()
-    }
+    UIView.animate(withDuration: 3,
+                   delay: 1,
+                   options: .curveEaseOut,
+                   animations: { self.alpha = 0 }) { _ in self.removeFromSuperview() }
   }
 
   // MARK: Layout

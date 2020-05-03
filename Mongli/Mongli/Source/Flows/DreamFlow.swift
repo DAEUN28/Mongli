@@ -29,6 +29,7 @@ class DreamFlow: Flow {
     self.service = service
   }
 
+  // swiftlint:disable cyclomatic_complexity
   func navigate(to step: Step) -> FlowContributors {
     guard let step = step as? MongliStep else { return .none }
 

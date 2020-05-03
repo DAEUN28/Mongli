@@ -21,6 +21,7 @@ struct TokenManager {
     case access, refresh
   }
 
+  // swiftlint:disable force_try
   private static let privateKey = try! Data(contentsOf: getPath(), options: .alwaysMapped)
   private static let jwtSigner = JWTSigner.hs256(key: privateKey)
   private static let jwtVerifier = JWTVerifier.hs256(key: privateKey)

@@ -59,6 +59,7 @@ final class SearchViewReactor: Reactor, Stepper {
     return .merge([mutation, setSearchBarEnabled])
   }
 
+  // swiftlint:disable function_body_length cyclomatic_complexity
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .search(let keyword):

@@ -80,6 +80,7 @@ final class StorageManager {
 
   // MARK: Realm
 
+  // swiftlint:disable force_try
   private let realm = try! Realm()
 
   func createAnalysis(_ analysis: Analysis) -> Bool {

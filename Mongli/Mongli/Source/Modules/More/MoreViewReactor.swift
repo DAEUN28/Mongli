@@ -45,6 +45,7 @@ final class MoreViewReactor: Reactor, Stepper {
     self.service = service
   }
 
+  // swiftlint:disable cyclomatic_complexity
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .readAnalysis:

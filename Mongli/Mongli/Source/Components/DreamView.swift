@@ -101,10 +101,7 @@ final class DreamView: UIView {
 
   // MARK: Initializing
 
-  deinit {
-    log.verbose("DEINIT: dreamview")
-  }
-
+  // swiftlint:disable function_body_length
   convenience init(_ type: Type) {
     self.init(frame: .zero)
 
