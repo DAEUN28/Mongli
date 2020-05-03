@@ -10,6 +10,10 @@ import UIKit
 
 final class ToastView: UIView {
 
+  // MARK: Properties
+
+  private var didSetupConstraints = false
+
   // MARK: UI
 
   private let label = UILabel().then {
@@ -27,7 +31,6 @@ final class ToastView: UIView {
 
     label.setText(message)
     self.addSubview(label)
-    self.setupConstraints()
   }
 
   required init?(coder: NSCoder) {
@@ -41,19 +44,22 @@ final class ToastView: UIView {
 
   // MARK: Layout
 
-  func setupConstraints() {
-    guard let view = self.superview else { return }
-
-    self.snp.makeConstraints {
-      $0.height.equalTo(34)
-      $0.leading.equalToSuperview().inset(8)
-      $0.trailing.equalToSuperview().inset(8)
-      $0.bottom.equalToSafeArea(view).inset(8)
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      guard let view = self.superview else { return }
+      self.snp.makeConstraints {
+        $0.height.equalTo(34)
+        $0.leading.equalToSuperview().inset(8)
+        $0.trailing.equalToSuperview().inset(8)
+        $0.bottom.equalToSafeArea(view).inset(8)
+      }
+      label.snp.makeConstraints {
+        $0.centerY.equalToSuperview()
+        $0.leading.equalToSuperview().inset(12)
+        $0.trailing.equalToSuperview().inset(12)
+      }
+      didSetupConstraints = true
     }
-    label.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
-      $0.leading.equalToSuperview().inset(12)
-      $0.trailing.equalToSuperview().inset(12)
-    }
+    super.updateConstraints()
   }
 }

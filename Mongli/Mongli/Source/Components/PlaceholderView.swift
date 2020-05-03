@@ -18,6 +18,10 @@ final class PlaceholderView: UIView {
     case noSearchedContent
   }
 
+  // MARK: Properties
+
+  private var didSetupConstraints = false
+
   // MARK: UI
 
   private let imageView = UIImageView().then {
@@ -43,8 +47,6 @@ final class PlaceholderView: UIView {
 
     self.addSubview(imageView)
     self.addSubview(label)
-
-    self.setupConstraints()
   }
 
   override init(frame: CGRect) {
@@ -57,19 +59,23 @@ final class PlaceholderView: UIView {
 
   // MARK: Layout
 
-  func setupConstraints() {
-    self.snp.makeConstraints {
-      $0.center.equalToSuperview()
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      self.snp.makeConstraints {
+        $0.center.equalToSuperview()
+      }
+      imageView.snp.makeConstraints {
+        $0.width.equalTo(80)
+        $0.height.equalTo(80)
+        $0.top.equalToSuperview()
+        $0.centerX.equalToSuperview()
+      }
+      label.snp.makeConstraints {
+        $0.top.equalTo(imageView.snp.bottom)
+        $0.centerX.equalToSuperview()
+      }
+      didSetupConstraints = true
     }
-    imageView.snp.makeConstraints {
-      $0.width.equalTo(80)
-      $0.height.equalTo(80)
-      $0.top.equalToSuperview()
-      $0.centerX.equalToSuperview()
-    }
-    label.snp.makeConstraints {
-      $0.top.equalTo(imageView.snp.bottom)
-      $0.centerX.equalToSuperview()
-    }
+    super.updateConstraints()
   }
 }

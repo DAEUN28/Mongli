@@ -23,6 +23,7 @@ extension UIViewController {
     self.view.addSubview(toast)
   }
 
+  // swiftlint:disable function_body_length
   func presentAlert(_ type: AlertType,
                     handler: ((UIAlertAction) -> Void)? = nil) {
 
@@ -33,25 +34,19 @@ extension UIViewController {
       alert.title = dream + LocalizedString.delete.localized
       alert.setMessage(message: .deleteDreamDesc)
       let delete = UIAlertAction(title: .delete, style: .destructive, handler: handler)
-      let cancel = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
       alert.addAction(delete)
-      alert.addAction(cancel)
 
     case .deleteDreams(let date):
       alert.title = LocalizedString.dateFormat.localizedDate(date, .allTheDreamsAdverb)
       alert.setMessage(message: .deleteDreamDesc)
       let delete = UIAlertAction(title: .delete, style: .destructive, handler: handler)
-      let cancel = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
       alert.addAction(delete)
-      alert.addAction(cancel)
 
     case .deleteUser:
       alert.setTitle(title: .deleteUser)
       alert.setMessage(message: .deleteUserDesc)
       let delete = UIAlertAction(title: .secession, style: .destructive, handler: handler)
-      let cancel = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
       alert.addAction(delete)
-      alert.addAction(cancel)
 
     case .rename(let handler):
       alert.setTitle(title: .rename)
@@ -60,9 +55,7 @@ extension UIViewController {
       let change = UIAlertAction(title: .change, style: .destructive) { _ in
         handler(alert.textFields?[0].text)
       }
-      let cancel = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
       alert.addAction(change)
-      alert.addAction(cancel)
 
     case .cancelWrite:
       alert.title = ""
@@ -73,7 +66,13 @@ extension UIViewController {
       })
       alert.addAction(continueAction)
       alert.addAction(cancel)
+      self.present(alert, animated: true)
+
+      return
     }
+
+    let cancel = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
+    alert.addAction(cancel)
 
     self.present(alert, animated: true)
   }
@@ -82,6 +81,7 @@ extension UIViewController {
     let datePicker = UIDatePicker()
     datePicker.locale = Locale.current
     datePicker.datePickerMode = .date
+    datePicker.translatesAutoresizingMaskIntoConstraints = false
 
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let select = UIAlertAction(title: .select, style: .default) { _ in handler(datePicker.date) }

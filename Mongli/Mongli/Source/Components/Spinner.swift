@@ -12,6 +12,10 @@ import RxSwift
 
 final class Spinner: UIView {
 
+  // MARK: Properties
+
+  private var didSetupConstraints = false
+
   // MARK: UI
 
   let indicator: UIActivityIndicatorView = .init()
@@ -24,7 +28,6 @@ final class Spinner: UIView {
     self.theme.backgroundColor = themed { $0.primary.withAlphaComponent(0.5) }
 
     self.addSubview(self.indicator)
-    self.setupConstraints()
   }
 
   required init(coder: NSCoder) {
@@ -33,16 +36,20 @@ final class Spinner: UIView {
 
   // MARK: Layout
 
-  func setupConstraints() {
-    self.snp.makeConstraints {
-      $0.center.equalToSuperview()
-      $0.width.equalTo(80)
-      $0.height.equalTo(80)
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      self.snp.makeConstraints {
+        $0.center.equalToSuperview()
+        $0.width.equalTo(80)
+        $0.height.equalTo(80)
+      }
+      indicator.snp.makeConstraints {
+        $0.center.equalToSuperview()
+        $0.width.equalTo(40)
+        $0.height.equalTo(40)
+      }
+      didSetupConstraints = true
     }
-    indicator.snp.makeConstraints {
-      $0.center.equalToSuperview()
-      $0.width.equalTo(40)
-      $0.height.equalTo(40)
-    }
+    super.updateConstraints()
   }
 }
