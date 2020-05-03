@@ -90,7 +90,7 @@ enum LocalizedString: String, Equatable, Hashable {
   case searchPlaceholder
   case searchFilterText
   case criteria
-  case alignment
+  case sort
   case period
   case title
   case content

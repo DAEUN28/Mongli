@@ -51,15 +51,15 @@ final class FilterViewController: UIViewController, Stepper {
     $0.theme.selectedSegmentTintColor = themed { $0.primary }
     $0.theme.segmentTitleAttribute = themed { $0.segmentedControlTitle }
   }
-  private let alignmentLabel = UILabel().then {
-    $0.setText(.alignment)
+  private let sortLabel = UILabel().then {
+    $0.setText(.sort)
     $0.setFont(.sys17S)
     $0.theme.textColor = themed { $0.text }
   }
-  private let alignmentSegmentedControl = UISegmentedControl().then {
-    let alignments: [LocalizedString] = [.newest, .alphabetically]
+  private let sortSegmentedControl = UISegmentedControl().then {
+    let sorts: [LocalizedString] = [.newest, .alphabetically]
     for i in 0..<2 {
-      $0.insertSegment(withTitle: alignments[i].localized, at: i, animated: false)
+      $0.insertSegment(withTitle: sorts[i].localized, at: i, animated: false)
     }
 
     $0.selectedSegmentIndex = 0
@@ -96,7 +96,7 @@ final class FilterViewController: UIViewController, Stepper {
     self.init()
 
     let criteria = criteriaSegmentedControl.rx.selectedSegmentIndex
-    let alignment = alignmentSegmentedControl.rx.selectedSegmentIndex
+    let sort = sortSegmentedControl.rx.selectedSegmentIndex
     let category = BehaviorRelay<Category?>(value: nil)
     let startDate = BehaviorRelay<Date?>(value: nil)
     let endDate = BehaviorRelay<Date?>(value: nil)
@@ -104,12 +104,12 @@ final class FilterViewController: UIViewController, Stepper {
       guard let start = start, let end = end else { return nil }
       return dateFormatter.string(from: start) + "~" + dateFormatter.string(from: end)
     }
-    let searchQuery = Observable.combineLatest(criteria, alignment, category, period) {
+    let searchQuery = Observable.combineLatest(criteria, sort, category, period) {
       SearchQuery(query.page, $0, $1, $2?.rawValue, $3, $0 == 2 ? nil : query.keyword)
     }
 
     criteriaSegmentedControl.selectedSegmentIndex = query.criteria
-    alignmentSegmentedControl.selectedSegmentIndex = query.alignment
+    sortSegmentedControl.selectedSegmentIndex = query.sort
     category.accept(Category(rawValue: query.category ?? 8))
 
     if let startString = query.period?.components(separatedBy: "~").first,
@@ -187,7 +187,7 @@ final class FilterViewController: UIViewController, Stepper {
 
       let views: [(UIView, UIView, UIView?)]
         = [(criteriaLabel, criteriaSegmentedControl, nil),
-           (alignmentLabel, alignmentSegmentedControl, nil),
+           (sortLabel, sortSegmentedControl, nil),
            (categoryLabel, categoryButton, nil),
            (periodLabel, periodView, periodTextLabel)]
 

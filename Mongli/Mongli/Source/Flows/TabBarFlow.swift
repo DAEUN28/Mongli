@@ -51,7 +51,7 @@ extension TabBarFlow {
     let searchFlow = SearchFlow(self.dreamService)
     let moreFlow = MoreFlow(self.authService)
 
-    Flows.whenReady(flow1: homeFlow, flow2: searchFlow, flow3: moreFlow) { [unowned self] home, search, more in
+    Flows.whenReady(flow1: homeFlow, flow2: searchFlow, flow3: moreFlow) { [weak self] home, search, more in
 
       let keys: [SFSymbolKey] = [.house, .magnifyingglass, .ellipsis]
 
@@ -76,7 +76,7 @@ extension TabBarFlow {
         }
       }
 
-      self.rootViewController.setViewControllers([home, search, more], animated: true)
+      self?.rootViewController.setViewControllers([home, search, more], animated: true)
     }
 
     return .multiple(flowContributors: [.contribute(withNextPresentable: homeFlow,

@@ -11,20 +11,20 @@ import Foundation
 struct SearchQuery: Codable, Equatable {
   var page: Int
   let criteria: Int
-  let alignment: Int
+  let sort: Int
   let category: Int?
   let period: String?
   var keyword: String?
 
   init(_ page: Int = 0,
        _ criteria: Int = 0,
-       _ alignment: Int = 0,
+       _ sort: Int = 0,
        _ category: Int? = nil,
        _ period: String? = nil,
        _ keyword: String? = nil) {
     self.page = page
     self.criteria = criteria
-    self.alignment = alignment
+    self.sort = sort
     self.category = category
     self.period = period
     self.keyword = keyword

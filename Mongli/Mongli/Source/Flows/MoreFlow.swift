@@ -117,11 +117,11 @@ extension MoreFlow {
                                                    _ renameHandler: @escaping ((String?) -> Void)) -> FlowContributors {
     let actionSheet = UIAlertController(title: .accountManagement, message: nil, style: .actionSheet)
     let logoutAction = UIAlertAction(title: .logout, style: .destructive, handler: logoutHandler)
-    let deleteUserAction = UIAlertAction(title: .deleteUser, style: .destructive) { [unowned self] _ in
-      self.rootViewController.presentAlert(.deleteUser, handler: deleteUserHandler)
+    let deleteUserAction = UIAlertAction(title: .deleteUser, style: .destructive) { [weak self] _ in
+      self?.rootViewController.presentAlert(.deleteUser, handler: deleteUserHandler)
     }
-    let renameAction = UIAlertAction(title: .rename, style: .default) { [unowned self] _ in
-      self.rootViewController.presentAlert(.rename(renameHandler))
+    let renameAction = UIAlertAction(title: .rename, style: .default) { [weak self] _ in
+      self?.rootViewController.presentAlert(.rename(renameHandler))
     }
 
     let cancelAction = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
