@@ -11,9 +11,9 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 
 ## App Features
 
-- [ ] Writing the Mong
-- [ ] View the Mongs ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
-- [ ] Search the Mong
+- [ ] Writing the Dream
+- [ ] View the Dreams ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
+- [ ] Search the Dream
 - [ ] Save, update and Loading the Mong using AppleID
 - [ ] View the data that analysis the Mong using Horizontal-BarChart
 
