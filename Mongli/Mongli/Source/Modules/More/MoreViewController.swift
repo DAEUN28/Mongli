@@ -64,6 +64,13 @@ class MoreViewController: BaseViewController, View {
     fatalError("init(coder:) has not been implemented")
   }
 
+  // MARK: View Life Cycle
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    AnalyticsManager.view_more.log(self.classForCoder.description())
+  }
+
   // MARK: Setup
 
   override func setupConstraints() {
@@ -134,16 +141,19 @@ extension MoreViewController {
       .disposed(by: disposeBag)
 
     floatingItems[0].buttonDidTap
+      .do { AnalyticsManager.view_more_menu_accountManagement.log(nil) }
       .map { _ in Reactor.Action.accountManagementButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
     floatingItems[1].buttonDidTap
+      .do { AnalyticsManager.view_more_menu_opensourceLisence.log(nil) }
       .map { _ in Reactor.Action.opensourceButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
     floatingItems[2].buttonDidTap
+      .do { AnalyticsManager.view_more_menu_contact.log(nil) }
       .map { _ in Reactor.Action.contactButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
@@ -184,6 +194,7 @@ extension MoreViewController {
       UIView.animate(withDuration: 0.4, delay: delay, animations: { item.alpha = 1 })
       delay += 0.2
     }
+    AnalyticsManager.view_more_menu.log(nil)
   }
 
   private func cloaseMenu() {

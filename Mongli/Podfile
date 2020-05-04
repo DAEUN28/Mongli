@@ -36,7 +36,7 @@ target 'Mongli' do
   pod 'Carte'
 
   # SDK
-  pod 'Crashlytics'
+  pod 'Firebase/Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
 

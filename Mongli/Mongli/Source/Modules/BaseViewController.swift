@@ -28,9 +28,6 @@ class BaseViewController: UIViewController {
   }
 
   private var didSetupConstraints = false
-  lazy private var className: String = {
-    return type(of: self).description().components(separatedBy: ".").last ?? ""
-  }()
 
   // MARK: Initializing
 
@@ -43,7 +40,7 @@ class BaseViewController: UIViewController {
   }
 
   deinit {
-    log.verbose("DEINIT: \(self.className)")
+    log.verbose("DEINIT: \(self.classForCoder.description())")
   }
 
   // MARK: Layout Constraints

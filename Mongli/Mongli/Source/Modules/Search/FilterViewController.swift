@@ -163,12 +163,18 @@ final class FilterViewController: UIViewController, Stepper {
   // MARK: View Life Cycle
 
   override func viewDidLoad() {
+    super.viewDidLoad()
     isModalInPresentation = true
     view.theme.backgroundColor = themed { $0.background }
 
     view.addSubview(titleLabel)
     view.addSubview(stackView)
     view.addSubview(closeButton)
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    self.viewDidAppear(animated)
+    AnalyticsManager.view_search_filter.log(self.classForCoder.description())
   }
 
   // MARK: Layout

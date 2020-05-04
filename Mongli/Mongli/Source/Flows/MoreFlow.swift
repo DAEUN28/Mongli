@@ -119,11 +119,12 @@ extension MoreFlow {
     let logoutAction = UIAlertAction(title: .logout, style: .destructive, handler: logoutHandler)
     let deleteUserAction = UIAlertAction(title: .deleteUser, style: .destructive) { [weak self] _ in
       self?.rootViewController.presentAlert(.deleteUser, handler: deleteUserHandler)
+      AnalyticsManager.view_more_menu_accountManagement_deleteUser.log(nil)
     }
     let renameAction = UIAlertAction(title: .rename, style: .default) { [weak self] _ in
       self?.rootViewController.presentAlert(.rename(renameHandler))
+      AnalyticsManager.view_more_menu_accountManagement_rename.log(nil)
     }
-
     let cancelAction = UIAlertAction(title: .cancel, style: .cancel, handler: nil)
 
     actionSheet.addAction(logoutAction)

@@ -9,6 +9,7 @@
 import AuthenticationServices
 import UIKit
 
+import Firebase
 import RxFlow
 import RxSwift
 import RxCocoa
@@ -42,6 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     guard let flow = self.appFlow, let stepper = self.appStepper else { return true }
+
+    // Setup Rxflow
     self.coordinator.coordinate(flow: flow, with: stepper)
 
     self.coordinator.rx.willNavigate.bind { flow, step in
@@ -53,6 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print("🚀 did navigate to flow=\(flow) and step=\(step) 🚀")
     }
     .disposed(by: self.disposeBag)
+
+    // Setup Firebase
+
+    FirebaseApp.configure()
+    AnalyticsManager.setUserID()
 
     return true
   }

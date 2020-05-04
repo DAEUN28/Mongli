@@ -78,7 +78,9 @@ final class HomeViewController: BaseViewController, View {
   }
 
   override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
     self.navigationController?.setNavigationBarHidden(true, animated: false)
+    AnalyticsManager.view_home.log(self.classForCoder.description())
   }
 
   // MARK: Setup
@@ -141,6 +143,7 @@ extension HomeViewController {
       .disposed(by: disposeBag)
 
     coverView.button.rx.tap
+      .do { AnalyticsManager.view_deleteAllDream.log(nil) }
       .withLatestFrom(date)
       .compactMap { $0 }
       .map { Reactor.Action.deleteAllDreamsButtonDidTap($0) }

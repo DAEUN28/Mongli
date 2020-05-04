@@ -43,6 +43,13 @@ final class SignInViewController: BaseViewController, View {
     fatalError("init(coder:) has not been implemented")
   }
 
+  // MARK: View Life Cycle
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    AnalyticsManager.view_signIn.log(self.classForCoder.description())
+  }
+
   // MARK: Setup
 
   override func setupConstraints() {

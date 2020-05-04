@@ -82,7 +82,9 @@ final class SearchViewController: BaseViewController, View {
   // MARK: View Life Cycle
 
   override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
     self.navigationController?.setNavigationBarHidden(true, animated: false)
+    AnalyticsManager.view_search.log(self.classForCoder.description())
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

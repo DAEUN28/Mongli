@@ -66,6 +66,7 @@ final class MoreViewReactor: Reactor, Stepper {
 
       let logoutHandler: (UIAlertAction) -> Void = { [weak self] _ in
         guard let self = self else { return }
+        AnalyticsManager.view_more_menu_accountManagement_logout.log(nil)
         self.service.logout().asObservable().bind {
           switch $0 {
           case .success: self.steps.accept(step: .signInIsRequired)

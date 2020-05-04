@@ -58,6 +58,11 @@ final class UpdateDreamViewController: BaseViewController, View {
       .disposed(by: disposeBag)
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    AnalyticsManager.view_updateDream.log(self.classForCoder.description())
+  }
+
   // MARK: Setup
 
   override func setupConstraints() {

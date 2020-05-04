@@ -36,6 +36,7 @@ class CategoryInfoViewController: UIViewController {
   // MARK: View Life Cycle
 
   override func viewDidLoad() {
+    super.viewDidLoad()
     view.theme.backgroundColor = themed { $0.background }
 
     view.addSubview(desciptionLabel)
@@ -46,6 +47,11 @@ class CategoryInfoViewController: UIViewController {
       self?.dismiss(animated: true, completion: nil)
     }
     .disposed(by: disposeBag)
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    AnalyticsManager.view_categoryInfo.log(self.classForCoder.description())
   }
 
   // MARK: Layout

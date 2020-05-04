@@ -58,6 +58,11 @@ final class CreateDreamViewController: BaseViewController, View {
       .disposed(by: disposeBag)
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    AnalyticsManager.view_createDream.log(self.classForCoder.description())
+  }
+
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
   }

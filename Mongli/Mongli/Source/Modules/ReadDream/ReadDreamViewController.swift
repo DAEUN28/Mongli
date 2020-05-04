@@ -54,6 +54,11 @@ final class ReadDreamViewController: BaseViewController, View {
     self.setupDreamNavigationBar()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    AnalyticsManager.view_readDream.log(self.classForCoder.description())
+  }
+
   // MARK: Setup
 
   override func setupConstraints() {
@@ -94,6 +99,7 @@ extension ReadDreamViewController {
       .disposed(by: disposeBag)
 
     deleteButton.rx.tap
+      .do { AnalyticsManager.view_deleteDream.log(nil) }
       .map { Reactor.Action.deleteButtonDidTap }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)

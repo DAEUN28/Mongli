@@ -15,6 +15,7 @@
 		BF064CCD2454A071003D2C87 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */; };
 		BF064CD12456FEF1003D2C87 /* OpensourceLisenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */; };
 		BF064CF724585484003D2C87 /* RefreshCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF064CF52458517C003D2C87 /* RefreshCenter.swift */; };
+		BF23C4222460518D00C918AC /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23C4212460518D00C918AC /* AnalyticsManager.swift */; };
 		BF330A07242B462600271BFC /* FSCalendar+RxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */; };
 		BF330A0B242B5CDE00271BFC /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */; };
 		BF330A0D242B5F8400271BFC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF330A0C242B5F8400271BFC /* PlaceholderView.swift */; };
@@ -128,6 +129,7 @@
 		BF064CCC2454A071003D2C87 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpensourceLisenceViewController.swift; sourceTree = "<group>"; };
 		BF064CF52458517C003D2C87 /* RefreshCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCenter.swift; sourceTree = "<group>"; };
+		BF23C4212460518D00C918AC /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSCalendar+RxTheme.swift"; sourceTree = "<group>"; };
 		BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 		BF330A0C242B5F8400271BFC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				BF4454BB2420A93500632E38 /* TokenManager.swift */,
 				BF4454C524210AC800632E38 /* StorageManager.swift */,
 				BF4327152428C94100B1A9DE /* ReachabilityManager.swift */,
+				BF23C4212460518D00C918AC /* AnalyticsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -625,9 +628,12 @@
 				7D28691C9757D5FC4BD0BD7D /* [CP] Check Pods Manifest.lock */,
 				BF44546B241E3FF800632E38 /* Sources */,
 				BF44546C241E3FF800632E38 /* Frameworks */,
+				E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */,
 				BF44546D241E3FF800632E38 /* Resources */,
+				6F09AC68488332B30709BADD /* [Carte] Post Script */,
 				A1D834FBD26CD28FEC880F3D /* [CP] Embed Pods Frameworks */,
 				BF4454C22420FA1800632E38 /* Swift Lint */,
+				BF23C423246058DF00C918AC /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -794,6 +800,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6F09AC68488332B30709BADD /* [Carte] Post Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Carte] Post Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ruby ${PODS_ROOT}/Carte/Sources/Carte/carte.rb post";
+			showEnvVarsInLog = 0;
+		};
 		7D28691C9757D5FC4BD0BD7D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -832,6 +857,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mongli/Pods-Mongli-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		BF23C423246058DF00C918AC /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		BF4454C22420FA1800632E38 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -873,6 +916,25 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Carte] Pre Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ruby ${PODS_ROOT}/Carte/Sources/Carte/carte.rb pre";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -895,6 +957,7 @@
 				BF064CC924546F3E003D2C87 /* UIAlertController.swift in Sources */,
 				BF4454EB24239CFB00632E38 /* BaseViewController.swift in Sources */,
 				BF4454C624210AC800632E38 /* StorageManager.swift in Sources */,
+				BF23C4222460518D00C918AC /* AnalyticsManager.swift in Sources */,
 				BFB0A913242CE31B00BCBFD4 /* CategoryButton.swift in Sources */,
 				BFB0A90F242CDD0600BCBFD4 /* DreamView.swift in Sources */,
 				BF4454FB24244A7500632E38 /* HomeViewController.swift in Sources */,
