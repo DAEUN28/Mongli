@@ -18,6 +18,7 @@ final class ChartView: UIView {
   var didAnalysisUpdate: BehaviorRelay<Bool> = .init(value: false)
 
   private let disposeBag: DisposeBag = .init()
+  private var didSetupConstraints = false
   private var barUnitWidth: Int {
     guard let analysisCounts = analysisCounts, let max = analysisCounts.max() else { return 0 }
     if frame == .zero || max < 12 { return 20 }
@@ -69,8 +70,6 @@ final class ChartView: UIView {
     addSubview(lineView)
     addSubview(barChartStackView)
 
-    setupConstraints()
-
     didAnalysisUpdate
       .filter { $0 }
       .bind { [weak self] _ in self?.setNeedsLayout() }
@@ -82,6 +81,15 @@ final class ChartView: UIView {
   }
 
   // MARK: Layout
+
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      setupConstraints()
+      didSetupConstraints = true
+    }
+    updateBarChartStackView()
+    super.updateConstraints()
+  }
 
   private func setupConstraints() {
     nameStackView.snp.makeConstraints {
@@ -103,7 +111,7 @@ final class ChartView: UIView {
     }
   }
 
-  override func updateConstraints() {
+  private func updateBarChartStackView() {
     guard let analysisCounts = analysisCounts else { return }
     if barChartStackView.arrangedSubviews.count < 1 { return setUpBarChartStackView() }
 
