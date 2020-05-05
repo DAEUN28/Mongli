@@ -81,7 +81,6 @@ extension UIViewController {
     let datePicker = UIDatePicker()
     datePicker.locale = Locale.current
     datePicker.datePickerMode = .date
-    datePicker.translatesAutoresizingMaskIntoConstraints = false
 
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let select = UIAlertAction(title: .select, style: .default) { _ in handler(datePicker.date) }

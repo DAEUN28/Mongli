@@ -173,7 +173,7 @@ final class FilterViewController: UIViewController, Stepper {
   }
 
   override func viewDidAppear(_ animated: Bool) {
-    self.viewDidAppear(animated)
+    super.viewDidAppear(animated)
     AnalyticsManager.view_search_filter.log(self.classForCoder.description())
   }
 
