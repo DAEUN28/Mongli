@@ -86,7 +86,8 @@ final class MoreViewReactor: Reactor, Stepper {
           case .success: result.accept(.setName(name))
           case .error(let error): self.steps.accept(step: .toast(error.message))
           }
-        }.disposed(by: self.disposeBag)
+        }
+        .disposed(by: self.disposeBag)
       }
 
       steps.accept(step: .accountManagementIsRequired(logoutHandler: logoutHandler,
@@ -101,7 +102,6 @@ final class MoreViewReactor: Reactor, Stepper {
     case .contactButtonDidTap:
       steps.accept(step: .contactIsRequired)
       return .empty()
-
     }
   }
 

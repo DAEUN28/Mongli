@@ -18,7 +18,6 @@ final class SummaryDreamTableViewCell: UITableViewCell {
   private let dateFormatter = DateFormatter().then {
     $0.dateFormat = "yyyy.MM.dd"
   }
-  private var didSetupConstraints = false
 
   // MARK: UI
 
@@ -81,15 +80,7 @@ final class SummaryDreamTableViewCell: UITableViewCell {
 
   // MARK: Layout
 
-  override func updateConstraints() {
-    if !didSetupConstraints {
-      self.setupConstraints()
-      didSetupConstraints = true
-    }
-    super.updateConstraints()
-  }
-
-  func setupConstraints() {
+  override func layoutSubviews () {
     containerView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(10)
       $0.bottom.equalToSuperview().inset(10)

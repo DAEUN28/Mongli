@@ -72,7 +72,7 @@ final class ChartView: UIView {
 
     didAnalysisUpdate
       .filter { $0 }
-      .bind { [weak self] _ in self?.setNeedsLayout() }
+      .bind { [weak self] _ in self?.setNeedsUpdateConstraints() }
       .disposed(by: disposeBag)
   }
 
