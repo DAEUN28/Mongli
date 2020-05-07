@@ -13,6 +13,10 @@ import SnapKit
 
 final class LogoView: UIView {
 
+  // MARK: Properties
+
+  private var didSetupConstraints = false
+
   // MARK: UI
 
   private let titleLabel = UILabel().then {
@@ -35,22 +39,30 @@ final class LogoView: UIView {
 
     self.addSubview(titleLabel)
     self.addSubview(subtitleLabel)
-
-    self.snp.makeConstraints {
-      $0.center.equalToSuperview()
-      $0.height.equalTo(200)
-      $0.width.equalTo(200)
-    }
-    titleLabel.snp.makeConstraints {
-      $0.center.equalToSuperview()
-    }
-    subtitleLabel.snp.makeConstraints {
-      $0.centerX.equalToSuperview()
-      $0.top.equalTo(titleLabel.snp.bottom).offset(8)
-    }
   }
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  // MARK: View Life Cycle
+
+  override func updateConstraints() {
+    if !didSetupConstraints {
+      self.snp.makeConstraints {
+        $0.center.equalToSuperview()
+        $0.height.equalTo(200)
+        $0.width.equalTo(200)
+      }
+      titleLabel.snp.makeConstraints {
+        $0.center.equalToSuperview()
+      }
+      subtitleLabel.snp.makeConstraints {
+        $0.centerX.equalToSuperview()
+        $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+      }
+      didSetupConstraints = true
+    }
+    super.updateConstraints()
   }
 }
