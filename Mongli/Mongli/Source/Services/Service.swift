@@ -26,7 +26,7 @@ class Service: ServiceType {
         if let name = name {
           user.name = name
         } else {
-          guard let name = TokenManager.userName(token.accessToken) else { return .error(.unknown) }
+          guard let name = TokenManager.userName(token.refreshToken) else { return .error(.unknown) }
           user.name = name
         }
 
