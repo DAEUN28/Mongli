@@ -80,7 +80,11 @@ final class ReadDreamViewController: BaseViewController, View {
   }
 
   func setupDream(_ dream: Dream) {
-    dreamView.dream.accept(dream)
+    dreamView.existingDream.accept(dream)
+    if let date = dateFormatter.date(from: dream.date) {
+      self.navigationController?.navigationBar.topItem?.title
+        = LocalizedString.dateFormat.localizedDate(date, .dreamAdverb)
+    }
   }
 
   // MARK: Binding
