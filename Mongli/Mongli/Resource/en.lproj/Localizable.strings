@@ -6,6 +6,8 @@
   Copyright © 2020 DaEun Kim. All rights reserved.
 */
 
+"CFBundleDisplayName" = "Mongli";
+
 // Basic Error
 "unknownErrorMsg" = "Unknown error";
 "badRequestErrorMsg" = "Invalid request";

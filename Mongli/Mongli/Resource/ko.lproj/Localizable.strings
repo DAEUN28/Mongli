@@ -6,6 +6,8 @@
   Copyright © 2020 DaEun Kim. All rights reserved.
 */
 
+"CFBundleDisplayName" = "몽리";
+
 // Basic Error
 "unknownErrorMsg" = "알 수 없는 오류가 발생했습니다";
 "badRequestErrorMsg" = "잘못된 요청입니다";
