@@ -35,6 +35,7 @@
 "deletedMsg" = "삭제되었습니다";
 "deleteDreamDesc" = "삭제된 꿈은 복구할 수 없습니다\n정말 삭제하시겠습니까?";
 "cancelDreamDesc" = "작성한 꿈은 저장되지 않습니다\n작성을 취소하시겠습니까?";
+"endDateText" = "이 서비스는 2021년 3월 19일에 종료될 수 있습니다";
 
 // Tab bar
 "home" = "홈";

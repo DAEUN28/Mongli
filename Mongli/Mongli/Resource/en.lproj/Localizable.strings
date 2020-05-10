@@ -35,6 +35,7 @@
 "deletedMsg" = "Deleted";
 "deleteDreamDesc" = "Deleted dreams cannot be restored\nAre you sure you want to delete it?";
 "cancelDreamDesc" = "The dreams you wrote are not saved\nAre you sure you want to cancel the writing?";
+"endDateText" = "This service may be terminated on March 19, 2021";
 
 // Tab bar
 "home" = "Home";

@@ -25,6 +25,11 @@ final class SignInViewController: BaseViewController, View {
 
   private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
   private let logoView = LogoView()
+  private let endDateLabel = UILabel().then {
+    $0.setText(.endDateText)
+    $0.setFont(.sys10L)
+    $0.theme.textColor = themed { $0.darkWhite }
+  }
   private let spinner = Spinner()
 
   // MARK: Initializing
@@ -36,7 +41,7 @@ final class SignInViewController: BaseViewController, View {
 
     super.init()
     self.reactor = reactor
-    self.subViews = [logoView, signInButton, spinner]
+    self.subViews = [logoView, signInButton, spinner, endDateLabel]
     self.setupUserInteraction()
   }
 
@@ -54,9 +59,9 @@ final class SignInViewController: BaseViewController, View {
   // MARK: Setup
 
   override func setupConstraints() {
-    UIView.animate(withDuration: 2) { [weak self] in
-      self?.logoView.backgroundColor = .white
-      self?.signInButton.transform = CGAffineTransform(translationX: 0, y: -60)
+    UIView.animate(withDuration: 2) {
+      self.logoView.backgroundColor = .white
+      self.signInButton.transform = CGAffineTransform(translationX: 0, y: -60)
     }
 
     signInButton.snp.makeConstraints {
@@ -64,6 +69,10 @@ final class SignInViewController: BaseViewController, View {
       $0.leading.equalTo(view.snp.leading).inset(40)
       $0.trailing.equalTo(view.snp.trailing).inset(40)
       $0.bottom.equalTo(view.snp.bottom)
+    }
+    endDateLabel.snp.makeConstraints {
+      $0.centerX.equalTo(signInButton.snp.centerX)
+      $0.bottom.equalTo(signInButton.snp.top).offset(8)
     }
   }
 

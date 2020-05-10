@@ -37,6 +37,7 @@ enum LocalizedString: String, Equatable, Hashable {
   case deletedMsg
   case deleteDreamDesc
   case cancelDreamDesc
+  case endDateText
 
   // Tab bar
   case home

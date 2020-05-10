@@ -130,6 +130,8 @@
 		BF064CCE2456FE06003D2C87 /* OpensourceLisenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpensourceLisenceViewController.swift; sourceTree = "<group>"; };
 		BF064CF52458517C003D2C87 /* RefreshCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCenter.swift; sourceTree = "<group>"; };
 		BF23C4212460518D00C918AC /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		BF23C42B2468798B00C918AC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BF23C42E24687B3200C918AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF330A06242B462600271BFC /* FSCalendar+RxTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSCalendar+RxTheme.swift"; sourceTree = "<group>"; };
 		BF330A0A242B5CDE00271BFC /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 		BF330A0C242B5F8400271BFC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
@@ -155,8 +157,6 @@
 		BF445472241E3FF800632E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF445476241E3FF800632E38 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		BF44547B241E3FFA00632E38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BF44547E241E3FFA00632E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BF445480241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF445485241E3FFA00632E38 /* MongliTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MongliTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF445489241E3FFA00632E38 /* MongliTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongliTests.swift; sourceTree = "<group>"; };
 		BF44548B241E3FFA00632E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -379,9 +379,9 @@
 		BF4454A4241F4FFE00632E38 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF23C42E24687B3200C918AC /* Info.plist */,
 				BFBFB6392432D24600C15CDD /* GoogleService-Info.plist */,
 				BF445510242484A300632E38 /* Mongli.entitlements */,
-				BF445480241E3FFA00632E38 /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -1019,8 +1019,8 @@
 		BF44547D241E3FFA00632E38 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BF44547E241E3FFA00632E38 /* Base */,
 				BF4454DB24225CBC00632E38 /* ko */,
+				BF23C42B2468798B00C918AC /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
