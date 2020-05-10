@@ -32,7 +32,7 @@ final class UpdateDreamViewReactor: Reactor, Stepper {
 
   struct State {
     let existingDream: Dream
-    var date: Date = .init()
+    var date: Date
     var isLoading: Bool = false
   }
 
@@ -46,7 +46,7 @@ final class UpdateDreamViewReactor: Reactor, Stepper {
     self.service = service
     self.id = dream.id ?? 0
 
-    self.initialState = .init(existingDream: dream)
+    self.initialState = .init(existingDream: dream, date: dateFormatter.date(from: dream.date) ?? .init())
   }
 
   func mutate(action: Action) -> Observable<Mutation> {
