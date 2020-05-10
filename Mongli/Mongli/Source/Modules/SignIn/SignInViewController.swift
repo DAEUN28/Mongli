@@ -36,7 +36,7 @@ final class SignInViewController: BaseViewController, View {
 
     super.init()
     self.reactor = reactor
-    self.subViews = [logoView, signInButton]
+    self.subViews = [logoView, signInButton, spinner]
     self.setupUserInteraction()
   }
 

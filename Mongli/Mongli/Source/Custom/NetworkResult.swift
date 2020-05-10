@@ -29,6 +29,7 @@ enum NetworkError: Int, Error {
   case notFound = 404
   case conflict = 409
   case serverError = 500
+  case badGateway = 502
 
   init?(_ error: Error) {
     guard let code = (error as? MoyaError)?.response?.statusCode,

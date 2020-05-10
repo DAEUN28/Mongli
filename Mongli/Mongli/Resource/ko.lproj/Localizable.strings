@@ -81,6 +81,7 @@
 "createDream" = "기록하기";
 "deleteDream" = "삭제하기";
 "updateDream" = "수정하기";
+"titleCountIsOverDesc" = "제목은 최대 20자까지 작성가능합니다";
 
 // Search
 "searchText" = "당신의 꿈을 꺼내어보세요";

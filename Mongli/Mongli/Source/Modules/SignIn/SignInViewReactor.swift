@@ -47,8 +47,7 @@ final class SignInViewReactor: Reactor, Stepper {
       let startLoading: Observable<Mutation> = .just(.setLoading(true))
       let endLoading: Observable<Mutation> = .just(.setLoading(false))
 
-      let result: Observable<Mutation>
-        = self.service.signIn(credential.user, name: credential.fullName?.givenName)
+      let result: Observable<Mutation> = service.signIn(credential.user, name: credential.fullName?.givenName)
           .asObservable()
           .map {
             switch $0 {

@@ -17,6 +17,7 @@ final class CreateDreamViewReactor: Reactor, Stepper {
 
   enum Action {
     case createDream(Dream)
+    case titleCountIsOver
     case dateButtonDidTap
     case categoryInfoButtonDidTap
     case cancelWrite
@@ -58,6 +59,10 @@ final class CreateDreamViewReactor: Reactor, Stepper {
         }
 
       return .concat([startLoading, result, endLoading])
+
+    case .titleCountIsOver:
+      steps.accept(step: .alert(.default(.titleCountIsOverDesc), handler: nil))
+      return .empty()
 
     case .dateButtonDidTap:
       let date = PublishRelay<Mutation>()

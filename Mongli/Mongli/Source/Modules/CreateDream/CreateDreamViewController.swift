@@ -109,6 +109,13 @@ extension CreateDreamViewController {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
 
+    dreamView.titleCountIsOver
+      .distinctUntilChanged()
+      .filter { $0 }
+      .map { _ in Reactor.Action.titleCountIsOver }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
     addCalendarBarButton().rx.tap
       .map { Reactor.Action.dateButtonDidTap }
       .bind(to: reactor.action)

@@ -85,6 +85,7 @@ enum LocalizedString: String, Equatable, Hashable {
   case createDream
   case deleteDream
   case updateDream
+  case titleCountIsOverDesc
 
   // Search
   case searchText

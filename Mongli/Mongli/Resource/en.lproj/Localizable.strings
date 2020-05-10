@@ -81,6 +81,7 @@
 "createDream" = "Write";
 "deleteDream" = "Delete";
 "updateDream" = "Modify";
+"titleCountIsOverDesc" = "제목은 최대 20자까지 작성가능합니다";
 
 // Search
 "searchText" = "Bring out your dream";

@@ -16,6 +16,7 @@ extension UIViewController {
     case deleteUser
     case rename((String?) -> Void)
     case cancelWrite
+    case `default`(LocalizedString)
   }
 
   func showToast(_ message: LocalizedString) {
@@ -66,6 +67,15 @@ extension UIViewController {
       })
       alert.addAction(continueAction)
       alert.addAction(cancel)
+      self.present(alert, animated: true)
+
+      return
+
+    case .default(let message):
+      alert.title = ""
+      alert.setMessage(message: message)
+      let ok = UIAlertAction(title: .close, style: .default, handler: nil)
+      alert.addAction(ok)
       self.present(alert, animated: true)
 
       return

@@ -27,6 +27,7 @@ final class DreamView: UIView {
   let existingDream: BehaviorRelay<Dream?> = .init(value: nil)
   let categoryButtonDidTap: BehaviorRelay<Void> = .init(value: ())
   let contentsAreExist: BehaviorRelay<Bool> = .init(value: false)
+  let titleCountIsOver: BehaviorRelay<Bool> = .init(value: false)
 
   private let disposeBag: DisposeBag = .init()
   private let category: BehaviorRelay<Category> = .init(value: .red)
@@ -125,7 +126,8 @@ final class DreamView: UIView {
       .disposed(by: disposeBag)
 
     setupCategoryButton()
-    setupTextFieldAndTextView()
+    setupTextField()
+    setupTextView()
 
     switch type {
     case .create:
@@ -260,24 +262,35 @@ extension DreamView {
     .disposed(by: disposeBag)
   }
 
-  private func setupTextFieldAndTextView() {
-    contentTextView.rx.text.orEmpty.distinctUntilChanged()
-      .map { $0.isEmpty == false }
-      .bind(to: contentTextViewPlaceholder.rx.isHidden)
-      .disposed(by: disposeBag)
-
+  private func setupTextField() {
     titleTextField.rx.controlEvent(.editingDidEnd)
       .bind { [weak self] _ in
         self?.titleTextField.resignFirstResponder()
     }
     .disposed(by: disposeBag)
 
+    titleTextField.rx.text.orEmpty
+      .filter { $0.count > 19 }
+      .map { _ in true }
+      .do(afterNext: { [weak self] _ in
+        self?.titleTextField.text?.removeLast(1)
+      })
+      .bind(to: titleCountIsOver)
+      .disposed(by: disposeBag)
+  }
+
+  private func setupTextView() {
+    contentTextView.rx.text.orEmpty.distinctUntilChanged()
+      .map { $0.isEmpty == false }
+      .bind(to: contentTextViewPlaceholder.rx.isHidden)
+      .disposed(by: disposeBag)
+
     contentTextView.rx.didEndEditing
       .bind { [weak self] _ in
         self?.contentTextView.resignFirstResponder()
         self?.transform = .identity
-    }
-    .disposed(by: disposeBag)
+      }
+      .disposed(by: disposeBag)
 
     NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
       .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue }
@@ -291,21 +304,21 @@ extension DreamView {
       .filter { [weak self] in
         guard let self = self else { return false }
         return self.frame.maxY > $0.minY
-    }
-    .bind { [weak self] keyboardSize in
-      guard let self = self else { return }
-      let contentSizeMaxY = self.contentTextView.frame.minY
-        + self.contentTextView.contentSize.height
-        + self.frame.minY
+      }
+      .bind { [weak self] keyboardSize in
+        guard let self = self else { return }
+        let contentSizeMaxY = self.contentTextView.frame.minY
+          + self.contentTextView.contentSize.height
+          + self.frame.minY
 
-      if contentSizeMaxY > keyboardSize.minY {
-        UIView.animate(withDuration: 0.3) {
-          self.transform = CGAffineTransform(translationX: 0, y: -12 * self.translationYMultiflier)
-          self.translationYMultiflier += 1
+        if contentSizeMaxY > keyboardSize.minY {
+          UIView.animate(withDuration: 0.3) {
+            self.transform = CGAffineTransform(translationX: 0, y: -12 * self.translationYMultiflier)
+            self.translationYMultiflier += 1
+          }
         }
       }
-    }
-    .disposed(by: disposeBag)
+      .disposed(by: disposeBag)
 
     contentTextView.rx.didBeginEditing
       .withLatestFrom(keyboardSize)
@@ -320,8 +333,8 @@ extension DreamView {
             self.transform = CGAffineTransform(translationX: 0, y: -12 * self.translationYMultiflier)
           }
         }
-    }
-    .disposed(by: disposeBag)
+      }
+      .disposed(by: disposeBag)
 
     let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44))
     let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

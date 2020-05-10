@@ -44,6 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     guard let flow = self.appFlow, let stepper = self.appStepper else { return true }
 
+    // logout
+//     StorageManager.shared.deleteAll()
+
     // Setup Rxflow
     self.coordinator.coordinate(flow: flow, with: stepper)
 
