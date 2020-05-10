@@ -11,28 +11,48 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 
 ## App Features
 
-- [ ] Writing the Dream
-- [ ] View the Dreams ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
-- [ ] Search the Dream
-- [ ] Save, update and Loading the Mong using AppleID
-- [ ] View the data that analysis the Mong using Horizontal-BarChart
+- [x] Writing the Dream
+- [x] View the Dreams ([FSCalendar](https://github.com/WenchaoD/FSCalendar))
+- [x] Search the Dream
+- [x] Save, update and Loading the Mong using AppleID
+- [x] View the data that analysis the Mong using Horizontal-BarChart
 
 
 
 ## Technologies
 
-- [ ] [RxSwift](https://github.com/ReactiveX/RxSwift) with [ReactorKit](https://github.com/ReactorKit/ReactorKit)
-- [ ] Reactive Flow Coordinator pattern ([RxFlow](https://github.com/RxSwiftCommunity/RxFlow))
-- [ ] REST API v3 (for unauthenticated or basic authentication ([Moya](https://github.com/Moya/Moya) and Codable)
-- [ ] Programmatically UI ([SnapKit](https://github.com/SnapKit/SnapKit))
-- [ ] Analytics, Crashlytics ([Firebase](http://firebase.google.com))
-- [ ] Swift style and conventions ([SwiftLint](https://github.com/realm/SwiftLint))
+- [x] [RxSwift](https://github.com/ReactiveX/RxSwift) with [ReactorKit](https://github.com/ReactorKit/ReactorKit)
+- [x] Reactive Flow Coordinator pattern ([RxFlow](https://github.com/RxSwiftCommunity/RxFlow))
+- [x] REST API v3 (for unauthenticated or basic authentication ([Moya](https://github.com/Moya/Moya) and Codable)
+- [x] Programmatically UI ([SnapKit](https://github.com/SnapKit/SnapKit))
+- [x] Analytics, Crashlytics ([Firebase](http://firebase.google.com))
+- [x] Swift style and conventions ([SwiftLint](https://github.com/realm/SwiftLint))
+- [x] Color themes in light and dark modes ([RxTheme](https://github.com/RxSwiftCommunity/RxTheme))
+
+
+
+## Getting Started
+
+Mongli is my personal project for 🌱beginner🌱 developers.
+So you can use my code for your development!
+Mongli is being managed in Notion📝
+To use my code, I recommend visit [Notion](https://www.notion.so/mongli/Mongli-while-dreaming-73d75833c8b44438911e7e360e5cb8b6).
+
+You can using [API](https://acone1128.gitbook.io/mongli-while-dreaming/) until May 5, 2021😎
+
+
+
+## Requirements
+
+- iOS 13+
+- Swift 5
+- CocoaPods
 
 
 
 ## Reference​
 
-- [SwiftHub](https://github.com/khoren93/SwiftHub=)
+- [SwiftHub](https://github.com/khoren93/SwiftHub)
 - [Drrible](https://github.com/devxoul/Drrrible)
 - [sample-rxswift-reactorkit-app](https://github.com/ClintJang/sample-rxswift-reactorkit-app)
 

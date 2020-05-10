@@ -90,7 +90,7 @@ class MoreViewController: BaseViewController, View {
     }
     chartView.snp.makeConstraints {
       $0.top.equalTo(coverView.button.snp.bottom).offset(8)
-      $0.bottom.equalToSafeArea(view).inset(100)
+      $0.bottom.equalToSafeArea(view).inset(80)
       $0.leading.equalToSuperview().inset(28)
       $0.trailing.equalToSuperview().inset(28)
     }
