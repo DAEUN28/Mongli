@@ -249,14 +249,14 @@ extension DreamView {
     }
 
     category.distinctUntilChanged()
-      .withPrevious()
+      .withPrevious().debug("category")
       .bind { [weak self] old, new in
         guard let self = self else { return }
-        self.buttons[new.rawValue].backgroundColor = new.toColor()
+        self.buttons[new.rawValue].theme.backgroundColor = .just(new.toColor())
         self.buttons[new.rawValue].theme.titleColor(from: themed { $0.background }, for: .normal)
         if let old = old {
           self.buttons[old.rawValue].theme.backgroundColor = themed { $0.background }
-          self.buttons[old.rawValue].titleLabel?.textColor = old.toColor()
+          self.buttons[old.rawValue].theme.titleColor(from: .just(old.toColor()), for: .normal)
         }
     }
     .disposed(by: disposeBag)
