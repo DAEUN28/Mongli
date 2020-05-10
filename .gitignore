@@ -68,6 +68,3 @@ fastlane/test_output
 iOSInjectionProject/
 .DS_Store
 
-Mongli/Mongli/Resource/privateKey
-
-Mongli/Mongli/Resource/privateKey.pub
