@@ -22,7 +22,7 @@ final class ChartView: UIView {
   private var barUnitWidth: Int {
     guard let analysisCounts = analysisCounts, let max = analysisCounts.max() else { return 0 }
     if frame == .zero || max < 12 { return 20 }
-    let barMaxWidth = (frame.maxX - 16) - lineView.frame.maxX
+    let barMaxWidth = (frame.width - 16) - lineView.frame.maxX
     return Int(barMaxWidth) / max
   }
   private var analysisCounts: [Int]? {
