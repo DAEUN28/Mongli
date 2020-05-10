@@ -22,9 +22,12 @@ final class SignInViewReactor: Reactor, Stepper {
   enum Mutation {
     case setSignedIn
     case setError(LocalizedString)
+    case setLoading(Bool)
   }
 
-  struct State { }
+  struct State {
+    var isLoading: Bool = false
+  }
 
   let initialState: State = .init()
   var steps: PublishRelay<Step> = .init()
@@ -41,6 +44,8 @@ final class SignInViewReactor: Reactor, Stepper {
       guard let credential = authorization?.credential as? ASAuthorizationAppleIDCredential else {
         return .just(.setError(.notFoundUserErrorMsg))
       }
+      let startLoading: Observable<Mutation> = .just(.setLoading(true))
+      let endLoading: Observable<Mutation> = .just(.setLoading(false))
 
       let result: Observable<Mutation>
         = self.service.signIn(credential.user, name: credential.fullName?.givenName)
@@ -52,14 +57,21 @@ final class SignInViewReactor: Reactor, Stepper {
             }
           }
 
-      return result
+      return .concat([startLoading, result, endLoading])
     }
   }
 
   func reduce(state: State, mutation: Mutation) -> State {
+    var state = state
     switch mutation {
-    case .setSignedIn: steps.accept(step: .userIsSignedIn)
-    case .setError(let error): steps.accept(step: .toast(error))
+    case .setSignedIn:
+      steps.accept(step: .userIsSignedIn)
+
+    case .setError(let error):
+      steps.accept(step: .toast(error))
+
+    case .setLoading(let isLoading):
+      state.isLoading = isLoading
     }
     return state
   }

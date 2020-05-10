@@ -25,6 +25,7 @@ final class SignInViewController: BaseViewController, View {
 
   private let signInButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
   private let logoView = LogoView()
+  private let spinner = Spinner()
 
   // MARK: Initializing
 
@@ -75,10 +76,16 @@ final class SignInViewController: BaseViewController, View {
   // MARK: Binding
 
   func bind(reactor: Reactor) {
+    // action
     asController.rx.didCompleteWithAuthorization
-    .map { Reactor.Action.signIn($0) }
-    .bind(to: reactor.action)
-    .disposed(by: disposeBag)
+      .map { Reactor.Action.signIn($0) }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+
+    // state
+    reactor.state.map { $0.isLoading }
+      .bind(to: spinner.rx.isAnimating)
+      .disposed(by: disposeBag)
   }
 }
 
@@ -86,6 +93,6 @@ final class SignInViewController: BaseViewController, View {
 
 extension SignInViewController: ASAuthorizationControllerPresentationContextProviding {
   func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-    view.window!
+    return view.window!
   }
 }
