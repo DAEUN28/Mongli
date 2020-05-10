@@ -69,7 +69,6 @@ extension TabBarFlow {
           search.title = LocalizedString.search.localized
 
         case 2:
-          item.imageInsets = .init(top: 4, left: 0, bottom: 0, right: 0)
           more.tabBarItem = item
           more.title = LocalizedString.more.localized
 

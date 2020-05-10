@@ -18,6 +18,7 @@ final class SummaryDreamTableViewCell: UITableViewCell {
   private let dateFormatter = DateFormatter().then {
     $0.dateFormat = "yyyy.MM.dd"
   }
+  private var didLayoutSubviews = false
 
   // MARK: UI
 
@@ -80,7 +81,8 @@ final class SummaryDreamTableViewCell: UITableViewCell {
 
   // MARK: Layout
 
-  override func layoutSubviews () {
+  override func layoutSubviews() {
+    if didLayoutSubviews { return }
     containerView.snp.makeConstraints {
       $0.top.equalToSuperview().inset(10)
       $0.bottom.equalToSuperview().inset(10)
@@ -105,8 +107,8 @@ final class SummaryDreamTableViewCell: UITableViewCell {
       $0.top.equalTo(titleLabel.snp.bottom).offset(4)
       $0.bottom.equalToSuperview().inset(12)
       $0.leading.equalTo(titleLabel.snp.leading)
-      $0.trailing.equalTo(cloudImageView.snp.leading).inset(8)
+      $0.trailing.equalTo(cloudImageView.snp.leading).offset(-8)
     }
+    didLayoutSubviews = true
   }
-
 }
