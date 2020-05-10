@@ -7,6 +7,8 @@ Dream diary iOS Application using Reactorkit inspired of [ForDream](https://gith
 
 `Mong(夢)` is a Chinese character meaning dream
 
+[한글문서](https://github.com/DAEUN28/Mongli/blob/master/README-KR.md)
+
 
 
 ## App Features
