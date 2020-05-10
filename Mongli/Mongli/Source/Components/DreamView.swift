@@ -270,10 +270,9 @@ extension DreamView {
     .disposed(by: disposeBag)
 
     titleTextField.rx.text.orEmpty
-      .filter { $0.count > 19 }
-      .map { _ in true }
-      .do(afterNext: { [weak self] _ in
-        self?.titleTextField.text?.removeLast(1)
+      .map { $0.count > 19 }
+      .do(afterNext: { [weak self] in
+        if $0 { self?.titleTextField.text?.removeLast(1) }
       })
       .bind(to: titleCountIsOver)
       .disposed(by: disposeBag)
