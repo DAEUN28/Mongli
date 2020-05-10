@@ -628,9 +628,7 @@
 				7D28691C9757D5FC4BD0BD7D /* [CP] Check Pods Manifest.lock */,
 				BF44546B241E3FF800632E38 /* Sources */,
 				BF44546C241E3FF800632E38 /* Frameworks */,
-				E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */,
 				BF44546D241E3FF800632E38 /* Resources */,
-				6F09AC68488332B30709BADD /* [Carte] Post Script */,
 				A1D834FBD26CD28FEC880F3D /* [CP] Embed Pods Frameworks */,
 				BF4454C22420FA1800632E38 /* Swift Lint */,
 				BF23C423246058DF00C918AC /* Crashlytics */,
@@ -800,25 +798,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mongli-MongliUITests/Pods-Mongli-MongliUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6F09AC68488332B30709BADD /* [Carte] Post Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Carte] Post Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "ruby ${PODS_ROOT}/Carte/Sources/Carte/carte.rb post\n";
-			showEnvVarsInLog = 0;
-		};
 		7D28691C9757D5FC4BD0BD7D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -914,25 +893,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Carte] Pre Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "ruby ${PODS_ROOT}/Carte/Sources/Carte/carte.rb pre";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
