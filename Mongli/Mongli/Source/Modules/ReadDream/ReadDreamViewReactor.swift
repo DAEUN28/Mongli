@@ -49,10 +49,10 @@ final class ReadDreamViewReactor: Reactor, Stepper {
 
       return self.service.readDream(self.id)
         .asObservable()
-        .map {
+        .map { [weak self] in
           switch $0 {
           case .success(let dream): state.dream = dream
-          case .error(let error): self.steps.accept(step: .toast(error.message))
+          case .error(let error): self?.steps.accept(step: .toast(error.message))
           }
           return state
       }
