@@ -34,7 +34,7 @@ ReactorKit을 사용한 꿈일기 iOS 앱입니다.
 
 공유된 디자인과 [API](https://acone1128.gitbook.io/mongli-while-dreaming/)를 사용하여 클론코딩을 도전해보세요! 간단한 기능이기 때문에 누구나 공부하기 좋습니다😃 
 
-몽리는 [노션](https://www.notion.so/mongli)에서 관리 되고있습니다. 많은 정보들이 노션에 있으니 방문하셔서 더 많은 정보를 얻으세요.
+몽리는 [노션](https://www.notion.so/mongli/Mongli-while-dreaming-73d75833c8b44438911e7e360e5cb8b6)에서 관리 되고있습니다. 많은 정보들이 노션에 있으니 방문하셔서 더 많은 정보를 얻으세요.
 
 API는 2021년 5월 5일까지 사용가능합니다😎
 
