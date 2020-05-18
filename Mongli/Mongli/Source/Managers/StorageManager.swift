@@ -23,41 +23,40 @@ final class StorageManager {
   private let service = Bundle.main.bundleIdentifier
 
   // query
-  private lazy var query: [String: Any]? = {
+  private lazy var query: [CFString: Any]? = {
     guard let service = self.service else { return nil }
-    return [kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: self.account]
+    return [kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: self.account]
   }()
 
   func createUser(_ user: User) -> Bool {
     guard let data = try? JSONEncoder().encode(user),
       let service = self.service else { return false }
 
-    let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                kSecAttrService as String: service,
-                                kSecAttrAccount as String: self.account,
-                                kSecAttrGeneric as String: data]
+    let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                  kSecAttrService: service,
+                                  kSecAttrAccount: account,
+                                  kSecAttrGeneric: data]
 
-    if SecItemAdd(query as CFDictionary, nil) != errSecSuccess { return false }
-    return true
+    return SecItemAdd(query as CFDictionary, nil) == errSecSuccess
   }
 
   func readUser() -> User? {
     guard let service = self.service else { return nil }
-    let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                kSecAttrService as String: service,
-                                kSecAttrAccount as String: self.account,
-                                kSecMatchLimit as String: kSecMatchLimitOne,
-                                kSecReturnAttributes as String: true,
-                                kSecReturnData as String: true]
+    let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                  kSecAttrService: service,
+                                  kSecAttrAccount: account,
+                                  kSecMatchLimit: kSecMatchLimitOne,
+                                  kSecReturnAttributes: true,
+                                  kSecReturnData: true]
 
     var item: CFTypeRef?
     if SecItemCopyMatching(query as CFDictionary, &item) != errSecSuccess { return nil }
 
-    guard let existingItem = item as? [String: Any],
-        let data = existingItem[kSecAttrGeneric as String] as? Data,
-        let user = try? JSONDecoder().decode(User.self, from: data) else { return nil }
+    guard let existingItem = item as? [CFString: Any],
+      let data = existingItem[kSecAttrGeneric] as? Data,
+      let user = try? JSONDecoder().decode(User.self, from: data) else { return nil }
 
     return user
   }
@@ -65,17 +64,16 @@ final class StorageManager {
   func updateUser(_ user: User) -> Bool {
     guard let query = self.query,
       let data = try? JSONEncoder().encode(user) else { return false }
-    let attributes: [String: Any] = [kSecAttrAccount as String: self.account,
-                                     kSecAttrGeneric as String: data]
 
-    if SecItemUpdate(query as CFDictionary, attributes as CFDictionary) != errSecSuccess { return false }
-    return true
+    let attributes: [CFString: Any] = [kSecAttrAccount: account,
+                                       kSecAttrGeneric: data]
+
+    return SecItemUpdate(query as CFDictionary, attributes as CFDictionary) == errSecSuccess
   }
 
   func deleteUser() -> Bool {
     guard let query = self.query else { return false }
-    if SecItemDelete(query as CFDictionary) != errSecSuccess { return false }
-    return true
+    return SecItemDelete(query as CFDictionary) == errSecSuccess
   }
 
   // MARK: Realm
@@ -103,7 +101,7 @@ final class StorageManager {
       data?.blue = analysis.blue
       data?.indigo = analysis.indigo
       data?.purple = analysis.purple
-    }) != nil
+      }) != nil
   }
 
   func deleteAnalysis() -> Bool {
