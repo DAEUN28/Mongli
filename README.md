@@ -39,8 +39,10 @@ So you can use my code for your development!
 Mongli is being managed in Notion📝
 To use my code, I recommend visit [Notion](https://www.notion.so/mongli/Mongli-while-dreaming-73d75833c8b44438911e7e360e5cb8b6).
 
+Deprecated
+```
 You can using [API](https://acone1128.gitbook.io/mongli-while-dreaming/) until May 5, 2021😎
-
+```
 
 
 ## Requirements
